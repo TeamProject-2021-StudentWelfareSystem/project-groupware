@@ -47,7 +47,7 @@
                   type="password" id="userLoginPwd" name="userLoginPwd"
                   class="input_info" placeholder="Password" required="">
             </p>
-
+						
             <input type="hidden" name="${_csrf.parameterName}"
                value="${_csrf.token}" />
             <button class="button1" type="submit">로그인</button>

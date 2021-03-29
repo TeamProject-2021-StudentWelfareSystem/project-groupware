@@ -1,3 +1,15 @@
+/*학생/교수별 다른 회원가입 적용*/
+function setDisplay(){
+		if($('input:radio[id="member_student"]').is(':checked')){
+
+				$('#teacher_signup').hide();
+				$('#student_signup').show();
+		} else{
+				$('#student_signup').hide();
+				$('#teacher_signup').show();
+		}
+}
+
 $(document).ready(function(){
 		$("#submit").click(function(){
       if($("#name").val().length==0 ||
