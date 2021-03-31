@@ -48,24 +48,32 @@ public class HomeController {
 			String id = (String) request.getParameter("LoginID");
 			user.setUserLoginID(id);
 			boolean checker = this.userService.IdConfirm(user);
-			if (checker) {
+
+			if (id == "") {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('학번을 입력해주세요.');</script>");
+				out.flush();
+
+				return "signup";
+			} else if (checker) {
 				id = "";
 				model.addAttribute("check", id);
 				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out =response.getWriter();
-				out.println("<script>alert('이미 등록된 계정 입니다.' );</script>");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('이미 등록된 계정 입니다.');</script>");
 				out.flush();
 				return "signup";
 			} else {
 				model.addAttribute("check", id);
 				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out =response.getWriter();
+				PrintWriter out = response.getWriter();
 				out.println("<script>alert('등록 가능한 계정 입니다.');</script>");
 				out.flush();
 
 				return "signup";
 			}
-			
+
 		} else if (request.getParameter("submitName") != null) {
 			String hashedPw = BCrypt.hashpw(user.getUserLoginPwd(), BCrypt.gensalt());
 			user.setUserLoginPwd(hashedPw);
