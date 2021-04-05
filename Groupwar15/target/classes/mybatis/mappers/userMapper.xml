@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.UserDao">
+
+	<!-- 회원가입 -->
+	<insert id="InsertUser" parameterType="com.mju.groupware.dto.User"> 
+		insert into user (
+			userName,
+			userPhoneNum,
+			userEmail,
+			userLoginID,
+			userLoginPwd,
+			userRole
+		) values( 
+			#{userName}, 
+			#{userPhoneNum}, 
+			#{userEmail}, 
+			#{userLoginID}, 
+			#{userLoginPwd},
+			#{userRole}
+		)
+	</insert> 
+	
+	<select id="SelectUser" parameterType="String" resultType="com.mju.groupware.security.UsersDetails"> 
+		SELECT 
+			userName,
+			userPhoneNum,
+			userEmail,
+			userLoginID,
+			userLoginPwd,
+			userRole,
+			authority,
+			enabled
+		FROM 
+			user 
+		WHERE 
+			userLoginID = #{userLoginID} 
+	</select>
+		<select id="UserIdConfirm" parameterType="String" resultType="com.mju.groupware.dto.User"> 
+		SELECT 
+			userLoginID
+		FROM 
+			user 
+		WHERE 
+			userLoginID = #{userLoginID} 
+	</select>
+	
+	<select id="UserPwdConfirm" parameterType="String" resultType="com.mju.groupware.dto.User"> 
+		SELECT 
+			userLoginID,
+			userName
+		FROM 
+			user 
+		WHERE 
+			userLoginID = #{userLoginID} and userName = #{userName}
+	</select>
+	
+	<!-- userID 찾기 -->
+	<select id="SelectUserID" resultType="Integer"> 
+		SELECT 
+			userID			
+		FROM 
+			user 
+		WHERE 
+			userLoginID = #{userLoginID}
+	</select>
+</mapper>
