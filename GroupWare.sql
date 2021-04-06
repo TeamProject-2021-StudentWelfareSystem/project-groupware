@@ -3,56 +3,76 @@ create database GroupWare;
 use GroupWare;
 show tables;
 
-create table user(
-userID int auto_increment not null primary key,
-userName varchar(20) not null,
-userPhoneNum varchar(30) not null,
-userEmail varchar(100) not null,
-userLoginID varchar(30) binary not null,
-userLoginPwd varchar(300) binary not null,
-userRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
-authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
-enabled boolean not null default 1 # 활성화:1 비활성화:0
+#회원가입sql문
+insert into student(studentName, studentRR, studentNum, studentCampus, studentColleges, studentMajor, studentDoubleMajor, studentAddress, 
+studentPhoneNum, studentEmail, studentLoginID, studentLoginPwd, studentGrade) values (?,?,?,?,?,?,?,?,?,?,?,?,?);
+insert into professor(professorName, professorRR, professorCampus, professorColleges, professorMajor, professorAddress, 
+professorPhoneNum, professorEmail, professorLoginID, professorLoginPwd) values (?,?,?,?,?,?,?,?,?,?);
+insert into manager(managerName, managerRR, managerPhoneNum, managerEmail, managerLoginID, managerLoginPwd, managerDepartment) 
+values (?,?,?,?,?,?,?);
+
+#로그인 날짜 입력
+update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
+
+insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("박지수","010-3501-8711","happy6021005@naver.com","132","1234");
+select userLoginID, userName from user where userloginID = "60181664" and userName = "232";
+select * from user;
+drop table Professor;
+drop table Student;
+drop table User;
+select * from User;
+select * from Student;
+
+create table User(
+UserID int auto_increment not null primary key,
+UserName varchar(20) not null,
+UserPhoneNum varchar(30) not null,
+UserEmail varchar(100) not null,
+UserLoginID varchar(30) binary not null unique key,
+UserLoginPwd varchar(300) binary not null,
+UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
+Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
+Enabled boolean not null default 1, # 활성화:1 비활성화:0
+LoginDate date, #로그인날짜
+Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
 
-create table student(
-studentID int auto_increment not null primary key,
-studentNum int not null unique key, #학번
-studentGrade varchar(10) not null, #학년
-studentGender varchar(20) not null, # male / female
-studentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
-studentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+create table Student(
+StudentID int auto_increment not null primary key,
+StudentGrade varchar(10) not null, #학년
+StudentGender varchar(20) not null, # male / female
+StudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
+StudentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
-studentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과'), #복수전공
-userID int, foreign key (userID) references user(userID) on delete cascade on update cascade
+UserID int, foreign key (UserID) references user(UserID) on delete cascade on update cascade
 );
 
-create table professor(
-professorID int auto_increment not null primary key,
-professorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ict융합대학', '미래융합대학') not null, #단과대학
-professorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+create table Professor(
+ProfessorID int auto_increment not null primary key,
+ProfessorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ict융합대학', '미래융합대학') not null, #단과대학
+ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부''사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
-professorRoom varchar(10), #교수실
-professorRoomNum varchar(30), #교수실전화번호 
-userID int, foreign key (userID) references user(userID) on delete cascade on update cascade
+ProfessorRoom varchar(10), #교수실
+ProfessorRoomNum varchar(30), #교수실전화번호 
+UserID int, foreign key (UserID) references user(UserID) on delete cascade on update cascade
 );
 
-
-
-# * ON DELETE SET NULL
+/*
+* ON DELETE SET NULL
 * ON UPDATE SET NULL
 옵션 SET NULL -> 부모테이블에서 primary 값이 수정 또는 삭제될 경우
 하위테이블의 reference값은 존재할 수 없습니다. 옵션이 없을 경우는 에러가 발생하고 옵션 SET NULL 로 정의되면 하위테이블의 reference값이  NULL 값으로 변경되면서 참조무결성을 유지합니다.
@@ -64,3 +84,4 @@ userID int, foreign key (userID) references user(userID) on delete cascade on up
 * ON DELETE CASCADE
 옵션 CASCADE -> 부모테이블에서 primary 값이 삭제될 경우
 옵션 CASCADE 로 정의되면 하위테이블의 reference값은 삭제되면서 참조무결성을 유지합니다.
+*/
