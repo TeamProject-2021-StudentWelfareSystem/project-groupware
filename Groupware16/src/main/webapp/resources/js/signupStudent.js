@@ -20,11 +20,11 @@ $(document).ready(function(){
         $('#studentMajor option:selected').val()==" "||
         $('#studentColleges option:selected').val()==" "){
             alert("필수항목을 모두 입력해주세요.");
-            return "signStudnet";
+            return false;
 
         } else if($('#userLoginPwd').val().length<8){
             alert("비밀번호는 8자보다 많아야합니다.");
-            return"signStudnet";
+            return false;
         } 
     })
 

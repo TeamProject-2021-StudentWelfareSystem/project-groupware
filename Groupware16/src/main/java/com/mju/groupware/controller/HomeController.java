@@ -83,12 +83,6 @@ public class HomeController {
 		return "email";
 	}
 
-	/* 이메일 인증 후 비밀번호 보여주기 */
-	@RequestMapping(value = "/showPassword", method = RequestMethod.GET)
-	public String showPassword() {
-		return "showPassword";
-	}
-
 	@RequestMapping(value = "/email.do", method = RequestMethod.POST)
 	public String DoEmail(User user, RedirectAttributes redirectAttributes, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -108,7 +102,7 @@ public class HomeController {
 			user.setUserEmail(email);
 			emailService.sendEmail(user);
 			return "email";
-		} else if (request.getParameter("EmailValid") != null) {
+		} else if (request.getParameter("EmailValid") != null&&authNum!="") {
 			boolean checker = emailService.authNum(authNum);
 			if (checker) {
 				response.setContentType("text/html; charset=UTF-8");
@@ -148,6 +142,7 @@ public class HomeController {
 		gender = (String) request.getParameter("StudentGender");
 		phoneNum = (String) request.getParameter("UserPhoneNum");
 		grade = (String) request.getParameter("StudentGrade");
+		System.out.println(grade);
 		college = (String) request.getParameter("StudentColleges");
 		major = (String) request.getParameter("StudentMajor");
 		Dmajor = (String) request.getParameter("StudentDoubleMajor");
@@ -217,24 +212,24 @@ public class HomeController {
 				}
 			}
 		} else if (request.getParameter("submitName") != null && idChecker) {
-			String hashedPw = BCrypt.hashpw(user.getUserLoginPwd(), BCrypt.gensalt());
-			user.setUserLoginPwd(hashedPw);
-			user.setUserEmail(email);
-			user.setUserRole(userRole.STUDENT); // user role = 학생
+			   String hashedPw = BCrypt.hashpw(user.getUserLoginPwd(), BCrypt.gensalt());
+		         user.setUserLoginPwd(hashedPw);
+		         user.setUserRole(userRole.STUDENT); // user role = 학생
 
-			this.userService.SignUp(user); // insert into user table
-			user.setUserID(this.userService.SelectUserID(student)); // db의 userID(foreign key)를 user클래스 userID에 set
-			student.setUserID(user.getUserID());
-			this.studentService.SaveInformation(student); // insert into student table
+		         this.userService.SignUp(user); // insert into user table
+		         user.setUserID(this.userService.SelectUserID(student)); // db의 userID(foreign key)를 user클래스 userID에 set
+		         student.setUserID(user.getUserID());
+		         this.studentService.SaveInformation(student); // insert into student table
 
-			redirectAttributes.addFlashAttribute("msg", "REGISTERED");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('회원가입이 완료 되었습니다.');</script>");
-			out.flush();
-			return "login";
+		         redirectAttributes.addFlashAttribute("msg", "REGISTERED");
+		         response.setContentType("text/html; charset=UTF-8");
+		         PrintWriter out = response.getWriter();
+		         out.println("<script>alert('회원가입이 완료 되었습니다.');</script>");
+		         out.flush();
+		         return "login";
+
 		} else {
-			return "redirect:/signupStudent";
+			return "signupStudent";
 		}
 	}
 

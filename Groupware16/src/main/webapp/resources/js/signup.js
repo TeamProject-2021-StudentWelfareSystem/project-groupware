@@ -27,10 +27,6 @@ $(document).ready(function() {
 		}, 60000);
 		return "signup";
 	});
-	$("#email_valid").click(function() {
-		alert("인증번호가 일치하지 않습니다.");
-		return "signup";
-	})
 });
 
 

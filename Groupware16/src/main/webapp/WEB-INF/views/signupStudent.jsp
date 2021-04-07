@@ -65,9 +65,10 @@
 							</tr>
 							<tr>
 								<td class="col1"><label for="grade">학년</label></td>
-								<td class="col2"><select name="StudentGrade"
-									id="studentGrade" value=${StudentGrade}>
-										<option value=" " selected></option>
+								<td class="col2">
+								<select name="StudentGrade"
+									id="studentGrade">
+										<option value=${StudentGrade} selected></option>
 										<option value="1">1학년</option>
 										<option value="2">2학년</option>
 										<option value="3">3학년</option>
