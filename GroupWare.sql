@@ -13,7 +13,7 @@ values (?,?,?,?,?,?,?);
 
 #로그인 날짜 입력
 update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
-
+insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("박지수","010-3501-8711","happy6021005@naver.com","132","1234");
 select userLoginID, userName from user where userloginID = "60181664" and userName = "232";
 select * from user;
@@ -22,12 +22,25 @@ drop table Student;
 drop table User;
 select * from User;
 select * from Student;
+drop table UserEmail;
+select * from UserEmail;
+
+/*DROP TRIGGER DeleteTrigger;
+DELIMITER $$
+CREATE TRIGGER DeleteTrigger
+AFTER INSERT ON UserCertification
+FOR EACH ROW
+BEGIN
+DELETE FROM UserEmail WHERE userCertificationTime <= DATE_SUB(NOW(), INTERVAL 1 minute);
+END $$
+DELIMITER ;*/
+
 
 create table User(
 UserID int auto_increment not null primary key,
 UserName varchar(20) not null,
 UserPhoneNum varchar(30) not null,
-UserEmail varchar(100) not null,
+UserEmail varchar(100) not null unique key,
 UserLoginID varchar(30) binary not null unique key,
 UserLoginPwd varchar(300) binary not null,
 UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
@@ -37,9 +50,17 @@ LoginDate date, #로그인날짜
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
 
+#회원가입 전 인증메일
+create table UserEmail(
+UserEmailID int auto_increment not null primary key,
+UserEmail varchar(100) not null, 
+UserCertificationNum int, #인증번호
+UserCertificationTime Datetime #인증번호 받은 시간
+);
+
 create table Student(
 StudentID int auto_increment not null primary key,
-StudentGrade varchar(10) not null, #학년
+StudentGrade ENUM ('1학년', '2학년', '3학년', '4학년') not null, #학년
 StudentGender varchar(20) not null, # male / female
 StudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
 StudentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
