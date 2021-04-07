@@ -30,15 +30,16 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/JeesooPark/Downloads/JRE모음/mail-1.4.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JeesooPark/Downloads/JRE모음/mybatis-3.5.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JeesooPark/Downloads/JRE모음/mysql-connector-java-8.0.22.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JeesooPark/Downloads/JRE모음/spring-jdbc-5.2.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive/ExternalJRE/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive/ExternalJRE/mybatis-3.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive/ExternalJRE/mysql-connector-java-8.0.22.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive/ExternalJRE/spring-jdbc-5.2.3.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

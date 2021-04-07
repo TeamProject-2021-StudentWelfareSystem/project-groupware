@@ -1,9 +1,0 @@
-package com.mju.groupware.service;
-
-import com.mju.groupware.dto.User;
-
-public interface UserService {
-
-	public void signUp(User user);
-
-}

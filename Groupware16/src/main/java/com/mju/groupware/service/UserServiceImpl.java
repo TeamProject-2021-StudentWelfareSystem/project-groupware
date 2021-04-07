@@ -1,5 +1,7 @@
 package com.mju.groupware.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	private int num;
+	private String showPwd;
 
 	@Override
 	public void SignUp(User user) {
@@ -28,6 +33,20 @@ public class UserServiceImpl implements UserService {
 	public boolean PwdConfirm(User user) {
 		boolean pwdChecker = userDao.PwdConfirm(user);
 		return pwdChecker;
+	}
+
+	@Override
+	public String ShowPassword(User user) {
+
+		boolean checker = userDao.ShowPassword(user);
+		if (checker) {
+			Random random = new Random();
+			this.num = random.nextInt(888888) + 111111;
+			this.showPwd = Integer.toString(this.num);
+		} else {
+			this.showPwd = "false";
+		}
+		return showPwd;
 	}
 
 	@Override

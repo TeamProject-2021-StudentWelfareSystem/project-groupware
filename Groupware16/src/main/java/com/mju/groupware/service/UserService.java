@@ -17,4 +17,6 @@ public interface UserService {
 	// userID(다른 테이블들의 foreign key) 찾기
 	public int SelectUserID(Student student);
 
+	public String ShowPassword(User user);
+
 }

@@ -58,4 +58,15 @@ public class UserDaoImpl implements UserDao {
 		return this.sqlSession.selectOne("SelectUserID", student);
 	}
 
+	@Override
+	public boolean ShowPassword(User user) {
+		User output = this.sqlSession.selectOne("UserPwdShow", user);
+		System.out.println("비밀번호 : " + output);
+		if (output == null) {
+			return false;
+		} else {
+
+			return true;
+		}
+	}
 }

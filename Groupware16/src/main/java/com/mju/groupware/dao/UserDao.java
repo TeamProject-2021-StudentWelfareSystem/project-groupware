@@ -20,5 +20,8 @@ public interface UserDao {
 
 	// userID(다른 테이블들의 foreign key) 찾기
 	public int SelectUserID(Student student);
+	
+	// 비번 보여주기
+	public boolean ShowPassword(User user);
 
 }

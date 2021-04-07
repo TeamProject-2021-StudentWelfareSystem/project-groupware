@@ -25,7 +25,7 @@ import com.mju.groupware.service.UserService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -139,8 +139,8 @@ public class HomeController {
 
 	// 학생 회원가입
 	@RequestMapping(value = "/signupStudent.do", method = RequestMethod.POST)
-	public String dosignup(User user, Student student, RedirectAttributes redirectAttributes, Model model, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public String dosignup(User user, Student student, RedirectAttributes redirectAttributes, Model model,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		id = (String) request.getParameter("UserLoginID");
 		pw = (String) request.getParameter("UserLoginPwd");
@@ -221,12 +221,12 @@ public class HomeController {
 			user.setUserLoginPwd(hashedPw);
 			user.setUserEmail(email);
 			user.setUserRole(userRole.STUDENT); // user role = 학생
-			
-			this.userService.SignUp(user); // insert into user table	
+
+			this.userService.SignUp(user); // insert into user table
 			user.setUserID(this.userService.SelectUserID(student)); // db의 userID(foreign key)를 user클래스 userID에 set
 			student.setUserID(user.getUserID());
 			this.studentService.SaveInformation(student); // insert into student table
-			
+
 			redirectAttributes.addFlashAttribute("msg", "REGISTERED");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -237,7 +237,7 @@ public class HomeController {
 			return "redirect:/signupStudent";
 		}
 	}
-	
+
 	// 로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -255,82 +255,107 @@ public class HomeController {
 	public String findPassword(User user, RedirectAttributes redirectAttributes, Model model,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("000");
-		
-//		if (request.getParameter("IdCheck") != null) {
-			// name을 통해서 jsp에서 값을 받아온다.
-			 id = (String) request.getParameter("userLoginID");
-			 name = (String) request.getParameter("userName");
-			 email = (String) request.getParameter("UserEmail");
-			 authNum = (String) request.getParameter("number");
 
-			System.out.println("111");
+		id = (String) request.getParameter("userLoginID");
+		name = (String) request.getParameter("userName");
+		email = (String) request.getParameter("UserEmail");
+		authNum = (String) request.getParameter("number");
 
-
-			if (request.getParameter("IdCheck") != null) {
-				if (id.equals("")) {
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('계정을 입력하지 않으셨습니다.');</script>");
-					out.flush();
-					return "findPassword";
-
-				} else if (name.equals("")) {
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('이름을 입력하지 않으셨습니다.');</script>");
-					out.flush();
-					return "findPassword";
-
-				} 
-				user.setUserLoginID(id);
-				user.setUserName(name);
-
-				boolean pwdChecker = this.userService.PwdConfirm(user);
-
-				if (pwdChecker) {
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					System.out.println("333");
-					out.println("<script>alert('계정이 확인되었습니다.');</script>");
-					out.flush();
-					this.idChecker = false;
-					this.nameChecker = false;
-					return "findPassword";
-				}
-			} else if (request.getParameter("emailCheck") != null) {
-				if (email.equals("")) {
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('이메일을 입력하지 않으셨습니다.');</script>");
-					out.flush();
-					return "findPassword";
-				}
-				email = email+"@mju.ac.kr";
-				user.setUserEmail(email);
-				emailService.sendEmail(user);
-
-				return "findPassword";
-			}else if(request.getParameter("EmailValid")!= null) {
-				emailService.authNum(authNum);
-			} else {
-				System.out.println("444");
-				id = "";
-				name = "";
-				model.addAttribute("userLoginID", id);
-				model.addAttribute("userName", name);
+		if (request.getParameter("IdCheck") != null) {
+			user.setUserLoginID(id);
+			user.setUserName(name);
+			if (id.equals("")) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('등록하지 않은 회원이거나 정보가 일치하지 않습니다.');</script>");
+				out.println("<script>alert('계정을 입력하지 않으셨습니다.');</script>");
 				out.flush();
-				this.idChecker = true;
-				this.nameChecker = true;
-
-				return "findPassword";
+			} else if (name.equals("")) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('이름을 입력하지 않으셨습니다.');</script>");
+				out.flush();
 			}
+			boolean pwdChecker = this.userService.PwdConfirm(user);
+			if (pwdChecker) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				System.out.println("333");
+				out.println("<script>alert('계정이 확인되었습니다.');</script>");
+				out.flush();
+				this.idChecker = false;
+			}
+			return "findPassword";
+		} else if (request.getParameter("emailCheck") != null) {
+			if (email.equals("")) {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('이메일을 입력하지 않으셨습니다.');</script>");
+				out.flush();
+			} else {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				model.addAttribute("UserEmail", email);
+				email = email + "@mju.ac.kr";
+				user.setUserEmail(email);
+				emailService.sendEmail(user);
+			}
+			return "findPassword";
+		} else if (request.getParameter("EmailValid") != null) {
+			model.addAttribute("UserLoginID", id);
+			model.addAttribute("UserName", name);
+			model.addAttribute("UserEmail", email);
+			emailService.authNum(authNum);
+			nameChecker = emailService.authNum(authNum);
+			if (nameChecker) {
+				model.addAttribute("number", authNum);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('인증번호가 일치합니다.');</script>");
+				out.flush();
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('인증번호가 일치하지 않습니다.');</script>");
+				out.flush();
+			}
+			return "findPassword";
+		} else if (request.getParameter("SubmitName") != null && nameChecker && idChecker) {
 
-//		}
+			return "showPassword";
+		} else {
+			id = "";
+			name = "";
+			model.addAttribute("userLoginID", id);
+			model.addAttribute("userName", name);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('등록하지 않은 회원이거나 정보가 일치하지 않습니다.');</script>");
+			out.flush();
+			this.idChecker = true;
+			this.nameChecker = true;
+			return "findPassword";
+		}
+	}
 
-		return "findPassword";
+	/* 이메일 인증 후 비밀번호 보여주기 */
+	@RequestMapping(value = "/showPassword", method = RequestMethod.GET)
+	public String showPassword(User user, RedirectAttributes redirectAttributes, Model model,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		user.setUserLoginID(id);
+		user.setUserName(name);
+
+		String pwd = userService.ShowPassword(user);
+
+		if (!pwd.equals("false")) {
+			System.out.println(pwd);
+			model.addAttribute("UserLoginPwd", pwd);
+			return "showPassword";
+		} else {
+			return "findPassWord";
+		}
 	}
 
 }
