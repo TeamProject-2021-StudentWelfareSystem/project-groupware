@@ -17,12 +17,13 @@ update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박�
 # insert 모음
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("박지수","010-3501-8711","happy6021005@naver.com","132","1234");
-
+insert into Student(StudentGender, StudentGrade, StudentDoubleMajor) values ("여자", "4학년", "융합소프트웨어학부");
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
 select * from User;
 select * from Student;
 select * from UserEmail;
+select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
 
 # drop 모음
 drop table Professor;
@@ -30,29 +31,14 @@ drop table Student;
 drop table User;
 drop table UserEmail;
 
-# 하루 한 번 인증번호 삭제
-CREATE
-   EVENT email_validation_Scheduler ON SCHEDULE EVERY 1 DAY STARTS '2021-04-09 00:00:00'
-    DO
-   DELETE from UserEmail WHERE userCertificationTime <= NOW();
-    
-# 인증번호 삭제 되는지 테스트하기 위한 스케쥴러
-CREATE
-   EVENT email_validation_Scheduler_test ON SCHEDULE EVERY 1 minute STARTS '2021-04-09 00:00:00'
-    DO
-   DELETE from UserEmail WHERE userCertificationTime <= DATE_SUB(NOW(), INTERVAL 1 minute);
-    
-# 하루 한 번 6개월 이상 로그인 안한 유저 Withdrawal 1 (탈퇴) 로 업데이트
-CREATE
-   Event withdrawal_Scheduler ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
-    DO
-    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
-    
-# Withdrawal 업데이트 테스트하기 위한 스케쥴러
-CREATE
-   Event withdrawal_Scheduler_test ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
-    DO
-    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+# update 모음
+update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
+update Student set StudentGender = '바꿀 성별' where UserLoginID = 'UserLoginID';
+update User set UserPhoneNum = '바꿀 번호' where UserLoginID = 'UserLoginID';
+update Student set StudentGrade = '바꿀 학년' where UserLoginID = 'UserLoginID';
+update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLoginID';
+update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
+update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
 
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
@@ -97,15 +83,40 @@ StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중�
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
-'창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과'), #복수전공
-UserID int, foreign key (UserID) references user(UserID) on delete cascade on update cascade
+'창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
+UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
 );
 create table Professor(
 ProfessorID int auto_increment not null primary key,
 ProfessorRoom varchar(10), #교수실
 ProfessorRoomNum varchar(30), #교수실전화번호 
-UserID int, foreign key (UserID) references user(UserID) on delete cascade on update cascade
+UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade on update cascade
 );
+
+# 하루 한 번 인증번호 삭제
+CREATE
+   EVENT email_validation_Scheduler ON SCHEDULE EVERY 1 DAY STARTS '2021-04-09 00:00:00'
+    DO
+   DELETE from UserEmail WHERE userCertificationTime <= NOW();
+    
+# 인증번호 삭제 되는지 테스트하기 위한 스케쥴러
+CREATE
+   EVENT email_validation_Scheduler_test ON SCHEDULE EVERY 1 minute STARTS '2021-04-09 00:00:00'
+    DO
+   DELETE from UserEmail WHERE userCertificationTime <= DATE_SUB(NOW(), INTERVAL 1 minute);
+    
+# 하루 한 번 6개월 이상 로그인 안한 유저 Withdrawal 1 (탈퇴) 로 업데이트
+CREATE
+   Event withdrawal_Scheduler ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
+    DO
+    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+    
+# Withdrawal 업데이트 테스트하기 위한 스케쥴러
+CREATE
+   Event withdrawal_Scheduler_test ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
+    DO
+    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+
 
 /*
 * ON DELETE SET NULL
