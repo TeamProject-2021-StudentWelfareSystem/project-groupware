@@ -37,7 +37,7 @@ table {
 	padding: 15px 10px 14px 10px;
 	height: 100%;
 	margin: 0;
-	width: 100%;
+	width: 90%;
 	font-size: 14px;
 	box-sizing: border-box;
 	color: #000;
@@ -50,7 +50,9 @@ table {
 }
 
 .col2 {
-	width: 50%;
+	width: 500px;
+	margin-left:10%;
+	margin-right:10%;
 }
 
 .col3 {

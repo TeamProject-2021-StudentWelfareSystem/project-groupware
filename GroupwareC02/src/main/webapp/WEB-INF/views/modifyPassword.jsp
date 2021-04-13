@@ -16,6 +16,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> <%--비밀번호 감추기 아이콘 링크 --%>
+<link rel="stylesheet" href="css/pwShowHide.css"> <%--비밀번호 감추기 아이콘 css --%>
+<script src="js/pwShowHide.js"></script><%--비밀번호 감추기 js--%>
 <title>modify password</title>
 </head>
 <body>
@@ -33,19 +36,19 @@
 								<td class="col1"><label for="pw">현재 비밀번호</label></td>
 								<td class="col2"><input type="password" name="UserLoginPwd"
 									id="userLoginPwd" class="inputBox" autocomplete="off"
-									value=${UserLoginPwd}></td>
+									value=${UserLoginPwd}><i class="fa fa-eye fa-lg" id="icon"></i></td>
 							</tr>
 							<tr>
 								<td class="col1"><label for="newPw">새 비밀번호</label></td>
 								<td class="col2"><input type="password" name="UserNewPwd"
 									id="userNewPwd" class="inputBox" autocomplete="off"
-									value=${UserNewPwd}></td>
+									value=${UserNewPwd}><i class="fa fa-eye fa-lg" id="icon1"></i></td>
 							</tr>
 							<tr>
 								<td class="col1"><label for="newPwCheck">새 비밀번호 확인</label></td>
 								<td class="col2"><input type="password" name="UserNewPwdCheck"
 									id="userNewPwdCheck" class="inputBox" autocomplete="off" onchange="isSame()"
-									value=${UserNewPwdCheck}></td>
+									value=${UserNewPwdCheck}><i class="fa fa-eye fa-lg" id="icon2"></i></td>
 							</tr>
 							<tr> <td colspan="3"><div id="pwValue"></div></td></tr>
 						</table>

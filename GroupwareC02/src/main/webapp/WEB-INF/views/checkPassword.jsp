@@ -16,6 +16,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> <%--비밀번호 감추기 아이콘 링크 --%>
+<link rel="stylesheet" href="css/pwShowHide.css"> <%--비밀번호 감추기 아이콘 css --%>
+<script src="js/pwShowHide.js"></script><%--비밀번호 감추기 js--%>
 <title>check password</title>
 </head>
 <body>
@@ -32,7 +35,9 @@
 							<tr>
 								<td class="col1"><label for="userPW">비밀번호 입력</label></td>
 								<td class="col2"><input type="password" class="inputBox"
-									id="userLoginPwd" name="UserLoginPwd" value=${UserLoginPwd}></input></td>
+									id="userLoginPwd" name="UserLoginPwd" value=${UserLoginPwd}></input> <i class="fa fa-eye fa-lg" id="icon"></i>
+								</td>
+							
 
 							</tr>
 						</table>

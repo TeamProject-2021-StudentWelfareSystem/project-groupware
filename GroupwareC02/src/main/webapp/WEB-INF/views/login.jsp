@@ -23,6 +23,9 @@
 <link rel="stylesheet" href="css/login.css">
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/login.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> <%--비밀번호 감추기 아이콘 링크 --%>
+<link rel="stylesheet" href="css/pwShowHide.css"> <%--비밀번호 감추기 아이콘 css --%>
+<script src="js/pwShowHide.js"></script><%--비밀번호 감추기 js--%>
 </head>
 <body>
    <section id="login">
@@ -34,10 +37,10 @@
                onchange="setDisplay()" checked=""> 학생
             </label> &nbsp;&nbsp;&nbsp; <label for="member_teacher"> <input
                type="radio" class="radio" name="member" id="member_teacher"
-               value="N" onchange="setDisplay()"> 강사
+               value="N" onchange="setDisplay()"> 교수
             </label>
          </div>
-
+		
             <p>
                <label for="username" class="sr-only">userLoginID</label> <input
                   type="text" id="userLoginID" name="UserLoginID"
@@ -48,14 +51,13 @@
                <label for="password" class="sr-only">userLoginPwd</label> <input
                   type="password" id="userLoginPwd" name="UserLoginPwd"
                   class="input_info" placeholder="Password" required="">
+            <i class="fa fa-eye fa-lg" id="icon"></i>
             </p>
-						
             <input type="hidden" name="${_csrf.parameterName}"
                value="${_csrf.token}" />
             <button class="button" type="submit">로그인</button>
    
       </form>
-
       <p>
          아직 회원이 아니신가요? <label for="sign_up_new"><a href="infoConsent"
             id="s_up">회원가입</a></label> <!--개인정보동의창으로 이동-->
