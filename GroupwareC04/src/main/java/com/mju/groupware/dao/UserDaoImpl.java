@@ -39,6 +39,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void SignUp(User user) {
+		System.out.println(user.getStudentColleges());
+		System.out.println(user.getStudentMajor());
 		this.sqlSession.insert("InsertUser", user);
 	}
 
@@ -119,8 +121,8 @@ public class UserDaoImpl implements UserDao {
 			for (User item : output) {
 				UserId = item.getUserID();
 				Name = item.getUserName();
-				UserMajor = item.getUserMajor().name().toString();
-				SC = item.getUserColleges().name().toString();
+		//		UserMajor = item.getUserMajor().name().toString();
+		//		SC = item.getUserColleges().name().toString();
 			}
 
 			// 이름 0
@@ -167,8 +169,8 @@ public class UserDaoImpl implements UserDao {
 				Id = item.getUserLoginID();
 				Name = item.getUserName();
 				Tel = item.getUserPhoneNum();
-				SC = item.getUserColleges().name().toString();
-				UserMajor = item.getUserMajor().name().toString();
+		//		SC = item.getUserColleges().name().toString();
+		//		UserMajor = item.getUserMajor().name().toString();
 				email = item.getUserEmail();
 			}
 			info.add(Integer.toString(UserId));
@@ -195,8 +197,8 @@ public class UserDaoImpl implements UserDao {
 			for (User item : output) {
 				UserId = item.getUserID();
 				Name = item.getUserName();
-				UserMajor = item.getUserMajor().name().toString();
-				SC = item.getUserColleges().name().toString();
+	//			UserMajor = item.getUserMajor().name().toString();
+	//			SC = item.getUserColleges().name().toString();
 			}
 
 			// 이름 0

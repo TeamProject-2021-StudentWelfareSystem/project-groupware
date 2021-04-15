@@ -17,21 +17,19 @@ public class User {
 	private String Authority; // ROLE_USER
 	private boolean Enabled; // true : 계쩡 활성화, false : 비활성화
 	private String date;
-	private UserColleges UserColleges;
-	private UserMajor UserMajor;
-
-	public enum UserColleges {
-		인문대학, 사회과학대학, 경영대학, 법과대학, ICT융합대학, 미래융합대학
-	}
-
-	public enum UserMajor {
-		국어국문학과, 영어영문학과, 중어중문학과, 일어일문학과, 사학과, 문헌정보학과, 아랍지역학과, 미술사학과, 철학과, 문예창작학과, 행정학과, 경제학과, 정치외교학과, 디지털미디어학과, 아동학과,
-		청소년지도학과, 경영정보학과, 국제통상학과, 법학과, 융합소프트웨어학부, 디지털콘텐츠디자인학과, 창의융합인재학부, 사회복지학과, 부동산학과, 법무행정학과, 심리치료학과, 미래융합경영학과,
-		멀티디자인학과, 계약학과
-	}
+	private String StudentColleges;
+	private String StudentMajor;
 
 	public String getUserModifiedPW() {
 		return UserModifiedPW;
+	}
+
+	public String getStudentMajor() {
+		return StudentMajor;
+	}
+
+	public void setStudentMajor(String studentMajor) {
+		StudentMajor = studentMajor;
 	}
 
 	public void setUserModifiedPW(String UserModifiedPW) {
@@ -66,20 +64,12 @@ public class User {
 		return UserPhoneNum;
 	}
 
-	public UserColleges getUserColleges() {
-		return UserColleges;
+	public String getStudentColleges() {
+		return StudentColleges;
 	}
 
-	public void setUserColleges(UserColleges UserColleges) {
-		this.UserColleges = UserColleges;
-	}
-
-	public UserMajor getUserMajor() {
-		return UserMajor;
-	}
-
-	public void setUserMajor(UserMajor UserMajor) {
-		this.UserMajor = UserMajor;
+	public void setStudentColleges(String studentColleges) {
+		StudentColleges = studentColleges;
 	}
 
 	public void setUserPhoneNum(String UserPhoneNum) {

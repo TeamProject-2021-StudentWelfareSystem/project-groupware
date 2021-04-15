@@ -23,8 +23,8 @@
 		#{userEmail},
 		#{userLoginID},
 		#{userLoginPwd},
-		#{userColleges},
-		#{userMajor},
+		#{studentColleges},
+		#{studentMajor},
 		#{userRole}
 		)
 	</insert>

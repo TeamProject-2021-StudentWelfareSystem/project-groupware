@@ -27,8 +27,6 @@ import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
 import com.mju.groupware.dto.UserEmail;
 import com.mju.groupware.dto.Student.studentDoubleMajor;
-import com.mju.groupware.dto.User.UserColleges;
-import com.mju.groupware.dto.User.UserMajor;
 import com.mju.groupware.dto.User.userRole;
 import com.mju.groupware.service.EmailService;
 import com.mju.groupware.service.StudentService;
@@ -198,7 +196,7 @@ public class HomeController {
 		gender = (String) request.getParameter("StudentGender");
 		phoneNum = (String) request.getParameter("UserPhoneNum");
 		grade = (String) request.getParameter("StudentGrade");
-		college = (String) request.getParameter("UserColleges");
+		college = (String) request.getParameter("StudentColleg");
 		major = (String) request.getParameter("UserMajor");
 		Dmajor = (String) request.getParameter("StudentDoubleMajor");
 
@@ -454,7 +452,6 @@ public class HomeController {
 				user.setUserEmail(email);
 				// 이메일 중복검사
 				emailCheck = emailService.EmailDuplicateCheck(user);
-				System.out.println(emailCheck);
 				if (emailCheck) {
 					emailService.sendEmail(user);
 					response.setContentType("text/html; charset=UTF-8");
@@ -616,84 +613,8 @@ public class HomeController {
 			student.setStudentGrade((String) request.getParameter("StudentGrade"));
 		}
 		// 단과대학
-		if (!((String) request.getParameter("StudentColleges")).equals(" ")) {
-			if (((String) request.getParameter("StudentColleges")).equals("인문대학")) {
-				user.setUserColleges(UserColleges.인문대학);
-			} else if (((String) request.getParameter("StudentColleges")).equals("ICT융합대학")) {
-				user.setUserColleges(UserColleges.ICT융합대학);
-			} else if (((String) request.getParameter("StudentColleges")).equals("경영대학")) {
-				user.setUserColleges(UserColleges.경영대학);
-			} else if (((String) request.getParameter("StudentColleges")).equals("미래융합대학")) {
-				user.setUserColleges(UserColleges.미래융합대학);
-			} else if (((String) request.getParameter("StudentColleges")).equals("법과대학")) {
-				user.setUserColleges(UserColleges.법과대학);
-			} else if (((String) request.getParameter("StudentColleges")).equals("사회과학대학")) {
-				user.setUserColleges(UserColleges.사회과학대학);
-			}
-		}
-		// 전공
-		if (!((String) request.getParameter("StudentMajor")).equals(" ")) {
-			if (((String) request.getParameter("StudentMajor")).equals("국어국문학과")) {
-				user.setUserMajor(UserMajor.국어국문학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("영어영문학과")) {
-				user.setUserMajor(UserMajor.영어영문학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("중어중문학과")) {
-				user.setUserMajor(UserMajor.중어중문학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("일어일문학과")) {
-				user.setUserMajor(UserMajor.일어일문학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("사학과")) {
-				user.setUserMajor(UserMajor.사학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("문헌정보학과")) {
-				user.setUserMajor(UserMajor.문헌정보학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("아랍지역학과")) {
-				user.setUserMajor(UserMajor.아랍지역학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("미술사학과")) {
-				user.setUserMajor(UserMajor.미술사학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("철학과")) {
-				user.setUserMajor(UserMajor.철학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("문예창작학과")) {
-				user.setUserMajor(UserMajor.문예창작학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("행정학과")) {
-				user.setUserMajor(UserMajor.행정학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("경제학과")) {
-				user.setUserMajor(UserMajor.경제학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("정치외교학과")) {
-				user.setUserMajor(UserMajor.정치외교학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("디지털미디어학과")) {
-				user.setUserMajor(UserMajor.디지털미디어학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("아동학과")) {
-				user.setUserMajor(UserMajor.아동학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("청소년지도학과")) {
-				user.setUserMajor(UserMajor.청소년지도학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("경영정보학과")) {
-				user.setUserMajor(UserMajor.경영정보학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("국제통상학과")) {
-				user.setUserMajor(UserMajor.국제통상학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("법학과")) {
-				user.setUserMajor(UserMajor.법학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("융합소프트웨어학부")) {
-				user.setUserMajor(UserMajor.융합소프트웨어학부);
-			} else if (((String) request.getParameter("StudentMajor")).equals("디지털콘텐츠디자인학과")) {
-				user.setUserMajor(UserMajor.디지털콘텐츠디자인학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("창의융합인재학부")) {
-				user.setUserMajor(UserMajor.창의융합인재학부);
-			} else if (((String) request.getParameter("StudentMajor")).equals("사회복지학과")) {
-				user.setUserMajor(UserMajor.사회복지학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("부동산학과")) {
-				user.setUserMajor(UserMajor.부동산학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("법무행정학과")) {
-				user.setUserMajor(UserMajor.법무행정학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("심리치료학과")) {
-				user.setUserMajor(UserMajor.심리치료학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("미래융합경영학과")) {
-				user.setUserMajor(UserMajor.미래융합경영학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("멀티디자인학과")) {
-				user.setUserMajor(UserMajor.멀티디자인학과);
-			} else if (((String) request.getParameter("StudentMajor")).equals("계약학과")) {
-				user.setUserMajor(UserMajor.계약학과);
-			}
 
-		}
+		// 전공
 		// 복수전공
 		if (((String) request.getParameter("member")).equals("N")) {
 			// No인경우 복수전공이있으면 -> 복수전공란 내용 삭제 boolean처리
@@ -843,50 +764,51 @@ public class HomeController {
 		} else {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('해당 비밀번호는 존재하지 않습니다');</script>");
-		
+
 			return "modifyPassword";
 		}
 	}
 
-	/*관리자 메뉴 메인화면*/
+	/* 관리자 메뉴 메인화면 */
 	@RequestMapping(value = "/manageList", method = RequestMethod.GET)
 	public String manageList() {
 		return "manageList";
 
 	}
-	
-	/*관리자 메뉴-회원 목록 클릭 시 정보 출력 화면*/
+
+	/* 관리자 메뉴-회원 목록 클릭 시 정보 출력 화면 */
 	@RequestMapping(value = "/manageStudent", method = RequestMethod.GET)
 	public String manageStudent() {
 		return "manageStudent";
 
 	}
-	
+
 	@RequestMapping(value = "/manageProfessor", method = RequestMethod.GET)
 	public String manageProfessor() {
 		return "manageProfessor";
 
 	}
-	
-	/*관리자 메뉴-휴면 계정 관리 화면*/
+
+	/* 관리자 메뉴-휴면 계정 관리 화면 */
 	@RequestMapping(value = "/manageSleep", method = RequestMethod.GET)
 	public String manageSleep() {
 		return "manageSleep";
-
 	}
+
 	@RequestMapping(value = "/manageModifyStudent", method = RequestMethod.GET)
 	public String manageModifyStudent() {
 		return "manageModifyStudent";
 
 	}
+
 	@RequestMapping(value = "/manageModifyProfessor", method = RequestMethod.GET)
 	public String manageModifyProfessor() {
 		return "manageModifyProfessor";
 
 	}
+
 	@RequestMapping(value = "/withdrawal", method = RequestMethod.GET)
 	public String withdrawal() {
 		return "withdrawal";
-
 	}
 }
