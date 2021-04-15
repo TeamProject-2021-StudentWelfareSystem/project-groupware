@@ -45,6 +45,7 @@ UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
 Enabled boolean not null default 1, # 활성화:1 비활성화:0
 LoginDate date, #로그인날짜
+Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
 
