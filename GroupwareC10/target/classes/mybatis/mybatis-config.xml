@@ -8,6 +8,7 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/UserMapper.xml" />
+		<mapper resource="mybatis/mappers/UserListMapper.xml" />
 		<mapper resource="mybatis/mappers/StudentMapper.xml" />
 		<mapper resource="mybatis/mappers/UserEmailMapper.xml" />
 	</mappers>
