@@ -12,9 +12,12 @@ insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) va
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
 insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, StudentDoubleMajor, UserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
 
+# alter 모음
+alter table User add Dormant boolean not null default 0;
+
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
-select * from User;
+select * from User where Dormant = 1;
 select * from Student;
 select * from UserEmail;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
@@ -33,8 +36,10 @@ update Student set StudentGrade = '바꿀 학년' where UserLoginID = 'UserLogin
 update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLoginID';
 update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
 update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
-update User set Authority = 'ROLE_ADMIN' where UserName = '박지수';
-update User set UserRole = 'ADMINISTRATOR' where UserName = '박지수';
+update User set Authority = "ROLE_ADMIN" where UserID = 7;
+update User set LoginDate = "2020-1-30" where UserName = "배트맨";
+update User set Dormant = 0 where UserName = "배트맨";
+update User set Enabled = 1 where UserName = "배트맨";
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -93,6 +98,18 @@ ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문�
 UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade on update cascade
 );
 
+create table WithDrawalUser(
+UserID int auto_increment not null primary key,
+UserName varchar(20) not null,
+UserPhoneNum varchar(30) not null,
+UserEmail varchar(100) not null unique key,
+UserLoginID varchar(30) binary not null unique key,
+UserLoginPwd varchar(300) binary not null,
+UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
+Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
+Enabled boolean not null default 1, # 활성화:1 비활성화:0
+LoginDate date #로그인날짜
+);
 
 # 하루 한 번 인증번호 삭제
 CREATE
@@ -106,22 +123,22 @@ CREATE
     DO
    DELETE from UserEmail WHERE userCertificationTime <= DATE_SUB(NOW(), INTERVAL 1 minute);
     
-# 하루 한 번 6개월 이상 로그인 안한 유저 Withdrawal 1 (탈퇴) 로 업데이트
+# 하루 한 번 6개월 이상 로그인 안한 유저 Dormant 1 (휴먼계정) 로 업데이트
 CREATE
-   Event withdrawal_Scheduler ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
+   Event Dormant_Scheduler ON SCHEDULE EVERY 1 minute STARTS '2021-04-16'
     DO
-    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+    UPDATE User set Dormant = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
     
 # Withdrawal 업데이트 테스트하기 위한 스케쥴러
 CREATE
    Event withdrawal_Scheduler_test ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
     DO
-    UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+    UPDATE User set Dormant = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
 
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
-DROP EVENT withdrawal_Scheduler;
-DROP EVENT withdrawal_Scheduler_test;
+DROP EVENT Dormant_Scheduler;
+DROP EVENT Dormant_Scheduler_test;
 
 /*
 * ON DELETE SET NULL
