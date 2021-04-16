@@ -41,13 +41,18 @@ public class AdministratorController {
 
 	}
 
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home() {
+		return "redirect:http://localhost:8090/groupware/home";
+	}
+
 	/* 관리자 메뉴-휴면 계정 관리 화면 */
 	@RequestMapping(value = "/manageSleep", method = RequestMethod.GET)
 	public String manageSleep(Model model) {
 
 		try {
 			List<UserList> DormantList = adminService.DormantList();
-        
+
 			model.addAttribute("DormantList", DormantList);
 		} catch (Exception e) {
 			e.printStackTrace();

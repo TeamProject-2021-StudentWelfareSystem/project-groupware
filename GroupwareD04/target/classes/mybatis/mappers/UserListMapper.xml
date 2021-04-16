@@ -35,5 +35,7 @@
 		User
 		WHERE
 		Dormant = 1
+		and
+		Withdrawal = 0
 	</select>
 </mapper>

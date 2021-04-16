@@ -101,7 +101,9 @@ $(document).ready(function(){
    
     });
    
-   
+    $('#modifyComplete').click(function(){
+      window.close();
+   });
    /* 취소 버튼 클릭 시 창 닫기 */
    $('#cancelBtn').click(function(){
       window.close();

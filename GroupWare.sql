@@ -35,7 +35,7 @@ update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
 update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
 update User set Authority = 'ROLE_ADMIN' where UserName = '박지수';
 update User set UserRole = 'ADMINISTRATOR' where UserName = '박지수';
-
+update User set LoginDate = "2020-1-30" where UserName = "정민";
 create table User(
 UserID int auto_increment not null primary key,
 UserName varchar(20) not null,
@@ -118,6 +118,12 @@ CREATE
     DO
     UPDATE User set Withdrawal = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
 
+# 하루 한 번 6개월 이상 로그인 안한 유저 Dormant 1 (휴먼계정) 로 업데이트
+CREATE
+   Event Dormant_Scheduler ON SCHEDULE EVERY 1 minute STARTS '2021-04-16'
+    DO
+    UPDATE User set Dormant = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
+    
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
 DROP EVENT withdrawal_Scheduler;

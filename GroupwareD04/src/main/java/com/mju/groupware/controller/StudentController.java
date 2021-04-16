@@ -24,7 +24,7 @@ public class StudentController {
 	private UserService userService;
 	@Autowired
 	private StudentService studentService;
-	
+
 	private String SC;
 	private String Grade;
 	private String UserMajor1;
@@ -34,63 +34,63 @@ public class StudentController {
 	public String signupStudent() {
 		return "signupStudent";
 	}
-	
+
 	/* 학생 마이페이지 */
-	   @RequestMapping(value = "/myPageStudent", method = RequestMethod.GET)
-	   public String myPageStudent(User user, Model model, HttpServletRequest requestm, Principal Principal) {
-	      
-	      String loginID = Principal.getName();// 로그인 한 아이디
-	      ArrayList<String> info = new ArrayList<String>();
-	      info = userService.GetProfileUserInfo(loginID);
+	@RequestMapping(value = "/myPageStudent", method = RequestMethod.GET)
+	public String myPageStudent(User user, Model model, HttpServletRequest requestm, Principal Principal) {
 
-	      user.setUserLoginID(loginID);
-	      ArrayList<String> studentInfo = new ArrayList<String>();
-	      studentInfo = studentService.GetProfileStudentInfo(info.get(1));
+		String loginID = Principal.getName();// 로그인 한 아이디
+		ArrayList<String> info = new ArrayList<String>();
+		info = userService.GetProfileUserInfo(loginID);
 
-	      // 학생 이름
-	      name = info.get(0);
-	      model.addAttribute("UserName", name);
-	      // 학생 소속
-	      SC = studentInfo.get(0);
-	      model.addAttribute("SC", SC);
+		user.setUserLoginID(loginID);
+		ArrayList<String> studentInfo = new ArrayList<String>();
+		studentInfo = studentService.GetProfileStudentInfo(info.get(1));
 
-	      UserMajor1 = studentInfo.get(1);
-	      model.addAttribute("UserMajor", UserMajor1);
+		// 학생 이름
+		name = info.get(0);
+		model.addAttribute("UserName", name);
+		// 학생 소속
+		SC = studentInfo.get(0);
+		model.addAttribute("SC", SC);
 
-	      Grade = studentInfo.get(2);
-	      model.addAttribute("Grade", Grade);
-	      
-	      //-------------------------------------------------------
-	      
-	      String userID = Principal.getName();
-	      ArrayList<String> userInfo = new ArrayList<String>();
-	      userInfo = userService.GetMyPageUserInfo(userID);
+		UserMajor1 = studentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajor1);
 
-	      // jsp화면 설정
-	      // 아이디 0
-	      model.addAttribute("UserLoginID", userInfo.get(0));
-	      // 이름 1
-	      model.addAttribute("UserName", userInfo.get(1));
-	      // 성별 8
-	      model.addAttribute("StudentGender", userInfo.get(8));
-	      // 연락처 2
-	      model.addAttribute("UserPhoneNum", userInfo.get(2));
-	      // 학년 6
-	      model.addAttribute("StudentGrade", userInfo.get(6));
-	      // 단과대학 4
-	      model.addAttribute("StudentColleges", userInfo.get(4));
-	      // 전공 5
-	      model.addAttribute("StudentMajor", userInfo.get(5));
-	      // 복수전공 7
-	      model.addAttribute("StudentDoubleMajor", userInfo.get(7));
-	      // 이메일 5
-	      int idx = userInfo.get(3).indexOf("@"); // 메일에서 @의 인덱스 번호를 찾음
-	      String email = userInfo.get(3).substring(0, idx);
-	      model.addAttribute("UserEmail", email);
+		Grade = studentInfo.get(2);
+		model.addAttribute("Grade", Grade);
 
-	      return "myPageStudent";
+		// -------------------------------------------------------
+
+		String userID = Principal.getName();
+		ArrayList<String> userInfo = new ArrayList<String>();
+		userInfo = userService.GetMyPageUserInfo(userID);
+
+		// jsp화면 설정
+		// 아이디 0
+		model.addAttribute("UserLoginID", userInfo.get(0));
+		// 이름 1
+		model.addAttribute("UserName", userInfo.get(1));
+		// 성별 8
+		model.addAttribute("StudentGender", userInfo.get(8));
+		// 연락처 2
+		model.addAttribute("UserPhoneNum", userInfo.get(2));
+		// 학년 6
+		model.addAttribute("StudentGrade", userInfo.get(6));
+		// 단과대학 4
+		model.addAttribute("StudentColleges", userInfo.get(4));
+		// 전공 5
+		model.addAttribute("StudentMajor", userInfo.get(5));
+		// 복수전공 7
+		model.addAttribute("StudentDoubleMajor", userInfo.get(7));
+		// 이메일 5
+		int idx = userInfo.get(3).indexOf("@"); // 메일에서 @의 인덱스 번호를 찾음
+		String email = userInfo.get(3).substring(0, idx);
+		model.addAttribute("UserEmail", email);
+
+		return "myPageStudent";
 	}
-	   
+
 	/* 학생 정보 수정 화면 */
 	@RequestMapping(value = "/modifyStudent", method = RequestMethod.GET)
 	public String modifyStudent() {
@@ -122,7 +122,18 @@ public class StudentController {
 		if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
 			student.setStudentGrade((String) request.getParameter("StudentGrade"));
 		}
+		if (request.getParameter("ModifyComplete") != null) {
+			if (!((String) request.getParameter("UserPhoneNum")).equals("")) {
+				userService.updateUserPhoneNumber(user);
+			
+			}
+			if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
+				studentService.updateStudentGrade(student);
+			
+			}
+		}
 		return "modifyStudent";
+
 	}
 
 }

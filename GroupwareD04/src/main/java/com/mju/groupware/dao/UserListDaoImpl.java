@@ -29,6 +29,7 @@ public class UserListDaoImpl implements UserListDao {
 	@Override
 	public List<UserList> DormantList() {
 		List<UserList> output = this.sqlSession.selectList("SelectDormantList");
+
 		return output;
 	}
 }
