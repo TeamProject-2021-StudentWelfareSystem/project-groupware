@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mju.groupware.dto.UserList;
 import com.mju.groupware.service.AdminService;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
 @Controller
 @RequestMapping("/admin")
 public class AdministratorController {
@@ -24,13 +26,18 @@ public class AdministratorController {
 		return "/admin/manageSecession";
 	}
 
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home() {
+		return "redirect:http://localhost:8090/groupware/home";
+	}
+
 	/* 관리자 메뉴 메인화면 */
 	@RequestMapping(value = "/manageList", method = RequestMethod.GET)
 	public String manageList(Model model) {
 
 		try {
 			List<UserList> list = adminService.list();
-        
+
 			model.addAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,7 +52,7 @@ public class AdministratorController {
 
 		try {
 			List<UserList> DormantList = adminService.DormantList();
-        
+
 			model.addAttribute("DormantList", DormantList);
 		} catch (Exception e) {
 			e.printStackTrace();
