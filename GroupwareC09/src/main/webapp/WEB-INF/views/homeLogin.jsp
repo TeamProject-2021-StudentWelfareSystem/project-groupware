@@ -35,7 +35,7 @@
 							<li><a href="">사이트맵</a></li>
 							<li><a href="myPageStudent">마이페이지</a></li>
 							<li><a href="">문의</a></li>
-							<li><a href="${path}/admin/manageSecession">관리자 메뉴</a></li>
+							<li><a href="${path}/admin/manageList">관리자 메뉴</a></li>
 							<!-- sign out -->
 							<li><sec:authorize access="isAuthenticated()">
 									<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>

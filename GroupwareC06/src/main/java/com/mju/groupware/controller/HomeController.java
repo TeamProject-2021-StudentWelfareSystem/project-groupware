@@ -77,6 +77,12 @@ public class HomeController {
 		return "home";
 	}
 
+	// 홈페이지 메인화면
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String BlankHome(Locale locale, Model model) {
+		return "home";
+	}
+
 	@RequestMapping(value = "/signupSelect", method = RequestMethod.GET)
 	public String signupSelect() {
 		return "signupSelect";
@@ -179,7 +185,7 @@ public class HomeController {
 		}
 
 		if (request.getParameter("BtnAgree") != null && emailChecker) {
-			return "signupSelect";
+			return "redirect:signupSelect";
 		} else {
 			return "email";
 		}
@@ -399,120 +405,146 @@ public class HomeController {
 
 	// 비밀번호 찾기
 	@RequestMapping(value = "/findPassword.do", method = RequestMethod.POST)
-	   public String findPassword(User user, RedirectAttributes redirectAttributes, Model model,
-	         HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	      id = (String) request.getParameter("UserLoginID");
-	      name = (String) request.getParameter("UserName");
-	      email = (String) request.getParameter("UserEmail");
-	      authNum = (String) request.getParameter("number");
-	      if (request.getParameter("IdCheck") != null) {
-	         user.setUserLoginID(id);
-	         user.setUserName(name);
-	         if (id.equals("")) {
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('계정을 입력하지 않으셨습니다.');</script>");
-	            out.flush();
-	         } else if (name.equals("")) {
-	            model.addAttribute("UserLoginID", id);
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('이름을 입력하지 않으셨습니다.');</script>");
-	            out.flush();
-	         }
-	         boolean IdChecker = this.userService.PwdConfirm(user);
-	         if (IdChecker) {
-	            model.addAttribute("UserLoginID", id);
-	            model.addAttribute("UserName", name);
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('계정이 확인되었습니다.');</script>");
-	            out.flush();
-	            this.idChecker = true;
-	            return "findPassword";
-	         } else {
-	            model.addAttribute("UserLoginID", id);
-	            model.addAttribute("UserName", name);
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('등록된 사용자가 아닙니다.');</script>");
-	            out.flush();
-	            this.idChecker = false;
-	            return "findPassword";
-	         }
-	      } else if (request.getParameter("emailCheck") != null) {
-	         if (email.equals("")) {
-	            model.addAttribute("UserLoginID", id);
-	            model.addAttribute("UserName", name);
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('이메일을 입력하지 않으셨습니다.');</script>");
-	            out.flush();
-	         } else {
-	            model.addAttribute("UserLoginID", id);
-	            model.addAttribute("UserName", name);
-	            model.addAttribute("UserEmail", email);
-	            email = email + "@mju.ac.kr";
-	            user.setUserEmail(email);
-	            // 이메일 중복검사
-	            emailCheck = emailService.EmailDuplicateCheck(user);
-	            if (emailCheck) {
-	               emailService.sendEmail(user);
-	               response.setContentType("text/html; charset=UTF-8");
-	               PrintWriter out = response.getWriter();
-	               out.println("<script>alert('성공적으로 이메일 발송이 완료되었습니다.');</script>");
-	               out.flush();
-	            } else {
-	               response.setContentType("text/html; charset=UTF-8");
-	               PrintWriter out = response.getWriter();
-	               out.println("<script>alert('등록되지 않은 이메일입니다.');</script>");
-	               out.flush();
-	            }
-	            return "findPassword";
-	         }
+	public String findPassword(User user, RedirectAttributes redirectAttributes, Model model,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		id = (String) request.getParameter("UserLoginID");
+		name = (String) request.getParameter("UserName");
+		email = (String) request.getParameter("UserEmail");
+		authNum = (String) request.getParameter("number");
+		if (request.getParameter("IdCheck") != null) {
+			user.setUserLoginID(id);
+			user.setUserName(name);
+			if (id.equals("")) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('계정을 입력하지 않으셨습니다.');</script>");
+				out.flush();
+			} else if (name.equals("")) {
+				model.addAttribute("UserLoginID", id);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('이름을 입력하지 않으셨습니다.');</script>");
+				out.flush();
+			}
+			boolean IdChecker = this.userService.PwdConfirm(user);
+			if (IdChecker) {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('계정이 확인되었습니다.');</script>");
+				out.flush();
+				this.idChecker = true;
+				return "findPassword";
+			} else {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('등록된 사용자가 아닙니다.');</script>");
+				out.flush();
+				this.idChecker = false;
+				return "findPassword";
+			}
+		} else if (request.getParameter("emailCheck") != null) {
+			if (email.equals("")) {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('이메일을 입력하지 않으셨습니다.');</script>");
+				out.flush();
+			} else {
+				model.addAttribute("UserLoginID", id);
+				model.addAttribute("UserName", name);
+				model.addAttribute("UserEmail", email);
+				email = email + "@mju.ac.kr";
+				user.setUserEmail(email);
+				// 이메일 중복검사
+				emailCheck = emailService.EmailDuplicateCheck(user);
+				if (emailCheck) {
+					emailService.sendEmail(user);
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('성공적으로 이메일 발송이 완료되었습니다.');</script>");
+					out.flush();
+				} else {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('등록되지 않은 이메일입니다.');</script>");
+					out.flush();
+				}
+				return "findPassword";
+			}
 
-	      } else if (request.getParameter("EmailValid") != null) {
-	         model.addAttribute("UserLoginID", id);
-	         model.addAttribute("UserName", name);
-	         model.addAttribute("UserEmail", email);
-	         nameChecker = emailService.authNum(authNum);
-	         if (nameChecker) {
-	            model.addAttribute("number", authNum);
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('인증번호가 일치합니다.');</script>");
-	            out.flush();
-	         } else {
-	            response.setContentType("text/html; charset=UTF-8");
-	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('인증번호가 일치하지 않습니다.');</script>");
-	            out.flush();
+		} else if (request.getParameter("EmailValid") != null) {
+			model.addAttribute("UserLoginID", id);
+			model.addAttribute("UserName", name);
+			model.addAttribute("UserEmail", email);
+			nameChecker = emailService.authNum(authNum);
+			if (nameChecker) {
+				model.addAttribute("number", authNum);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('인증번호가 일치합니다.');</script>");
+				out.flush();
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('인증번호가 일치하지 않습니다.');</script>");
+				out.flush();
 
-	         }
-	         return "findPassword";
-	      } else if (request.getParameter("SubmitName") != null && nameChecker && idChecker) {
-	         user.setUserLoginID(id);
-	         user.setUserName(name);
-	         String pwd = userService.ShowPassword(user);
-			String hashedPw = BCrypt.hashpw(pwd, BCrypt.gensalt());// 바꿀 비밀번호 암호화
-			user.setUserLoginPwd(hashedPw);
-			model.addAttribute("UserLoginPwd", pwd);
-			userService.TemporaryPW(user);
-	         
-	         return "showPassword";
-	      }
-	      return "findPassword";
-	   }
+			}
+			return "findPassword";
+		} else if (request.getParameter("SubmitName") != null && nameChecker && idChecker) {
+
+			return "redirect:showPassword";
+		}
+		return "findPassword";
+	}
+
 	/* 이메일 인증 후 비밀번호 보여주기 */
 	@RequestMapping(value = "/showPassword", method = RequestMethod.GET)
 	public String showPassword(User user, RedirectAttributes redirectAttributes, Model model,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		user.setUserLoginID(id);
+		user.setUserName(name);
+		String pwd = userService.ShowPassword(user);
+		String hashedPw = BCrypt.hashpw(pwd, BCrypt.gensalt());// 바꿀 비밀번호 암호화
+		user.setUserLoginPwd(hashedPw);
+		model.addAttribute("UserLoginPwd", pwd);
+		userService.TemporaryPW(user);
+
 		return "showPassword";
 	}
 
 	/* 학생 마이페이지 */
 	@RequestMapping(value = "/myPageStudent", method = RequestMethod.GET)
-	public String myPageStudent(Model model, HttpServletRequest requestm, Principal Principal) {
+	public String myPageStudent(User user, Model model, HttpServletRequest requestm, Principal Principal) {
+
+		String loginID = Principal.getName();// 로그인 한 아이디
+		ArrayList<String> info = new ArrayList<String>();
+		info = userService.GetProfileUserInfo(loginID);
+
+		user.setUserLoginID(loginID);
+		ArrayList<String> studentInfo = new ArrayList<String>();
+		studentInfo = studentService.GetProfileStudentInfo(info.get(1));
+
+		// 학생 이름
+		name = info.get(0);
+		model.addAttribute("UserName", name);
+		// 학생 소속
+		SC = studentInfo.get(0);
+		model.addAttribute("SC", SC);
+
+		UserMajor1 = studentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajor1);
+
+		Grade = studentInfo.get(2);
+		model.addAttribute("Grade", Grade);
+
+		// -------------------------------------------------------
+
 		String userID = Principal.getName();
 		ArrayList<String> userInfo = new ArrayList<String>();
 		userInfo = userService.GetMyPageUserInfo(userID);
@@ -528,14 +560,16 @@ public class HomeController {
 		model.addAttribute("UserPhoneNum", userInfo.get(2));
 		// 학년 6
 		model.addAttribute("StudentGrade", userInfo.get(6));
-		// 단과대학 3
-		model.addAttribute("StudentColleges", userInfo.get(3));
-		// 전공 4
-		model.addAttribute("StudentMajor", userInfo.get(4));
+		// 단과대학 4
+		model.addAttribute("StudentColleges", userInfo.get(4));
+		// 전공 5
+		model.addAttribute("StudentMajor", userInfo.get(5));
 		// 복수전공 7
 		model.addAttribute("StudentDoubleMajor", userInfo.get(7));
 		// 이메일 5
-		model.addAttribute("UserEmail", userInfo.get(5));
+		int idx = userInfo.get(3).indexOf("@"); // 메일에서 @의 인덱스 번호를 찾음
+		String email = userInfo.get(3).substring(0, idx);
+		model.addAttribute("UserEmail", email);
 
 		return "myPageStudent";
 	}
@@ -559,10 +593,11 @@ public class HomeController {
 
 		String id = Principal.getName();
 		pw = (String) request.getParameter("UserLoginPwd");// 현재 비밀번호
+
 		boolean checker = userService.pwCheckBeforeModify(id, pw);
 
 		if (checker == true) {
-			return "modifyStudent";
+			return "redirect:modifyStudent.do";
 		} else {
 			return "checkPassword";
 		}
@@ -575,7 +610,7 @@ public class HomeController {
 	}
 
 	// 개인정보 수정
-	@RequestMapping(value = "/modifyStudent", method = RequestMethod.POST)
+	@RequestMapping(value = "/modifyStudent.do", method = RequestMethod.POST)
 	public String DoModifyStudent(HttpServletResponse response, HttpServletRequest request, Model model,
 			Student student, User user, Principal Principal) {
 
@@ -591,10 +626,6 @@ public class HomeController {
 		System.out.println(userInfo.get(0) + " 유저아이디");
 		student.setUserID(Integer.parseInt(userInfo.get(0)));
 
-		// 성별
-		if (!((String) request.getParameter("StudentGender")).equals(" ")) {
-			student.setStudentGender((String) request.getParameter("StudentGender"));
-		}
 		// 연락처
 		if (!((String) request.getParameter("UserPhoneNum")).equals(" ")) {
 			user.setUserPhoneNum((String) request.getParameter("UserPhoneNum"));
@@ -602,77 +633,6 @@ public class HomeController {
 		// 학년
 		if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
 			student.setStudentGrade((String) request.getParameter("StudentGrade"));
-		}
-		// 단과대학
-
-		// 전공
-		// 복수전공
-		if (((String) request.getParameter("member")).equals("N")) {
-			// No인경우 복수전공이있으면 -> 복수전공란 내용 삭제 boolean처리
-			System.out.println("N");
-		} else if (((String) request.getParameter("member")).equals("Y")) {
-			// Yes인경우 복수전공란에 value값 추가하기
-			// StudentDoubleMajor
-			if (((String) request.getParameter("StudentDoubleMajor")).equals("국어국문학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.국어국문학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("영어영문학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.영어영문학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("중어중문학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.중어중문학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("일어일문학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.일어일문학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("사학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.사학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("문헌정보학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.문헌정보학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("아랍지역학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.아랍지역학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("미술사학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.미술사학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("철학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.철학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("문예창작학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.문예창작학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("행정학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.행정학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("경제학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.경제학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("정치외교학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.정치외교학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("디지털미디어학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.디지털미디어학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("아동학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.아동학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("청소년지도학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.청소년지도학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("경영정보학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.경영정보학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("국제통상학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.국제통상학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("법학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.법학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("융합소프트웨어학부")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.융합소프트웨어학부);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("디지털콘텐츠디자인학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.디지털콘텐츠디자인학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("창의융합인재학부")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.창의융합인재학부);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("사회복지학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.사회복지학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("부동산학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.부동산학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("법무행정학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.법무행정학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("심리치료학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.심리치료학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("미래융합경영학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.미래융합경영학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("멀티디자인학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.멀티디자인학과);
-			} else if (((String) request.getParameter("StudentDoubleMajor")).equals("계약학과")) {
-				student.setStudentDoubleMajor(studentDoubleMajor.계약학과);
-			}
-
 		}
 
 		// 후에 작업이될 내용 현재는 적용되지않음.
@@ -693,34 +653,15 @@ public class HomeController {
 		}
 
 		if (request.getParameter("ModifyComplete") != null) {
-			if (!((String) request.getParameter("StudentGender")).equals(" ")) {
-				studentService.updateStudentGender(student);
-			}
 			if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
 				studentService.updateStudentGrade(student);
 			}
-			if (!((String) request.getParameter("StudentDoubleMajor")).equals(" ")) {
-				studentService.UpdateStudentDobuleMajor(student);
-			}
-			if (!((String) request.getParameter("StudentMajor")).equals(" ")) {
-				userService.UpdateUserMajor(user);
-			}
+		
 			if (!((String) request.getParameter("UserPhoneNum")).equals("")) {
 				userService.updateUserPhoneNumber(user);
 			}
-			if (!((String) request.getParameter("StudentColleges")).equals(" ")) {
-				userService.UpdateUserColleges(user);
-			}
-			if (((String) request.getParameter("member")).equals("N")) {
-				// No인경우 복수전공이있으면 -> 복수전공란 내용 삭제 boolean처리
-				// delte문 복수전공란의 data삭제
-				System.out.println("N");
-			} else if (((String) request.getParameter("member")).equals("Y")) {
-				// 복수전공란추가
-				System.out.println("N");
-			}
 		}
-		return "modifyStudent";
+		return "redirect:modifyStudent";
 	}
 
 	/* 교수 정보 수정 화면 */

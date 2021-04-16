@@ -15,7 +15,7 @@
 <link
    href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
    rel="stylesheet">
-<link rel="stylesheet" href="css/manageList.css" type="text/css">
+<link rel="stylesheet" href="../css/manageList.css" type="text/css">
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/manageList.js"></script>
 <title>manage secession list</title>
@@ -44,7 +44,7 @@
                   </ul>
                   <!-- 메뉴 -->
                   <ul class="top_menu">
-                     <li id="home_tab" class="t_menu"><a href="home"><span
+                     <li id="home_tab" class="t_menu"><a href="homeLogin"><span
                            class="tmenu_pack mover">홈</span></a></li>
                      <li id="mail_tab" class="t_menu"><a href=""><span
                            class="tmenu_pack mover">메일</span></a></li>
@@ -159,7 +159,7 @@
                            <input type="button" value="1" id="pageList">
                            <input type="button" value="→" id="rightList">
                            <input type="button" value="목록" id="list" style="text-align: right;">
-                           <input type="button" value="삭제" id="delete" style="text-align: right;">
+                           <input type="submit" value="복구" id="delete" style="text-align: right;">
                         </div>
                      </form>
 

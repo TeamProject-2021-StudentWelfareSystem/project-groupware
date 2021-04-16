@@ -33,6 +33,8 @@ update Student set StudentGrade = '바꿀 학년' where UserLoginID = 'UserLogin
 update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLoginID';
 update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
 update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
+update User set Authority = 'ROLE_ADMIN' where UserName = '박지수';
+update User set UserRole = 'ADMINISTRATOR' where UserName = '박지수';
 
 create table User(
 UserID int auto_increment not null primary key,

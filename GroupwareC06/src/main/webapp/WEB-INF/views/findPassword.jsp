@@ -36,13 +36,14 @@
 								<td class="col2"><input type="text" class="inputBox"
 									name="UserLoginID" id="userLoginID" autofocus
 									autocomplete="off" value=${UserLoginID} ></td>
-								<td class="col3"><input type="submit" name="IdCheck"
-									id="idcheck" value="확인"></td>
+								
 							</tr>
 							<tr>
 								<td class="col1"><label for="userName">이름</label></td>
 								<td class="col2"><input type="text" class="inputBox"
 									name="UserName" id="userName" autocomplete="off"value=${UserName}></td>
+									<td class="col3"><input type="submit" name="IdCheck"
+									id="idcheck" value="확인"></td>
 							</tr>
 							<tr>
 								<td class="col1"><label for="email">이메일</label></td>

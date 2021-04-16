@@ -103,6 +103,9 @@ $(document).ready(function(){
    
    
    /* 취소 버튼 클릭 시 창 닫기 */
+     $('#modifyComplete').click(function(){
+      window.close();
+   });
    $('#cancelBtn').click(function(){
       window.close();
    });

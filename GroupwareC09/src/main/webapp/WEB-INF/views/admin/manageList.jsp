@@ -14,7 +14,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/manageList.css" type="text/css">
+<link rel="stylesheet" href="../css/manageList.css" type="text/css">
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/manageList.js"></script>
 <title>manage page</title>

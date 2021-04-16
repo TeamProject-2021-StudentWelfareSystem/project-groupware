@@ -26,7 +26,7 @@
             <br>
             <!--학생 정보 수정-->
             <div id="modifyStudent" style="display: block;">
-               <form action="" name="ModifyStudent.do" method="POST" id="form">
+               <form action="" name="modifyStudent.do" method="post" id="form">
                   <input type="hidden" name="${_csrf.parameterName}"
                      value="${_csrf.token}" />
                   <table>

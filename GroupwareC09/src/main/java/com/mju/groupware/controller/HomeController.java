@@ -670,12 +670,7 @@ public class HomeController {
 		}
 	}
 
-	/* 관리자 메뉴 메인화면 */
-	@RequestMapping(value = "/manageList", method = RequestMethod.GET)
-	public String manageList() {
-		return "manageList";
 
-	}
 
 	/* 관리자 메뉴-회원 목록 클릭 시 정보 출력 화면 */
 	@RequestMapping(value = "/manageStudent", method = RequestMethod.GET)
@@ -688,12 +683,7 @@ public class HomeController {
 		return "manageProfessor";
 	}
 
-	/* 관리자 메뉴-휴면 계정 관리 화면 */
-	@RequestMapping(value = "/manageSleep", method = RequestMethod.GET)
-	public String manageSleep() {
-		return "manageSleep";
-	}
-
+	
 	@RequestMapping(value = "/manageModifyStudent", method = RequestMethod.GET)
 	public String manageModifyStudent() {
 		return "manageModifyStudent";
