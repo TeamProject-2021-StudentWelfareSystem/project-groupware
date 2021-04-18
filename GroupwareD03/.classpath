@@ -26,9 +26,16 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="C:/Users/dlgus/Downloads/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dlgus/Downloads/mybatis-3.5.3/mybatis-3.5.3/mybatis-3.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dlgus/Downloads/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dlgus/Downloads/spring-jdbc-4.3.3.RELEASE.jar"/>
+=======
 	<classpathentry kind="lib" path="C:/Users/admin/Downloads/JAR파일모음/mail-1.4.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/admin/Downloads/JAR파일모음/mybatis-3.5.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/admin/Downloads/JAR파일모음/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="lib" path="C:/Users/admin/Downloads/JAR파일모음/spring-jdbc-5.2.3.RELEASE.jar"/>
+>>>>>>> 3eb6b0bde40e23d3e22a450ede787340ea438611
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
