@@ -15,8 +15,8 @@
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" href="../css/manageList.css" type="text/css">
-<script src="../js/jquery-3.5.1.min.js"></script>
-<script src="../js/manageList.js"></script>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/manageList.js"></script>
 <title>manage page</title>
 </head>
 <body>
@@ -132,7 +132,8 @@
 										</thead>
 										<c:forEach items="${list}" var="list">
 											<tr>
-												<td><input type="checkbox" name="check" class="check"></td>
+												<td><input type="checkbox" class="checkAll"
+													id="checkAll" onclick='selectAll(this)'></td>
 												<td><c:out value="${list.getUserID()}" /></td>
 												<td><c:out value="${list.getUserLoginID()}" /></td>
 												<td><c:out value="${list.getUserName()}" /></td>

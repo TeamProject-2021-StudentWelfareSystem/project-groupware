@@ -123,6 +123,7 @@ public class UserDaoImpl implements UserDao {
 		// 추후 entity로 이동해야한다.
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String output = this.sqlSession.selectOne("pwCheckBeforeModify", id);
+		System.out.println("나와라"+output);
 		if (output == null) {
 			return false;
 		} else {
