@@ -487,11 +487,11 @@ public class UserFunctionController {
 	public String homeLogin(User user, Principal Principal, Model model, HttpServletRequest request) {
 		String loginID = Principal.getName();// 로그인 한 아이디
 		ArrayList<String> info = new ArrayList<String>();
-		info = userService.GetProfileUserInfo(loginID);
+		info = userService.SelectProfileUserInformationList(loginID);
 
 		user.setUserLoginID(loginID);
 		ArrayList<String> studentInfo = new ArrayList<String>();
-		studentInfo = studentService.GetProfileStudentInfo(info.get(1));
+		studentInfo = studentService.SelectProfileStudentInformationList(info.get(1));
 
 		// 학생 이름
 		name = info.get(0);

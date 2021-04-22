@@ -63,7 +63,7 @@
 		Withdrawal = 1 where UserLoginID = #{UserLoginID}
 	</update>
 
-	<select id="GetProfileUserInfo"
+	<select id="SelectProfileUserInformationList"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		UserName,
@@ -75,7 +75,7 @@
 		where
 		UserLoginID = #{id}
 	</select>
-	<select id="GetMyPageInfo" parameterType="java.lang.String"
+	<select id="SelectMyPageUserInformationList" parameterType="java.lang.String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		*
@@ -144,9 +144,10 @@
 	</select>
 
 	<!-- userID 찾기 -->
-	<select id="SelectUserID" resultType="Integer">
+	<select id="SelectUserID" resultType="com.mju.groupware.dto.User">
 		SELECT
-		userID
+		UserID,
+		UserLoginID
 		FROM
 		user
 		WHERE
@@ -187,15 +188,6 @@
 		UserLoginID = #{UserLoginID}
 	</update>
 
-	<select id="GetUser" resultType="com.mju.groupware.dto.User">
-		SELECT
-		UserID,
-		UserLoginID
-		FROM
-		User
-		WHERE
-		UserLoginID = #{UserLoginID}
-	</select>
 	<select id="UserPwdShow" parameterType="String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT

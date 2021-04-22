@@ -14,7 +14,7 @@ public interface StudentDao {
 
 	public String getGrade(String UserId);
 
-	public ArrayList<String> GetMyPageUserInfo(String string);
+	public ArrayList<String> SelectMyPageStudentInformationList(String string);
 
 	public void UpdateStudentGender(Student student);
 
@@ -22,6 +22,6 @@ public interface StudentDao {
 
 	public void UpdateStudentDobuleMajor(Student student);
 
-	public ArrayList<String> GetProfileStudentInfo(String userID);
+	public ArrayList<String> SelectProfileStudentInformationList(String UserID);
 
 }

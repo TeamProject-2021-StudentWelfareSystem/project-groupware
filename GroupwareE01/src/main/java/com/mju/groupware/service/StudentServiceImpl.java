@@ -30,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void updateStudentGrade(Student student) {
+	public void UpdateStudentGrade(Student student) {
 		studentDao.UpdateStudentGrade(student);
 	}
 
@@ -40,10 +40,10 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public ArrayList<String> GetProfileStudentInfo(String userID) {
-		ArrayList<String> studentInfo = new ArrayList<String>();
-		studentInfo = studentDao.GetProfileStudentInfo(userID);
-		return studentInfo;
+	public ArrayList<String> SelectProfileStudentInformationList(String UserID) {
+		ArrayList<String> SelectProfileStudentInformationList = new ArrayList<String>();
+		SelectProfileStudentInformationList = studentDao.SelectProfileStudentInformationList(UserID);
+		return SelectProfileStudentInformationList;
 	}
 
 }

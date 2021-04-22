@@ -36,9 +36,9 @@ public interface UserDao {
 
 	public boolean pwCheckBeforeModify(String pw, String pw2);
 
-	public ArrayList<String> GetMyPageUserInfo(String userId);
+	public ArrayList<String> SelectMyPageUserInformationList(String userId);
 
-	public ArrayList<String> GetProfileUserInfo(String id);
+	public ArrayList<String> SelectProfileUserInformationList(String ID);
 
 	public void updateUserPhoneNumber(User user);
 
@@ -46,7 +46,7 @@ public interface UserDao {
 
 	public void updateUserColleges(User user);
 
-	public ArrayList<String> GetUser(String userId);
+	public ArrayList<String> SelectUserID(String userID);
 
 	public void TemporaryPW(User user);
 

@@ -43,10 +43,10 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public ArrayList<String> GetMyPageUserInfo(String UserId) {
-		ArrayList<String> info = new ArrayList<String>();
-		if (!UserId.equals("")) {
-			List<Student> output = this.sqlSession.selectList("GetMyPageUserInfo", UserId);
+	public ArrayList<String> SelectMyPageStudentInformationList(String UserID) {
+		ArrayList<String> SelectMyPageStudentInformationList = new ArrayList<String>();
+		if (!UserID.equals("")) {
+			List<Student> output = this.sqlSession.selectList("SelectMyPageStudentInformationList", UserID);
 			if (output == null) {
 
 			} else {
@@ -62,15 +62,15 @@ public class StudentDaoImpl implements StudentDao {
 					StudentGender = item.getStudentGender();
 				}
 
-				info.add(StudentColleges);
-				info.add(StudentMajor);
-				info.add(StudentGrade);
-				info.add(DoubleMajor);
-				info.add(StudentGender);
+				SelectMyPageStudentInformationList.add(StudentColleges);
+				SelectMyPageStudentInformationList.add(StudentMajor);
+				SelectMyPageStudentInformationList.add(StudentGrade);
+				SelectMyPageStudentInformationList.add(DoubleMajor);
+				SelectMyPageStudentInformationList.add(StudentGender);
 
 			}
 		}
-		return info;
+		return SelectMyPageStudentInformationList;
 	}
 
 	@Override
@@ -90,10 +90,10 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public ArrayList<String> GetProfileStudentInfo(String userID) {
-		ArrayList<String> studentInfo = new ArrayList<String>();
+	public ArrayList<String> SelectProfileStudentInformationList(String userID) {
+		ArrayList<String> studentInformationList = new ArrayList<String>();
 		if (!userID.equals("")) {
-			List<Student> output = this.sqlSession.selectList("GetProfileStudentInfo", userID);
+			List<Student> output = this.sqlSession.selectList("SelectProfileStudentInformationList", userID);
 			if (output == null) {
 
 			} else {
@@ -103,12 +103,12 @@ public class StudentDaoImpl implements StudentDao {
 					StudentGrade = item.getStudentGrade().toString();
 				}
 
-				studentInfo.add(StudentColleges);
-				studentInfo.add(StudentMajor);
-				studentInfo.add(StudentGrade);
+				studentInformationList.add(StudentColleges);
+				studentInformationList.add(StudentMajor);
+				studentInformationList.add(StudentGrade);
 			}
 		}
-		return studentInfo;
+		return studentInformationList;
 	}
 
 

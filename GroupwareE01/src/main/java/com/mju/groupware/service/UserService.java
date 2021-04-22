@@ -29,17 +29,17 @@ public interface UserService {
 
 	public boolean pwCheckBeforeModify(String pw, String pw2);
 
-	public ArrayList<String> GetMyPageUserInfo(String userId);
+	public ArrayList<String> SelectMyPageUserInformationList(String userId);
 
-	public ArrayList<String> GetProfileUserInfo(String loginID);
+	public ArrayList<String> SelectProfileUserInformationList(String loginID);
 
-	public void updateUserPhoneNumber(User user);
+	public void UpdateUserPhoneNumber(User user);
 
 	public void UpdateUserMajor(User user);
 	
 	public void UpdateUserColleges(User user);
 
-	public ArrayList<String> GetUser(String userId);
+	public ArrayList<String> SelectUserID(String UserID);
 
 	public void TemporaryPW(User user);
 

@@ -16,12 +16,12 @@ public interface StudentService {
 	public void updateStudentGender(Student student);
 
 	//학년 update
-	public void updateStudentGrade(Student student);
+	public void UpdateStudentGrade(Student student);
 
 	//부전공
 	public void UpdateStudentDobuleMajor(Student student);
 
 	// 로그인 완료 화면에 띄울 데이터 select
-	public ArrayList<String> GetProfileStudentInfo(String userID);
+	public ArrayList<String> SelectProfileStudentInformationList(String userID);
 	
 }
