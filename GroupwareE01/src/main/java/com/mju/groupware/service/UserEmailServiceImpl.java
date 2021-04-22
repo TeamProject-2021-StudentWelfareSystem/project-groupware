@@ -13,8 +13,8 @@ public class UserEmailServiceImpl implements UserEmailService {
 	UserEmailDao userEmailDao;
 	
 	@Override
-	public void InsertCertification(UserEmail userEmail) {
-		userEmailDao.InsertCertification(userEmail);
+	public void SaveCertification(UserEmail userEmail) {
+		userEmailDao.SaveCertification(userEmail);
 	}
 
 	@Override
