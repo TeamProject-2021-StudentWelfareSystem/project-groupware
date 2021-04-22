@@ -17,7 +17,7 @@ public class UserEmailDaoImpl implements UserEmailDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public void InsertCertification(UserEmail userEmail) {
+	public void SaveCertification(UserEmail userEmail) {
 		this.sqlSession.insert("InsertCertification", userEmail);
 	}
 

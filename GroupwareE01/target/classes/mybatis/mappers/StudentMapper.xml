@@ -5,7 +5,7 @@
 <mapper namespace="com.mju.groupware.dao.StudentDao">
 
 	<!-- 회원가입 -->
-	<insert id="InsertInformation"
+	<insert id="StudentInsert"
 		parameterType="com.mju.groupware.dto.Student">
 		insert into student (
 		StudentGrade,
@@ -40,7 +40,7 @@
 		where StudentID = #{UserId};
 	</select>
 
-	<select id="GetMyPageUserInfo" parameterType="String"
+	<select id="SelectMyPageStudentInformationList" parameterType="String"
 		resultType="com.mju.groupware.dto.Student">
 		select
 		StudentGrade,
@@ -48,10 +48,10 @@
 		StudentDoubleMajor
 		from
 		Student
-		where UserID = #{UserId};
+		where UserID = #{UserID};
 	</select>
 	
-	<select id="SelectStudentProfileInfo" parameterType="String"
+	<select id="SelectProfileStudentInformationList" parameterType="String"
 		resultType="com.mju.groupware.dto.Student">
 		select
 		StudentGrade,

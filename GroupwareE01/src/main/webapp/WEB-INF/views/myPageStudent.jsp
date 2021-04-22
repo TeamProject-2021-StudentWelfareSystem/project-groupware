@@ -93,7 +93,7 @@
 
 							<br>
 							<div class=userName><input type=text name="UserName" value=${UserName} readonly>님<br>안녕하세요!</div>
-				            <div class="userColleges"><h4 color="blue">소속 : <input type=text name="SC" value=${SC} readonly></h4></div>
+				            <div class="userColleges"><h4 color="blue">소속 : <input type=text name="StudentCollege" value=${StudentCollege} readonly></h4></div>
 				            <div class="userMajor"><h4 color="blue">학과 : <input type=text name="UserMajor" value=${UserMajor} readonly></h4></div>
 				            <div class="userGrade"><h4 color="blue">학년 : <input type=text name="Grade" value=${Grade} readonly></h4></div>
 						</div> <!-- left_info -->

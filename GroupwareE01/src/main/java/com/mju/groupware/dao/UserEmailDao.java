@@ -4,7 +4,7 @@ import com.mju.groupware.dto.UserEmail;
 
 public interface UserEmailDao {
 
-	public void InsertCertification(UserEmail userEmail);
+	public void SaveCertification(UserEmail userEmail);
 
 	// 인증번호 비교(디비)
 	public boolean CheckCertificationNum(int authNum);

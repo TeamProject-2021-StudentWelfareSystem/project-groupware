@@ -24,9 +24,9 @@ public class UserDaoImpl implements UserDao {
 	// 소속
 	private String SC;
 	// 아이디
-	private int UserId;
+	private int UserID;
 	// 로그인 아이디
-	private String Id;
+	private String ID;
 	// 전화번호
 	private String Tel;
 
@@ -48,9 +48,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean SelctForIDConfirm(User user) {
+	public boolean IdConfirm(User user) {
 
-		User output = this.sqlSession.selectOne("SelctForIDConfirm", user);
+		User output = this.sqlSession.selectOne("UserIdConfirm", user);
 
 		if (output == null) {
 			return false;
@@ -61,8 +61,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean SelectPwdForConfirmToFindPwd(User user) {
-		User output = this.sqlSession.selectOne("SelectPwdForConfirmToFindPwd", user);
+	public boolean PwdConfirm(User user) {
+		User output = this.sqlSession.selectOne("UserPwdConfirm", user);
 
 		if (output == null) {
 			return false;
@@ -78,8 +78,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean SelectForShowPassword(User user) {
+	public boolean ShowPassword(User user) {
 		User output = this.sqlSession.selectOne("UserPwdShow", user);
+		System.out.println("비밀번호 : " + output);
 		if (output == null) {
 			return false;
 		} else {
@@ -89,7 +90,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean SelectForEmailDuplicateCheck(User user) {
+	public boolean EmailDuplicateCheck(User user) {
 		User output = sqlSession.selectOne("EmailCheck", user.getUserEmail());
 
 		if (output == null) {
@@ -102,26 +103,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void UpdateLoginDate(User user) {
+	public void DateUpdate(User user) {
 		this.sqlSession.selectOne("UpdateLoginDate", user);
 	}
 	
 	@Override
-	public String SelectCurrentPwd(String id) {
-		return this.sqlSession.selectOne("SelectCurrentPwd", id);
+	public String currentPW(String id) {
+		return this.sqlSession.selectOne("CurrentPW", id);
 	}
 
 	@Override
-	public void UpdatePwd(User user) {
-		this.sqlSession.update("UpdatePwd", user);
+	public void modifyPW(User user) {
+		this.sqlSession.selectOne("ModifyPW", user);
 	}
 
 	@Override
-	public boolean SelectForPwdCheckBeforeModify(String id, String pw) {
+	public boolean pwCheckBeforeModify(String id, String pw) {
 
 		// 추후 entity로 이동해야한다.
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String output = this.sqlSession.selectOne("SelectForPwdCheckBeforeModify", id);
+		String output = this.sqlSession.selectOne("pwCheckBeforeModify", id);
 		if (output == null) {
 			return false;
 		} else {
@@ -134,21 +135,21 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public ArrayList<String> GetMyPageUserInfo(String userId) {
+	public ArrayList<String> SelectMyPageUserInformationList(String userId) {
 		ArrayList<String> info = new ArrayList<String>();
-		List<User> output = this.sqlSession.selectList("GetMyPageInfo", userId);
+		List<User> output = this.sqlSession.selectList("SelectMyPageUserInformationList", userId);
 		if (output == null) {
 
 		} else {
 			for (User item : output) {
-				UserId = item.getUserID();
-				Id = item.getUserLoginID();
+				UserID = item.getUserID();
+				ID = item.getUserLoginID();
 				Name = item.getUserName();
 				Tel = item.getUserPhoneNum();
 				email = item.getUserEmail();
 			}
-			info.add(Integer.toString(UserId));
-			info.add(Id);
+			info.add(Integer.toString(UserID));
+			info.add(ID);
 			info.add(Name);
 			info.add(Tel);
 			info.add(email);
@@ -157,26 +158,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public ArrayList<String> SelectUserProfileInfo(String id) {
+	public ArrayList<String> SelectProfileUserInformationList(String id) {
 		// 정보를 저장하기 위한 ArrayList
-		ArrayList<String> info = new ArrayList<String>();
+		ArrayList<String> ProfileUserInformation = new ArrayList<String>();
 		// 학생정보를 가져오는 query문 실행
-		List<User> output = this.sqlSession.selectList("SelectUserProfileInfo", id);
+		List<User> output = this.sqlSession.selectList("SelectProfileUserInformationList", id);
 
 		if (output == null) {
 
 		} else {
 			for (User item : output) {
-				UserId = item.getUserID();
+				UserID = item.getUserID();
 				Name = item.getUserName();
 			}
 
 			// 이름 0
-			info.add(Name);
+			ProfileUserInformation.add(Name);
 			// 아이디 1
-			info.add(Integer.toString(UserId));
+			ProfileUserInformation.add(Integer.toString(UserID));
 		}
-		return info;
+		return ProfileUserInformation;
 	}
 
 	@Override
@@ -195,19 +196,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public ArrayList<String> GetUser(String userId) {
+	public ArrayList<String> SelectUserID(String userID) {
 		ArrayList<String> userInfo = new ArrayList<String>();
-		List<User> output = sqlSession.selectList("GetUser", userId);
+		List<User> output = sqlSession.selectList("SelectUserID", userID);
 		if (output == null) {
 
 		} else {
 			for (User item : output) {
-				UserId = item.getUserID();
+				UserID = item.getUserID();
 				UserLoginID = item.getUserLoginID().toString();
 			}
 
 			// 아이디
-			userInfo.add(Integer.toString(UserId));
+			userInfo.add(Integer.toString(UserID));
 			// 로그인 아이디(학번)
 			userInfo.add(UserLoginID);
 		}
@@ -215,12 +216,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void UpdateTemporaryPwd(User user) {
-		sqlSession.update("UpdateTemporaryPwd", user);
+	public void TemporaryPW(User user) {
+		sqlSession.update("UpdateTempPW", user);
 	}
 
 	@Override
-	public void UpdateWithdrawlUser(String id) {
+	public void withdrawl(String id) {
 		sqlSession.update("UpdateWithdrawal", id);
 	}
 
