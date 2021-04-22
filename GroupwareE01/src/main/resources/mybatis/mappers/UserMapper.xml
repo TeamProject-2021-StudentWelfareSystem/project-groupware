@@ -52,7 +52,7 @@
 		LoginDate = #{date} where UserLoginID = #{UserLoginID}
 	</update>
 	
-	<update id = "UpdateTempPW" parameterType="com.mju.groupware.dto.User">
+	<update id = "UpdateTemporaryPwd" parameterType="com.mju.groupware.dto.User">
 		update User set
 		UserLoginPwd = #{UserLoginPwd} 
 		where UserLoginID = #{UserLoginID}
@@ -63,7 +63,7 @@
 		Withdrawal = 1 where UserLoginID = #{UserLoginID}
 	</update>
 
-	<select id="SelectProfileUserInformationList"
+	<select id="SelectUserProfileInfo"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		UserName,
@@ -75,7 +75,7 @@
 		where
 		UserLoginID = #{id}
 	</select>
-	<select id="SelectMyPageUserInformationList" parameterType="java.lang.String"
+	<select id="GetMyPageInfo" parameterType="java.lang.String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		*
@@ -85,14 +85,14 @@
 		UserLoginID = #{userLoginID}
 	</select>
 
-	<update id="ModifyPW" parameterType="String">
+	<update id="UpdatePwd" parameterType="String">
 		update User set
 		UserLoginPwd
 		= #{UserModifiedPW}
 		where UserLoginPwd = #{UserLoginPwd}
 	</update>
 
-	<select id="CurrentPW" resultType="String">
+	<select id="SelectCurrentPwd" resultType="String">
 		select
 		UserLoginPwd
 		from
@@ -111,7 +111,7 @@
 		UserLoginID = #{id}
 	</select>
 
-	<select id="UserIdConfirm" parameterType="String"
+	<select id="SelctForIDConfirm" parameterType="String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		userLoginID
@@ -121,7 +121,7 @@
 		userLoginID = #{userLoginID}
 	</select>
 
-	<select id="pwCheckBeforeModify" parameterType="String"
+	<select id="SelectForPwdCheckBeforeModify" parameterType="String"
 		resultType="String">
 		select
 		UserLoginPwd
@@ -131,7 +131,7 @@
 		userLoginID = #{id}
 	</select>
 
-	<select id="UserPwdConfirm" parameterType="String"
+	<select id="SelectPwdForConfirmToFindPwd" parameterType="String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		userLoginID,
@@ -144,10 +144,9 @@
 	</select>
 
 	<!-- userID 찾기 -->
-	<select id="SelectUserID" resultType="com.mju.groupware.dto.User">
+	<select id="SelectUserID" resultType="Integer">
 		SELECT
-		UserID,
-		UserLoginID
+		userID
 		FROM
 		user
 		WHERE
@@ -188,6 +187,15 @@
 		UserLoginID = #{UserLoginID}
 	</update>
 
+	<select id="GetUser" resultType="com.mju.groupware.dto.User">
+		SELECT
+		UserID,
+		UserLoginID
+		FROM
+		User
+		WHERE
+		UserLoginID = #{UserLoginID}
+	</select>
 	<select id="UserPwdShow" parameterType="String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT

@@ -36,17 +36,17 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public boolean authNum(String authNum) {// 입력한 인증번호 가져오기
-		checker = emailImpl.authNum(Integer.parseInt(authNum), this.num);
+	public boolean AuthNum(String authNum) {// 입력한 인증번호 가져오기
+		checker = emailImpl.AuthNum(Integer.parseInt(authNum), this.num);
 		return checker;
 
 	}
 
 	// 이메일 중복확인
 	@Override
-	public boolean EmailDuplicateCheck(User user) {
+	public boolean SelectForEmailDuplicateCheck(User user) {
 		// 이메일 중복
-		emailChecker = emailDao.EmailDuplicateCheck(user);
+		emailChecker = emailDao.SelectForEmailDuplicateCheck(user);
 		return emailChecker;
 	}
 }

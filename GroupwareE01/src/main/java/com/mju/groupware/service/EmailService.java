@@ -7,8 +7,9 @@ public interface EmailService {
 	public int sendEmail(User user);
 
 	// 인증번호확인
-	public boolean authNum(String authNum);
+	public boolean AuthNum(String authNum);
 
 	// 이메일중복확인
-	public boolean EmailDuplicateCheck(User user);
+	public boolean SelectForEmailDuplicateCheck(User user);
+
 }
