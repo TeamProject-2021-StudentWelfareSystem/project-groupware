@@ -7,14 +7,14 @@ import com.mju.groupware.dto.Student;
 public interface StudentDao {
 
 	// 정보 저장
-	public void SaveInformation(Student student);
+	public void InsertInformation(Student student);
 
 	// 회원가입 후 userID(foreign key) 업데이트
 	public void UpdateUserID(Student student);
 
 	public String getGrade(String UserId);
 
-	public ArrayList<String> SelectMyPageStudentInformationList(String string);
+	public ArrayList<String> GetMyPageUserInfo(String string);
 
 	public void UpdateStudentGender(Student student);
 
@@ -22,6 +22,6 @@ public interface StudentDao {
 
 	public void UpdateStudentDobuleMajor(Student student);
 
-	public ArrayList<String> SelectProfileStudentInformationList(String UserID);
+	public ArrayList<String> SelectStudentProfileInfo(String userID);
 
 }

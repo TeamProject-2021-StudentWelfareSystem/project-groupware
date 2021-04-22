@@ -11,38 +11,39 @@ public interface UserService {
 	public void SignUp(User user);
 
 	// 중복확인
-	public boolean IdConfirm(User user);
+	public boolean SelctForIDConfirm(User user);
 
 	// 비번 찾기
-	public boolean PwdConfirm(User user);
+	public boolean SelectPwdForConfirmToFindPwd(User user);
 
 	// userID(다른 테이블들의 foreign key) 찾기
 	public int SelectUserID(Student student);
 
-	public String ShowPassword(User user);
+	public String SelectForShowPassword(User user);
 
-	public void DateUpdate(User user);
+	public void UpdateLoginDate(User user);
 
-	public String currentPW(String id);
+	public String SelectCurrentPwd(String id);
 
-	public void modifyPW(User user);
+	public void UpdatePwd(User user);
 
-	public boolean pwCheckBeforeModify(String pw, String pw2);
+	public boolean SelectForPwdCheckBeforeModify(String pw, String pw2);
 
-	public ArrayList<String> SelectMyPageUserInformationList(String userId);
+	public ArrayList<String> GetMyPageUserInfo(String userId);
 
-	public ArrayList<String> SelectProfileUserInformationList(String loginID);
+	public ArrayList<String> SelectUserProfileInfo(String loginID);
 
-	public void UpdateUserPhoneNumber(User user);
+	public void updateUserPhoneNumber(User user);
 
 	public void UpdateUserMajor(User user);
 	
 	public void UpdateUserColleges(User user);
 
-	public ArrayList<String> SelectUserID(String UserID);
+	public ArrayList<String> GetUser(String userId);
 
-	public void TemporaryPW(User user);
+	public void UpdateTemporaryPwd(User user);
 
-	public void withdrawl(String id);
+	public void UpdateWithdrawlUser(String id);
+
 
 }

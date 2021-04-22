@@ -59,7 +59,7 @@ public class EmailImpl implements Email {
 
 	}
 
-	public boolean authNum(int authNum, int num) {
+	public boolean AuthNum(int authNum, int num) {
 
 		if (authNum == num) {
 			return true;

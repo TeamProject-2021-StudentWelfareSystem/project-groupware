@@ -15,30 +15,30 @@ public interface UserDao {
 	public UsersDetails selectByLoginID(String userLoginID);
 
 	// 중복 확인
-	public boolean IdConfirm(User user);
+	public boolean SelctForIDConfirm(User user);
 
 	// 비번 찾기
-	public boolean PwdConfirm(User user);
+	public boolean SelectPwdForConfirmToFindPwd(User user);
 
 	// userID(다른 테이블들의 foreign key) 찾기
 	public int SelectUserID(Student student);
 
 	// 비번 보여주기
-	public boolean ShowPassword(User user);
+	public boolean SelectForShowPassword(User user);
 
-	public boolean EmailDuplicateCheck(User user);
+	public boolean SelectForEmailDuplicateCheck(User user);
 
-	public void DateUpdate(User user);
+	public void UpdateLoginDate(User user);
 
-	public String currentPW(String id);
+	public String SelectCurrentPwd(String id);
 
-	public void modifyPW(User user);
+	public void UpdatePwd(User user);
 
-	public boolean pwCheckBeforeModify(String pw, String pw2);
+	public boolean SelectForPwdCheckBeforeModify(String pw, String pw2);
 
-	public ArrayList<String> SelectMyPageUserInformationList(String userId);
+	public ArrayList<String> GetMyPageUserInfo(String userId);
 
-	public ArrayList<String> SelectProfileUserInformationList(String ID);
+	public ArrayList<String> SelectUserProfileInfo(String id);
 
 	public void updateUserPhoneNumber(User user);
 
@@ -46,10 +46,10 @@ public interface UserDao {
 
 	public void updateUserColleges(User user);
 
-	public ArrayList<String> SelectUserID(String userID);
+	public ArrayList<String> GetUser(String userId);
 
-	public void TemporaryPW(User user);
+	public void UpdateTemporaryPwd(User user);
 
-	public void withdrawl(String id);
+	public void UpdateWithdrawlUser(String id);
 
 }
