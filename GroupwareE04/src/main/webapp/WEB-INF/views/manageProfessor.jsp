@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/userManage.css">
+<link rel="stylesheet" href="../css/userManage.css">
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/userManage.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com">

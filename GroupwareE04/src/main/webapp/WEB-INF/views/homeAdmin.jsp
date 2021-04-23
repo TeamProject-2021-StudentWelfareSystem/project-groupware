@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/homeLayout.css" type="text/css">
+    <link rel="stylesheet" href="../css/homeLayout.css" type="text/css">
     <title>MJS Welfare System</title>
   </head>
   <body>
@@ -33,7 +33,6 @@
                   <div class="menubarMid">
                   <ul class="topInfo">
                      <li><a href="">사이트맵</a></li>
-                     <li><a href="myPageStudent">마이페이지</a></li>
                      <li><a href="">문의</a></li>
                      <li><a href="${path}/admin/manageList">관리자 메뉴</a></li>
                      <!-- sign out -->
@@ -90,10 +89,8 @@
                 <img src="user.png" alt="userimg" width="50" height="50">
             </div>
             <br>
-            <div class=userName><input type=text name="UserName" id="userName" value=${UserName} readonly>님<br>안녕하세요!</div>
-            <div class="userColleges"><h4 color="blue">소속 : <input type=text name="SC" id="sc" value=${SC} readonly></h4></div>
-               <div class="userMajor"><h4 color="blue">학과 : <input type=text name="UserMajor" id="userMajor" value=${UserMajor} readonly></h4></div>
-            <div class="userGrade"><h4 color="blue">학년 : <input type=text name="Grade" id="grade" value=${Grade} readonly></h4></div>
+            <div class=userName><input type=text name="UserName" id="userName" value=${UserName} >관리자님<br>안녕하세요!</div>
+            
             </div><!-- left_info -->
             </div><!-- left_box -->
       </div><!-- mcont_width -->

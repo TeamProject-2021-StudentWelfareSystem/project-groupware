@@ -92,9 +92,11 @@
 							</div>
 
 							<br>
-							<div class=userName><input type=text name="UserName" value=${UserName} readonly>님<br>안녕하세요!</div>
-				            <div class="userColleges"><h4 color="blue">소속 : <input type=text name="SC" value=${SC} readonly></h4></div>
-				            <div class="userMajor"><h4 color="blue">학과 : <input type=text name="UserMajor" value=${UserMajor} readonly></h4></div>
+							<!-- 화면 실행시 text란에 readonly가 뜨는 이유는 불러오는 값이 없어서임. -->
+							<div class=userName><input type=text name="UserName" id="userName" readonlyvalue=${UserName} readonly>님<br>안녕하세요!</div>
+           					<div class="userColleges"><h4 color="blue">소속 : <input type=text name="SC" id="sc" value=${SC} readonly></h4></div>
+               				<div class="userMajor"><h4 color="blue">학과 : <input type=text name="UserMajor" id="userMajor" value=${UserMajor} readonly></h4></div>
+               				
 						</div> <!-- left_info -->
 					</div> <!-- left_box -->
 					<div class="rightBox">

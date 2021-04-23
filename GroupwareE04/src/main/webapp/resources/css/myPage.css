@@ -236,3 +236,6 @@ table {
 	background: skyblue;
 	border-radius: 5px;
 }
+#sc, #userName, #userMajor, #grade{
+	border:0px;
+}

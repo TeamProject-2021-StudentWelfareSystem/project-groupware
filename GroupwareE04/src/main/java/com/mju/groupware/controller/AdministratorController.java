@@ -103,5 +103,15 @@ public class AdministratorController {
 		}
 		return "redirect:manageList";
 	}
+	@RequestMapping(value = "/homeAdmin", method = RequestMethod.GET)
+	public String homeAdmin() {
+		return "homeAdmin";
 
+	}
+	@RequestMapping(value = "/loginAdmin", method = RequestMethod.GET)
+	public String loginAdmin() {
+		return "loginAdmin";
+
+	}
+	
 }

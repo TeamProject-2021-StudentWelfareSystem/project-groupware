@@ -181,3 +181,6 @@ a {
 	text-align: center;
 	font-weight: bold;
 }
+#sc, #userName, #userMajor, #grade{
+	border:0px;
+}

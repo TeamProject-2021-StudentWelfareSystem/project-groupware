@@ -31,5 +31,5 @@ public class HomeController {
 	public String infoConsent() {
 		return "infoConsent";
 	}
-
+	
 }
