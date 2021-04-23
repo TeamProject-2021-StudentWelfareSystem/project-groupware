@@ -13,6 +13,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/myPage.css">
 <script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/myPage.js"></script>
+<script src="js/infoModify.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
@@ -170,6 +172,13 @@
 												disabled readonly name="email" id="mju" class="inputBox"
 												autocomplete="off"></td>
 										</tr>
+										<tr>
+											<td class="col1"><label for="public">정보공개 항목</label></td>
+											<td class="col2"><input type="text" name="PublicInfo"
+												id="publicInfo" class="inputBox" autocomplete="off" readonly
+												disabled }></td>
+										</tr>
+										
 									</table>
 								</form>
 							</div>

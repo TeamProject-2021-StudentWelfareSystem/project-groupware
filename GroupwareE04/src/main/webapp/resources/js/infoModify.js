@@ -19,6 +19,7 @@ function isSame(){
     }
 }
 
+
 $(document).ready(function(){
    
    /* checkPassword에서 비밀번호 미 입력시, 8자 미만 입력 시 */
@@ -108,6 +109,12 @@ $(document).ready(function(){
 
  	/* 수정 버튼 클릭 시 창 닫기 */
    $('#modifyComplete').click(function(){
+	   var aaa = [];
+		
+		$("input[name='UserInfo']:checked").each(function(i){
+			aaa.push($(this).val());
+			window.opener.document.getElementById("publicInfo").value = aaa;
+		});
 	  alert("수정 완료!");
       window.close();
    });   
