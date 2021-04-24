@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.UserDao">
+
+	<!-- 회원가입 -->
+	<insert id="InsertUser"
+		parameterType="com.mju.groupware.dto.User">
+		insert into user (
+		userName,
+		userPhoneNum,
+		userEmail,
+		userLoginID,
+		userLoginPwd,
+		userRole
+
+		) values(
+		#{userName},
+		#{userPhoneNum},
+		#{userEmail},
+		#{userLoginID},
+		#{userLoginPwd},
+		#{userRole}
+		)
+	</insert>
+
+<!-- 로그인 -->
+	<select id="SelectByLoginID" parameterType="String"
+		resultType="com.mju.groupware.security.UsersDetails">
+		SELECT
+		userID,
+		userName,
+		userPhoneNum,
+		userEmail,
+		userLoginID,
+		userLoginPwd,
+		userRole,
+		authority,
+		enabled
+
+		FROM
+		user
+
+		WHERE
+		userLoginID = #{userLoginID} and Withdrawal = 0
+	</select>
+
+	<!-- 로그인 데이트 업데이트 문 -->
+	<update id="UpdateLoginDate" parameterType="String">
+		update user set
+		LoginDate = #{date} where UserLoginID = #{UserLoginID}
+	</update>
+	
+	<update id = "UpdateTemporaryPwd" parameterType="com.mju.groupware.dto.User">
+		update User set
+		UserLoginPwd = #{UserLoginPwd} 
+		where UserLoginID = #{UserLoginID}
+	</update>
+	
+	<update id="UpdateWithdrawal" parameterType="String">
+		update user set
+		Withdrawal = 1 where UserLoginID = #{UserLoginID}
+	</update>
+
+	<select id="SelectMyPageInfo" parameterType="java.lang.String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		*
+		FROM
+		user
+		where
+		UserLoginID = #{userLoginID}
+	</select>
+
+	<update id="UpdatePwd" parameterType="String">
+		update User set
+		UserLoginPwd
+		= #{UserModifiedPW}
+		where UserLoginPwd = #{UserLoginPwd}
+	</update>
+
+	<select id="SelectCurrentPwd" resultType="String">
+		select
+		UserLoginPwd
+		from
+		user
+		where
+		UserLoginID = #{id}
+	</select>
+
+	<select id="SelectUserInfo" resultType="com.mju.groupware.dto.User">
+		SELECT
+		UserName,
+		UserId
+		FROM
+		user
+		where
+		UserLoginID = #{id}
+	</select>
+
+	<select id="SelctForIDConfirm" parameterType="String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		userLoginID
+		FROM
+		user
+		WHERE
+		userLoginID = #{userLoginID}
+	</select>
+
+	<select id="SelectForPwdCheckBeforeModify" parameterType="String"
+		resultType="String">
+		select
+		UserLoginPwd
+		from
+		user
+		where
+		userLoginID = #{id}
+	</select>
+
+	<select id="SelectPwdForConfirmToFindPwd" parameterType="String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		userLoginID,
+		userName
+		FROM
+		user
+		WHERE
+		userLoginID =
+		#{userLoginID} and userName = #{userName}
+	</select>
+
+	<!-- userID 찾기 -->
+	<select id="SelectUserID" resultType="Integer">
+		SELECT
+		userID
+		FROM
+		user
+		WHERE
+		userLoginID = #{userLoginID}
+	</select>
+
+
+	<!-- 이메일 중복확인 -->
+	<select id="SelectForEmailDuplicateCheck" parameterType="String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		userEmail
+		FROM
+		user
+		WHERE
+		userEmail = #{userEmail}
+	</select>
+
+	<!-- 마이페이지 정보수정 -->
+	<update id="UpdateUserPhoneNum"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserPhoneNum = #{UserPhoneNum} WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
+
+	<update id="UpdateUserColleges"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserColleges = #{UserColleges} WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
+
+	<update id="UpdateUserMajor"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserMajor = #{UserMajor} WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
+
+
+	<select id="SelectForShowPassword" parameterType="String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		userLoginPwd
+		FROM
+		user
+		WHERE
+		userLoginID = #{userLoginID} and userName = #{userName}
+	</select>
+	
+	<select id="SelectUserInformation" parameterType="String"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		userID,
+		userLoginID
+		FROM
+		user
+		WHERE
+		userLoginID = #{userLoginID}
+	</select>
+	
+	<update id="UpdateDoWithdrawalRecoveryByAdmin" parameterType="String">
+      update user set
+      Withdrawal = 0 where UserLoginID = #{UserLoginID}
+   </update>
+   
+   <update id="UpdateDormantOneToZero" parameterType="String">
+   	update user set Dormant = 0 where UserLoginID = #{UserLoginID}
+   </update>
+   
+    <update id="UpdateUserRole"
+      parameterType="com.mju.groupware.dto.User">
+      UPDATE User SET
+      UserRole = #{UserRole} ,Authority = #{Authority} 
+      WHERE
+      UserLoginID = #{UserLoginID}
+   </update>
+   
+      <update id="UpdateAdminRole"
+      parameterType="com.mju.groupware.dto.User">
+      UPDATE User SET
+      UserRole = #{UserRole} ,Authority = #{Authority} 
+      WHERE
+      UserLoginID = #{UserLoginID} 
+   </update>
+   
+</mapper>
