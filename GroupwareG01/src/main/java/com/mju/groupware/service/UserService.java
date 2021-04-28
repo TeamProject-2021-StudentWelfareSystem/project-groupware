@@ -55,4 +55,6 @@ public interface UserService {
 
 	public ArrayList<String> SelectUserProfileInfoByID(String mysqlID);
 
+	public void UpdateUserName(User user);
+
 }

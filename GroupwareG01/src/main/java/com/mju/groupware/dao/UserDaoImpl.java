@@ -264,4 +264,10 @@ public class UserDaoImpl implements UserDao {
 		}
 		return Info;
 	}
+
+	@Override
+	public void UpdateUserName(User user) {
+		this.sqlSession.update("UpdateUserName", user);
+
+	}
 }

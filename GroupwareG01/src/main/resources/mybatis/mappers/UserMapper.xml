@@ -177,6 +177,14 @@
 		UserColleges = #{UserColleges} WHERE
 		UserLoginID = #{UserLoginID}
 	</update>
+	
+	
+	<update id="UpdateUserName"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserName = #{UserName} WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
 
 	<update id="UpdateUserMajor"
 		parameterType="com.mju.groupware.dto.User">

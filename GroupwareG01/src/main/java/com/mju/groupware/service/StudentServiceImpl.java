@@ -47,8 +47,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void updateUserGender(Student student) {
-		studentDao.updateUserGrade(student);
+	public void UpdateStudentGender(Student student) {
+		studentDao.UpdateStudentGender(student);
+	}
+
+	@Override
+	public void UpdateStudentColleges(Student student) {
+		studentDao.UpdateStudentColleges(student);
+	}
+
+	@Override
+	public void UpdateStudentMajor(Student student) {
+		studentDao.UpdateStudentMajor(student);
 	}
 
 }

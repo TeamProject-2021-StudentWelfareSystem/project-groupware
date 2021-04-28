@@ -62,4 +62,6 @@ public interface UserDao {
 
 	public ArrayList<String> SelectMyPageUserInfoByID(String mysqlID);
 
+	public void UpdateUserName(User user);
+
 }

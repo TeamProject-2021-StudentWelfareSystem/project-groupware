@@ -18,14 +18,16 @@ public interface StudentDao {
 
 	public void UpdateStudentGender(Student student);
 
-	public void UpdateStudentGrade(Student student);
-
 	public void UpdateStudentDobuleMajor(Student student);
 
 	public ArrayList<String> SelectStudentProfileInfo(String userID);
 
 	public ArrayList<String> SelectMyPageUserInfoByID(String mysqlID);
 
-	public void updateUserGrade(Student student);
+	public void UpdateStudentGrade(Student student);
+
+	public void UpdateStudentColleges(Student student);
+
+	public void UpdateStudentMajor(Student student);
 
 }

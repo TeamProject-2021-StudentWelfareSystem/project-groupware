@@ -180,4 +180,11 @@ public class UserServiceImpl implements UserService {
 		return Info;
 	}
 
+	@Override
+	public void UpdateUserName(User user) {
+		
+		userDao.UpdateUserName(user);
+		
+	}
+
 }

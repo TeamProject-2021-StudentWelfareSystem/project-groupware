@@ -80,6 +80,16 @@
 		StudentGender = #{StudentGender} WHERE UserID = #{UserID}
 	</update>
 	
+	<update id="UpdateStudentColleges" parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentColleges = #{StudentColleges} WHERE UserID = #{UserID}
+	</update>
+	
+	<update id="UpdateStudentMajor" parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentMajor = #{StudentMajor} WHERE UserID = #{UserID}
+	</update>
+	
 	<update id="UpdateStudentGrade" parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
 		StudentGrade = #{StudentGrade} WHERE UserID = #{UserID}

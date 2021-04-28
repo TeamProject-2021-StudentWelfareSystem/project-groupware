@@ -49,6 +49,7 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public void UpdateStudentGrade(Student student) {
+		//grade
 		sqlSession.update("UpdateStudentGrade", student);
 	}
 
@@ -136,7 +137,15 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public void updateUserGrade(Student student) {
-		sqlSession.update("UpdateUserGrade", student);	
+	public void UpdateStudentColleges(Student student) {
+		sqlSession.update("UpdateStudentColleges",student);
 	}
+
+	@Override
+	public void UpdateStudentMajor(Student student) {
+		sqlSession.update("UpdateStudentMajor",student);
+		
+	}
+
+
 }

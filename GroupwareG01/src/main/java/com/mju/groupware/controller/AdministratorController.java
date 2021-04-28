@@ -20,6 +20,7 @@ import com.mju.groupware.dto.User;
 import com.mju.groupware.dto.UserList;
 import com.mju.groupware.service.AdminService;
 import com.mju.groupware.service.StudentService;
+import com.mju.groupware.service.StudentServiceImpl;
 import com.mju.groupware.service.UserService;
 
 @Controller
@@ -34,6 +35,7 @@ public class AdministratorController {
 	@Autowired
 	private StudentService studentService;
 	private String UserLoginID;
+	private String MysqlID;
 
 	/* 관리자 메뉴 메인화면 */
 	@RequestMapping(value = "/manageList", method = RequestMethod.GET)
@@ -160,8 +162,8 @@ public class AdministratorController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(HttpServletRequest request, Model model) {
-		String MysqlID = request.getParameter("no");
-	
+		MysqlID = request.getParameter("no");
+
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
 		SelectUserProfileInfo = userService.SelectUserProfileInfoByID(MysqlID);
 		// 학번
@@ -231,37 +233,48 @@ public class AdministratorController {
 	@RequestMapping(value = "/manageModifyStudent", method = RequestMethod.POST)
 	public String DoManageModifyStudent(HttpServletRequest request, User user, Student student) {
 
+		user.setUserLoginID(UserLoginID);
+		student.setUserID(Integer.parseInt(MysqlID));
 		if (request.getParameter("ModifyComplete") != null) {
-
 			if (!((String) request.getParameter("UserName")).equals("")) {
 				// 이름바꾸기
+				user.setUserName((String) request.getParameter("UserName"));
+				userService.UpdateUserName(user);
 			}
 			if (!((String) request.getParameter("StudentGender")).equals(" ")) {
 				// 성별바꾸기
-				studentService.updateUserGender(student);
+				student.setStudentGender((String) request.getParameter("StudentGender"));
+				studentService.UpdateStudentGender(student);
 			}
 			if (!((String) request.getParameter("UserPhoneNum")).equals("")) {
 				// 전화번호바꾸기
 				user.setUserPhoneNum((String) request.getParameter("UserPhoneNum"));
+				userService.updateUserPhoneNumber(user);
 			}
 			if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
 				// 학년
 				student.setStudentGrade((String) request.getParameter("StudentGrade"));
+				studentService.updateStudentGrade(student);
 			}
 			if (!((String) request.getParameter("StudentColleges")).equals(" ")) {
 				// 단과대학
 				student.setStudentColleges((String) request.getParameter("StudentColleges"));
+				studentService.UpdateStudentColleges(student);
 			}
 			if (!((String) request.getParameter("StudentMajor")).equals(" ")) {
 				// 전공
 				student.setStudentMajor((String) request.getParameter("StudentMajor"));
+				studentService.UpdateStudentMajor(student);
 			}
 			if (((String) request.getParameter("member")).equals("Y")) {
 				// 부전공 있다
 				System.out.println(7);
+				student.setStudentDoubleMajor((String) request.getParameter("StudentDoubleMajor"));
+				studentService.UpdateStudentDobuleMajor(student);
 			} else if (((String) request.getParameter("member")).equals("N")) {
 				// 부전공 없다
-				System.out.println(8);
+				student.setStudentDoubleMajor("없음");
+				studentService.UpdateStudentDobuleMajor(student);
 			}
 		}
 		return "/admin/manageModifyStudent";
