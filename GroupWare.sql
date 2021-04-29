@@ -7,6 +7,9 @@ show tables;
 # 로그인 날짜 입력
 update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
 
+# delete 모음
+delete from User OpenName;
+
 # insert 모음
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
@@ -19,14 +22,21 @@ alter table User add Dormant boolean not null default 0;
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
 select * from User where Dormant = 1;
 select * from Student;
+select * from User;
 select * from UserEmail;
+select * from WithdrawalUser;
+select * from WithdrawalStudent;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
+SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 
 # drop 모음
 drop table Professor;
 drop table Student;
 drop table User;
 drop table UserEmail;
+drop table WithdrawalUser;
+drop table WithdrawalStudent;
+drop table WithdrawalProfessor;
 
 # update 모음
 update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
@@ -36,10 +46,12 @@ update Student set StudentGrade = '바꿀 학년' where UserLoginID = 'UserLogin
 update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLoginID';
 update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
 update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
-update User set Authority = "ROLE_ADMIN" where UserID = 7;
+update User set Authority = "ROLE_ADMIN" where UserID = 1;
 update User set LoginDate = "2020-1-30" where UserName = "배트맨";
-update User set Dormant = 0 where UserName = "배트맨";
-update User set Enabled = 1 where UserName = "배트맨";
+update User set Dormant = 0 where UserName = "유저이름";
+update User set Enabled = 1 where UserName = "유저이름";
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
+update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -52,6 +64,11 @@ UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
 Enabled boolean not null default 1, # 활성화:1 비활성화:0
 LoginDate date, #로그인날짜
+OpenName varchar(20) not null default '비공개', # 공개:1, 비공개:0, 정보공개여부
+OpenEmail varchar(20) not null default '비공개',
+OpenMajor varchar(20) not null default '비공개',
+OpenGrade varchar(20) not null default '비공개',
+OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
@@ -99,16 +116,51 @@ UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade 
 );
 
 create table WithDrawalUser(
-UserID int auto_increment not null primary key,
-UserName varchar(20) not null,
-UserPhoneNum varchar(30) not null,
-UserEmail varchar(100) not null unique key,
-UserLoginID varchar(30) binary not null unique key,
-UserLoginPwd varchar(300) binary not null,
-UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
-Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
-Enabled boolean not null default 1, # 활성화:1 비활성화:0
-LoginDate date #로그인날짜
+WUserID int auto_increment not null primary key,
+WUserName varchar(20) not null,
+WUserPhoneNum varchar(30) not null,
+WUserEmail varchar(100) not null unique key,
+WUserLoginID varchar(30) binary not null unique key,
+WUserLoginPwd varchar(300) binary not null,
+WUserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
+WAuthority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
+WEnabled boolean not null default 0, # 활성화:1 비활성화:0
+WLoginDate date, #로그인날짜 #필요할까?
+UserID int, foreign key (WUserID) references user(UserID) on delete cascade on update cascade #이거 잘 모르겠음
+);
+
+create table WithdrawalStudent(
+WStudentID int auto_increment not null primary key,
+WStudentGrade ENUM ('1학년', '2학년', '3학년', '4학년') not null, #학년
+WStudentGender varchar(20) not null, # male / female
+WStudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
+WStudentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+'행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
+'경영정보학과', '국제통상학과',
+'법학과',
+'융합소프트웨어학부', '디지털콘텐츠디자인학과',
+'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
+WStudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+'행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
+'경영정보학과', '국제통상학과',
+'법학과',
+'융합소프트웨어학부', '디지털콘텐츠디자인학과',
+'창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
+WUserID int, foreign key (WStudentID) references WithdrawalUser(WUserID) on delete cascade on update cascade
+);
+
+create table WithdrawalProfessor(
+WProfessorID int auto_increment not null primary key,
+WProfessorRoom varchar(10), #교수실
+WProfessorRoomNum varchar(30), #교수실전화번호 
+WProfessorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
+WProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
+'행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
+'경영정보학과', '국제통상학과',
+'법학과',
+'융합소프트웨어학부', '디지털콘텐츠디자인학과',
+'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
+WUserID int, foreign key (WProfessorID) references WithdrawalUser(WUserID) on delete cascade on update cascade
 );
 
 # 하루 한 번 인증번호 삭제
