@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mju.groupware.dao.UserDao;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserEmail;
 import com.mju.groupware.email.Email;
 import com.mju.groupware.email.EmailImpl;
 

@@ -19,7 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserEmail;
 import com.mju.groupware.dto.UserList;
+import com.mju.groupware.email.EmailImpl;
 import com.mju.groupware.service.AdminService;
 import com.mju.groupware.service.EmailService;
 import com.mju.groupware.service.OpenInfoService;
@@ -225,7 +227,7 @@ public class AdministratorController {
 
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
 		SelectUserProfileInfo = userService.SelectUserProfileInfoByID(MysqlID);
-		
+
 		// 학번
 		UserLoginID = SelectUserProfileInfo.get(0);
 		// 이름
@@ -241,7 +243,7 @@ public class AdministratorController {
 		String OpenPhoneNum = SelectUserProfileInfo.get(6);
 		String OpenMajor = SelectUserProfileInfo.get(7);
 		String OpenGrade = SelectUserProfileInfo.get(8);
-		
+
 		// 단과대학
 		String StudentColleges = SelectUserProfileInfo.get(9);
 		// 전공
@@ -282,52 +284,55 @@ public class AdministratorController {
 		// 4개 : 학년 빼고
 		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenPhoneNum.equals("전화번호")
 				&& OpenMajor.equals("전공")) {
-			// 4개 
-			List<UserList> SelectForOpenInfoWithoutGrade = openInfoService.SelectForOpenInfoWithoutGrade(MysqlID); // 학년 빼고
+			// 4개
+			List<UserList> SelectForOpenInfoWithoutGrade = openInfoService.SelectForOpenInfoWithoutGrade(MysqlID); // 학년
+																													// 빼고
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoWithoutGrade);
-		} 
+		}
 		// 전공 빼고
 		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenPhoneNum.equals("전화번호")
 				&& OpenGrade.equals("학년")) {
-			List<UserList> SelectForOpenInfoWithoutMajor = openInfoService.SelectForOpenInfoWithoutMajor(MysqlID); // 전공 빼고
+			List<UserList> SelectForOpenInfoWithoutMajor = openInfoService.SelectForOpenInfoWithoutMajor(MysqlID); // 전공
+																													// 빼고
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoWithoutMajor);
-		} 
+		}
 		// 전화번호 빼고
-		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenMajor.equals("전공")
-				&& OpenGrade.equals("학년")) {
-			List<UserList> SelectForOpenInfoWithoutPhoneNum = openInfoService.SelectForOpenInfoWithoutPhoneNum(MysqlID); // 번호 빼고
+		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenMajor.equals("전공") && OpenGrade.equals("학년")) {
+			List<UserList> SelectForOpenInfoWithoutPhoneNum = openInfoService.SelectForOpenInfoWithoutPhoneNum(MysqlID); // 번호
+																															// 빼고
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoWithoutPhoneNum);
-		} 
+		}
 		// 이메일 빼고
 		else if (OpenName.equals("이름") && OpenPhoneNum.equals("전화번호") && OpenMajor.equals("전공")
 				&& OpenGrade.equals("학년")) {
-			List<UserList> SelectForOpenInfoWithoutEmail = openInfoService.SelectForOpenInfoWithoutEmail(MysqlID); // 메일 뺴고
+			List<UserList> SelectForOpenInfoWithoutEmail = openInfoService.SelectForOpenInfoWithoutEmail(MysqlID); // 메일
+																													// 뺴고
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoWithoutEmail);
-		} 
+		}
 		// 이름 뺴고
 		else if (OpenEmail.equals("이메일") && OpenPhoneNum.equals("전화번호") && OpenMajor.equals("전공")
 				&& OpenGrade.equals("학년")) {
-			List<UserList> SelectForOpenInfoWithoutName = openInfoService.SelectForOpenInfoWithoutName(MysqlID); // 이름 빼고
+			List<UserList> SelectForOpenInfoWithoutName = openInfoService.SelectForOpenInfoWithoutName(MysqlID); // 이름
+																													// 빼고
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoWithoutName);
 		}
 		// 3개(이름기준) : 이름 메일 번호
-		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenPhoneNum.equals("전화번호")) {// 3개 : 이름 메일 번호 
+		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenPhoneNum.equals("전화번호")) {// 3개 : 이름 메일 번호
 			List<UserList> SelectForOpenInfo_N_E_P = openInfoService.SelectForOpenInfo_N_E_P(MysqlID);
 			model.addAttribute("UserInfoOpen", SelectForOpenInfo_N_E_P);
-		} 
+		}
 		// 이름 전공 학년
-		else if (OpenName.equals("이름") && OpenMajor.equals("전공")
-				&& OpenGrade.equals("학년")) {
+		else if (OpenName.equals("이름") && OpenMajor.equals("전공") && OpenGrade.equals("학년")) {
 			// 3개 : 이름 전공 학년
 			List<UserList> SelectForOpenInfo_N_M_G = openInfoService.SelectForOpenInfo_N_M_G(MysqlID);
 			model.addAttribute("UserInfoOpen", SelectForOpenInfo_N_M_G);
-		} 
+		}
 		// 이름 번호 전공
 		else if (OpenName.equals("이름") && OpenPhoneNum.equals("전화번호") && OpenMajor.equals("전공")) {
 			// 3개 : 이름 번호 전공
 			List<UserList> SelectForOpenInfo_N_P_M = openInfoService.SelectForOpenInfo_N_P_M(MysqlID);
 			model.addAttribute("UserInfoOpen", SelectForOpenInfo_N_P_M);
-		} 
+		}
 		// 이름 메일 전공
 		else if (OpenName.equals("이름") && OpenEmail.equals("이메일") && OpenMajor.equals("전공")) {
 			// 3개 : 이름 메일 전공
@@ -446,7 +451,7 @@ public class AdministratorController {
 			model.addAttribute("UserInfoOpen", SelectForOpenInfoGrade);
 		}
 
-	return"/admin/detailStudent";
+		return "/admin/detailStudent";
 
 	}
 
@@ -537,29 +542,28 @@ public class AdministratorController {
 	public String manageModifyProfessor() {
 		return "/admin/manageModifyProfessor";
 	}
-	
+
 	@RequestMapping(value = "/emailLogin", method = RequestMethod.GET)
 	public String emailLoginDO2() {
 		return "/email/emailLogin";
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/emailLogin", method = RequestMethod.POST)
 	public String emailLoginDO(HttpServletRequest request, Model model) {
 		String id = request.getParameter("EmailLoginID");
 		String pw = request.getParameter("EmailLoginPwd");
 		System.out.println(id + " " + pw);
-		
-		List<String> emailList = emailService.printEmailList(id, pw);//보낸이 + 제목 + 내용
-		
-		for(int i =0; i<emailList.size(); i++) {
-			model.addAttribute("emailList", emailList);
+
+		List<String> emailList = emailService.printEmailList(id, pw);// 보낸이 + 제목 + 내용
+
+		for (int i = 0; i < emailList.size(); i++) {
+//			model.addAttribute("emailList", emailList);
+			emailList.get(0);
 		}
-		
+
 		return "redirect:email/emailList";
 	}
-	
+
 	@RequestMapping(value = "/emailList", method = RequestMethod.GET)
 	public String emailList() {
 		return "/email/emailList";

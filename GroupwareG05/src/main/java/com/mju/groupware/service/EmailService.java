@@ -3,6 +3,8 @@ package com.mju.groupware.service;
 import java.util.List;
 
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserEmail;
+import com.mju.groupware.email.EmailImpl;
 
 public interface EmailService {
 	// 이메일 보내기

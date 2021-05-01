@@ -142,7 +142,9 @@ public class UserFunctionController {
 		if ((String) request.getParameter("Email") != null) {
 			model.addAttribute("Email", UserEmail);
 			Address = "@mju.ac.kr";
-			UserEmail = UserEmail + Address;
+			UserEmail = 
+					
+					UserEmail + Address;
 			user.setUserEmail(UserEmail);
 		}
 		if ((String) request.getParameter("Number") != null) {
@@ -515,9 +517,9 @@ public class UserFunctionController {
 		String pw = request.getParameter("EmailLoginPwd");
 
 		List<String> emailList = emailService.printEmailList(id, pw);// 보낸이 + 제목 + 내용
-
-		model.addAttribute("emailList", emailList);
 		
+		model.addAttribute("emailList", emailList);
+
 		return "email/emailList";
 	}
 
@@ -531,7 +533,7 @@ public class UserFunctionController {
 	// 이메일 리스트 화면
 	@RequestMapping(value = "/emailContent", method = RequestMethod.GET)
 	public String emailContent() {
-		
+
 		return "/email/emailContent";
 	}
 }
