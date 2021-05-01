@@ -142,8 +142,8 @@ public class UserFunctionController {
 		if ((String) request.getParameter("Email") != null) {
 			model.addAttribute("Email", UserEmail);
 			Address = "@mju.ac.kr";
-			UserEmail = 
-					
+			UserEmail =
+
 					UserEmail + Address;
 			user.setUserEmail(UserEmail);
 		}
@@ -511,16 +511,25 @@ public class UserFunctionController {
 		return "/email/emailLogin";
 	}
 
-	@RequestMapping(value = "/emailLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "/emailLogin.do", method = RequestMethod.POST)
 	public String DoEmailLogin(HttpServletRequest request, Model model) {
 		String id = request.getParameter("EmailLoginID");
 		String pw = request.getParameter("EmailLoginPwd");
-
+		System.out.println(id + " " + pw);
 		List<String> emailList = emailService.printEmailList(id, pw);// 보낸이 + 제목 + 내용
-		
-		model.addAttribute("emailList", emailList);
 
-		return "email/emailList";
+		//emaildto -> List dto data를 셋해주는거지 -> 
+		for (int i = 0; i < emailList.size() / 3; i++) {
+
+			for (int j = 0; j < 3; j++) {
+
+				model.addAttribute("emailList", emailList);
+
+			}
+			System.out.println(emailList.get(i));
+		}
+		//for문 manageList추가하는거
+		return "/email/emailList";
 	}
 
 	// 이메일 리스트 화면

@@ -37,7 +37,7 @@
 			<section id="login">
 				<h2>이메일 로그인</h2>
 				<br>
-				<form action="${path}/emailLogin" name="emailLogin" method="POST"
+				<form action="${path}/emailLogin.do" name="emailLogin" method="POST"
 					id="form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /></input>

@@ -109,11 +109,9 @@
 										</thead>
 
 										<tbody>
-											<c:forEach items="${emailList}" var="emailList" varStatus="status">
+											<c:forEach items="${EmailList}" var="emailList" varStatus="status">
 												<tr>
 													<td class="col1"><c:out value="${status.count}" /></td> <!-- 번호 -->
-													
-												
 												</tr>
 											</c:forEach>
 										</tbody>

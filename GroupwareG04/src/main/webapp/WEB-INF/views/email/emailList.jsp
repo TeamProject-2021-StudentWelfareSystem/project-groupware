@@ -103,7 +103,6 @@
 												<th class="col1">번호</th>
 												<th class="col2">보낸 이</th>
 												<th class="col3">제목</th>
-												<th class="col4">날짜</th>
 											</tr>
 											<hr>
 										</thead>
@@ -112,9 +111,8 @@
 											<c:forEach items="${emailList}" var="list" varStatus="status">
 												<tr>
 													<td class="col1"><c:out value="${status.count}" /></td> <!-- 번호 -->
-													<td class="col2"><c:out value="" /></a></td> <!-- 보낸 이 -->
-													<td class="col3"><a href=""><c:out value="" /></a></td> <!-- 제목 -->
-													<td class="col4"><c:out value="" /></td> <!-- 날짜 -->
+													<td class="col2"><c:out value="${list[0]}" /></a></td> <!-- 보낸 이 -->
+													<td class="col3"><a href=""><c:out value="${list[1]} " /></a></td> <!-- 제목 -->
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -140,11 +140,10 @@ public class EmailImpl implements Email {
 				list.add(Fromlist.get(i));
 				list.add(SubjectList.get(i));
 				list.add(ContentList.get(i));
+				System.out.println(list.get(i));
+
 			}
 
-			for (int i = 0; i < Fromlist.size(); i++) {
-				System.out.println(list.get(i));
-			}
 			// Close connection
 			folder.close(false);
 			store.close();

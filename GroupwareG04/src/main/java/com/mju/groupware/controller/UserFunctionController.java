@@ -504,7 +504,7 @@ public class UserFunctionController {
 	}
 
 	// 이메일 로그인 화면
-	@RequestMapping(value = "/email/emailLogin", method = RequestMethod.GET)
+	@RequestMapping(value = "emailLogin", method = RequestMethod.GET)
 	public String emailLogin() {
 		return "/email/emailLogin";
 	}
@@ -521,7 +521,7 @@ public class UserFunctionController {
 			model.addAttribute("emailList", emailList);
 		}
 
-		return "redirect:email/emailList";
+		return "redirect:/email/emailList";
 	}
 
 	// 이메일 리스트 화면

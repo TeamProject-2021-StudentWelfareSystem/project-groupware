@@ -1,7 +1,5 @@
 package com.mju.groupware.email;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -17,6 +15,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Component;
+
+import com.mju.groupware.dto.UserEmail;
 
 @Component
 public class EmailImpl implements Email {
@@ -79,12 +79,13 @@ public class EmailImpl implements Email {
 	public List<String> printEmailList(String id, String pw) {
 		// Create empty properties
 		Properties props = new Properties();
-		// 다운로드된 파일이 저장되는 경우
-//		String downloadPath = "F:\\mailDown";
 		// POP3 주소
 		String host = "outlook.office365.com";
 		List<String> list = new ArrayList<String>();
-		
+		List<String> Fromlist = new ArrayList<String>();
+		List<String> SubjectList = new ArrayList<String>();
+		List<String> ContentList = new ArrayList<String>();
+		int counter = 0;
 		// Get session
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -102,28 +103,41 @@ public class EmailImpl implements Email {
 			// 이메일 박스
 			Message message[] = folder.getMessages();
 			int messageLength = 0;
-
 			// 제목 길이를 가져온다.
 			messageLength = message.length;
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
 			// Get directory(여기서 이메일 내용들 주르륵 보여주는 거임)
+
+			UserEmail userEmail = new UserEmail();
+			int location = 0;
+			int location2 = 0;
 			for (int i = 0, n = message.length; i < n; i++) {
 				Address from = message[i].getFrom()[0];
+				String sFrom = from + "\t";
+
+				// 온전한 이메일주소찾오는거
+				if (sFrom.indexOf("<") != -1) {
+					location = sFrom.indexOf("<");
+				}
+				if (sFrom.indexOf(">") != -1) {
+					location2 = sFrom.indexOf(">");
+				}
+				if (location != 0 && location2 != 0) {
+					sFrom = sFrom.substring(location + 1, location2);
+					Fromlist.add(sFrom);
+				}
 				String subject = message[i].getSubject();
-				String fromWithSubject = from + "\t" + subject + "\n" + message[i].getContent().toString();
-
-				// 이메일 Stream정보 제공
-				// message[i].writeTo(System.out);
-
-				// from = message[i].getFrom()[0];
-				subject = message[i].getSubject();
-				
-				list.add(fromWithSubject);
-				
+				SubjectList.add(subject);
+				String content = message[i].getContent() + "\t";
+				ContentList.add(content);
+				counter++;
 				// 첨부파일이 있을 경우 파일에다가 mail을 붙인다.
-//				POP3Test.appendToFile(downloadPath + "in.mbx", message[i]);
+			}
+
+			for (int i = 0; i < Fromlist.size(); i++) {
+				list.add(Fromlist.get(i));
+				list.add(SubjectList.get(i));
+				list.add(ContentList.get(i));
 			}
 
 			// Close connection
@@ -134,7 +148,7 @@ public class EmailImpl implements Email {
 			System.out.println(e.toString());
 			e.printStackTrace();
 		}
-		
+
 		return list;
 
 	}
