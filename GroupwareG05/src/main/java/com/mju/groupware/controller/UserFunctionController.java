@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -509,13 +510,15 @@ public class UserFunctionController {
 	}
 
 	@RequestMapping(value = "/emailLogin", method = RequestMethod.POST)
-	public String DoEmailLogin(HttpServletRequest request) {
+	public String DoEmailLogin(HttpServletRequest request, Model model) {
 		String id = request.getParameter("EmailLoginID");
 		String pw = request.getParameter("EmailLoginPwd");
-		System.out.println(id);
-		System.out.println(pw);
 
-		return "/email/emailLogin";
+		List<String> emailList = emailService.printEmailList(id, pw);// 보낸이 + 제목 + 내용
+
+		model.addAttribute("emailList", emailList);
+		
+		return "email/emailList";
 	}
 
 	// 이메일 리스트 화면
