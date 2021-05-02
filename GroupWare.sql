@@ -8,12 +8,16 @@ show tables;
 update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
 
 # delete 모음
-delete from User OpenName;
+delete from WithdrawalUser where WUserName = "탈퇴";
+delete from WithdrawalUser where WUserName = "자퇴";
+delete from User where UserName = "새내기";
 
 # insert 모음
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
-insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, StudentDoubleMajor, UserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
+insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, StudentDoubleMajor, UserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 25);
+insert into WithdrawalUser(WUserName, WUserPhoneNum, WUserEmail, WUserLoginID, WUserRole) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","STUDENT");
+insert into WithdrawalStudent(WStudentGender, WStudentGrade, WStudentColleges, WStudentMajor, WStudentDoubleMajor, WUserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
 
 # alter 모음
 alter table User add Dormant boolean not null default 0;
@@ -28,6 +32,7 @@ select * from WithdrawalUser;
 select * from WithdrawalStudent;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
+select WUserID from WithdrawalUser where WUserLoginID = '60212222';
 
 # drop 모음
 drop table Professor;
@@ -115,18 +120,15 @@ ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문�
 UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade on update cascade
 );
 
-create table WithDrawalUser(
+create table WithdrawalUser(
 WUserID int auto_increment not null primary key,
 WUserName varchar(20) not null,
 WUserPhoneNum varchar(30) not null,
 WUserEmail varchar(100) not null unique key,
 WUserLoginID varchar(30) binary not null unique key,
-WUserLoginPwd varchar(300) binary not null,
 WUserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 WAuthority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
-WEnabled boolean not null default 0, # 활성화:1 비활성화:0
-WLoginDate date, #로그인날짜 #필요할까?
-UserID int, foreign key (WUserID) references user(UserID) on delete cascade on update cascade #이거 잘 모르겠음
+WEnabled boolean not null default 0 # 활성화:1 비활성화:0
 );
 
 create table WithdrawalStudent(
@@ -193,6 +195,7 @@ DROP EVENT Dormant_Scheduler;
 DROP EVENT Dormant_Scheduler_test;
 
 /*
+* ON DELETE SET NULL
 * ON DELETE SET NULL
 * ON UPDATE SET NULL
 옵션 SET NULL -> 부모테이블에서 primary 값이 수정 또는 삭제될 경우
