@@ -178,7 +178,7 @@ public class UserDaoImpl implements UserDao {
 
 		} else {
 			for (User Item : Output) {
-				UserID = Item.getUserID();
+				UserID = Item.getUserID();	
 				UserLoginID = Item.getUserLoginID().toString();
 			}
 
@@ -309,6 +309,22 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void UpdateOpenGrade(User user) {
 		sqlSession.update("UpdateOpenGrade", user);
+	}
+
+	@Override
+	public User SelectUserInfo(String userLoginID) {
+		User Output = sqlSession.selectOne("SelectUserInfoForWithdrawal", userLoginID);
+		return Output;
+	}
+
+	@Override
+	public void InsertWithdrawalUser(User userInfo) {
+		sqlSession.insert("InsertWithdrawalUser", userInfo);
+	}
+
+	@Override
+	public void DeleteWithdrawalUser(User user) {
+		sqlSession.delete("DeleteWithdrawalUser", user);
 	}
 
 }

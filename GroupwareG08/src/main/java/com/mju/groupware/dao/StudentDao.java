@@ -30,4 +30,10 @@ public interface StudentDao {
 
 	public void UpdateStudentMajor(Student student);
 
+	public Student SelectStudentInfo(String userID);
+
+	public void InsertWithdrawalStudent(Student student);
+
+	public void DeleteWithdrawalStudent(Student student);
+
 }

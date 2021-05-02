@@ -73,4 +73,10 @@ public interface UserDao {
 	public void UpdateOpenMajor(User user);
 
 	public void UpdateOpenGrade(User user);
+
+	public User SelectUserInfo(String userLoginID);
+
+	public void InsertWithdrawalUser(User userInfo);
+
+	public void DeleteWithdrawalUser(User user);
 }

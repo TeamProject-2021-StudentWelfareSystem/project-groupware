@@ -1,6 +1,5 @@
 package com.mju.groupware.service;
 
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.mju.groupware.dao.UserDao;
 import com.mju.groupware.dto.User;
-import com.mju.groupware.email.Email;
 import com.mju.groupware.email.EmailImpl;
 
 @Service
@@ -18,8 +16,6 @@ public class EmailServiceImpl implements EmailService {
 	private UserDao emailDao;
 	@Autowired
 	private EmailImpl emailImpl;
-	@Autowired
-	private Email email;
 
 	private String Email;
 	private int Num;
@@ -52,33 +48,5 @@ public class EmailServiceImpl implements EmailService {
 		// 이메일 중복
 		EmailChecker = emailDao.SelectForEmailDuplicateCheck(user);
 		return EmailChecker;
-	}
-
-	@Override
-	public List<String> printEmailList(String id, String pw) {
-		return email.printEmailList(id, pw);
-	}
-
-	@Override
-	public List<String> getContent() {
-		return email.getContent();
-	}
-
-	@Override
-	public List<String> getFrom() {
-		// TODO Auto-generated method stub
-		return email.getFrom();
-	}
-
-	@Override
-	public List<String> getsubject() {
-		// TODO Auto-generated method stub
-		return email.getsubject();
-	}
-
-	@Override
-	public List<String> getDate() {
-		// TODO Auto-generated method stub
-		return email.getDate();
 	}
 }

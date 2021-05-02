@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
 import com.mju.groupware.dto.UserList;
+import com.mju.groupware.dto.WithdrawalStudent;
+import com.mju.groupware.dto.WithdrawalUser;
 import com.mju.groupware.service.AdminService;
 import com.mju.groupware.service.OpenInfoService;
 import com.mju.groupware.service.StudentService;
@@ -125,12 +129,36 @@ public class AdministratorController {
 	// 관리자 메뉴 - 관리자 권한으로 user 탈퇴
 	@ResponseBody
 	@RequestMapping(value = "/withdrawal.do")
-	public String DoWithdrawlByAdmin(HttpServletRequest request) {
+	public String DoWithdrawlByAdmin(HttpServletRequest request, User user, Student student) {
 
 		String[] AjaxMsg = request.getParameterValues("CheckArr");
 		int Size = AjaxMsg.length;
 		for (int i = 0; i < Size; i++) {
-			userService.UpdateWithdrawlUser(AjaxMsg[i]);
+			User UserInfo = userService.SelectUserInfo(AjaxMsg[i]);
+			user.setUserName(UserInfo.getUserName());
+			user.setUserPhoneNum(UserInfo.getUserPhoneNum());
+			user.setUserEmail(UserInfo.getUserEmail());
+			user.setUserLoginID(UserInfo.getUserLoginID());
+
+			if (UserInfo.getUserRole().equals("STUDENT")) {
+				user.setUserRole("STUDENT");
+				// withdrawalUser, withdrawalStudent에 insert
+				userService.InsertWithdrawalUser(user);
+
+				Student StudentInfo = studentService.SelectStudentInfo(Integer.toString(UserInfo.getUserID()));
+				student.setWUserID(user.getWUserID());
+				student.setStudentColleges(StudentInfo.getStudentColleges());
+				student.setStudentDoubleMajor(StudentInfo.getStudentDoubleMajor());
+				student.setStudentGender(StudentInfo.getStudentGender());
+				student.setStudentGrade(StudentInfo.getStudentGrade());
+				student.setStudentMajor(StudentInfo.getStudentMajor());
+
+				studentService.InsertWithdrawalStudent(student);
+
+				// user,student에서 delete
+				userService.DeleteWithdrawalUser(user);
+				studentService.DeleteWithdrawalStudent(student);
+			}
 		}
 		return "redirect:manageList";
 	}
@@ -138,13 +166,36 @@ public class AdministratorController {
 	// 관리자 휴면 메뉴 - 관리자 권한으로 휴면 계정 탈퇴
 	@ResponseBody
 	@RequestMapping(value = "/dormantWithdrawal.do")
-	public String DoDormantWithdrawalByAdmin(HttpServletRequest request) {
+	public String DoDormantWithdrawalByAdmin(HttpServletRequest request, User user, Student student) {
 
 		String[] AjaxMsg = request.getParameterValues("CheckArr");
 		int Size = AjaxMsg.length;
 		for (int i = 0; i < Size; i++) {
-			System.out.println(AjaxMsg[i].toString());
-			userService.UpdateWithdrawlUser(AjaxMsg[i]);
+			User UserInfo = userService.SelectUserInfo(AjaxMsg[i]);
+			user.setUserName(UserInfo.getUserName());
+			user.setUserPhoneNum(UserInfo.getUserPhoneNum());
+			user.setUserEmail(UserInfo.getUserEmail());
+			user.setUserLoginID(UserInfo.getUserLoginID());
+
+			if (UserInfo.getUserRole().equals("STUDENT")) {
+				user.setUserRole("STUDENT");
+				// withdrawalUser, withdrawalStudent에 insert
+				userService.InsertWithdrawalUser(user);
+
+				Student StudentInfo = studentService.SelectStudentInfo(Integer.toString(UserInfo.getUserID()));
+				student.setWUserID(user.getWUserID());
+				student.setStudentColleges(StudentInfo.getStudentColleges());
+				student.setStudentDoubleMajor(StudentInfo.getStudentDoubleMajor());
+				student.setStudentGender(StudentInfo.getStudentGender());
+				student.setStudentGrade(StudentInfo.getStudentGrade());
+				student.setStudentMajor(StudentInfo.getStudentMajor());
+
+				studentService.InsertWithdrawalStudent(student);
+
+				// user,student에서 delete
+				userService.DeleteWithdrawalUser(user);
+				studentService.DeleteWithdrawalStudent(student);
+			}
 		}
 		return "redirect:manageSleep";
 	}
@@ -181,8 +232,8 @@ public class AdministratorController {
 	@RequestMapping(value = "/manageSecession", method = RequestMethod.GET)
 	public String manageSecession(Model model) {
 		try {
-			List<UserList> SelectWithdrawalUserList = adminService.SelectWithdrawalUserList();
-			model.addAttribute("WithdrawalList", SelectWithdrawalUserList);
+			List<WithdrawalUser> SelectWithdrawalUserList = adminService.SelectWithdrawalUserList();
+			model.addAttribute("SelectWithdrawalUserList", SelectWithdrawalUserList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,12 +243,43 @@ public class AdministratorController {
 	// 관리자 탈퇴 메뉴 - 관리자 권한으로 탈퇴 계정 복구
 	@ResponseBody
 	@RequestMapping(value = "/withdrawalRecovery.do")
-	public String DoWithdrawalRecoveryByAdmin(HttpServletRequest request) {
+	public String DoWithdrawalRecoveryByAdmin(HttpServletRequest request, WithdrawalUser withdrawalUser,
+			WithdrawalStudent withdrawalStudent) {
 
 		String[] AjaxMsg = request.getParameterValues("CheckArr");
 		int Size = AjaxMsg.length;
 		for (int i = 0; i < Size; i++) {
-			userService.UpdateDoWithdrawalRecoveryByAdmin(AjaxMsg[i]);
+//			userService.UpdateDoWithdrawalRecoveryByAdmin(AjaxMsg[i]);
+			// 탈퇴한 user, student 정보 select
+			WithdrawalUser SelectWithdrawalUserList = adminService.SelectWithdrawalUserListForRecovery(AjaxMsg[i]);
+			withdrawalUser.setWUserID(SelectWithdrawalUserList.getWUserID());
+			withdrawalUser.setWUserEmail(SelectWithdrawalUserList.getWUserEmail());
+			withdrawalUser.setWUserLoginID(SelectWithdrawalUserList.getWUserLoginID());
+			withdrawalUser.setWUserName(SelectWithdrawalUserList.getWUserName());
+			withdrawalUser.setWUserPhoneNum(SelectWithdrawalUserList.getWUserPhoneNum());
+			withdrawalUser.setWUserRole(SelectWithdrawalUserList.getWUserRole());
+			withdrawalUser.setWEnabled(true);
+			// 임시 비번 출력
+			String TemporaryPwd = "00000000";
+			String HashedPw = BCrypt.hashpw(TemporaryPwd, BCrypt.gensalt());// 바꿀 비밀번호 암호
+			withdrawalUser.setWUserLoginPwd(HashedPw);
+			
+			if (withdrawalUser.getWUserRole().equals("STUDENT")) {
+				// user insert
+				adminService.InsertUserForRecovery(withdrawalUser);
+
+				// 학생 정보 get
+				WithdrawalStudent SelectWithdrawalStudentList = adminService.SelectWithdrawalStudentListForRecovery(Integer.toString(withdrawalUser.getWUserID()));
+				withdrawalStudent.setWUserID(withdrawalUser.getUserID()); // foreign key 전달
+				withdrawalStudent.setWStudentColleges(SelectWithdrawalStudentList.getWStudentColleges());
+				withdrawalStudent.setWStudentDoubleMajor(SelectWithdrawalStudentList.getWStudentDoubleMajor());
+				withdrawalStudent.setWStudentGender(SelectWithdrawalStudentList.getWStudentGender());
+				withdrawalStudent.setWStudentGrade(SelectWithdrawalStudentList.getWStudentGrade());
+				withdrawalStudent.setWStudentMajor(SelectWithdrawalStudentList.getWStudentMajor());
+
+				adminService.InsertStudentForRecovery(withdrawalStudent);
+			}
+
 		}
 		return "redirect:manageSecession";
 	}
@@ -536,6 +618,7 @@ public class AdministratorController {
 	@RequestMapping(value = "/manageModifyProfessor", method = RequestMethod.GET)
 	public String manageModifyProfessor() {
 		return "/admin/manageModifyProfessor";
+
 	}
 
 }

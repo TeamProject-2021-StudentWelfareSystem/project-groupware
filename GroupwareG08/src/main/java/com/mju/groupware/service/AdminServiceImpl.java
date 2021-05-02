@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.mju.groupware.dao.UserListDao;
 import com.mju.groupware.dto.UserList;
+import com.mju.groupware.dto.WithdrawalStudent;
+import com.mju.groupware.dto.WithdrawalUser;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -25,7 +27,29 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<UserList> SelectWithdrawalUserList() {
+	public List<WithdrawalUser> SelectWithdrawalUserList() {
 		return userListDao.SelectWithdrawalUserList();
+	}
+
+	@Override
+	public WithdrawalUser SelectWithdrawalUserListForRecovery(String userLoginID) {
+		WithdrawalUser Output = userListDao.SelectWithdrawalUserListForRecovery(userLoginID);
+		return Output;
+	}
+
+	@Override
+	public WithdrawalStudent SelectWithdrawalStudentListForRecovery(String wuserID) {
+		WithdrawalStudent Output = userListDao.SelectWithdrawalStudentListForRecovery(wuserID);
+		return Output;
+	}
+
+	@Override
+	public void InsertUserForRecovery(WithdrawalUser withdrawalUser) {
+		userListDao.InsertUserForRecovery(withdrawalUser);
+	}
+
+	@Override
+	public void InsertStudentForRecovery(WithdrawalStudent withdrawalStudent) {
+		userListDao.InsertStudentForRecovery(withdrawalStudent);
 	}
 }

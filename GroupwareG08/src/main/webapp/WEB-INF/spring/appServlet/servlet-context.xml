@@ -31,7 +31,6 @@
 	<!-- 사용자지정 -->
 	<!-- java의 공통 패키지 -->
 	<context:component-scan base-package="com.mju.groupware" />
-	
 	<!-- Ajax 주석문 허가 -->
 	<mvc:annotation-driven/>
 	<!-- 스프링에서 처리할 수 없는 요청은 tomcat에 위임 -->

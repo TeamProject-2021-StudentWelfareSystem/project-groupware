@@ -25,7 +25,7 @@
 		)
 	</insert>
 
-<!-- 로그인 -->
+	<!-- 로그인 -->
 	<select id="SelectByLoginID" parameterType="String"
 		resultType="com.mju.groupware.security.UsersDetails">
 		SELECT
@@ -43,7 +43,8 @@
 		user
 
 		WHERE
-		userLoginID = #{userLoginID} and Withdrawal = 0
+		userLoginID =
+		#{userLoginID} and Withdrawal = 0
 	</select>
 
 	<!-- 로그인 데이트 업데이트 문 -->
@@ -51,13 +52,15 @@
 		update user set
 		LoginDate = #{date} where UserLoginID = #{UserLoginID}
 	</update>
-	
-	<update id = "UpdateTemporaryPwd" parameterType="com.mju.groupware.dto.User">
+
+	<update id="UpdateTemporaryPwd"
+		parameterType="com.mju.groupware.dto.User">
 		update User set
-		UserLoginPwd = #{UserLoginPwd} 
-		where UserLoginID = #{UserLoginID}
+		UserLoginPwd = #{UserLoginPwd}
+		where
+		UserLoginID = #{UserLoginID}
 	</update>
-	
+
 	<update id="UpdateWithdrawal" parameterType="String">
 		update user set
 		Withdrawal = 1 where UserLoginID = #{UserLoginID}
@@ -72,8 +75,9 @@
 		where
 		UserLoginID = #{userLoginID}
 	</select>
-	
-	<select id="SelectMyPageInfoByID" parameterType="java.lang.String"
+
+	<select id="SelectMyPageInfoByID"
+		parameterType="java.lang.String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
 		*
@@ -99,7 +103,8 @@
 		UserLoginID = #{id}
 	</select>
 
-	<select id="SelectUserInfo" resultType="com.mju.groupware.dto.User">
+	<select id="SelectUserInfo"
+		resultType="com.mju.groupware.dto.User">
 		SELECT
 		UserName,
 		UserId
@@ -119,8 +124,8 @@
 		userLoginID = #{userLoginID}
 	</select>
 
-	<select id="SelectForPwdCheckBeforeModify" parameterType="String"
-		resultType="String">
+	<select id="SelectForPwdCheckBeforeModify"
+		parameterType="String" resultType="String">
 		select
 		UserLoginPwd
 		from
@@ -177,13 +182,14 @@
 		UserColleges = #{UserColleges} WHERE
 		UserLoginID = #{UserLoginID}
 	</update>
-	
-	
+
+
 	<update id="UpdateUserName"
 		parameterType="com.mju.groupware.dto.User">
 		UPDATE User SET
 		UserName = #{UserName} WHERE
-		UserLoginID = #{UserLoginID}
+		UserLoginID =
+		#{UserLoginID}
 	</update>
 
 	<update id="UpdateUserMajor"
@@ -201,9 +207,10 @@
 		FROM
 		user
 		WHERE
-		userLoginID = #{userLoginID} and userName = #{userName}
+		userLoginID = #{userLoginID}
+		and userName = #{userName}
 	</select>
-	
+
 	<select id="SelectUserInformation" parameterType="String"
 		resultType="com.mju.groupware.dto.User">
 		SELECT
@@ -212,35 +219,41 @@
 		FROM
 		user
 		WHERE
-		userLoginID = #{userLoginID}
+		userLoginID =
+		#{userLoginID}
 	</select>
-	
-	<update id="UpdateDoWithdrawalRecoveryByAdmin" parameterType="String">
-      update user set
-      Withdrawal = 0 where UserLoginID = #{UserLoginID}
-   </update>
-   
-   <update id="UpdateDormantOneToZero" parameterType="String">
-   	update user set Dormant = 0 where UserLoginID = #{UserLoginID}
-   </update>
-   
-    <update id="UpdateUserRole"
-      parameterType="com.mju.groupware.dto.User">
-      UPDATE User SET
-      UserRole = #{UserRole} ,Authority = #{Authority} 
-      WHERE
-      UserLoginID = #{UserLoginID}
-   </update>
-   
-   <update id="UpdateAdminRole"
-      parameterType="com.mju.groupware.dto.User">
-      UPDATE User SET
-      UserRole = #{UserRole} ,Authority = #{Authority} 
-      WHERE
-      UserLoginID = #{UserLoginID} 
-   </update>
-   
-   <update id="UpdateOpenName"
+
+	<update id="UpdateDoWithdrawalRecoveryByAdmin"
+		parameterType="String">
+		update user set
+		Withdrawal = 0 where UserLoginID =
+		#{UserLoginID}
+	</update>
+
+	<update id="UpdateDormantOneToZero" parameterType="String">
+		update user
+		set Dormant = 0 where UserLoginID = #{UserLoginID}
+	</update>
+
+	<update id="UpdateUserRole"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserRole = #{UserRole} ,Authority =
+		#{Authority}
+		WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
+
+	<update id="UpdateAdminRole"
+		parameterType="com.mju.groupware.dto.User">
+		UPDATE User SET
+		UserRole = #{UserRole} ,Authority =
+		#{Authority}
+		WHERE
+		UserLoginID = #{UserLoginID}
+	</update>
+
+	<update id="UpdateOpenName"
 		parameterType="com.mju.groupware.dto.User">
 		UPDATE User SET
 		OpenName = #{OpenName}
@@ -254,7 +267,8 @@
 		UPDATE User SET
 		OpenEmail = #{OpenEmail}
 		WHERE
-		UserLoginID =
+		UserLoginID
+		=
 		#{UserLoginID}
 	</update>
 
@@ -269,14 +283,55 @@
 
 	<update id="UpdateOpenMajor"
 		parameterType="com.mju.groupware.dto.User">
-		UPDATE User SET OpenMajor = #{OpenMajor} WHERE UserLoginID =
+		UPDATE User SET OpenMajor = #{OpenMajor} WHERE
+		UserLoginID =
 		#{UserLoginID}
 	</update>
 
 	<update id="UpdateOpenGrade"
 		parameterType="com.mju.groupware.dto.User">
-		UPDATE User SET OpenGrade = #{OpenGrade} WHERE UserLoginID =
+		UPDATE User SET OpenGrade = #{OpenGrade} WHERE
+		UserLoginID =
 		#{UserLoginID}
 	</update>
 
+	<select id="SelectUserInfoForWithdrawal"
+		resultType="com.mju.groupware.dto.User">
+		SELECT
+		UserID,
+		UserName,
+		UserPhoneNum,
+		UserEmail,
+		UserLoginID,
+		UserRole
+		FROM
+		User
+		where
+		UserLoginID = #{userLoginID}
+	</select>
+
+	<insert id="InsertWithdrawalUser"
+		parameterType="com.mju.groupware.dto.User" useGeneratedKeys="true"
+		keyProperty="WUserID">
+		insert into WithdrawalUser (
+		WUserName,
+		WUserPhoneNum,
+		WUserEmail,
+		WUserLoginID,
+		WUserRole
+
+		) values(
+		#{userName},
+		#{userPhoneNum},
+		#{userEmail},
+		#{userLoginID},
+		#{userRole}
+		)
+	</insert>
+	
+	<delete id="DeleteWithdrawalUser" parameterType="String">
+		DELETE from User 
+		where UserLoginID = #{UserLoginID}
+	</delete>
+	
 </mapper>

@@ -99,13 +99,12 @@ public class StudentDaoImpl implements StudentDao {
 					}
 					StudentGender = Item.getStudentGender();
 				}
-
+				
 				Info.add(StudentColleges);
 				Info.add(StudentMajor);
 				Info.add(StudentGrade);
 				Info.add(StudentDoubleMajor);
 				Info.add(StudentGender);
-
 			}
 		}
 		return Info;
@@ -147,5 +146,20 @@ public class StudentDaoImpl implements StudentDao {
 		
 	}
 
+	@Override
+	public Student SelectStudentInfo(String userID) {
+		Student Output = sqlSession.selectOne("SelectStudentInfo", userID);
+		return Output;
+	}
+
+	@Override
+	public void InsertWithdrawalStudent(Student student) {
+		sqlSession.insert("InsertWithdrawalStudent", student);
+	}
+
+	@Override
+	public void DeleteWithdrawalStudent(Student student) {
+		sqlSession.delete("DeleteWithdrawalStudent", student);
+	}
 
 }

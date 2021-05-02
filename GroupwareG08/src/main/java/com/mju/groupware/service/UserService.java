@@ -67,4 +67,10 @@ public interface UserService {
 
 	public void UpdateOpenGrade(User user);
 
+	public User SelectUserInfo(String userLoginID);
+
+	public void InsertWithdrawalUser(User userInfo);
+
+	public void DeleteWithdrawalUser(User user);
+
 }

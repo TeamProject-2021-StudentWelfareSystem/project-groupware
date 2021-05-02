@@ -9,6 +9,15 @@ public class Student extends User {
 	private String StudentMajor; // 전공
 	private String StudentDoubleMajor; // 복수전공
 	private int UserID; // foreign key
+	private int WUserID;
+
+	public int getWUserID() {
+		return WUserID;
+	}
+
+	public void setWUserID(int wUserID) {
+		WUserID = wUserID;
+	}
 
 	public int getStudentID() {
 		return StudentID;

@@ -1,11 +1,4 @@
 <!-- 이메일 리스트 화면 -->
-<%
-	response.setHeader("Cache-Control", "no-store");
-response.setHeader("Pragma", "no-cache");
-response.setDateHeader("Expires", 0);
-if (request.getProtocol().equals("HTTP/1.1"))
-	response.setHeader("Cache-Control", "no-cache");
-%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -100,48 +93,37 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						</section>
 						<section>
 							<div class="section2">
-
-
+							
+								
 								<form action="" name="EmailList" method="POST" id="form">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<table class="emailList">
 										<thead>
 											<tr>
 												<th class="col1">번호</th>
 												<th class="col2">보낸 이</th>
 												<th class="col3">제목</th>
-
+												<th class="col4">날짜</th>
 											</tr>
 											<hr>
 										</thead>
 
 										<tbody>
-											<c:set var="i" value="0" />
-											<c:set var="j" value="3" />
-											<c:forEach items="${EmailList}" var="emailList"
-												varStatus="status">
+											<c:forEach items="${emailList}" var="list" varStatus="status">
 												<tr>
-													<c:if test="${i%j == 0 }">
-														<tr>
-															<td>${EmailList.get(i)}</td>
-															<td>${EmailList.get(i+1)}</td>
-															<td><a href="emailContent?no=${EmailList.get(i)}">${EmailList.get(i+2)}</a>
-															</td>
-													</c:if>
-													<c:if test="${i%j == 0}">
-												</tr>
-												</c:if>
-												<c:set var="i" value="${i+1 }" />
+													<td class="col1"><c:out value="${status.count}" /></td> <!-- 번호 -->
+													<td class="col2"><c:out value="" /></a></td> <!-- 보낸 이 -->
+													<td class="col3"><a href=""><c:out value="" /></a></td> <!-- 제목 -->
+													<td class="col4"><c:out value="" /></td> <!-- 날짜 -->
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<hr>
+								<hr>
 									<div id="page" class="btn">
-										<input type="button" value="←" id="leftList"> <input
-											type="button" value="1" id="pageList"> <input
-											type="button" value="→" id="rightList">
+										 <input type="button" value="←" id="leftList">
+										 <input type="button" value="1" id="pageList">
+										 <input type="button" value="→" id="rightList"> 
 									</div>
 								</form>
 							</div>

@@ -62,7 +62,7 @@
 		Student
 		where UserID = #{UserId};
 	</select>
-	
+
 	<select id="SelectStudentProfileInfo" parameterType="String"
 		resultType="com.mju.groupware.dto.Student">
 		select
@@ -73,31 +73,75 @@
 		Student
 		where UserID = #{UserId};
 	</select>
-	
+
 	<!-- 마이페이지 정보수정 -->
-		<update id="UpdateStudentGender" parameterType="com.mju.groupware.dto.Student">
+	<update id="UpdateStudentGender"
+		parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
-		StudentGender = #{StudentGender} WHERE UserID = #{UserID}
+		StudentGender = #{StudentGender} WHERE
+		UserID = #{UserID}
 	</update>
-	
-	<update id="UpdateStudentColleges" parameterType="com.mju.groupware.dto.Student">
+
+	<update id="UpdateStudentColleges"
+		parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
-		StudentColleges = #{StudentColleges} WHERE UserID = #{UserID}
+		StudentColleges = #{StudentColleges}
+		WHERE UserID = #{UserID}
 	</update>
-	
-	<update id="UpdateStudentMajor" parameterType="com.mju.groupware.dto.Student">
+
+	<update id="UpdateStudentMajor"
+		parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
-		StudentMajor = #{StudentMajor} WHERE UserID = #{UserID}
+		StudentMajor = #{StudentMajor} WHERE
+		UserID = #{UserID}
 	</update>
-	
-	<update id="UpdateStudentGrade" parameterType="com.mju.groupware.dto.Student">
+
+	<update id="UpdateStudentGrade"
+		parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
-		StudentGrade = #{StudentGrade} WHERE UserID = #{UserID}
+		StudentGrade = #{StudentGrade} WHERE
+		UserID = #{UserID}
 	</update>
-	
-	<update id="UpdateStudentDoubleMajor" parameterType="com.mju.groupware.dto.Student">
+
+	<update id="UpdateStudentDoubleMajor"
+		parameterType="com.mju.groupware.dto.Student">
 		UPDATE Student SET
-		StudentDoubleMajor = #{StudentDoubleMajor} WHERE UserID = #{UserID}
+		StudentDoubleMajor =
+		#{StudentDoubleMajor} WHERE UserID = #{UserID}
 	</update>
+
+	<select id="SelectStudentInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Student">
+		select
+		*
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
 	
+	<insert id="InsertWithdrawalStudent"
+		parameterType="com.mju.groupware.dto.Student">
+		insert into WithdrawalStudent (
+		WStudentGrade,
+		WStudentGender,
+		WStudentColleges,
+		WStudentMajor,
+		WStudentDoubleMajor,
+		WUserID
+		) values(
+		#{studentGrade},
+		#{studentGender},
+		#{studentColleges},
+		#{studentMajor},
+		#{studentDoubleMajor},
+		#{WUserID}
+		)
+	</insert>
+	
+	<update id="DeleteWithdrawalStudent"
+		parameterType="com.mju.groupware.dto.Student">
+		DELETE FROM Student
+		WHERE
+		UserID = #{UserID}
+	</update>
 </mapper>

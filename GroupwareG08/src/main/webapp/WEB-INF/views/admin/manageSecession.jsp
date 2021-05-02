@@ -140,21 +140,19 @@
 												<th>이메일</th>
 												<th>직책</th>
 												<th>권한</th>
-												<th>접속기록</th>
 											</tr>
 											<hr>
 										</thead>
-										<c:forEach items="${WithdrawalList}" var="WithdrawalList" varStatus="status">
+										<c:forEach items="${SelectWithdrawalUserList}" var="SelectWithdrawalUserList" varStatus="status">
 											<tr>
-												<td><input type="checkbox" name="RowCheck" class="check" value="${WithdrawalList.getUserLoginID()}"/></td>
+												<td><input type="checkbox" name="RowCheck" class="check" value="${SelectWithdrawalUserList.getWUserLoginID()}"/></td>
 												<td><c:out value="${status.count}" /></td>
-												<td><c:out value="${WithdrawalList.getUserLoginID()}" /></td>
-												<td><c:out value="${WithdrawalList.getUserName()}" /></td>
-												<td><c:out value="${WithdrawalList.getUserPhoneNum()}" /></td>
-												<td><c:out value="${WithdrawalList.getUserEmail()}" /></td>
-												<td><c:out value="${WithdrawalList.getUserRole()}" /></td>
-												<td><c:out value="${WithdrawalList.getAuthority()}" /></td>
-												<td><c:out value="${WithdrawalList.getLoginDate()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWUserLoginID()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWUserName()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWUserPhoneNum()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWUserEmail()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWUserRole()}" /></td>
+												<td><c:out value="${SelectWithdrawalUserList.getWAuthority()}" /></td>
 											</tr>
 										</c:forEach>
 									</table>

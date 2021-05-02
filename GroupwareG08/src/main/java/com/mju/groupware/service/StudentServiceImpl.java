@@ -61,4 +61,19 @@ public class StudentServiceImpl implements StudentService {
 		studentDao.UpdateStudentMajor(student);
 	}
 
+	@Override
+	public Student SelectStudentInfo(String userID) {
+		return studentDao.SelectStudentInfo(userID);
+	}
+
+	@Override
+	public void InsertWithdrawalStudent(Student student) {
+		studentDao.InsertWithdrawalStudent(student);
+	}
+
+	@Override
+	public void DeleteWithdrawalStudent(Student student) {
+		studentDao.DeleteWithdrawalStudent(student);
+	}
+
 }

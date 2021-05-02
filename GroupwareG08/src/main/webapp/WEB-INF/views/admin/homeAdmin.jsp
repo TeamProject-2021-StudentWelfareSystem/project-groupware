@@ -50,11 +50,11 @@
                         <li id="homeTab" class="tMenu">
                           <a href="homeLogin"><span class="tmenuPackMover">홈</span></a>
                         </li>
-                         <li id="mailTab" class="tMenu">
-                          <a href="emailLogin"><span class="tmenuPackMover">메일</span></a>
+                             <li id="mailTab" class="tMenu">
+                          <a href=""><span class="tmenuPackMover">메일</span></a>
                         </li>
                         <li id="gboardTab" class="tMenu">
-                          <a href="emailList"><span class="tmenuPackMover">게시판</span></a>
+                          <a href=""><span class="tmenuPackMover">게시판</span></a>
                         </li>
                         <li id="rectureRoomTab" class="tMenu">
                           <a href=""><span class="tmenuPackMover">강의실</span></a>

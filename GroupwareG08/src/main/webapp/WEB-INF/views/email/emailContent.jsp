@@ -1,8 +1,5 @@
 <!-- 이메일 내용 출력 화면 -->
 
-<% response.setHeader("Cache-Control","no-store"); response.setHeader("Pragma","no-cache"); response.setDateHeader("Expires",0); if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -96,30 +93,25 @@
 						</section>
 						<section>
 							<div class="section2">
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-								<table id="contentTable">
-									<tr id="title">
-										<td><input type="text" name="EmailTitle" id="emailTitle"
-											class="inputBox" placeholder="제목" disabled readonly
-											value=${EmailTitle}></td>
-									</tr>
-									<tr id="receive">
-										<td colspan="2"><input type="text" name="EmailSender"
-											id="emailSender" class="inputBox" placeholder="보낸 이" disabled
-											readonly value=${EmailSender}> <input type="text"
-											name="EmailDate" id="emailDate" class="inputBox"
-											placeholder="날짜" disabled readonly value=${EmailDate}></td>
-									</tr>
-									<tr id="content">
-										<td>														
-					                 <c:out value="${EmailContent}" escapeXml="false" />
-
-									</tr>
-								</table>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<table id="contentTable" >
+										<tr id="title">
+											<td><input type="text" name="EmailTitle" id="emailTitle" 
+											class="inputBox" placeholder="제목" disabled readonly value=${EmailTitle}></td>
+										</tr>
+										<tr id="receive">
+											<td colspan="2"><input type="text" name="EmailSender" id="emailSender" 
+											class="inputBox" placeholder="보낸 이" disabled readonly value=${EmailSender}>
+											<input type="text" name="EmailDate" id="emailDate" 
+											class="inputBox" placeholder="날짜" disabled readonly value=${EmailDate}></td>
+										</tr>
+										<tr id="content">
+											<td><input type="text" name="EmailContent" id="emailContent" 
+											class="inputBox" placeholder="내용" disabled readonly value=${EmailContent}></td>
+										</tr>
+									</table>
 								<hr>
-								<a href="emailList"><input type="button" value="목록"
-									id="listButton"></a>
+									<a href="emailList"><input type="button" value="목록" id="listButton"></a>
 							</div>
 							<!-- section2 -->
 						</section>

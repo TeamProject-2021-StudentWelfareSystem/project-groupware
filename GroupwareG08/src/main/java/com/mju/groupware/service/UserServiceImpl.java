@@ -207,4 +207,19 @@ public class UserServiceImpl implements UserService {
 		userDao.UpdateOpenGrade(user);
 	}
 
+	@Override
+	public User SelectUserInfo(String userLoginID) {
+		return userDao.SelectUserInfo(userLoginID);
+	}
+
+	@Override
+	public void InsertWithdrawalUser(User userInfo) {
+		userDao.InsertWithdrawalUser(userInfo);
+	}
+
+	@Override
+	public void DeleteWithdrawalUser(User user) {
+		userDao.DeleteWithdrawalUser(user);
+	}
+
 }

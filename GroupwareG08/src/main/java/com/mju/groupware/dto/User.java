@@ -18,6 +18,15 @@ public class User {
 	private String OpenPhoneNum;
 	private String OpenMajor;
 	private String OpenGrade;
+	private int WUserID;
+
+	public int getWUserID() {
+		return WUserID;
+	}
+
+	public void setWUserID(int wUserID) {
+		WUserID = wUserID;
+	}
 
 	public String getOpenName() {
 		return OpenName;
