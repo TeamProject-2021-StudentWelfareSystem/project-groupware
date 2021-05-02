@@ -11,7 +11,7 @@ update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박�
 delete from WithdrawalUser where WUserName = "탈퇴";
 delete from WithdrawalUser where WUserName = "자퇴";
 delete from User where UserName = "새내기";
-delete from UserEmail where UserEmail = "lovebus5045@mju.ac.kr";
+
 # insert 모음
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
@@ -55,7 +55,7 @@ update User set Authority = "ROLE_ADMIN" where UserID = 1;
 update User set LoginDate = "2020-1-30" where UserName = "배트맨";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
-update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="박지수";
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 
 create table User(
