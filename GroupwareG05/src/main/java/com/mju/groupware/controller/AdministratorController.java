@@ -542,33 +542,5 @@ public class AdministratorController {
 	public String manageModifyProfessor() {
 		return "/admin/manageModifyProfessor";
 	}
-
-	@RequestMapping(value = "/emailLogin", method = RequestMethod.GET)
-	public String emailLoginDO2() {
-
-		return "/email/emailLogin";
-	}
-
-	@RequestMapping(value = "/emailLogin", method = RequestMethod.POST)
-	public String emailLoginDO(HttpServletRequest request, Model model) {
-		String id = request.getParameter("EmailLoginID");
-		String pw = request.getParameter("EmailLoginPwd");
-		System.out.println(id + " " + pw);
-		List<String> EmailList = emailService.printEmailList(id, pw);// 보낸이 + 제목 + 내용
-		System.out.println(EmailList.get(0));
-		for (int i = 0; i < EmailList.size(); i++) {
-			model.addAttribute("emailList", EmailList);
-
-		}
-		return "redirect:/email/emailList";
-	}
-	
-	
-	
-
-	@RequestMapping(value = "/emailList", method = RequestMethod.GET)
-	public String emailList() {
-		return "/email/emailList";
-	}
-
+		
 }

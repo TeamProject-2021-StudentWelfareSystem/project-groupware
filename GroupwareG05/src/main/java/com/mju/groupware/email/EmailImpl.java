@@ -1,7 +1,5 @@
 package com.mju.groupware.email;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -27,9 +25,9 @@ public class EmailImpl implements Email {
 	private String UserEmail;
 	private String UserPwd;
 	private String ToEmail;
-	private String ToName;
 	private String Subject;
 	private String Content;
+	private List<String> ContentList;
 
 	public EmailImpl() {
 		this.Host = "smtp.gmail.com";
@@ -86,8 +84,8 @@ public class EmailImpl implements Email {
 		List<String> list = new ArrayList<String>();
 		List<String> Fromlist = new ArrayList<String>();
 		List<String> SubjectList = new ArrayList<String>();
-		List<String> ContentList = new ArrayList<String>();
-		int counter = 0;
+		ContentList = new ArrayList<String>();
+
 		// Get session
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -132,16 +130,13 @@ public class EmailImpl implements Email {
 				SubjectList.add(subject);
 				String content = message[i].getContent() + "\t";
 				ContentList.add(content);
-				counter++;
+				
 				// 첨부파일이 있을 경우 파일에다가 mail을 붙인다.
 			}
 
 			for (int i = 0; i < Fromlist.size(); i++) {
 				list.add(Fromlist.get(i));
 				list.add(SubjectList.get(i));
-				list.add(ContentList.get(i));
-				System.out.println(list.get(i));
-
 			}
 
 			// Close connection

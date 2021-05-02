@@ -522,7 +522,7 @@ public class UserFunctionController {
 		for (int i = 0; i < emailList.size() / 3; i++) {
 
 			for (int j = 0; j < 3; j++) {
-
+                  //
 				model.addAttribute("emailList", emailList);
 
 			}
