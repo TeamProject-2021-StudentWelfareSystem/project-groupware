@@ -578,4 +578,9 @@ public class UserFunctionController {
 
 		return "/email/emailContent";
 	}
+	
+	@RequestMapping(value = "/bulletinContent", method = RequestMethod.GET)
+	public String bulletinContent() {
+		return "/bulletinBoard/bulletinContent";
+	}
 }
