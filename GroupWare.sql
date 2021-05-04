@@ -69,7 +69,7 @@ UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
 Enabled boolean not null default 1, # 활성화:1 비활성화:0
 LoginDate date, #로그인날짜
-OpenName varchar(20) not null default '비공개', # 공개:1, 비공개:0, 정보공개여부
+OpenName varchar(20) not null default '비공개', # 정보공개여부
 OpenEmail varchar(20) not null default '비공개',
 OpenMajor varchar(20) not null default '비공개',
 OpenGrade varchar(20) not null default '비공개',
@@ -128,7 +128,8 @@ WUserEmail varchar(100) not null unique key,
 WUserLoginID varchar(30) binary not null unique key,
 WUserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 WAuthority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
-WEnabled boolean not null default 0 # 활성화:1 비활성화:0
+WEnabled boolean not null default 0, # 활성화:1 비활성화:0
+WithdrawalDate date not null
 );
 
 create table WithdrawalStudent(
@@ -148,6 +149,7 @@ WStudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
+WithdrawalDate date not null,
 WUserID int, foreign key (WStudentID) references WithdrawalUser(WUserID) on delete cascade on update cascade
 );
 
@@ -162,7 +164,25 @@ WProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문�
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
+WithdrawalDate date not null,
 WUserID int, foreign key (WProfessorID) references WithdrawalUser(WUserID) on delete cascade on update cascade
+);
+
+create table Team(
+TeamID int auto_increment not null primary key,
+TeamName varchar(50) not null, 
+TeamLeaderName varchar(20) not null,
+UserID int, foreign key (TeamID) references User(UserID) on delete cascade on update cascade,
+StudentID int, foreign key (TeamID) references Student(StudentID) on delete cascade on update cascade
+);
+
+create table Class(
+ClassID int auto_increment not null primary key,
+ClassName varchar(50) not null,
+ClassProfessorName varchar(20) not null,
+TeamID int, foreign key (ClassID) references Team(TeamID) on delete cascade on update cascade,
+UserID int, foreign key (ClassID) references User(UserID) on delete cascade on update cascade,
+StudentID int, foreign key (ClassID) references Student(StudentID) on delete cascade on update cascade
 );
 
 # 하루 한 번 인증번호 삭제
@@ -185,10 +205,24 @@ CREATE
     
 # Withdrawal 업데이트 테스트하기 위한 스케쥴러
 CREATE
-   Event withdrawal_Scheduler_test ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
+   Event Dormant_Scheduler_test ON SCHEDULE EVERY 1 day STARTS '2021-04-09'
     DO
     UPDATE User set Dormant = 1 WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month);
 
+# 탈퇴계정 6개월 후 데이터 삭제
+CREATE
+	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+    DO
+    DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+CREATE
+	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+    DO
+    DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+CREATE
+	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+    DO
+    DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+    
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
 DROP EVENT Dormant_Scheduler;
