@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	   
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:security="http://www.springframework.org/schema/security"
+   	   xsi:schemaLocation="http://www.springframework.org/schema/security 
+   	   http://www.springframework.org/schema/security/spring-security.xsd
+	   http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+<context:component-scan base-package="com.mju.groupware" />
+<bean id="UsersDetailsService" class="com.mju.groupware.security.UsersDetailsService" autowire="byType" />
+<bean id="AdminLoginSuccessHandler" class="com.mju.groupware.security.AdminLoginSuccessHandler" />
+<bean id="LoginSuccessHandler" class="com.mju.groupware.security.LoginSuccessHandler" />
+
+	<!-- 관리자 -->
+	<security:http pattern="/admin/**" auto-config="true" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+	
+	<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/admin/adminlogin.do"
+		login-page="/mjuAdminLogin" 
+		default-target-url="/admin/homeAdmin"  
+		authentication-failure-url="/mjuAdminLogin?error=1" 
+		authentication-success-handler-ref="AdminLoginSuccessHandler" /> 
+		<!-- default-target-url : 로그인 성공시 url -->
+		<!-- authentication-success-handler-ref="AdminLoginSuccessHandler" : 로그인 성공 후 부가작업 -->
+		<!-- authentication-failure-handler-ref="AdminLoginFailureHandler" : 로그인 실패 후 부가작업(아직 구현하지 않음) -->
+				
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />		
+		
+	</security:http>
+	
+	<!-- 이메일 보기(읽기) -->	
+	<security:http pattern="/email/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/email/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home/homeLogin"  
+		authentication-failure-url="/login?error=1" 
+		authentication-success-handler-ref="LoginSuccessHandler" /> 
+		<!-- default-target-url : 로그인 성공시 url -->
+		<!-- authentication-success-handler-ref="LoginSuccessHandler" : 로그인 성공 후 부가작업 -->
+		<!-- authentication-failure-handler-ref="LoginFailureHandler" : 로그인 실패 후 부가작업(아직 구현하지 않음) -->
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+	
+	</security:http>
+		
+	<!-- 사용자 -->	
+	<security:http pattern="/**" auto-config="true" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+  		<security:intercept-url pattern="/**" access="permitAll"/>	  		
+	
+	<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home/homeLogin"  
+		authentication-failure-url="/login?error=1" 
+		authentication-success-handler-ref="LoginSuccessHandler" /> 
+		<!-- default-target-url : 로그인 성공시 url -->
+		<!-- authentication-success-handler-ref="LoginSuccessHandler" : 로그인 성공 후 부가작업 -->
+		<!-- authentication-failure-handler-ref="LoginFailureHandler" : 로그인 실패 후 부가작업(아직 구현하지 않음) -->
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="UsersDetailsService">
+			<security:password-encoder hash="bcrypt" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
