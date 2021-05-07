@@ -18,7 +18,6 @@
     <title>MJS Welfare System</title>
   </head>
   <body>
-    <div class="mjsWs">
       <div class="mheader">
 			<!--메뉴바 -->
 			<div class="menubar">
@@ -37,7 +36,7 @@
 										<input name="${_csrf.parameterName}" type="hidden"
 											value="${_csrf.token}" />
 									</form></li>
-									<li><a href="">문의</a></li>
+									<li><a href="${path}/inquiryList">문의</a></li>
 									<li><a href="">사이트맵</a></li>
 							</ul>
 						</nav>
@@ -48,7 +47,7 @@
 								<li><a href="${path}/email/emailLogin">메일</a></li>
 								<li><a href="${path}/communityList">게시판</a>
 									<ul id="subMenu">
-										<li><a href="${path}/inquiryList">공지사항</a></li>
+										<li><a href="${path}/noticeList">공지사항</a></li>
 										<li><a href="${path}/communityList">커뮤니티</a></li>
 										<li><a href="#">후기</a></li>
 									</ul></li>
@@ -81,6 +80,5 @@
             </div><!-- left_box -->
       </div><!-- mcont_width -->
    </div><!-- mbody -->
-    </div><!-- mjs_ws -->
   </body>
 </html>

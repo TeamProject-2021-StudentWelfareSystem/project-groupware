@@ -27,7 +27,7 @@
 <title>manage page</title>
 </head>
 <body>
-	<jsp:include page="adminMenubar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/admin/adminMenubar.jsp"></jsp:include>
 		<nav>
 			<div class="mbody">
 				<div class="mcontWidth">

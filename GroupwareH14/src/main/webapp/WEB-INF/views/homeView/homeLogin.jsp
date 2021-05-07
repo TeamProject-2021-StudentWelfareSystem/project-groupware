@@ -18,7 +18,7 @@
     <title>MJS Welfare System</title>
   </head>
   <body>
-	<jsp:include page="menubar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>
 
 	<div class="mbody">
         <div class="mcontWidth">
