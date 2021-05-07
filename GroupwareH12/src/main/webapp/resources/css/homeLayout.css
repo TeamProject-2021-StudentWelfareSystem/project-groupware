@@ -92,4 +92,10 @@ a {
 }
 #sc, #userName, #userMajor, #grade{
 	border:0px;
+	background-color: white;
+	font-size: 15px;
+	width: 100px;
+}
+h4 {
+	color: skyblue;
 }

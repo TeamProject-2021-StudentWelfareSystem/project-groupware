@@ -37,14 +37,14 @@
 										value="${_csrf.token}" />
 								</form></li>
 							<li><a href="${path}/inquiryList">문의</a></li>
-							<li><a href="${path}/myPage?R=${UserRole}">마이페이지</a></li>
+							 <li><a href="${path}/admin/manageList">관리자 메뉴</a></li>
 							<li><a href="">사이트맵</a></li>
 						</ul>
 					</nav>
 					<!-- 메뉴 -->
 					<nav id="navigation2">
 						<ul id="topMenu">
-							<li><a href="homeLogin">홈</a></li>
+							<li><a href="${path}/admin/homeAdmin">홈</a></li>
 							<li><a href="${path}/email/emailLogin">메일</a></li>
 							<li><a href="${path}/communityList">게시판</a>
 								<ul id="subMenu">
