@@ -562,10 +562,14 @@ public class UserFunctionController {
 	@RequestMapping(value = "/email/emailList", method = RequestMethod.POST)
 	public String DoEmailLogin(HttpServletRequest request, Model model) {
 		// 여기서 아이디 비밀번호 확인후에 띄울지 말지
-		String ID = request.getParameter("EmailLoginID");
-		String Pwd = request.getParameter("EmailLoginPwd");
-		boolean CheckID = emailService.CheckEmailLogin(ID, Pwd);
+		// 여기 바꾸기
+		ConstantDoEmail constantDoEmail = (ConstantDoEmail) ctx.getBean("DoEmail");
 
+		String ID = request.getParameter("EmailLoginID");
+		boolean CheckID = emailService.CheckEmailLogin(ID, request.getParameter(constantDoEmail.getPwd()));
+
+		// id랑 profile Info role값을 건내줘요? role값을 주소단위로 수빈님이 role값과 현재 내가 준 id role값을
+		// 비교를해도되고 -> role값에 따라서 quth ->글쓰는 페이지로가지고 auth alter문출력
 		if (CheckID) {
 			return "redirect:/email/emailList";
 		} else {

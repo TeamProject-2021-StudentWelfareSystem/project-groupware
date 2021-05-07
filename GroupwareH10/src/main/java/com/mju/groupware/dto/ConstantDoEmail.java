@@ -6,6 +6,15 @@ public class ConstantDoEmail {
 	private String AuthUrl;
 	private String AgreeUrl;
 	private String AuthNum;
+	private String Pwd;
+
+	public String getPwd() {
+		return Pwd;
+	}
+
+	public void setPwd(String pwd) {
+		Pwd = pwd;
+	}
 
 	public String getAuthNum() {
 		return AuthNum;
