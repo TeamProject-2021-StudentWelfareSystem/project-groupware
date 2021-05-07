@@ -46,9 +46,12 @@
 								<td class="col1"><input type="text" class="inputBox"
 									name="EmailLoginID" id="eamilLoginID" autofocus
 									autocomplete="off" value="${EmailLoginID}" placeholder="ID"></td>
+								<td class="col1">
+									 <input type="text" class="inputBox" value="@mju.ac.kr" disabled readonly>
+								</td>
 							</tr>
 							<tr>
-								<td class="col1"><input type="password" class="inputBox"
+								<td class="col1" colspan="2"><input type="password" class="inputBox"
 									name="EmailLoginPwd" id="emailLoginPW" autocomplete="off"
 									value="${EmailLoginPwd}" placeholder="Password"> <i
 									class="fa fa-eye fa-lg" id="icon"></i></td>

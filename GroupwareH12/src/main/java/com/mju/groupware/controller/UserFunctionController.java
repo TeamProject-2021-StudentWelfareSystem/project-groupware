@@ -580,8 +580,9 @@ public class UserFunctionController {
 	@RequestMapping(value = "/email/emailList", method = RequestMethod.POST)
 	public String DoEmailLogin(HttpServletRequest request, Model model) {
 		// 여기서 아이디 비밀번호 확인후에 띄울지 말지
-		String ID = request.getParameter("EmailLoginID");
+		String id = request.getParameter("EmailLoginID");
 		String Pwd = request.getParameter("EmailLoginPwd");
+		String ID = id + "@mju.ac.kr";
 		boolean CheckID = emailService.CheckEmailLogin(ID, Pwd);
 
 		if (CheckID) {
@@ -591,6 +592,13 @@ public class UserFunctionController {
 		}
 	}
 
+	@RequestMapping(value="/board/noticeList", method= RequestMethod.POST)
+	public String DoWrite(HttpServletRequest request, Model model) {
+		
+		
+		return "redirect:/board/noticeWrite";
+		
+	}
 	// 이메일 리스트 화면
 	@RequestMapping(value = "/email/emailList", method = RequestMethod.GET)
 	public String emailList(HttpServletRequest request, Model model) {
