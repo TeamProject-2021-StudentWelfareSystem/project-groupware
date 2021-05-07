@@ -170,6 +170,26 @@
 												disabled readonly name="email" id="mju" class="inputBox"
 												autocomplete="off"></td>
 										</tr>
+										<tr>
+											<td class="col1"><label for="infoOpen">정보 공개</label></td>
+											<td class="col2"><input type="text" name="UserInfoOpen"
+												id="userInfoOpen" class="inputBox" autocomplete="off"
+												disabled readonly value=${UserInfoOpen}></td>
+										</tr>
+										<!-- StudentController 정보공개 부분 수정이 완료되면 주석처리 풀어주세요 -->
+										<!--<c:forEach items="${UserInfoOpen}" var="UserInfoOpen" varStatus="status">
+											<tr>
+												<td class="col1"><label for="infoOpen">정보 공개</label></td>
+												<td class="col2"><input type="text" name="UserInfoOpen"
+													id="userInfoOpen" class="inputBox" autocomplete="off"
+													disabled readonly> <c:out
+														value="${UserInfoOpen.getOpenName()}" /> <c:out
+														value="${UserInfoOpen.getOpenEmail()}" /> <c:out
+														value="${UserInfoOpen.getOpenPhoneNum()}" /> <c:out
+														value="${UserInfoOpen.getOpenMajor()}" /> <c:out
+														value="${UserInfoOpen.getOpenGrade()}" /></td>
+											</tr>
+										</c:forEach>-->
 									</table>
 								</form>
 							</div>
