@@ -27,9 +27,8 @@
 	</bean>
 
 	<bean id="DoEmail" class="com.mju.groupware.dto.ConstantDoEmail">
-
-		<property name="EPwd">
-			<value>${EPwd}</value>
+		<property name="Pwd">
+			<value>${Pwd}</value>
 		</property>
 		<property name="AuthNum">
 			<value>${AuthNum}</value>

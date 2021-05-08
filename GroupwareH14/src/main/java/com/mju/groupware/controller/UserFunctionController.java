@@ -583,8 +583,9 @@ public class UserFunctionController {
 		// 여기 바꾸기
 		ConstantDoEmail constantDoEmail = (ConstantDoEmail) ctx.getBean("DoEmail");
 
-		String ID = request.getParameter("EmailLoginID") + "@mju.ac.kr"; // @mju.ac.kr <- constant 처리 부탁드립니다
-		boolean CheckID = emailService.CheckEmailLogin(ID, request.getParameter(constantDoEmail.getPwd()));
+		String ID = request.getParameter("EmailLoginID") + constantDoEmail.getEmailAdress(); // @mju.ac.kr <- constant
+																								// 처리 부탁드립니다
+		boolean CheckID = emailService.CheckEmailLogin(ID, request.getParameter(constantDoEmail.getEPwd()));
 
 		// id랑 profile Info role값을 건내줘요? role값을 주소단위로 수빈님이 role값과 현재 내가 준 id role값을
 		// 비교를해도되고 -> role값에 따라서 quth ->글쓰는 페이지로가지고 auth alter문출력

@@ -1,5 +1,6 @@
 package com.mju.groupware.email;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -36,16 +37,15 @@ public class EmailImpl implements Email {
 
 	public EmailImpl() {
 		// 컨테이너 생성 및 xml 파일 로드
-		GenericXmlApplicationContext CTX 
-				= new GenericXmlApplicationContext();
+		GenericXmlApplicationContext CTX = new GenericXmlApplicationContext();
 		CTX.load("classpath:/xmlForProperties/Email.xml");
 		CTX.refresh();
-		
+
 		// 빈 객체 받아오기
-		this.Constant = (ConstantAdminEmail)CTX.getBean("emailCertification");
-		
+		this.Constant = (ConstantAdminEmail) CTX.getBean("emailCertification");
+
 		// 프로퍼티 값 확인
-		this.Host =Constant.getHost();
+		this.Host = Constant.getHost();
 		this.UserEmail = Constant.getHostEmail();
 		this.UserPwd = Constant.getHostPwd();
 	}
@@ -55,8 +55,20 @@ public class EmailImpl implements Email {
 		this.ToEmail = email;
 		// 제목 설정
 		this.Subject = this.Constant.getSubject();
+		try {
+			Subject = new String(Subject.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		// 추후에 DB에 이문구도 저장하여 가져올 예정
 		this.Content = Constant.getContentBeforeNum() + Num + Constant.getContentAfterNum();
+		try {
+			Content = new String(Content.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Properties Properties = new Properties();
 		Properties.put(this.Constant.getMailSmtpAuth(), true);
 		Session session = Session.getDefaultInstance(Properties);
@@ -142,14 +154,13 @@ public class EmailImpl implements Email {
 				Address from = message[i].getFrom()[0];
 				String sFrom = from + "\t";
 				// 온전한 이메일주소찾오는거
-				
+
 				if (sFrom.indexOf("<") != -1) {
 					location = sFrom.indexOf("<");
 					if (sFrom.indexOf(">") != -1) {
 						location2 = sFrom.indexOf(">");
 					}
 				}
-				
 
 				if (location != 0 && location2 != 0 && sFrom.contains("<") && sFrom.contains(">")) {
 					sFrom = sFrom.substring(location + 1, location2); // 그냥 location하면 /까지 출력됨
@@ -168,7 +179,8 @@ public class EmailImpl implements Email {
 						MimeBodyPart part = (MimeBodyPart) multipart.getBodyPart(k);
 						content = part.getContent().toString();
 					}
-				} else if (contentType.contains(this.Constant.getTextPlain()) || contentType.contains(this.Constant.getTextHtml())) {
+				} else if (contentType.contains(this.Constant.getTextPlain())
+						|| contentType.contains(this.Constant.getTextHtml())) {
 					String ObjectContent = message[i].getContent().toString();
 					if (ObjectContent != null) {
 						content = ObjectContent.toString();
@@ -199,6 +211,7 @@ public class EmailImpl implements Email {
 				date = date.replaceAll(this.Constant.getNov(), this.Constant.getNumNov());
 				date = date.replaceAll(this.Constant.getDec(), this.Constant.getNumDec());
 				
+				date = new String(date.getBytes("iso-8859-1"), "utf-8");
 				// 일반 빈칸을 html이 인식할 수 있는 공백으로 변환
 				date = date.replaceAll(" ", "&nbsp;");
 				// KST를 제거한다.

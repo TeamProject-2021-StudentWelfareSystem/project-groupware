@@ -1,5 +1,6 @@
 package com.mju.groupware.dao;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,12 @@ public class StudentDaoImpl implements StudentDao {
 					StudentGrade = Item.getStudentGrade();
 					if (Item.getStudentDoubleMajor() == null) {
 						StudentDoubleMajor = this.Constant.getNoDoubleMajor();
+						try {
+							StudentDoubleMajor = new String(StudentDoubleMajor.getBytes("iso-8859-1"), "utf-8");
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					} else {
 						StudentDoubleMajor = Item.getStudentDoubleMajor();
 

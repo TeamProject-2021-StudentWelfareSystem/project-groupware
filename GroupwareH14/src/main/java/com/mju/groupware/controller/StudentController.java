@@ -32,14 +32,13 @@ public class StudentController {
 	private String StudentGrade;
 	private String UserMajorForShow;
 	private String UserName;
-	
+
 	public StudentController() {
 		// 컨테이너 생성 및 xml 파일 로드
-		GenericXmlApplicationContext CTX 
-				= new GenericXmlApplicationContext();
+		GenericXmlApplicationContext CTX = new GenericXmlApplicationContext();
 		CTX.load("classpath:/xmlForProperties/StudentController.xml");
 		CTX.refresh();
-		this.Constant = (ConstantAdminStudentController)CTX.getBean("StudentControllerID");
+		this.Constant = (ConstantAdminStudentController) CTX.getBean("StudentControllerID");
 	}
 
 	@RequestMapping(value = "/signupStudent", method = RequestMethod.GET)
@@ -137,21 +136,25 @@ public class StudentController {
 		}
 
 		// 정보공개여부 선택
-		if (request.getParameter(this.Constant.getUserName()) != null) {
+		System.out.println(this.Constant.getUserNameForOpen());
+
+		if (request.getParameter(this.Constant.getUserNameForOpen()) != null) {
+			System.out.println(1);
 			String OpenName = "이름";
 			user.setOpenName(OpenName);
 			userService.UpdateOpenName(user);
-		} else if (request.getParameter(this.Constant.getUserName()) == null) {
+		} else if (request.getParameter(this.Constant.getUserNameForOpen()) == null) {
+			System.out.println(2);
 			String NotOpen = "비공개";
 			user.setOpenName(NotOpen);
 			userService.UpdateOpenName(user);
 		}
 
-		if (request.getParameter("UserEmail") != null) {
+		if (request.getParameter(this.Constant.getUserEmail()) != null) {
 			String OpenEmail = "이메일";
 			user.setOpenEmail(OpenEmail);
 			userService.UpdateOpenEmail(user);
-		} else if (request.getParameter("UserEmail") == null) {
+		} else if (request.getParameter(this.Constant.getUserEmail()) == null) {
 			String NotOpen = "비공개";
 			user.setOpenEmail(NotOpen);
 			userService.UpdateOpenEmail(user);
@@ -167,21 +170,21 @@ public class StudentController {
 			userService.UpdateOpenPhoneNum(user);
 		}
 
-		if (request.getParameter("UserMajor") != null) {
+		if (request.getParameter(this.Constant.getUserMajor()) != null) {
 			String OpenMajor = "전공";
 			user.setOpenMajor(OpenMajor);
 			userService.UpdateOpenMajor(user);
-		} else if (request.getParameter("UserEmail") == null) {
+		} else if (request.getParameter(this.Constant.getUserMajor()) == null) {
 			String NotOpen = "비공개";
 			user.setOpenMajor(NotOpen);
 			userService.UpdateOpenMajor(user);
 		}
 
-		if (request.getParameter("UserGrade") != null) {
+		if (request.getParameter(this.Constant.getUserGrade()) != null) {
 			String OpenGrade = "학년";
 			user.setOpenGrade(OpenGrade);
 			userService.UpdateOpenGrade(user);
-		} else if (request.getParameter("UserGrade") == null) {
+		} else if (request.getParameter(this.Constant.getUserGrade()) == null) {
 			String NotOpen = "비공개";
 			user.setOpenGrade(NotOpen);
 			userService.UpdateOpenGrade(user);
