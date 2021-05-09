@@ -83,11 +83,7 @@
 		FROM
 		user
 		where
-		OpenName = "이름" 
-		or OpenEmail ="이메일" 
-		or OpenMajor ="전공"
-		or OpenGrade = "학년"
-		or OpenPhoneNum = "전화번호"
+		UserLoginID = #{userLoginID}	
 	</select>
 
 	<select id="SelectMyPageInfoByID"
