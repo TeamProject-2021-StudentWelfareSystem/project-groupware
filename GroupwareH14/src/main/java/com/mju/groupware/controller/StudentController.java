@@ -103,9 +103,10 @@ public class StudentController {
 		model.addAttribute("UserEmail", Email);
 
 		// 정보공개여부
-		System.out.println(SelectOpenInfo);
-		if(!SelectOpenInfo.equals("Error")) {
-			model.addAttribute("UserInfoOpen", SelectOpenInfo);			
+		if (!SelectOpenInfo.equals("Error")) {
+			model.addAttribute("UserInfoOpen", SelectOpenInfo);
+		} else {
+			model.addAttribute("UserInfoopen", "없음");
 		}
 
 		return "/mypage/myPageStudent";

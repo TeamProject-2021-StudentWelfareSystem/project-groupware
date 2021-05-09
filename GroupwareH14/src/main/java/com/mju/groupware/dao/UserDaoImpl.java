@@ -350,10 +350,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<UserInfoOpen> SelectOpenInfo(String userID) {
+	public List<UserInfoOpen> SelectOpenInfo() {
 		// TODO Auto-generated method stub
-		List<UserInfoOpen> UserInfoOpen = this.sqlSession.selectList("SelectOpenInfo", userID);
-		System.out.println(UserInfoOpen);
+		List<UserInfoOpen> UserInfoOpen = this.sqlSession.selectList(this.Constant.getSelectOpenInfo());
 		return UserInfoOpen;
 	}
 }

@@ -85,5 +85,5 @@ public interface UserDao {
 
 	public void DeleteWithdrawalUserList(WithdrawalUser withdrawalUser);
 
-	public List<UserInfoOpen> SelectOpenInfo(String userID);
+	public List<UserInfoOpen> SelectOpenInfo();
 }

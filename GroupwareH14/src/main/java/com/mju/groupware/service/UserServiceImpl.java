@@ -235,23 +235,24 @@ public class UserServiceImpl implements UserService {
 	public String SelectOpenInfo(String userID) {
 		// XML화해야할지 팀원들과 얘기하기
 		// 추후 Entity로 옮겨야함
-		List<UserInfoOpen> SelectOpenInfo = userDao.SelectOpenInfo(userID);
-		String result = "Error";
-		if (SelectOpenInfo.get(0).getUserLoginID().equals(userID)) {
-			result = SelectOpenInfo.get(0).getOpenEmail() + SelectOpenInfo.get(0).getOpenGrade()
-					+ SelectOpenInfo.get(0).getOpenMajor() + SelectOpenInfo.get(0).getOpenName()
-					+ SelectOpenInfo.get(0).getOpenPhoneNum();
-			if (result.contains("비공개")) {
-				result = result.replaceAll("비공개", "");
-				return result;
-			} else {
-				return result;
-			}
+		List<UserInfoOpen> SelectOpenInfo = userDao.SelectOpenInfo();
+		String result = "";
+		for (int i = 0; i < SelectOpenInfo.size(); i++) {
+			if (SelectOpenInfo.get(i).getUserLoginID().equals(userID)) {
+				result = SelectOpenInfo.get(i).getOpenEmail()+","+ SelectOpenInfo.get(i).getOpenGrade()
+					+","+ SelectOpenInfo.get(i).getOpenPhoneNum()+","+SelectOpenInfo.get(i).getOpenName();
+				if (result.contains(",비공개")||result.contains("비공개")) {
+					result = result.replaceAll(",비공개", "");
+					result = result.replaceAll("비공개", "");
 
-		} else {
-			
-			return result;
+				}
+				break;
+			} else {
+				result = "Error";
+			}
 		}
+
+		return result;
 
 	}
 

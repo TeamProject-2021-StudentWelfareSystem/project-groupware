@@ -119,6 +119,9 @@
 		<property name="DeleteWithdrawalUserList">
 			<value>${DeleteWithdrawalUserList}</value>
 		</property>
+			<property name="SelectOpenInfo">
+			<value>${SelectOpenInfo}</value>
+		</property>
 		
 	</bean>
 </beans>
