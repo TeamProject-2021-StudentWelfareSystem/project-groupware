@@ -1,9 +1,11 @@
 package com.mju.groupware.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserInfoOpen;
 import com.mju.groupware.dto.WithdrawalUser;
 
 public interface UserService {
@@ -75,5 +77,7 @@ public interface UserService {
 	public void DeleteWithdrawalUser(User user);
 
 	public void DeleteWithdrawalUserList(WithdrawalUser withdrawalUser);
+
+	public String SelectOpenInfo(String userID);
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.mju.groupware.dto.ConstantAdminUserDao;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserInfoOpen;
 import com.mju.groupware.dto.WithdrawalUser;
 import com.mju.groupware.security.UsersDetails;
 
@@ -20,12 +21,14 @@ import com.mju.groupware.security.UsersDetails;
 @Repository
 public class UserDaoImpl implements UserDao {
 	private ConstantAdminUserDao Constant;
+
 	public UserDaoImpl() {
 		GenericXmlApplicationContext CTX = new GenericXmlApplicationContext();
 		CTX.load("classpath:/xmlForProperties/UserDao.xml");
 		CTX.refresh();
 		this.Constant = (ConstantAdminUserDao) CTX.getBean("UserDaoID");
 	}
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	// 이름
@@ -344,5 +347,13 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void DeleteWithdrawalUserList(WithdrawalUser withdrawalUser) {
 		sqlSession.delete(this.Constant.getDeleteWithdrawalUserList(), withdrawalUser);
+	}
+
+	@Override
+	public List<UserInfoOpen> SelectOpenInfo(String userID) {
+		// TODO Auto-generated method stub
+		List<UserInfoOpen> UserInfoOpen = this.sqlSession.selectList("SelectOpenInfo", userID);
+		System.out.println(UserInfoOpen);
+		return UserInfoOpen;
 	}
 }

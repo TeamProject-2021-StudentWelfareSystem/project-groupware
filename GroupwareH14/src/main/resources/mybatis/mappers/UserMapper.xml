@@ -76,6 +76,20 @@
 		UserLoginID = #{userLoginID}
 	</select>
 
+	<select id="SelectOpenInfo" parameterType="java.lang.String"
+		resultType="com.mju.groupware.dto.UserInfoOpen">
+		SELECT
+		*
+		FROM
+		user
+		where
+		OpenName = "이름" 
+		or OpenEmail ="이메일" 
+		or OpenMajor ="전공"
+		or OpenGrade = "학년"
+		or OpenPhoneNum = "전화번호"
+	</select>
+
 	<select id="SelectMyPageInfoByID"
 		parameterType="java.lang.String"
 		resultType="com.mju.groupware.dto.User">
@@ -108,11 +122,12 @@
 		SELECT
 		UserName,
 		UserId,
-	 	UserRole
+		UserRole
 		FROM
 		user
 		where
-		UserLoginID = #{id}
+		UserLoginID =
+		#{id}
 	</select>
 
 	<select id="SelctForIDConfirm" parameterType="String"
@@ -331,13 +346,14 @@
 		#{WithdrawalDate}
 		)
 	</insert>
-	
+
 	<delete id="DeleteWithdrawalUser" parameterType="String">
-		DELETE from User 
+		DELETE from User
 		where UserLoginID = #{UserLoginID}
 	</delete>
 	<delete id="DeleteWithdrawalUserList" parameterType="String">
-      DELETE from WithdrawalUser
-      where WUserLoginID = #{WUserLoginID}
-   </delete>
+		DELETE from
+		WithdrawalUser
+		where WUserLoginID = #{WUserLoginID}
+	</delete>
 </mapper>

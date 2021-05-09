@@ -91,7 +91,7 @@
                      <tr>
                         <td class="col1"><label for="infoOpen">정보 공개</label></td>
                         <td class="col2"><h5>정보 공개를 체크하면 해당 정보가 공개로 표시됩니다</h5>
-                           <input type="checkbox" name="UserName" id="cUserName" value="UserName">이름 &nbsp; 
+                           <input type="checkbox" name="UserNameForOpen" id="cUserName" value="UserName">이름 &nbsp; 
                            <input type="checkbox" name="UserEmail" id="cUserEmail" value="UserEmail">이메일 &nbsp; 
                            <input type="checkbox" name="UserPhone" id="cUserPhone" value="UserPhone">연락처 &nbsp;
                            <input type="checkbox" name="UserMajor" id="cUserMajor" value="UserMajor">전공 &nbsp; 

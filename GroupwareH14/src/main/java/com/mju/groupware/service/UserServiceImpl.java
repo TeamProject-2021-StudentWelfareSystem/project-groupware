@@ -1,6 +1,7 @@
 package com.mju.groupware.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.mju.groupware.dao.StudentDao;
 import com.mju.groupware.dao.UserDao;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserInfoOpen;
 import com.mju.groupware.dto.WithdrawalUser;
 
 @Service
@@ -167,11 +169,11 @@ public class UserServiceImpl implements UserService {
 		UserInfo = userDao.SelectMyPageUserInfoByID(mysqlID);
 		// 학생정보를 mysqlID를 통해서 받아온다.
 		StudentInfo = studentDao.SelectMyPageUserInfoByID(mysqlID);
-		//Data의 크기만큼 Info List에 채워준다.
+		// Data의 크기만큼 Info List에 채워준다.
 		for (int i = 0; i < UserInfo.size(); i++) {
 			Info.add(UserInfo.get(i));
 		}
-		//Data의 크기만큼 Info List에 채워준다.
+		// Data의 크기만큼 Info List에 채워준다.
 		for (int i = 0; i < StudentInfo.size(); i++) {
 			Info.add(StudentInfo.get(i));
 		}
@@ -197,7 +199,7 @@ public class UserServiceImpl implements UserService {
 	public void UpdateOpenPhoneNum(User user) {
 		userDao.UpdatePhoneNum(user);
 	}
-	
+
 	@Override
 	public void UpdateOpenMajor(User user) {
 		userDao.UpdateOpenMajor(user);
@@ -226,7 +228,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void DeleteWithdrawalUserList(WithdrawalUser withdrawalUser) {
 		userDao.DeleteWithdrawalUserList(withdrawalUser);
-		
+
+	}
+
+	@Override
+	public String SelectOpenInfo(String userID) {
+		// XML화해야할지 팀원들과 얘기하기
+		// 추후 Entity로 옮겨야함
+		List<UserInfoOpen> SelectOpenInfo = userDao.SelectOpenInfo(userID);
+		String result = "Error";
+		if (SelectOpenInfo.get(0).getUserLoginID().equals(userID)) {
+			result = SelectOpenInfo.get(0).getOpenEmail() + SelectOpenInfo.get(0).getOpenGrade()
+					+ SelectOpenInfo.get(0).getOpenMajor() + SelectOpenInfo.get(0).getOpenName()
+					+ SelectOpenInfo.get(0).getOpenPhoneNum();
+			if (result.contains("비공개")) {
+				result = result.replaceAll("비공개", "");
+				return result;
+			} else {
+				return result;
+			}
+
+		} else {
+			
+			return result;
+		}
+
 	}
 
 }

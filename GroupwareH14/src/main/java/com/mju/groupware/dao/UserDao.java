@@ -1,9 +1,11 @@
 package com.mju.groupware.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserInfoOpen;
 import com.mju.groupware.dto.WithdrawalUser;
 import com.mju.groupware.security.UsersDetails;
 
@@ -82,4 +84,6 @@ public interface UserDao {
 	public void DeleteWithdrawalUser(User user);
 
 	public void DeleteWithdrawalUserList(WithdrawalUser withdrawalUser);
+
+	public List<UserInfoOpen> SelectOpenInfo(String userID);
 }

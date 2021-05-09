@@ -2,6 +2,7 @@ package com.mju.groupware.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mju.groupware.dto.ConstantAdminStudentController;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
+import com.mju.groupware.dto.UserInfoOpen;
 import com.mju.groupware.service.StudentService;
 import com.mju.groupware.service.UserService;
 
@@ -77,6 +79,7 @@ public class StudentController {
 		ArrayList<String> SelectUserInfo = new ArrayList<String>();
 		SelectUserInfo = userService.SelectMyPageUserInfo(UserID);
 
+		String SelectOpenInfo = userService.SelectOpenInfo(UserID);
 		// jsp화면 설정
 		// 아이디 0
 		model.addAttribute(this.Constant.getUserLoginID(), SelectUserInfo.get(0));
@@ -98,6 +101,12 @@ public class StudentController {
 		int Idx = SelectUserInfo.get(3).indexOf("@"); // 메일에서 @의 인덱스 번호를 찾음
 		String Email = SelectUserInfo.get(3).substring(0, Idx);
 		model.addAttribute("UserEmail", Email);
+
+		// 정보공개여부
+		System.out.println(SelectOpenInfo);
+		if(!SelectOpenInfo.equals("Error")) {
+			model.addAttribute("UserInfoOpen", SelectOpenInfo);			
+		}
 
 		return "/mypage/myPageStudent";
 	}
@@ -136,8 +145,7 @@ public class StudentController {
 		}
 
 		// 정보공개여부 선택
-		System.out.println(this.Constant.getUserNameForOpen());
-
+		System.out.println(request.getParameter(this.Constant.getUserNameForOpen()));
 		if (request.getParameter(this.Constant.getUserNameForOpen()) != null) {
 			System.out.println(1);
 			String OpenName = "이름";
