@@ -95,3 +95,7 @@ thead {
 a {
 	color: black;
 }
+input{
+	border:0px;
+	background-color:white;
+}
