@@ -239,11 +239,16 @@ public class UserServiceImpl implements UserService {
 		String result = "Error";
 
 		result = SelectOpenInfo.get(0).getOpenEmail() + "," + SelectOpenInfo.get(0).getOpenGrade() + ","
-				+ SelectOpenInfo.get(0).getOpenPhoneNum() + "," + SelectOpenInfo.get(0).getOpenName();
-		if (result.contains(",비공개") || result.contains("비공개")||result.contains(",")) {
+				+ SelectOpenInfo.get(0).getOpenPhoneNum() + "," + SelectOpenInfo.get(0).getOpenMajor() + ","
+				+ SelectOpenInfo.get(0).getOpenName();
+		if (result.contains(",비공개") || result.contains("비공개")) {
 			result = result.replaceAll(",비공개", "");
 			result = result.replaceAll("비공개", "");
-			result = result.replaceAll(",", "");
+			int location = result.indexOf(",");
+			System.out.println(location);
+			if (location == 0 || location == result.length()) {
+				result = result.replace(",", "");
+			}
 		}
 
 		return result;
