@@ -240,9 +240,10 @@ public class UserServiceImpl implements UserService {
 
 		result = SelectOpenInfo.get(0).getOpenEmail() + "," + SelectOpenInfo.get(0).getOpenGrade() + ","
 				+ SelectOpenInfo.get(0).getOpenPhoneNum() + "," + SelectOpenInfo.get(0).getOpenName();
-		if (result.contains(",비공개") || result.contains("비공개")) {
+		if (result.contains(",비공개") || result.contains("비공개")||result.contains(",")) {
 			result = result.replaceAll(",비공개", "");
 			result = result.replaceAll("비공개", "");
+			result = result.replaceAll(",", "");
 		}
 
 		return result;

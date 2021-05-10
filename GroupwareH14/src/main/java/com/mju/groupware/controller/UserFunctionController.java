@@ -245,9 +245,9 @@ public class UserFunctionController {
 			return constantDoEmail.getAuthUrl();
 		} else if (UserEmail.equals("")) {
 			// 이메일을 입력해주세요
-		} else if (request.getParameter("EmailValid") != null && constantDoEmail.getAuthNum() != "") {
+		} else if (request.getParameter("EmailValid") != null && request.getParameter(constantDoEmail.getAuthNum()) != "") {
 
-			boolean Checker = userEmailService.SelectForCheckCertification(constantDoEmail.getAuthNum());
+			boolean Checker = userEmailService.SelectForCheckCertification(request.getParameter(constantDoEmail.getAuthNum()));
 			if (Checker) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter Out = response.getWriter();
