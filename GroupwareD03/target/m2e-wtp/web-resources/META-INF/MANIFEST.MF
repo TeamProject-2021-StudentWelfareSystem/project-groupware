@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: dlgus
-Build-Jdk: 13.0.2
-=======
-Built-By: ￬ﾠﾕ ￫ﾯﾼ
-Build-Jdk: 14.0.2
->>>>>>> 3eb6b0bde40e23d3e22a450ede787340ea438611
+Built-By: junyanee
+Build-Jdk: 15.0.1
 Created-By: Maven Integration for Eclipse
 
