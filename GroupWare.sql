@@ -6,6 +6,7 @@ show tables;
 
 # 로그인 날짜 입력
 update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
+update User set LoginDate = '2021-05-05' where UserName = "정민";
 
 # delete 모음
 delete from WithdrawalUser where WUserName = "탈퇴";
@@ -27,9 +28,12 @@ select userLoginID, userName from user where userloginID = "학번" and userName
 select * from User where Dormant = 1;
 select * from Student;
 select * from User;
+select * from Board;
 select * from UserEmail;
 select * from WithdrawalUser;
+select * from Class;
 select * from WithdrawalStudent;
+select * from Team;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 select WUserID from WithdrawalUser where WUserLoginID = '60212222';
@@ -42,6 +46,11 @@ drop table UserEmail;
 drop table WithdrawalUser;
 drop table WithdrawalStudent;
 drop table WithdrawalProfessor;
+drop table Team;
+drop table Class;
+drop table User_Class;
+drop table Board;
+drop table File;
 
 # update 모음
 update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
@@ -56,7 +65,10 @@ update User set LoginDate = "2020-1-30" where UserName = "배트맨";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
 update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
+update User set Authority = "ROLE_USER" where UserName = "탈퇴";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
+update User set OpenPhoneNum = "비공개";
+update User set UserName = '월,수 13:30-14:45' where UserName = "확인용";
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -78,6 +90,51 @@ Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이�
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
 
+create table Board(
+BoardID int auto_increment not null primary key,
+BoardSubject varchar(100) not null,
+BoardContent varchar(10000) not null,
+BoardWriter varchar(20) not null,
+BoardDate dateTime not null,
+UserID int, foreign key (BoardID) references User(UserID) on delete cascade on update cascade
+);
+
+create table File(
+FileID int auto_increment not null primary key,
+FileName varchar(200) not null,
+FileModifyName varchar(200),
+FileType varchar(100) not null,
+FileDate datetime not null,
+BoardID int, foreign key (FileID) references Board(BoardID) on delete cascade on update cascade
+);
+
+create table Class(
+ClassID int not null primary key, 
+ClassName varchar(50) not null, #강의이름
+ClassProfessorName varchar(50) not null, #교수
+ClassType varchar(30) not null #강의종류(전필, 교양 etc)
+);
+
+create table User_Class(
+ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
+UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
+); 
+
+create table Team(
+TeamID int auto_increment not null primary key,
+TeamName varchar(50) not null,
+TeamLeaderName varchar(20) not null,
+TeamCreationDate Date not null,
+ClassID int, foreign key (TeamID) references Class(ClassID) on delete cascade on update cascade
+);
+
+create table Reservation(
+ReservationNo int not null primary key,
+RoomLocation varchar(20) not null,
+RoomFloor int not null,
+MaxNumOfPeople int not null,
+RoomType varchar(20) not null
+);
 # 회원가입 전 인증메일
 create table UserEmail(
 UserEmailID int auto_increment not null primary key,
@@ -168,21 +225,17 @@ WithdrawalDate date not null,
 WUserID int, foreign key (WProfessorID) references WithdrawalUser(WUserID) on delete cascade on update cascade
 );
 
-create table Team(
-TeamID int auto_increment not null primary key,
-TeamName varchar(50) not null, 
-TeamLeaderName varchar(20) not null,
-UserID int, foreign key (TeamID) references User(UserID) on delete cascade on update cascade,
-StudentID int, foreign key (TeamID) references Student(StudentID) on delete cascade on update cascade
-);
-
 create table Class(
 ClassID int auto_increment not null primary key,
 ClassName varchar(50) not null,
 ClassProfessorName varchar(20) not null,
-TeamID int, foreign key (ClassID) references Team(TeamID) on delete cascade on update cascade,
-UserID int, foreign key (ClassID) references User(UserID) on delete cascade on update cascade,
-StudentID int, foreign key (ClassID) references Student(StudentID) on delete cascade on update cascade
+UserID int, foreign key (ClassID) references User(UserID) on delete cascade on update cascade
+);
+
+create table ClassTeam(
+TeamName varchar(50) not null primary key, 
+TeamLeaderName varchar(20) not null,
+UserID int, foreign key (TeamName) references User(UserID) on delete cascade on update cascade
 );
 
 # 하루 한 번 인증번호 삭제
