@@ -14,6 +14,7 @@ delete from WithdrawalUser where WUserName = "자퇴";
 delete from User where UserName = "새내기";
 
 # insert 모음
+insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,ReservationNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
 insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, StudentDoubleMajor, UserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 25);
@@ -37,6 +38,23 @@ select * from Team;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 select WUserID from WithdrawalUser where WUserLoginID = '60212222';
+select * from UserReservation;
+select * from LectureRoom;
+# 예약 가능한 강의실 검색하기 조건문 생각해보기
+select * from UserReservation where ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00' and ReservationDate = '2021-5-12';
+select * from UserReservation where ReservationDate = '2021-05-12' and 
+(ReservationStartTime >= '09:00:00' and ReservationEndTime <= '11:00:00') or 
+(ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00') or 
+(ReservationStartTime >= '13:00:00' and ReservationEndTime <= '15:00:00') or 
+(ReservationStartTime >= '15:00:00' and ReservationEndTime <= '17:00:00') or 
+(ReservationStartTime >= '17:00:00' and ReservationEndTime <= '19:00:00') or
+(ReservationStartTime >= '19:00:00' and ReservationEndTime <= '21:00:00');
+select ReservationNo, RoomLocation, ReservationDate, ReservationStartTime, ReservationStartTime
+from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
+select * from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
+
+# 유저가 예약하고자 하는 강의실을 선택 -> 해당 강의실을 선택하면 날짜 선택 -> 날짜 선택하면 해당 강의실No의 예약된 시간들을 select해옴
+# -> select해서 startTime, endTime의 시간들을 비교해서 없으면 예약 가능
 
 # drop 모음
 drop table Professor;
@@ -51,6 +69,7 @@ drop table Class;
 drop table User_Class;
 drop table Board;
 drop table File;
+drop table UserReservationDate;
 
 # update 모음
 update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
@@ -99,13 +118,13 @@ BoardDate dateTime not null,
 UserID int, foreign key (BoardID) references User(UserID) on delete cascade on update cascade
 );
 
-create table File(
-FileID int auto_increment not null primary key,
-FileName varchar(200) not null,
-FileModifyName varchar(200),
-FileType varchar(100) not null,
-FileDate datetime not null,
-BoardID int, foreign key (FileID) references Board(BoardID) on delete cascade on update cascade
+create table BoardFile(
+BFileID int auto_increment not null primary key,
+BFileName varchar(200) not null,
+BFileModifyName varchar(200),
+BFileType varchar(100) not null,
+BFilePath varchar(100) not null,
+BoardID int, foreign key (BFileID) references Board(BoardID) on delete cascade on update cascade
 );
 
 create table Class(
@@ -115,7 +134,7 @@ ClassProfessorName varchar(50) not null, #교수
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
-create table User_Class(
+create table UserClass(
 ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
 UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
 ); 
@@ -125,16 +144,38 @@ TeamID int auto_increment not null primary key,
 TeamName varchar(50) not null,
 TeamLeaderName varchar(20) not null,
 TeamCreationDate Date not null,
-ClassID int, foreign key (TeamID) references Class(ClassID) on delete cascade on update cascade
+ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
 
-create table Reservation(
-ReservationNo int not null primary key,
+create table TeamFile(
+TFileID int auto_increment not null primary key,
+TFileName varchar(200) not null,
+TFileModifyName varchar(200),
+TFileType varchar(100) not null,
+TFilePath varchar(200) not null,
+TeamID int, foreign key (TFileID) references Team(TeamID) on delete cascade on update cascade
+);
+
+create table UserReservation(
+ReservationDate date not null,
+ReservationStartTime time not null, 
+ReservationEndTime time not null,
+ReservationNumOfPeople int not null, #인원
+ReservationNo int, foreign key (ReservationNo) references Reservation(ReservationNo) on delete cascade on update cascade,
+UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
+);
+
+select * from UserReservation;
+select * from LectureRoom;
+
+create table LectureRoom(
+LectureRoomNo int not null primary key,
 RoomLocation varchar(20) not null,
 RoomFloor int not null,
 MaxNumOfPeople int not null,
 RoomType varchar(20) not null
 );
+
 # 회원가입 전 인증메일
 create table UserEmail(
 UserEmailID int auto_increment not null primary key,
