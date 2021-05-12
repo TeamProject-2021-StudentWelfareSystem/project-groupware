@@ -33,7 +33,7 @@ select * from WithdrawalStudent;
 select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentID = '1';
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 select WUserID from WithdrawalUser where WUserLoginID = '60212222';
-
+select * from user where OpenName = '이름';
 # drop 모음
 drop table Professor;
 drop table Student;
