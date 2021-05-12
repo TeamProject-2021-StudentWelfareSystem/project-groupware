@@ -79,12 +79,8 @@
 										<input type="button" value="←" id="leftList"> <input
 											type="button" value="1" id="pageList"> <input
 											type="button" value="→" id="rightList">
-										<c:set var="Role">
-											<c:if test="${Role eq 'ADMINISTRATOR'}">
 												<a href="${path}/noticeWrite"><input type="button"
 													value="글쓰기" id="write"></a>
-											</c:if>
-										</c:set>
 									</div>
 
 								</form>

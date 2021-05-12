@@ -50,40 +50,51 @@
 												class="inputBox" value=${InquiryTitle}></td>
 										</tr>
 										<tr>
-											<td colspan="2"><label for="writer">작성자 &nbsp; </label><input
+											<td colspan="2" id="writerPadding"><label for="writer">작성자 &nbsp; </label><input
 												type="text" name="InquiryWriter" id="inquiryWriter"
-												class="inputBox" value=${InquiryWriter}>
-												<label for="type">&nbsp;&nbsp; 민원분류 선택 &nbsp; </label>
-											<select name="InquiryType" id="inquiryType">
+												class="inputBox" value=${InquiryWriter}></td>
+										</tr>
+										<tr>
+											<td id="selectPadding">
+												<label for="type">&nbsp;&nbsp; 민원분류 &nbsp; </label>
+												<select name="InquiryType" id="inquiryType">
 												<option value="" selected>-선택-</option>
 												<option value="lectureRoom">강의실 예약/이용</option>
 												<option value="teamMembers">팀원관리</option>
 												<option value="community">커뮤니티</option>
 												<option value="review">후기</option>
 												<option value="suggestion">건의</option>
-											</select>
+												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><label for="email">이메일 &nbsp; </label><input
+											<td id="emailPadding"><label for="email">이메일 &nbsp; </label><input
 												type="text" name="InquiryEmail" id="inquiryEmail"
 												class="inputBox" value=${InquiryEmail}></td>
 										</tr>
 										<tr>
-											<td><label for="phoneNum">연락처 &nbsp; </label><input
+											<td id="numPadding"><label for="phoneNum">연락처 &nbsp; </label><input
 												type="text" name="InquiryPhoneNum" id="inquiryPhoneNum"
 												class="inputBox" value=${InquiryPhoneNum}></td>
+											<td>
+											</td>
 										</tr>
 										<tr>
 											
 										</tr>
 										<tr>
-											<td><textarea name="InquiryContent" id="inquiryContent"
+											<td id="contentPadding"><textarea name="InquiryContent" id="inquiryContent"
 												class="inputBox" placeholder="내용을 입력하세요"></textarea></td>
 										</tr>
 									</table>
 									<hr>
-
+									<table>
+									<tr>
+										<td><label for="attachment">첨부파일</label></td>
+										<td><input type="file" name="CommunityFile" id="communityFile"
+												class="inputBox" placeholder="파일을 첨부하세요."></td>
+									</tr>
+									</table>
 								</div>
 								<!-- section2 -->
 								<div>

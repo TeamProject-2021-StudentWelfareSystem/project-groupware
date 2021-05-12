@@ -71,6 +71,10 @@ table {
 	height: 30px;
 }
 
+#attachedFile{
+	width: 930px;
+	height:30px;
+}
 #communityContent, #inquiryContent, #noticeContent{
 	width: 1000px;
 	height: 500px;
@@ -78,11 +82,28 @@ table {
 	overflow: auto;
 }
 
-#communityWriter, #date, #inquiryWriter, #noticeWriter {
+#noticeWriter, #communityWriter{
+	width:493px;
+	height:30px;
+	font-size: 12pt;
+	overflow: auto;
+}
+#date, #inquiryWriter {
 	width: 493px;
 	height: 30px;
 }
-
+#content{
+	padding-left:65px;
+}
+#writerPadding, #emailPadding, #numPadding{
+	padding-right:515px;	
+}
+#selectPadding{
+	padding-right:745px;
+}
+#contentPadding{
+	padding-left:55px;
+}
 #inquiryType {
 	width: 300px;
 	height: 30px;
@@ -92,6 +113,11 @@ table {
 	width: 493px;
 	height: 30px;
 	text-align: left;
+}
+
+#noticeFile, #communityFile{
+	border:1px solid black;
+	width:1000px;
 }
 
 #btn {

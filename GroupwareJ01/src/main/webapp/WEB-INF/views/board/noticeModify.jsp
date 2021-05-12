@@ -53,22 +53,33 @@
 									value="${_csrf.token}" />
 								<table id="contentTable">
 									<tr>
-										<td><label for="title">제목 &nbsp; &nbsp; </label><input
+										<td><label for="title">제목 &nbsp; &nbsp; </label></td>
+										<td><input
 											type="text" name="NoticeTitle" id="noticeTitle"
 											class="inputBox" value=${NoticeTitle}></td>
 									</tr>
 									<tr>
-										<td><label for="writer">작성자 &nbsp; </label><input
-											type="text" name="NoticeWriter" id="noticeWriter"
-											class="inputBox" value=${NoticeWriter}></td>
+										<td><label for="writer">작성자 &nbsp;</label></td>
+											<td><input
+												type="text" name="NoticeWriter" id="noticeWriter"
+												class="inputBox"  value=${NoticeWriter} >
+												<input
+											type="text" name="Date" id="date" class="inputBox"
+											placeholder="날짜가 자동으로 입력됩니다." disabled readonly value=${BoardDate}></td>
 									</tr>
-									<tr>
-										<td><textarea name="NoticeContent" id="noticeContent"
+									<tr id="content">
+											<td colspan="2" id="content"><textarea name="NoticeContent" id="noticeContent"
 												class="inputBox" placeholder="내용을 입력하세요"></textarea></td>
-									</tr>
-								</table>
+										</tr>				
+									</table>
 								<hr>
-
+									<table>
+									<tr>
+										<td><label for="attachment">첨부파일</label></td>
+										<td><input type="file" name="CommunityFile" id="communityFile"
+												class="inputBox" placeholder="파일을 첨부하세요."></td>
+									</tr>
+									</table>
 							</div>
 							<!-- section2 -->
 							<div>

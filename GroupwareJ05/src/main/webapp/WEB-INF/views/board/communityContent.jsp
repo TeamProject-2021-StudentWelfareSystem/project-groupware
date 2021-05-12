@@ -48,9 +48,11 @@
 											disabled readonly value=${CommunityTitle}></td>
 									</tr>
 									<tr id="receive">
-										<td colspan="2"><input type="text" name="CommunityWriter"
+										<td colspan="2">
+										<input type="text" name="CommunityWriter"
 											id="communityWriter" class="inputBox" placeholder="작성자"
-											disabled readonly value=${CommunityWriter}> <input
+											disabled readonly value=${CommunityWriter}> 
+											<input
 											type="text" name="Date" id="date" class="inputBox"
 											placeholder="날짜" disabled readonly value=${BoardDate}>
 										</td>
@@ -63,7 +65,12 @@
 									</tr>
 								</table>
 								<hr>
-
+								<table>
+								<tr>
+										<td><label for="attachment">첨부파일</label></td>
+										<td><input type="text" class="attachedFile" name="AttachedFile" id="attachedFile"></td>
+									</tr>
+								</table>
 							</div>
 							<!-- section2 -->
 						</section>

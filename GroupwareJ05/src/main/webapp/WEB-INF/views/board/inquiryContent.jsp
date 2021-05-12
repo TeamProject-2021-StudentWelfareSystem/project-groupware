@@ -61,7 +61,12 @@
 									</tr>
 								</table>
 								<hr>
-
+								<table>
+								<tr>
+										<td><label for="attachment">첨부파일</label></td>
+										<td><input type="text" class="attachedFile" name="AttachedFile" id="attachedFile"></td>
+									</tr>
+								</table>
 							</div>
 							<!-- section2 -->
 						</section>
