@@ -14,12 +14,13 @@ delete from WithdrawalUser where WUserName = "자퇴";
 delete from User where UserName = "새내기";
 
 # insert 모음
-insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,ReservationNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
+insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,LectureRoomNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
 insert into UserEmail(UserEmail, UserCertificationNum, UserCertificationTime) values ("123@mju.ac.kr", "123456", date_format(NOW(), '%Y%m%d%H%m%s'));
 insert into User(UserName, UserPhoneNum, UserEmail, UserLoginID, UserLoginPwd) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","wjdals0426@");
 insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, StudentDoubleMajor, UserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 25);
 insert into WithdrawalUser(WUserName, WUserPhoneNum, WUserEmail, WUserLoginID, WUserRole) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","STUDENT");
 insert into WithdrawalStudent(WStudentGender, WStudentGrade, WStudentColleges, WStudentMajor, WStudentDoubleMajor, WUserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
+insert into Board(BoardSubject, BoardContent, BoardWriter, BoardDate, UserID) values ("1","2","정민","2021-05-12 00:00:00", 1);
 
 # alter 모음
 alter table User add Dormant boolean not null default 0;
@@ -30,6 +31,7 @@ select * from User where Dormant = 1;
 select * from Student;
 select * from User;
 select * from Board;
+select * from BoardFile;
 select * from UserEmail;
 select * from WithdrawalUser;
 select * from Class;
@@ -39,6 +41,7 @@ select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentI
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 select WUserID from WithdrawalUser where WUserLoginID = '60212222';
 select * from UserReservation;
+select * from UserClass;
 select * from LectureRoom;
 # 예약 가능한 강의실 검색하기 조건문 생각해보기
 select * from UserReservation where ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00' and ReservationDate = '2021-5-12';
@@ -66,10 +69,9 @@ drop table WithdrawalStudent;
 drop table WithdrawalProfessor;
 drop table Team;
 drop table Class;
-drop table User_Class;
+drop table UserClass;
 drop table Board;
 drop table BoardFile;
-drop table File;
 drop table UserReservationDate;
 
 # update 모음
@@ -84,12 +86,11 @@ update User set Authority = "ROLE_ADMIN" where UserID = 1;
 update User set LoginDate = "2020-1-30" where UserName = "배트맨";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
-update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserLoginID = '60181629';
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
 update User set Authority = "ROLE_USER" where UserName = "탈퇴";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 update User set OpenPhoneNum = "비공개";
 update User set UserName = '월,수 13:30-14:45' where UserName = "확인용";
-update Board set BoardHit = BoardHit + 1 where BoardID = '1';
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -121,14 +122,16 @@ UserID int not null,
 BoardHit int default 0,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
+select * from BoardFile;
+drop table Board;
 
 create table BoardFile(
 BFileID int auto_increment not null primary key,
-BFileName varchar(200) not null,
-BFileModifyName varchar(200),
-BFileType varchar(100) not null,
-BFilePath varchar(100) not null,
-BoardID int, foreign key (BFileID) references Board(BoardID) on delete cascade on update cascade
+BOriginalFileName varchar(200) not null,
+BStoredFileName varchar(200) not null,
+BFileSize int not null,
+BoardID int not null,
+foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
 
 create table Class(
@@ -139,8 +142,10 @@ ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
 create table UserClass(
-ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
-UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
+ClassID int not null,
+UserID int not null,
+foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade
 ); 
 
 create table Team(
@@ -148,7 +153,8 @@ TeamID int auto_increment not null primary key,
 TeamName varchar(50) not null,
 TeamLeaderName varchar(20) not null,
 TeamCreationDate Date not null,
-ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
+ClassID int not null,
+foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
 
 create table TeamFile(
@@ -157,7 +163,8 @@ TFileName varchar(200) not null,
 TFileModifyName varchar(200),
 TFileType varchar(100) not null,
 TFilePath varchar(200) not null,
-TeamID int, foreign key (TFileID) references Team(TeamID) on delete cascade on update cascade
+TeamID int not null,
+foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
 );
 
 create table LectureRoom(
@@ -296,15 +303,15 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     
