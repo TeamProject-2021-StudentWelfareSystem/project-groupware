@@ -45,8 +45,6 @@ a {
 
 h2 { color: skyblue; }
 
-
-
 a {
 	color: black;
 }
@@ -65,6 +63,9 @@ table {
 	background-color: white;
 }
 
+th, td{
+	padding: 8px;
+}
 
 #lectureRoomNo, #reservationDate, #reservationStartTime{
 	width: 300px;
@@ -75,8 +76,6 @@ table {
 	width: 100px;
 	height: 30px;
 }
-
-
 
 #selectPadding{
 	padding-right:745px;
