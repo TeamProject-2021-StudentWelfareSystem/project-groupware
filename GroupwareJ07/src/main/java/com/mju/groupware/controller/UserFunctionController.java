@@ -629,5 +629,7 @@ public class UserFunctionController {
 		}
 		return "/email/emailContent";
 	}
+	
+
 
 }

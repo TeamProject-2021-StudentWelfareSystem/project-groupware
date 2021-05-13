@@ -12,6 +12,10 @@ public class LectureRoomController {
 
 	// 강의실 리스트 /lectureRoom/lectureRoomList
 
+		@RequestMapping(value = "/lectureRoom/lectureRoomList", method = RequestMethod.GET)
+		public String lectureRoomList() {
+			return "/lectureRoom/lectureRoomList";
+		}
 	// 강의실 예약 화면
 	@RequestMapping(value = "/lectureRoom/reservation", method = RequestMethod.GET)
 	public String lectureRoomReservation(Locale locale, Model model) {

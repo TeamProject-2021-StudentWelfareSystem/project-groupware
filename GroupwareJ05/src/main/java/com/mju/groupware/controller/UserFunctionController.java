@@ -629,5 +629,9 @@ public class UserFunctionController {
 		}
 		return "/email/emailContent";
 	}
-
+	
+	@RequestMapping(value = "/lectureRoom", method = RequestMethod.GET)
+	public String lectureRoom() {
+		return "/reservation/lectureRoom";
+}
 }
