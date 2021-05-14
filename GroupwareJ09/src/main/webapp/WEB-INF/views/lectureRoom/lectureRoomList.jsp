@@ -19,9 +19,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/lectureRoomList.css" type="text/css">
-<link rel="stylesheet" href="css/menubar.css" type="text/css">
-<script src="js/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="../css/lectureRoomList.css" type="text/css">
+<link rel="stylesheet" href="../css/menubar.css" type="text/css">
+<script src="../js/jquery-3.5.1.min.js"></script>
 
 <title>manage page</title>
 </head>
@@ -60,7 +60,7 @@
 									</select> <input type="text" placeholder="검색어 입력하세요."> <input
 										type="submit" value="검색">
 								</div>
-								<form action="${path}/lectureRoomList.do" name="lectureRoomList"
+								<form action="${path}/lectureRoom/lectureRoomList.do" name="lectureRoomList"
 									method="POST" id="form">
 									<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}" />
@@ -83,9 +83,9 @@
 													
 													<td><c:out value="${status.count}" /></td>
 													<td><a
-														href="${path}/reservation?no={list.getLectureRoomNum()}">
+														href="${path}/lectureRoom/reservation?no={list.getLectureRoomNum()}">
 														<c:out value="${list.getLectureRoomNum()}" /></a></td>
-													<td><a href="${path}/reservation?no={list.getLectureRoomNum()}">
+													<td><a href="${path}/lectureRoom/reservation?no={list.getLectureRoomNum()}">
 														<c:out value="${list.getLectureRoomLocation()}" /></a></td>
 													<td><c:out value="${list.getFloor()}" /></td>
 													<td><c:out value="${list.getLectureRoomType()}" /></td>
@@ -103,8 +103,8 @@
 										<input type="button" value="←" id="leftList"> 
 										<input type="button" value="1" id="pageList"> 
 										<input type="button" value="→" id="rightList"> 
-										<a href="${path}/reservationConfirm"><input type="button" value="예약 확인" id="list"></a>
-										<a href="${path}/reservationModify"><input type="button" value="예약 수정" id="list"></a>
+										<a href="${path}/lectureRoom/reservationConfirm"><input type="button" value="예약 확인" id="list"></a>
+										<a href="${path}/lectureRoom/reservationModify"><input type="button" value="예약 수정" id="list"></a>
 									</div>
 								</form>
 							</div>

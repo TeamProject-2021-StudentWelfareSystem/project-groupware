@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LectureRoomController {
 
 	// 강의실 리스트 /lectureRoomList
-	@RequestMapping(value = "/lectureRoomList", method = RequestMethod.GET)
+	@RequestMapping(value = "/lectureRoom/lectureRoomList", method = RequestMethod.GET)
 	public String lectureRoomList(Locale locale, Model model) {
 		return "/lectureRoom/lectureRoomList";
 	}
 
 	// 강의실 예약 화면
-	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
+	@RequestMapping(value = "/lectureRoom/reservation", method = RequestMethod.GET)
 	public String lectureRoomReservation(Locale locale, Model model) {
 		return "/lectureRoom/reservation";
 	}
@@ -25,13 +25,13 @@ public class LectureRoomController {
 	// 예약 결과 /lectureRoomContent?Result?
 
 	// 강의실 예약 확인 화면
-	@RequestMapping(value = "/reservationConfirm", method = RequestMethod.GET)
+	@RequestMapping(value = "/lectureRoom/reservationConfirm", method = RequestMethod.GET)
 	public String lectureRoomReservationConfirm(Locale locale, Model model) {
 		return "/lectureRoom/reservationConfirm";
 	}
 
 	// 강의실 예약 화면
-	@RequestMapping(value = "/reservationModify", method = RequestMethod.GET)
+	@RequestMapping(value = "/lectureRoom/reservationModify", method = RequestMethod.GET)
 	public String lectureRoomReservationModify(Locale locale, Model model) {
 		return "/lectureRoom/reservationModify";
 	}

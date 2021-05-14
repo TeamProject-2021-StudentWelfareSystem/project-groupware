@@ -61,7 +61,7 @@
 									<li><a href="${path}/communityList">커뮤니티</a></li>
 									<li><a href="#">후기</a></li>
 								</ul></li>
-							<li><a href="${path}/lectureRoomList">강의실</a></li>
+							<li><a href="${path}/lectureRoom/lectureRoomList">강의실</a></li>
 							<li><a href="">일정관리</a></li>
 							<li><a href="">조회</a></li>
 							<li><a href="">팀원관리</a></li>

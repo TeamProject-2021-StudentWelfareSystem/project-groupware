@@ -12,8 +12,8 @@
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/lectureRoomContent.css" type="text/css">
-<link rel="stylesheet" href="css/menubar.css" type="text/css">
+<link rel="stylesheet" href="../css/lectureRoomContent.css" type="text/css">
+<link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -137,7 +137,7 @@
 								<!-- section2 -->
 								<div>
 									<input type="submit" value="수정" id="modifyButton">
-									<a href="${path}/lectureRoomList"><input type="button" value="이전" id="listButton"></a>
+									<a href="${path}/lectureRoom/lectureRoomList"><input type="button" value="이전" id="listButton"></a>
 								</div>
 							</form>
 						</section>
