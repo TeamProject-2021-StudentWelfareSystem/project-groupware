@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.BoardDao">
+
+	<!-- 글 작성 -->
+	<insert id="InsertBoard"
+		parameterType="com.mju.groupware.dto.Board">
+		insert into Board (
+		BoardSubject, BoardContent,
+		BoardWriter, BoardDate, UserID, BoardHit
+		) values(
+		#{BoardSubject}, #{BoardContent},
+		#{BoardWriter}, #{BoardDate}, #{UserID}, #{BoardHit}
+		)
+	</insert>
+	<!-- 파일 정보 작성 -->
+	<insert id="InsertFile" parameterType="hashMap">
+		insert into BoardFile (
+		BOriginalFileName, BStoredFileName, BFileSize,BoardID
+		) values(
+		#{OriginalFileName}, #{StoredFileName}, #{FileSize},#{Bno}
+		)
+	</insert>
+	<select id="SelectCommunityBoardList"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardWriter, BoardDate,
+		BoardHit from Board
+	</select>
+
+	<update id="UpdateHitCount">
+		update Board set BoardHit = BoardHit + 1 where BoardID = #{boardID}
+	</update>
+	<select id="SelectBoardID" parameterType="com.mju.groupware.dto.Board"
+		resultType="Integer">
+		Select
+		BoardID
+		From Board
+		Where
+		UserID = #{UserID} and BoardDate = #{BoardDate}
+	</select>
+	
+	<select id="SelectOneCommunityContent" resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardContent, BoardWriter, BoardDate, UserID from Board where BoardID = #{BoardID}
+	</select>
+	
+	<select id="SelectLoginUserID" parameterType = "com.mju.groupware.dto.Board" resultType="String">
+		select UserID from User where UserLoginID = #{loginID}
+	</select>
+	
+	<update id="UpdateModifiedContent" parameterType="com.mju.groupware.dto.Board">
+		update Board set BoardSubject = #{BoardSubject}, BoardWriter=#{BoardWriter}, BoardContent=#{BoardContent}, BoardDate = #{BoardDate}
+		 where BoardID = #{BoardID}
+	</update>
+	
+	<delete id = "DeleteCommunity" parameterType = "Integer">
+		delete from Board where BoardID = #{boardID}
+	</delete>
+</mapper>
