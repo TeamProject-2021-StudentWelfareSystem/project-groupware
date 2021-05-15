@@ -58,7 +58,7 @@
                *
                from BoardFile 
                where BoardID = #{BoardID}	
-               ORDER BY FILE_NO ASC
+               ORDER BY BFileID ASC
 	</select>
 	
 	<select id="SelectFileInfo" parameterType="hashMap" resultType="hashMap">

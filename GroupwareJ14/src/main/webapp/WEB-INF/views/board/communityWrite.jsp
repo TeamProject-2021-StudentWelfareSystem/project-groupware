@@ -18,6 +18,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardContent.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/boardContent.js"></script>
 
 <title>community write</title>
 </head>
@@ -72,11 +74,17 @@
 										<td><input type="file" name="UploadFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
+									<tr>
+										<td id="fileIndex" colspan="2">
+										</td>
+									</tr>
+									<tr>
+									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
+									</tr>
 									</table>
 								</div>
 								      <!-- section2 -->
 			                     <div>
-			                        <input type="file" name="UploadFile" value="파일찾기"> <br>
 			                        <br> <input type="submit" value="저장" id="saveButton">
 			                        <a href="${path}/communityList"><input type="button"
 			                           value="이전" id="listButton"></a>

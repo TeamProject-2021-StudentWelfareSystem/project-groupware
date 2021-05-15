@@ -37,8 +37,8 @@
 						</div>
 					</section>
 					<section>
-						<form action="CommunityModify.do?boardID=${BoardID}"
-							name="CommunityModify" method="POST" id="form" enctype="multipart/form-data">
+						<form action="CommunityModify.do?${_csrf.parameterName}=${_csrf.token}?boardID=${BoardID}"
+							name="CommunityModify" enctype="multipart/form-data" method="POST" id="form" >
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -68,7 +68,7 @@
 								<table>
 									<tr>
 										<td><label for="attachment">첨부파일</label></td>
-										<td><input type="file" name="BoardFile" id="boardFile"
+										<td><input type="file" name="CommunityFile" id="communityFile"
 											class="inputBox" placeholder="파일을 첨부하세요."></td>
                                         <td><button type="button" class="FileAddButton">파일추가</button></td>
 									</tr>
