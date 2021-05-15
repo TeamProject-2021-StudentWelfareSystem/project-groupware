@@ -51,7 +51,7 @@ public class BoardDaoImpl implements BoardDao {
 		int Bno = sqlSession.selectOne("SelectBoardID", board);
 		return Bno;
 	}
-	
+
 	@Override
 	public Board SelectOneCommunityContent(String boardID) {
 		return sqlSession.selectOne("SelectOneCommunityContent", boardID);
@@ -65,6 +65,18 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void UpdateModifiedContent(Board board) {
 		sqlSession.update("UpdateModifiedContent", board);
+	}
+
+	public List<Map<String, Object>> SelectFileList(int BNo) {
+		List<Map<String, Object>> SelectFileList = sqlSession.selectList("SelectFileList", BNo);
+
+		return SelectFileList;
+	}
+
+	@Override
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectFileInfo = sqlSession.selectOne("SelectFileInfo", map);
+		return SelectFileInfo;
 	}
 
 }

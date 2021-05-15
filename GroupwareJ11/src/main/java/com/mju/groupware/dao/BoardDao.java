@@ -7,22 +7,28 @@ import com.mju.groupware.dto.Board;
 
 public interface BoardDao {
 
-	void InsertBoardInfo(Board board);
+	public void InsertBoardInfo(Board board);
 
-	void InsertFile(Map<String, Object> map);
+	public void InsertFile(Map<String, Object> map);
 
-	List<Board> SelectCommunityBoardList();
+	public List<Board> SelectCommunityBoardList();
 
-	void UpdateHitCount(String boardID);
+	public void UpdateHitCount(String boardID);
 
-	void insertFile(Map<String, Object> map);
+	public void insertFile(Map<String, Object> map);
 
-	int SelectBoardID(Board board);
+	public int SelectBoardID(Board board);
 
-	Board SelectOneCommunityContent(String boardID);
+	public Board SelectOneCommunityContent(String boardID);
 
-	String SelectLoginUserID(String loginID);
+	public String SelectLoginUserID(String loginID);
 
-	void UpdateModifiedContent(Board board);
+	public void UpdateModifiedContent(Board board);
+
+	public List<Map<String, Object>> SelectFileList(int BNo);
+
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map);
+
+	
 
 }
