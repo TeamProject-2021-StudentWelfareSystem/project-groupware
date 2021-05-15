@@ -107,7 +107,6 @@ public class BoardController {
 		return "/board/communityWrite";
 	}
 
-	
 	@RequestMapping(value = "/communityWrite", method = RequestMethod.POST)
 	public String communityWriteDo(Principal principal, HttpServletRequest request, User user, Board board) {
 		Date Now = new Date();
@@ -166,14 +165,14 @@ public class BoardController {
 
 	@RequestMapping(value = "/FileDown")
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
+	
+		//xml처리는 준현맨이 해준다구!
 		Map<String, Object> resultMap = boardService.SelectFileInfo(map);
-		String storedFileName = (String) resultMap.get("STORED_FILE_NAME");
-		String originalFileName = (String) resultMap.get("ORG_FILE_NAME");
-
+		String storedFileName = (String) resultMap.get("BStoredFileName");
+		String originalFileName = (String) resultMap.get("BOriginalFileName");
 		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
 		byte fileByte[] = org.apache.commons.io.FileUtils
 				.readFileToByteArray(new File("F:\\mju\\file\\" + storedFileName));
-
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
 		response.setHeader("Content-Disposition",

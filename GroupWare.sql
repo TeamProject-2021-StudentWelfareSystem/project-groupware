@@ -125,11 +125,13 @@ foreign key (UserID) references User(UserID) on delete cascade on update cascade
 select * from BoardFile;
 drop table BoardFile;
 drop table Board;
+alter table BoardFile add BDelete boolean not null default 0;
 create table BoardFile(
 BFileID int auto_increment not null primary key,
 BOriginalFileName varchar(200) not null,
 BStoredFileName varchar(200) not null,
 BFileSize int,
+BDelete boolean not null default 0, # 활성화:1 비활성화:0
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
