@@ -9,7 +9,7 @@ function FileNameAddFile() {
 
 	var fileIndex = 1;
 		$("#fileAddButton").click(function(){
-			$("#fileIndex").append("<tr><td><input type='file' name='UploadFile' id='boardFile' class='inputBox' placeholder='파일을 첨부하세요.'></td></tr>")
+			$("#fileIndex").append("<tr><td><input type='file' name='file_"+(fileIndex++)+"' id='boardFile' class='inputBox' placeholder='파일을 첨부하세요.'></td></tr>")
 			$("#fileIndex").child().remove();
 		})
 		
