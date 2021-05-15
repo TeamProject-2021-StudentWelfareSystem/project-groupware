@@ -53,4 +53,10 @@
 		update Board set BoardSubject = #{BoardSubject}, BoardWriter=#{BoardWriter}, BoardContent=#{BoardContent}, BoardDate = #{BoardDate}
 		 where BoardID = #{BoardID}
 	</update>
+	<select id="SelectFileList" parameterType="int" resultType="hashMap">
+               SELECT 
+               *
+               from BoardFile 
+               where BoardID = #{BoardID}	
+	</select>
 </mapper>

@@ -71,6 +71,9 @@
                               <td><label for="attachment">첨부파일</label></td>
                               <td><input type="text" class="attachedFile"
                                  name="AttachedFile" id="attachedFile"></td>
+                                 <c:forEach var="file" items="${CommunityFile}">
+						<a href="#" onclick="fn_fileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)<br>
+					</c:forEach>
                            </tr>
                         </table>
                      </div>

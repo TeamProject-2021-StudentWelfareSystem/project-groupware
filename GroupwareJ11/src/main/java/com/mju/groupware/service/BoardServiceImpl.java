@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.InsertBoardInfo(board);
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		try {
-			
+
 			int BNo = boardDao.SelectBoardID(board);
 			board.setBno(BNo);
 			List<Map<String, Object>> list = BfileUtils.InsertFileInfo(board, multipartHttpServletRequest);
@@ -63,6 +63,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void UpdateModifiedContent(Board board) {
 		boardDao.UpdateModifiedContent(board);
+	}
+
+	@Override
+	public List<Map<String, Object>> SelectFileList(int BNo) {
+		List<Map<String, Object>> SelectFileList = boardDao.SelectFileList(BNo);
+		return SelectFileList;
 	}
 
 }

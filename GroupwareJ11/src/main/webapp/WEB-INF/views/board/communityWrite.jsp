@@ -76,7 +76,6 @@
 								</div>
 								      <!-- section2 -->
 			                     <div>
-			                        <input type="file" name="UploadFile" value="파일찾기"> <br>
 			                        <br> <input type="submit" value="저장" id="saveButton">
 			                        <a href="${path}/communityList"><input type="button"
 			                           value="이전" id="listButton"></a>

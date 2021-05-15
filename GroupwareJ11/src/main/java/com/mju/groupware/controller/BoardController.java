@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -134,9 +135,10 @@ public class BoardController {
 		model.addAttribute("Date", board.getBoardDate());
 		model.addAttribute("CommunityContent", board.getBoardContent());
 		model.addAttribute("BoardID", board.getBoardID());
-		
+
 		return "/board/communityModify";
 	}
+
 	@RequestMapping(value = "/CommunityModify.do", method = RequestMethod.POST)
 	public String communityModifyDO(Model model, Board board, HttpServletRequest request) {
 		Date Now = new Date();
@@ -151,9 +153,9 @@ public class BoardController {
 		board.setBoardWriter(Writer);
 		board.setBoardDate(Date.format(Now));
 		board.setBoardID(BoardID);
-		
+
 		boardService.UpdateModifiedContent(board);
-		
+
 		return "redirect:/communityList";
 	}
 
@@ -170,15 +172,20 @@ public class BoardController {
 		model.addAttribute("BoardDate", board.getBoardDate());
 		model.addAttribute("CommunityContent", board.getBoardContent());
 		model.addAttribute("BoardID", BoardID);
-		
+
 		String LoginID = principal.getName();
-		String UserID = boardService.SelectLoginUserID(LoginID);//로그인한 사람의 userID를 가져오기 위함
+		String UserID = boardService.SelectLoginUserID(LoginID);// 로그인한 사람의 userID를 가져오기 위함
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", board.getUserID());
-		
+
+		List<Map<String, Object>> SelectFileList = boardService.SelectFileList(Integer.parseInt(BoardID));
+		for (int i = 0; i < SelectFileList.size(); i++) {
+			System.out.println(SelectFileList.get(i));
+		}
+		model.addAttribute("CommunityFile", SelectFileList);
 		return "/board/communityContent";
 	}
-	
+
 	/*---------------------------------------------------------------------------------------*/
 	// 아래부터는 user 로그인 필요
 
@@ -241,5 +248,5 @@ public class BoardController {
 	public String dataManageModify(Locale locale, Model model) {
 		return "/board/dataManageModify";
 	}
-	
+
 }
