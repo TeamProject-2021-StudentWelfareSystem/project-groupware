@@ -16,7 +16,7 @@ import com.mju.groupware.dto.Board;
 
 @Component("fileUtils")
 public class BFileUtils {
-	private static final String filePath = "F:\\mju\\file"; // 파일이 저장될 위치
+	private static final String filePath = "F:\\mju\\file\\"; // 파일이 저장될 위치
 
 	public List<Map<String, Object>> InsertFileInfo(Board board, MultipartHttpServletRequest mpRequest)
 			throws Exception {

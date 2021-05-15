@@ -22,4 +22,6 @@ public interface BoardService {
 	public String SelectLoginUserID(String loginID);
 
 	public List<Map<String,Object>> SelectFileList(int BNo);
+
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map);
 }

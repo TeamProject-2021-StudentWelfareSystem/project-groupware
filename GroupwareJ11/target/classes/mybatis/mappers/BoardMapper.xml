@@ -59,4 +59,11 @@
                from BoardFile 
                where BoardID = #{BoardID}	
 	</select>
+	
+	<select id="SelectFileInfo" parameterType="hashMap" resultType="hashMap">
+               SELECT 
+               BOriginalFileName,BStoredFileName
+               from BoardFile 
+               where BFileID = #{BFileID}	
+	</select>
 </mapper>

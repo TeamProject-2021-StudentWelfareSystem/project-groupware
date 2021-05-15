@@ -18,6 +18,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardContent.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/boardContent.js"></script>
 
 <title>community content</title>
 </head>
@@ -71,8 +73,8 @@
 
 										<td><c:forEach var="CommunityFile"
 												items="${CommunityFile}">
-												<a href="#"
-													onclick="fn_fileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
+									<a href="#"
+										onclick="FileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
 										</c:forEach>
 										</td>
 									</tr>
@@ -89,9 +91,12 @@
 											type="button" id="modifyButton">수정</button></a>
 									<button type="submit" id="deleteButton">삭제</button>
 								</c:if>
-							</div>
+							</div>							
 						</form>
 					</section>
+						<form name ="readForm" role = "form" method = "post" >
+						<input type ="hidden" id="bFileID" name="BFileID" value="">
+						</form>
 				</div>
 				<!-- right_box -->
 			</div>

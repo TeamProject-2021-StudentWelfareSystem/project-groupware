@@ -1,5 +1,7 @@
 package com.mju.groupware.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,12 +10,14 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mju.groupware.dto.Board;
 import com.mju.groupware.dto.User;
@@ -103,6 +107,7 @@ public class BoardController {
 		return "/board/communityWrite";
 	}
 
+	
 	@RequestMapping(value = "/communityWrite", method = RequestMethod.POST)
 	public String communityWriteDo(Principal principal, HttpServletRequest request, User user, Board board) {
 		Date Now = new Date();
@@ -159,6 +164,26 @@ public class BoardController {
 		return "redirect:/communityList";
 	}
 
+	@RequestMapping(value = "/FileDown")
+	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
+		Map<String, Object> resultMap = boardService.SelectFileInfo(map);
+		String storedFileName = (String) resultMap.get("STORED_FILE_NAME");
+		String originalFileName = (String) resultMap.get("ORG_FILE_NAME");
+
+		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
+		byte fileByte[] = org.apache.commons.io.FileUtils
+				.readFileToByteArray(new File("F:\\mju\\file\\" + storedFileName));
+
+		response.setContentType("application/octet-stream");
+		response.setContentLength(fileByte.length);
+		response.setHeader("Content-Disposition",
+				"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
+		response.getOutputStream().write(fileByte);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+
+	}
+
 	// 커뮤니티 리스트에서 제목 선택시 내용 출력
 	@RequestMapping(value = "/communityContent", method = RequestMethod.GET)
 	public String communityContent(Principal principal, HttpServletRequest request, Model model, Board board) {
@@ -179,10 +204,8 @@ public class BoardController {
 		model.addAttribute("UserIDFromWriter", board.getUserID());
 
 		List<Map<String, Object>> SelectFileList = boardService.SelectFileList(Integer.parseInt(BoardID));
-		for (int i = 0; i < SelectFileList.size(); i++) {
-			System.out.println(SelectFileList.get(i));
-		}
 		model.addAttribute("CommunityFile", SelectFileList);
+
 		return "/board/communityContent";
 	}
 

@@ -27,4 +27,8 @@ public interface BoardDao {
 
 	public List<Map<String, Object>> SelectFileList(int BNo);
 
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map);
+
+	
+
 }

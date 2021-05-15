@@ -71,4 +71,11 @@ public class BoardServiceImpl implements BoardService {
 		return SelectFileList;
 	}
 
+	@Override
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectFileInfo = boardDao.SelectFileInfo(map);
+	
+		return SelectFileInfo;
+	}
+
 }
