@@ -14,12 +14,14 @@ function FileNameAddFile() {
 			$("#fileIndex").child().remove();
 		});
 		
-		$(document).on("click","#fileDel",function(){
-			$(this).parent().remove();
-			
-		});
+		
 	}
 		
+
+$(document).on("click","#fileDel",function(){
+	$(this).parent().remove();
+	
+});
 
 var fileNoArray = new Array();
 var fileNameArray = new Array();
