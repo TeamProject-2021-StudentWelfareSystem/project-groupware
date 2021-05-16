@@ -71,10 +71,18 @@
 									<tr>
 										<td><label for="attachment">첨부파일 :</label><br></td>
 
+<<<<<<< HEAD
 										<td><c:forEach var="CommunityFile" items="${CommunityFile}">
 												<a href="#" onclick="FileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
 										</c:forEach>
 										</td>
+=======
+										<td><c:forEach var="CommunityFile"
+												items="${CommunityFile}">
+												<a href="#"
+													onclick="FileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
+										</c:forEach></td>
+>>>>>>> J버전_Branch
 									</tr>
 								</table>
 							</div>

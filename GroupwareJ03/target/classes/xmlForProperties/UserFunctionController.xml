@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:property-placeholder
+		location="classpath:/properties/UserFunction.properties" />
+
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="Withdrawal"
+		class="com.mju.groupware.dto.ConstantWithdrawal">
+		<property name="Parameter1">
+			<value>${Parameter1}</value>
+		</property>
+		<property name="Parameter2">
+			<value>${Parameter2}</value>
+		</property>
+		<property name="Parameter3">
+			<value>${Parameter3}</value>
+		</property>
+		<property name="Url">
+			<value>${Url}</value>
+		</property>
+
+	</bean>
+
+	<bean id="DoEmail" class="com.mju.groupware.dto.ConstantDoEmail">
+
+		<property name="EPwd">
+			<value>${EPwd}</value>
+		</property>
+		<property name="AuthNum">
+			<value>${AuthNum}</value>
+		</property>
+		<property name="EmailAdress">
+			<value>${EmailAdress}</value>
+		</property>
+		<property name="DateFormat">
+			<value>${DateFormat}</value>
+		</property>
+		<property name="AuthUrl">
+			<value>${AuthUrl}</value>
+		</property>
+		<property name="AgreeUrl">
+			<value>${AgreeUrl}</value>
+		</property>
+	</bean>
+
+	<bean id="DoSignUp" class="com.mju.groupware.dto.ConstantDoSignUp">
+		<property name="SName">
+			<value>${SName}</value>
+		</property>
+		<property name="Pwd">
+			<value>${Pwd}</value>
+		</property>
+		<property name="PhoneNum">
+			<value>${PhoneNum}</value>
+		</property>
+		<property name="SNum">
+			<value>${SNum}</value>
+		</property>
+
+		<property name="SRole">
+			<value>${SRole}</value>
+		</property>
+
+	</bean>
+
+	<bean id="DoFindPassword"
+		class="com.mju.groupware.dto.ConstantDoFindPassword">
+		<property name="UName">
+			<value>${UName}</value>
+		</property>
+
+		<property name="AuthNum">
+			<value>${AuthNum}</value>
+		</property>
+
+		<property name="Pwd">
+			<value>${Pwd}</value>
+		</property>
+	</bean>
+
+
+</beans>

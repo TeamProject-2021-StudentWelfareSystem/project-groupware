@@ -143,6 +143,10 @@ public class BoardController {
 		// 수정된 file을 보여주는곳
 		List<Map<String, Object>> fileList = boardService.SelectFileList(Integer.parseInt(BoardID));
 		model.addAttribute("CommunityFile", fileList);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> J버전_Branch
 		return "/board/communityModify";
 	}
 

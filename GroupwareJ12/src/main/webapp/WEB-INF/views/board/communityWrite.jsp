@@ -75,11 +75,15 @@
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
 									<tr>
+<<<<<<< HEAD
 										<td id="fileIndex" colspan="2">
 										</td>
 									</tr>
 									<tr>
 									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
+=======
+									<td><button class="FileAddButton" type = "button">파일추가</button></td>
+>>>>>>> J버전_Branch
 									</tr>
 									</table>
 								</div>

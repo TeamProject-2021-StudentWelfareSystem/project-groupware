@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.BoardDao">
+
+	<!-- 글 작성 -->
+	<insert id="InsertBoard"
+		parameterType="com.mju.groupware.dto.Board">
+		insert into Board (
+			BoardSubject, BoardContent, BoardWriter, BoardDate, UserID
+		) values(
+			#{Title}, #{Content}, #{Writer}, #{Date}, #{UserID}
+		)
+	</insert>
+
+</mapper>

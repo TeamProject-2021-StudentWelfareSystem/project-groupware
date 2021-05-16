@@ -18,9 +18,12 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardContent.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
+<<<<<<< HEAD
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/boardContent.js"></script>
 
+=======
+>>>>>>> J버전_Branch
 
 <title>community modify</title>
 </head>
@@ -40,8 +43,13 @@
 						</div>
 					</section>
 					<section>
+<<<<<<< HEAD
 						<form action="CommunityModify.do?boardID=${BoardID}"
 							name="CommunityModify" method="POST" id="form" enctype="multipart/form-data">
+=======
+						<form action="CommunityModify.do?${_csrf.parameterName}=${_csrf.token}?boardID=${BoardID}"
+							name="CommunityModify" enctype="multipart/form-data" method="POST" id="form" >
+>>>>>>> J버전_Branch
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -71,6 +79,7 @@
 								<table>
 									<tr>
 										<td><label for="attachment">첨부파일</label></td>
+<<<<<<< HEAD
 										<td><input type="file" name="UploadFile" id="boardFile1"
 												class="inputBox" placeholder="파일을 첨부하세요." ></td>
 									</tr>
@@ -90,6 +99,13 @@
 									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
 									</tr>
 									</table>
+=======
+										<td><input type="file" name="CommunityFile" id="communityFile"
+											class="inputBox" placeholder="파일을 첨부하세요."></td>
+                                        <td><button type="button" class="FileAddButton">파일추가</button></td>
+									</tr>
+								</table>
+>>>>>>> J버전_Branch
 							</div>
 							<!-- section2 -->
 							<div>

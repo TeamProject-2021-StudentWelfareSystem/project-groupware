@@ -73,10 +73,16 @@
 
 										<td><c:forEach var="CommunityFile"
 												items="${CommunityFile}">
+<<<<<<< HEAD
 									<a href="#"
 										onclick="FileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
 										</c:forEach>
 										</td>
+=======
+												<a href="#"
+													onclick="FileDown('${CommunityFile.BFileID}'); return false;">${CommunityFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
+										</c:forEach></td>
+>>>>>>> J버전_Branch
 									</tr>
 								</table>
 							</div>
@@ -91,12 +97,23 @@
 											type="button" id="modifyButton">수정</button></a>
 									<button type="submit" id="deleteButton">삭제</button>
 								</c:if>
+<<<<<<< HEAD
 							</div>							
 						</form>
 					</section>
 						<form name ="readForm" role = "form" method = "post" >
 						<input type ="hidden" id="bFileID" name="BFileID" value="">
 						</form>
+=======
+							</div>
+						</form>
+					</section>
+					<form name="readForm" role="form" method="post">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <input type="hidden" id="bFileID"
+							name="BFileID" value="">
+					</form>
+>>>>>>> J버전_Branch
 				</div>
 				<!-- right_box -->
 			</div>
@@ -105,4 +122,8 @@
 		<!-- mbody -->
 	</nav>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> J버전_Branch
