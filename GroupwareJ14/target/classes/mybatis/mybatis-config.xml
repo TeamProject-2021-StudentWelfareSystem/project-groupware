@@ -13,7 +13,6 @@
 		<mapper resource="mybatis/mappers/UserEmailMapper.xml" />
 		<mapper resource="mybatis/mappers/OpenInfoMapper.xml" />
 		<mapper resource="mybatis/mappers/BoardMapper.xml" />
-		<mapper resource="mybatis/mappers/LectureRoomMapper.xml" />
 	</mappers>
 
 </configuration>

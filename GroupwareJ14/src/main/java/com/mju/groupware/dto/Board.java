@@ -1,6 +1,7 @@
 package com.mju.groupware.dto;
 
 public class Board {
+	private String BFileID;
 	private int Bno;
 	private String BoardSubject;
 	private String BoardWriter;
@@ -12,6 +13,14 @@ public class Board {
 	private String OriginalFileName;
 	private String StoredFileName;
 	private int FileSize;
+
+	public String getBFileID() {
+		return BFileID;
+	}
+
+	public void setBFileID(String bFileID) {
+		BFileID = bFileID;
+	}
 
 	public String getBoardContent() {
 		return BoardContent;

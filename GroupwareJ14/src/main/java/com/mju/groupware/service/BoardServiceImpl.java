@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.InsertBoardInfo(board);
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		try {
-			
+
 			int BNo = boardDao.SelectBoardID(board);
 			board.setBno(BNo);
 			List<Map<String, Object>> list = BfileUtils.InsertFileInfo(board, multipartHttpServletRequest);
@@ -61,13 +61,42 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void UpdateModifiedContent(Board board) {
+	public void UpdateModifiedContent(Board board, String[] FileList, String[] fileNameList, HttpServletRequest request) {
 		boardDao.UpdateModifiedContent(board);
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+
+		List<Map<String, Object>> list;
+		try {
+			list = BfileUtils.UpdateFileInfo(board, FileList, fileNameList, multipartHttpServletRequest);
+			Map<String, Object> TempMap = null;
+			int size = list.size();
+			for (int i = 0; i < size; i++) {
+				TempMap = list.get(i);
+				// 여기일단조심
+				if (TempMap.get("IsNew").equals("Y")) {
+					boardDao.InsertFile(TempMap);
+				} else {
+					boardDao.UpdateFile(TempMap);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
-	public void DeleteCommunity(int boardID) {
-		boardDao.DeleteCommunity(boardID);
+	public List<Map<String, Object>> SelectFileList(int BNo) {
+		List<Map<String, Object>> SelectFileList = boardDao.SelectFileList(BNo);
+		return SelectFileList;
+	}
+
+	@Override
+	public Map<String, Object> SelectFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectFileInfo = boardDao.SelectFileInfo(map);
+
+		return SelectFileInfo;
 	}
 
 }
