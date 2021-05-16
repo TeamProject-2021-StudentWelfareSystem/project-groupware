@@ -53,24 +53,8 @@
 		update Board set BoardSubject = #{BoardSubject}, BoardWriter=#{BoardWriter}, BoardContent=#{BoardContent}, BoardDate = #{BoardDate}
 		 where BoardID = #{BoardID}
 	</update>
-	<select id="SelectFileList" parameterType="int" resultType="hashMap">
-               SELECT 
-               *
-               from BoardFile 
-               where BoardID = #{BoardID}	
-               ORDER BY BFileID ASC
-	</select>
 	
-	<select id="SelectFileInfo" parameterType="hashMap" resultType="hashMap">
-               SELECT 
-               BOriginalFileName,BStoredFileName
-               from BoardFile 
-               where BFileID = #{BFileID}	
-	</select>
-	
-	<update id="UpdateFile" parameterType="hashMap">
-	UPDATE BoardFile SET
-	BDelete = 1
-	where BFileID =#{BFileID}	
-	</update>
+	<delete id = "DeleteCommunity" parameterType = "Integer">
+		delete from Board where BoardID = #{boardID}
+	</delete>
 </mapper>
