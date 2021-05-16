@@ -80,16 +80,15 @@
 										<tbody>
 											<c:forEach items="${list}" var="list" varStatus="status">
 												<tr>
-													
 													<td><c:out value="${status.count}" /></td>
 													<td><a
-														href="${path}/lectureRoom/reservation?no={list.getLectureRoomNum()}">
-														<c:out value="${list.getLectureRoomNum()}" /></a></td>
-													<td><a href="${path}/lectureRoom/reservation?no={list.getLectureRoomNum()}">
-														<c:out value="${list.getLectureRoomLocation()}" /></a></td>
-													<td><c:out value="${list.getFloor()}" /></td>
-													<td><c:out value="${list.getLectureRoomType()}" /></td>
-													<td><c:out value="${list.getMaximumPeople()}" /></td>
+														href="${path}/lectureRoom/reservation?no=${list.getLectureRoomNo()}">
+														<c:out value="${list.getLectureRoomNo()}" /></a></td>
+													<td><a href="${path}/lectureRoom/reservation?no=${list.getLectureRoomNo()}">
+														<c:out value="${list.getRoomLocation()}" /></a></td>
+													<td><c:out value="${list.getRoomFloor()}" /></td>
+													<td><c:out value="${list.getRoomType()}" /></td>
+													<td><c:out value="${list.getMaxNumOfPeople()}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>

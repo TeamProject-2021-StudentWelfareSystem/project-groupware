@@ -1,7 +1,6 @@
 package com.mju.groupware.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,19 +8,20 @@ import com.mju.groupware.dto.Board;
 
 public interface BoardService {
 
-	public void InsertBoard(Board board, HttpServletRequest request);
+//	void InsertBoardInfo(Board board, MultipartHttpServletRequest mpRequest);
 
-	public List<Board> SelectCommunityBoardList();
+	void InsertBoard(Board board, HttpServletRequest request);
 
-	public void UpdateHitCount(String boardID);
+	List<Board> SelectCommunityBoardList();
 
-	public Board SelectOneCommunityContent(String boardID);
+	void UpdateHitCount(String boardID);
 
-	public void UpdateModifiedContent(Board board, String[] FileList, String[] fileNameList, HttpServletRequest request);
+	Board SelectOneCommunityContent(String boardID);
 
-	public String SelectLoginUserID(String loginID);
+	void UpdateModifiedContent(Board board);
 
-	public List<Map<String, Object>> SelectFileList(int BNo);
+	String SelectLoginUserID(String loginID);
 
-	public Map<String, Object> SelectFileInfo(Map<String, Object> map);
+	void DeleteCommunity(int boardID);
+
 }

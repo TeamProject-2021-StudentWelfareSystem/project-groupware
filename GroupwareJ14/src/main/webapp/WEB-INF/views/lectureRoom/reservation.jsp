@@ -46,52 +46,15 @@
 							</div>
 						</section>
 						<section>
-							<form action="LectureRoomReservation.do" name="LectureRoomReservation" method="POST" id="form">
+							<form action="LectureRoomReservation.do?roomNum=${LectureRoomNo}" name="LectureRoomReservation" method="POST" id="form">
 								<div class="section2">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<table id="contentTable">
 										<tr>
 											<td><label for="roomNum">강의실 &nbsp; &nbsp; </label></td>
-											<td><select name="LectureRoomNo" id="lectureRoomNo">
-													<option value="1135" selected>1135</option>
-													<option value="1125">1125</option>
-													<option value="1150">1150</option>
-													<option value="1209">1209</option>
-													<option value="1213">1213</option>
-													<option value="1217">1217</option>
-													<option value="1221">1221</option>
-													<option value="1241">1241</option>
-													<option value="1246">1246</option>
-													<option value="1250">1250</option>
-													<option value="1254">1254</option>
-													<option value="1256">1256</option>
-													<option value="1321">1321</option>
-													<option value="1325">1325</option>
-													<option value="4112">4112</option>
-													<option value="4115">4115</option>
-													<option value="4217">4217</option>
-													<option value="4219">4219</option>
-													<option value="4325">4325</option>
-													<option value="4327">4327</option>
-													<option value="4415">4415</option>
-													<option value="4419">4419</option>
-													<option value="4501">4501</option>
-													<option value="4507">4507</option>
-													<option value="4509">4509</option>
-													<option value="4511">4511</option>
-													<option value="4513">4513</option>
-													<option value="4515">4515</option>
-													<option value="4519">4519</option>
-													<option value="4707">4707</option>
-													<option value="4709">4709</option>
-													<option value="4711">4711</option>
-													<option value="4713">4713</option>
-													<option value="4717">4717</option>
-													<option value="4718">4718</option>
-													<option value="4719">4719</option>
-													<option value="4720">4720</option>
-													<option value="9114">9114</option>											
-											</select></td>
+											<td><input type="text" name="LectureRoomNo" 
+												id="lectureRoomNo" class="inputBox" 
+												disabled readonly value=${LectureRoomNo}></td>
 										</tr>
 										<tr>
 											<td><label for="date">날짜 &nbsp; &nbsp; </label></td>
@@ -109,15 +72,49 @@
 										</tr>
 										<tr>
 											<td><label for="time">시간 &nbsp; &nbsp; </label></td>
+											<c:set var = "StartTime" value = "${StartTime}"/>
 											<td><select name="ReservationStartTime" id="reservationStartTime">
-													<option value=" " selected>-선택-</option>
-													<option value="09">09:00~11:00</option>
-													<option value="11">11:00~13:00</option>
-													<option value="13">13:00~15:00</option>
-													<option value="15">15:00~17:00</option>	
-													<option value="17">17:00~19:00</option>
-													<option value="19">19:00~21:00</option>									
+												<option value=" " selected>-선택-</option>
+												<option class="09:00:00" value="09:00~11:00">09:00~11:00</option>
+												<option class="11:00:00" value="11:00~13:00">11:00~13:00</option>
+												<option class="13:00:00" value="13:00~15:00">13:00~15:00</option>
+												<option class="15:00:00" value="15:00~17:00">15:00~17:00</option>	
+												<option class="17:00:00" value="17:00~19:00">17:00~19:00</option>
+												<option class="19:00:00" value="19:00~21:00">19:00~21:00</option>
 											</select></td>
+											<c:forEach items="${StartTime}" var="StartTime"
+												varStatus="status">
+											<c:if test="${StartTime.getReservationStartTime() == '09:00:00'}">
+												<script>
+												$("select option[class*='09:00:00']").prop('disabled',true);
+												</script>
+											</c:if>	
+											<c:if test="${StartTime.getReservationStartTime() == '11:00:00'}">
+												<script>
+												$("select option[class*='11:00:00']").prop('disabled',true);
+												</script>
+											</c:if>	
+											<c:if test="${StartTime.getReservationStartTime() == '13:00:00'}">
+												<script>
+												$("select option[class*='13:00:00']").prop('disabled',true);
+												</script>
+											</c:if>
+											<c:if test="${StartTime.getReservationStartTime() == '15:00:00'}">
+												<script>
+												$("select option[class*='15:00:00']").prop('disabled',true);
+												</script>
+											</c:if>	
+											<c:if test="${StartTime.getReservationStartTime() == '17:00:00'}">
+												<script>
+												$("select option[class*='17:00:00']").prop('disabled',true);
+												</script>
+											</c:if>	
+											<c:if test="${StartTime.getReservationStartTime() == '19:00:00'}">
+												<script>
+												$("select option[class*='19:00:00']").prop('disabled',true);
+												</script>
+											</c:if>
+											</c:forEach>
 										</tr>
 										<tr>
 											<td colspan="2"><label for="maxNum">최대인원 &nbsp; &nbsp; </label>

@@ -1,25 +1,18 @@
 package com.mju.groupware.controller;
 
-import java.io.File;
-import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.dto.Board;
 import com.mju.groupware.dto.User;
@@ -90,7 +83,10 @@ public class BoardController {
 	// 커뮤니티 리스트
 	@RequestMapping(value = "/communityList", method = RequestMethod.GET)
 	public String communityList(HttpServletRequest request, Model model, Principal principal) {
+		String UserLoginID = principal.getName();
+
 		List<Board> communityList = boardService.SelectCommunityBoardList();
+
 		model.addAttribute("communityList", communityList);
 
 		return "/board/communityList";
@@ -131,7 +127,6 @@ public class BoardController {
 	// 커뮤니티 글 수정
 	@RequestMapping(value = "/communityModify", method = RequestMethod.GET)
 	public String communityModify(Model model, Board board, Principal principal, HttpServletRequest request) {
-
 		String BoardID = request.getParameter("boardID");
 		board = boardService.SelectOneCommunityContent(BoardID);
 		model.addAttribute("CommunityTitle", board.getBoardSubject());
@@ -139,18 +134,11 @@ public class BoardController {
 		model.addAttribute("Date", board.getBoardDate());
 		model.addAttribute("CommunityContent", board.getBoardContent());
 		model.addAttribute("BoardID", board.getBoardID());
-
-		// 수정된 file을 보여주는곳
-		List<Map<String, Object>> fileList = boardService.SelectFileList(Integer.parseInt(BoardID));
-		model.addAttribute("CommunityFile", fileList);
 		
 		return "/board/communityModify";
 	}
-
 	@RequestMapping(value = "/CommunityModify.do", method = RequestMethod.POST)
-	public String communityModifyDO(Model model, Board board, HttpServletRequest request, RedirectAttributes rttr,
-			@RequestParam(value = "FileList[]") String[] FileList,
-			@RequestParam(value = "FileNameList[]") String[] FileNameList) {
+	public String communityModifyDO(Model model, Board board, HttpServletRequest request) {
 		Date Now = new Date();
 		String Title = request.getParameter("CommunityTitle");
 		String Writer = request.getParameter("CommunityWriter");
@@ -163,30 +151,10 @@ public class BoardController {
 		board.setBoardWriter(Writer);
 		board.setBoardDate(Date.format(Now));
 		board.setBoardID(BoardID);
-
-		boardService.UpdateModifiedContent(board, FileList, FileNameList, request);
-
+		
+		boardService.UpdateModifiedContent(board);
+		
 		return "redirect:/communityList";
-	}
-
-	@RequestMapping(value = "/FileDown")
-	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
-
-		// xml처리는 준현맨이 해준다구!
-		Map<String, Object> resultMap = boardService.SelectFileInfo(map);
-		String storedFileName = (String) resultMap.get("BStoredFileName");
-		String originalFileName = (String) resultMap.get("BOriginalFileName");
-		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
-		byte fileByte[] = org.apache.commons.io.FileUtils
-				.readFileToByteArray(new File("F:\\mju\\file\\" + storedFileName));
-		response.setContentType("application/octet-stream");
-		response.setContentLength(fileByte.length);
-		response.setHeader("Content-Disposition",
-				"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
-		response.getOutputStream().write(fileByte);
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
-
 	}
 
 	// 커뮤니티 리스트에서 제목 선택시 내용 출력
@@ -202,18 +170,25 @@ public class BoardController {
 		model.addAttribute("BoardDate", board.getBoardDate());
 		model.addAttribute("CommunityContent", board.getBoardContent());
 		model.addAttribute("BoardID", BoardID);
-
+		
 		String LoginID = principal.getName();
-		String UserID = boardService.SelectLoginUserID(LoginID);// 로그인한 사람의 userID를 가져오기 위함
+		String UserID = boardService.SelectLoginUserID(LoginID);//로그인한 사람의 userID를 가져오기 위함
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", board.getUserID());
-
-		List<Map<String, Object>> SelectFileList = boardService.SelectFileList(Integer.parseInt(BoardID));
-		model.addAttribute("CommunityFile", SelectFileList);
-
+		
 		return "/board/communityContent";
 	}
-
+	
+	@RequestMapping(value = "/CommunityDelete.do", method = RequestMethod.POST)
+	public String deleteCommunity(HttpServletRequest request) {
+		int BoardID = Integer.parseInt(request.getParameter("boardID"));
+		System.out.println(BoardID);
+		boardService.DeleteCommunity(BoardID);
+		
+		
+		return "redirect:/communityList";
+	}
+	
 	/*---------------------------------------------------------------------------------------*/
 	// 아래부터는 user 로그인 필요
 
@@ -276,5 +251,5 @@ public class BoardController {
 	public String dataManageModify(Locale locale, Model model) {
 		return "/board/dataManageModify";
 	}
-
+	
 }

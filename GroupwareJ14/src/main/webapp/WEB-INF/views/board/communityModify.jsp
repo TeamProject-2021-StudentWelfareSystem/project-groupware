@@ -23,78 +23,72 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>
-	<nav>
-		<div class="mbody">
-			<div class="mcontWidth">
+		<nav>
+			<div class="mbody">
+				<div class="mcontWidth">
 
-				<!-- left_box -->
-				<div class="rightBox">
-					<section>
-						<div class="section">
-							<br>
-							<h2>글 수정하기</h2>
-							<hr>
-						</div>
-					</section>
-					<section>
-						<form action="CommunityModify.do?${_csrf.parameterName}=${_csrf.token}?boardID=${BoardID}"
-							name="CommunityModify" enctype="multipart/form-data" method="POST" id="form" >
-							<div class="section2">
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-								<table id="contentTable">
-									<tr>
-										<td><label for="title">제목 &nbsp; &nbsp; </label></td>
-										<td><input type="text" name="CommunityTitle"
-											id="communityTitle" class="inputBox"
-											value="${CommunityTitle}"></td>
-									</tr>
-									<tr>
-										<td><label for="writer">작성자 &nbsp; </label></td>
-										<td><input type="text" name="CommunityWriter"
-											id="communityWriter" class="inputBox"
-											value="${CommunityWriter}"> <input type="text"
-											name="Date" id="date" class="inputBox"
-											placeholder="날짜가 자동으로 입력됩니다." disabled readonly
-											value="${BoardDate}"></td>
-									</tr>
-									<tr id="content">
-										<td colspan="2" id="content"><textarea
-												name="CommunityContent" id="communityContent"
-												class="inputBox" placeholder="${CommunityContent}"></textarea></td>
-									</tr>
-								</table>
+					<!-- left_box -->
+					<div class="rightBox">
+						<section>
+							<div class="section">
+								<br>
+								<h2>글 수정하기</h2>
 								<hr>
-								<table>
+							</div>
+						</section>
+						<section>
+							<form action="CommunityModify.do?boardID=${BoardID}" name="CommunityModify"
+								method="POST" id="form">
+								<div class="section2">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+									<table id="contentTable">
+										<tr>
+											<td><label for="title">제목 &nbsp; &nbsp; </label></td>
+											<td><input
+												type="text" name="CommunityTitle" id="communityTitle"
+												class="inputBox" value="${CommunityTitle}"></td>
+										</tr>
+										<tr>
+											<td><label for="writer">작성자 &nbsp; </label></td>
+											<td><input
+												type="text" name="CommunityWriter" id="communityWriter"
+												class="inputBox"  value="${CommunityWriter}" >
+												<input
+											type="text" name="Date" id="date" class="inputBox"
+											placeholder="날짜가 자동으로 입력됩니다." disabled readonly value="${BoardDate}"></td>
+										</tr>
+										<tr id="content">
+											<td colspan="2" id="content"><textarea name="CommunityContent" id="communityContent"
+												class="inputBox" placeholder="${CommunityContent}"></textarea></td>
+										</tr>
+									</table>
+									<hr>
+									<table>
 									<tr>
 										<td><label for="attachment">첨부파일</label></td>
-										<td><input type="file" name="CommunityFile" id="communityFile"
-											class="inputBox" placeholder="파일을 첨부하세요."></td>
-                                        <td><button type="button" class="FileAddButton">파일추가</button></td>
+										<td><input type="file" name="BoardFile" id="boardFile"
+												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
-								</table>
-							</div>
-							<!-- section2 -->
-							<div>
-								<input type="submit" value="수정 완료" id="listButton"> <a
-									href="${path}/communityList"><input type="button"
-									value="목록" id="listButton"></a>
-							</div>
+									</table>
+								</div>
+								<!-- section2 -->
+								<div>
+									<input type="submit" value="수정 완료" id="listButton"> <a
+										href="${path}/communityList"><input type="button"
+										value="목록" id="listButton"></a>
+								</div>
+							</form>
+						</section>
+					</div>
+					<!-- right_box -->
 
-							<input type="hidden" id="FileList" name="FileList[]" value="">
-							<input type="hidden" id="FileNameList" name="FileNameList[]" value="">
-
-						</form>
-					</section>
 				</div>
-				<!-- right_box -->
 
 			</div>
-
-		</div>
-		<!-- mcont_width -->
-		</div>
-		<!-- mbody -->
+			<!-- mcont_width -->
+	</div>
+	<!-- mbody -->
 	</nav>
 </body>
 </html>
