@@ -66,8 +66,12 @@
 								<table>
 									<tr>
 										<td><label for="attachment">첨부파일</label></td>
-										<td><input type="text" class="attachedFile"
-											name="AttachedFile" id="attachedFile"></td>
+										<td><c:forEach var="CommunityFile"
+												items="${InquiryFile}">
+												<a href="#"
+													onclick="FileDown('${InquiryFile.BFileID}'); return false;">${InquiryFile.BOriginalFileName}</a>(${InquiryFile.BFileSize}kb)
+										</c:forEach>
+										</td>
 									</tr>
 								</table>
 							</div>

@@ -79,6 +79,22 @@
 										<td><input type="file" name="BoardFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
+									<tr>
+										<td id="fileIndex">
+									<c:forEach var="NoticeFile" items="${NoticeFile}" varStatus="var">
+									<div>
+										<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${NoticeFile.BFileID}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="FileDown('${NoticeFile.BFileID}'); return false;">${NoticeFile.BOriginalFileName}</a>(${CommunityFile.BFileSize}kb)
+										<input type="button" id="fileDel" onclick="fnDel'${NoticeFile.BFileID}','FILE_NO_${var.index}');" value="삭제">
+										<br>
+									</div>
+									</c:forEach>
+								</td>
+									</tr>
+									<tr>
+									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
+									</tr>
 									</table>
 							</div>
 							<!-- section2 -->

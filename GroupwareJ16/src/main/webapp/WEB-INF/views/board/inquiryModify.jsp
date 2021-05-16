@@ -81,6 +81,22 @@ if (request.getProtocol().equals("HTTP/1.1"))
 										<td><input type="file" name="BoardFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
+									<tr>
+										<td id="fileIndex">
+									<c:forEach var="InquiryFile" items="${InquiryFile}" varStatus="var">
+									<div>
+										<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${InquiryFile.BFileID}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="FileDown('${InquiryFile.BFileID}'); return false;">${InquiryFile.BOriginalFileName}</a>(${InquiryFile.BFileSize}kb)
+										<input type="button" id="fileDel" onclick="fnDel'${InquiryFile.BFileID}','FILE_NO_${var.index}');" value="삭제">
+										<br>
+									</div>
+									</c:forEach>
+								</td>
+									</tr>
+									<tr>
+									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
+									</tr>
 								</table>
 							</div>
 							<!-- section2 -->
