@@ -31,10 +31,7 @@ select * from User where Dormant = 1;
 select * from Student;
 select * from User;
 select * from Board;
-<<<<<<< HEAD
 select * from BoardFile;
-=======
->>>>>>> J버전_Branch
 select * from UserEmail;
 select * from WithdrawalUser;
 select * from Class;
@@ -71,15 +68,11 @@ drop table WithdrawalUser;
 drop table WithdrawalStudent;
 drop table WithdrawalProfessor;
 drop table Team;
+drop table TeamFile;
 drop table Class;
 drop table UserClass;
 drop table Board;
 drop table BoardFile;
-<<<<<<< HEAD
-=======
-
-drop table File;
->>>>>>> J버전_Branch
 drop table UserReservationDate;
 
 # update 모음
@@ -126,7 +119,6 @@ BoardSubject varchar(100) not null,
 BoardContent varchar(10000) not null,
 BoardWriter varchar(20) not null,
 BoardDate dateTime not null,
-<<<<<<< HEAD
 UserID int not null,
 BoardHit int default 0,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
@@ -134,26 +126,11 @@ foreign key (UserID) references User(UserID) on delete cascade on update cascade
 select * from BoardFile;
 drop table Board;
 
-=======
-BoardHit int default 0 not null,
-UserID int not null,
-foreign key (UserID) references User(UserID) on delete cascade on update cascade
-);
-select * from BoardFile;
-drop table BoardFile;
-drop table Board;
-alter table BoardFile add BDelete boolean not null default 0;
->>>>>>> J버전_Branch
 create table BoardFile(
 BFileID int auto_increment not null primary key,
 BOriginalFileName varchar(200) not null,
 BStoredFileName varchar(200) not null,
-<<<<<<< HEAD
 BFileSize int not null,
-=======
-BFileSize int,
-BDelete boolean not null default 0, # 활성화:1 비활성화:0
->>>>>>> J버전_Branch
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
@@ -161,20 +138,15 @@ foreign key (BoardID) references Board(BoardID) on delete cascade on update casc
 create table Class(
 ClassID int not null primary key, 
 ClassName varchar(50) not null, #강의이름
-ClassProfessorName varchar(50) not null, #교수
+ClassProfessorName varchar(50) not null, #교수	
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
 create table UserClass(
-<<<<<<< HEAD
 ClassID int not null,
 UserID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
-=======
-ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
-UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
->>>>>>> J버전_Branch
 ); 
 
 create table Team(
@@ -182,12 +154,8 @@ TeamID int auto_increment not null primary key,
 TeamName varchar(50) not null,
 TeamLeaderName varchar(20) not null,
 TeamCreationDate Date not null,
-<<<<<<< HEAD
 ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
-=======
-ClassID int, foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
->>>>>>> J버전_Branch
 );
 
 create table TeamFile(
@@ -196,12 +164,8 @@ TFileName varchar(200) not null,
 TFileModifyName varchar(200),
 TFileType varchar(100) not null,
 TFilePath varchar(200) not null,
-<<<<<<< HEAD
 TeamID int not null,
 foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
-=======
-TeamID int, foreign key (TFileID) references Team(TeamID) on delete cascade on update cascade
->>>>>>> J버전_Branch
 );
 
 create table LectureRoom(
@@ -340,15 +304,15 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     
