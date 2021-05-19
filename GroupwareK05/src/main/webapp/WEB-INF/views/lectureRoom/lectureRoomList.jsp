@@ -91,8 +91,6 @@
 										<input type="button" value="←" id="leftList"> 
 										<input type="button" value="1" id="pageList"> 
 										<input type="button" value="→" id="rightList"> 
-										<a href="${path}/lectureRoom/reservationConfirm"><input type="button" value="예약 확인" id="list"></a>
-										<a href="${path}/lectureRoom/reservationModify"><input type="button" value="예약 수정" id="list"></a>
 									</div>
 								</form>
 							</div>

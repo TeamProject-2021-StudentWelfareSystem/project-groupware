@@ -95,7 +95,7 @@
 							<div id="btn">
 								<input type="submit" value="삭제" id="deleteButton"> <a
 									href="${path}/lectureRoom/lectureRoomList"><input
-									type="button" value="이전" id="listButton"></a>
+									type="button" value="목록" id="listButton"></a>
 							</div>
 						</form>
 					</section>
