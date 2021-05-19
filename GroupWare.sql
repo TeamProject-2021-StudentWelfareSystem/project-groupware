@@ -21,7 +21,7 @@ insert into Student(StudentGender, StudentGrade, StudentColleges, StudentMajor, 
 insert into WithdrawalUser(WUserName, WUserPhoneNum, WUserEmail, WUserLoginID, WUserRole) values ("정민","01045018711","happy6021004@mju.ac.kr","60181666","STUDENT");
 insert into WithdrawalStudent(WStudentGender, WStudentGrade, WStudentColleges, WStudentMajor, WStudentDoubleMajor, WUserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
 insert into Board(BoardSubject, BoardContent, BoardWriter, BoardDate, UserID) values ("1","2","정민","2021-05-12 00:00:00", 1);
-
+insert into BoardFile(BOriginalFileName, BStoredFileName, BFileSize, BoardID) values (2, 2, 1, 1);
 # alter 모음
 alter table User add Dormant boolean not null default 0;
 
@@ -73,7 +73,7 @@ drop table Class;
 drop table UserClass;
 drop table Board;
 drop table BoardFile;
-drop table UserReservationDate;
+drop table UserReservation;
 
 # update 모음
 update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
@@ -123,6 +123,7 @@ UserID int not null,
 BoardHit int default 0,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
+select * from Board;
 select * from BoardFile;
 drop table Board;
 
@@ -181,13 +182,14 @@ ReservationDate date not null,
 ReservationStartTime time not null, 
 ReservationEndTime time not null,
 ReservationNumOfPeople int not null, #인원
-LectureRoomNo int, foreign key (LectureRoomNo) references LectureRoom(LectureRoomNo) on delete cascade on update cascade,
+LectureRoomNo int not null,
+foreign key (LectureRoomNo) references LectureRoom(LectureRoomNo) on delete cascade on update cascade,
 UserID int, foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
-
+select UserID from UserReservation where UserID = 13;
 select * from UserReservation;
 select * from LectureRoom;
-
+drop table UserReservation;
 # 회원가입 전 인증메일
 create table UserEmail(
 UserEmailID int auto_increment not null primary key,
