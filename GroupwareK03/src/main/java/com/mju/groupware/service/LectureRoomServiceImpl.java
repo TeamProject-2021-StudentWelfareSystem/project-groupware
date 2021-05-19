@@ -39,5 +39,11 @@ public class LectureRoomServiceImpl implements LectureRoomService {
 		return lectureRoomDao.SelectStartTime(lectureRoomNo);
 	}
 
+	@Override
+	public boolean DeleteReservation(UserReservation userReservation) {
+
+		boolean check = lectureRoomDao.DeleteReservation(userReservation);
+		return check;
+	}
 
 }

@@ -42,4 +42,15 @@ public class LectureRoomDaoImpl implements LectureRoomDao {
 		return Output;
 	}
 
+	@Override
+	public boolean DeleteReservation(UserReservation userReservation) {
+		// delete문의 경우 삭제된 row의 수를 return한다.
+		int row = sqlSession.delete("DeleteReservation", userReservation);
+		if (row == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }
