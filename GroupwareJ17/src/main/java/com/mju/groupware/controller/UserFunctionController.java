@@ -35,6 +35,7 @@ import com.mju.groupware.service.EmailService;
 import com.mju.groupware.service.StudentService;
 import com.mju.groupware.service.UserEmailService;
 import com.mju.groupware.service.UserService;
+import com.mju.groupware.util.MypageInfo;
 
 @Controller
 public class UserFunctionController {
@@ -549,27 +550,19 @@ public class UserFunctionController {
 		ArrayList<String> StudentInfo = new ArrayList<String>();
 		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
 		
-//		if(Info.get(2).equals("STUDENT")) {
-//			// 학생 이름
-//			model.addAttribute("UserName", Info.get(0));
-//			// 학생 소속
-//			StudentColleges = StudentInfo.get(0);
-//			model.addAttribute("SC", StudentColleges);
-//			// 학생 전공
-//			UserMajorForShow = StudentInfo.get(1);
-//			model.addAttribute("UserMajor", UserMajorForShow);
-//			// 학생 학년
-//			StudentGradeForShow = StudentInfo.get(2);
-//			model.addAttribute("Grade", StudentGradeForShow);
-//			// user role
-//			model.addAttribute("UserRole", Info.get(2));
-//			System.out.println(Info.get(2));
-//		} else if(Info.get(2).equals("PROFESSOR")) {
-//		// user가 교수일 경우 교수 list 정보 가져오기
-//	} else {
-//		// user가 관리자인 경우 이름 출력
-//		model.addAttribute("UserName", Info.get(0));
-//	}
+		MypageInfo myPageInfo = new MypageInfo();
+		if(Info.get(2).equals("STUDENT")) {
+			myPageInfo.ShowStudentInfo(model,Info,StudentInfo);	
+			
+		} else if(Info.get(2).equals("PROFESSOR")) {
+			MypageInfo.ShowProfessorInfo();
+		// user가 교수일 경우 교수 list 정보 가져오기
+     	} else {
+		// user가 관리자인 경우 이름 출력
+		MypageInfo.ShowAdminInfo();
+
+		model.addAttribute("UserName", Info.get(0));
+	}
 
 		// 학생 이름
 		model.addAttribute("UserName", Info.get(0));

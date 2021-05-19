@@ -7,15 +7,16 @@ import com.mju.groupware.dto.UserReservation;
 
 public interface LectureRoomService {
 
-	List<LectureRoom> SelectLectureRoomList();
+	public List<LectureRoom> SelectLectureRoomList();
 
-	int SelectMaxNumOfPeople(String lectureRoomNo);
+	public int SelectMaxNumOfPeople(String lectureRoomNo);
 
-	String SelectLoginUserID(String userLoginID);
+	public String SelectLoginUserID(String userLoginID);
 
-	void InsertReservation(UserReservation userReservation);
+	public void InsertReservation(UserReservation userReservation);
 
-	List<UserReservation> SelectStartTime(String lectureRoomNo);
+	public List<UserReservation> SelectStartTime(String lectureRoomNo);
 
+	public boolean DeleteReservation(UserReservation userReservation);
 
 }

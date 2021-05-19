@@ -17,5 +17,6 @@ public interface LectureRoomDao {
 
 	List<UserReservation> SelectStartTime(String lectureRoomNo);
 
+	boolean DeleteReservation(UserReservation userReservation);
 
 }
