@@ -15,25 +15,34 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/boardList.css" type="text/css">
+<link rel="stylesheet" href="css/myPostList.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
 <title>my post list</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>
+	<nav>
 	<div class="mbody">
 		<div class="mcontWidth">
-			<jsp:include page="/WEB-INF/views/homeView/userInfoBox.jsp"></jsp:include> 
+			<jsp:include page="/WEB-INF/views/homeView/userInfoBox.jsp"></jsp:include>
+			
 			<div class="rightBox">
-				<section>
+				<div class="subMenuBox">
+					<ul>
+						<li><a href="${path}/myPage?R=${UserRole}">내 정보 확인</a></li>
+						<li><a href="${path}/myPostList">내 게시글 조회</a></li>
+						<li><a href="${path}/lectureRoom/reservationConfirm">강의실 예약 조회</a></li>
+						<li><a href="${path}/checkMyTeam">팀 조회</a></li>
+						<li><a href="#">내 후기 조회</a></li>
+					</ul>
+				</div>			
+				<section id="boardlist">
 					<div class="section">
 						<br>
 						<h2>내 게시글 목록</h2>
 						<hr>
 					</div>
-				</section>
-
-				<section>
+				
 					<div class="section2">
 						<div id="search">
 							<select name="SelectOption" id="selectOption">
@@ -59,8 +68,8 @@
 								<tbody>
 									<c:forEach items="${boardList}" var="communityList" varStatus="status">
 										<tr>
-											<td><c:out value="${boardList.getBoardID()}" /></td>
-											<td><a href="${path}/boardContent?no=${boardList.getBoardID()}">
+											<td><c:out value="${status.count}" /></td>
+											<td><a href="${path}/boardContent?no=${boardList.getBoardID()}&type=${boardList.getBoardType()}">
 												<c:out value="${boardList.getBoardSubject()}" /></a></td>
 											<td><c:out value="${boardList.getBoardWriter()}" /></td>
 											<td><c:out value="${boardList.getBoardDate()}" /></td>
@@ -71,14 +80,11 @@
 							</table>
 							<hr>
 						</form>
-					</div>
-					<!-- section2 -->
+					</div><!-- section2 -->
 				</section>
-			</div>
-			<!-- right_box -->
-		</div>
-		<!-- mcont_width -->
-	</div>
-	<!-- mbody -->
+			</div><!-- right_box -->
+		</div><!-- mcont_width -->
+	</div><!-- mbody -->
+	</nav>
 </body>
 </html>

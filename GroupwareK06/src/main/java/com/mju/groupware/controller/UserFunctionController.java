@@ -119,6 +119,12 @@ public class UserFunctionController {
 		return "/mypage/myPostList";
 	}
 
+	/* 마이페이지 - 내 팀 조회 */
+	@RequestMapping(value = "/checkMyTeam", method = RequestMethod.GET)
+	public String checkMyTeam() {
+		return "/mypage/checkMyTeam";
+	}
+	
 	/* 정보 수정 버튼 클릭 시 비밀번호 확인 */
 	@RequestMapping(value = "/checkPassword", method = RequestMethod.GET)
 	public String checkPassword() {

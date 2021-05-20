@@ -68,7 +68,10 @@
 								</ul></li>
 							<li><a href="">일정관리</a></li>
 							<li><a href="">조회</a></li>
-							<li><a href="">팀원관리</a></li>
+							<li><a href="#">팀원관리</a><ul id="subMenu">
+									<li><a href="${path}/team/createTeam">팀 생성하기</a></li>
+									<li><a href="${path}/team/teamList">팀 조회하기</a></li>
+								</ul></li>
 							<li><a href="#">문서관리</a>
 							<ul id="subMenu">
 									<li><a href="${path}/team/meetingTeamList">회의록 관리</a></li>

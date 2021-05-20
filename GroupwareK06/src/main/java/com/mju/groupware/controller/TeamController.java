@@ -100,5 +100,19 @@ public class TeamController {
 		
 		return "/team/createTeam";
 	}
+	
+	// 전체 팀 리스트 조회
+	@RequestMapping(value = "/team/teamList", method = RequestMethod.GET)
+	public String teamList(User user, Model model, Principal Principal) {
+				
+		return "/team/teamList";
+	}
+	
+	// 팀 리스트 화면에서 팀 선택 시 소속된 팀 출력 화면
+	@RequestMapping(value = "/team/checkTeam", method = RequestMethod.GET)
+	public String checkTeam(User user, Model model, Principal Principal) {
+				
+		return "/team/checkTeam";
+	}
 			
 }

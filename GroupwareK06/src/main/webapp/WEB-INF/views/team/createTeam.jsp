@@ -38,7 +38,7 @@
 						</div>
 					</section>
 					<section>
-						<form action="createTeam" name="createTeam"
+						<form action="createTeam" name="CreateTeam"
 							method="POST" id="form">
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -61,23 +61,32 @@
 										
 									</tr>
 									<tr>
-										<td><label for="teamLeader">팀장 &nbsp; &nbsp; </label></td>
-										<td><input type="text" name="TeamLeader"
-											id="teamLeader" class="inputBox" disabled readonly
-											value="${UserName}"></td>
-									</tr>
-									<tr>
-										<td><label for="studentId">학번 &nbsp; &nbsp; </label></td>
-										<td><input type="text" name="StudentId"
-											id="studentId" class="inputBox" disabled readonly
-											value="">
-										</td>
-									</tr>
-									<tr>
-										<td><label for="teamName">팀명 &nbsp; &nbsp; </label></td>
+										<td><label for="teamName">팀 이름 &nbsp; &nbsp; </label></td>
 										<td><input type="text" name="TeamName"
 											id="teamName" class="inputBox" 
 											value=""></td>
+									</tr>
+									<tr>
+										<td><label for="teamLeaderID">팀장 학번&nbsp; &nbsp; </label></td>
+										<td><input type="text" name="TeamLeaderID"
+											id="teamLeaderID" class="inputBox" disabled readonly
+											value="${TeamLeaderID}"></td>
+										<td><label for="teamLeaderName">팀장 이름 &nbsp; &nbsp; </label></td>
+										<td><input type="text" name="TeamLeaderName"
+											id="teamLeaderName" class="inputBox" disabled readonly
+											value="${TeamLeaderName}"></td>	
+									</tr>
+									<tr>
+										<td><label for="studentID">학번 &nbsp; &nbsp; </label></td>
+										<td><input type="text" name="StudentID"
+											id="studentID" class="inputBox"
+											value="${StudentID}">
+										</td>
+										<td><label for="studentName">팀원명 &nbsp; &nbsp; </label></td>
+										<td><input type="text" name="StudentName"
+											id="studentName" class="inputBox"
+											value="${StudentName}">
+										</td>
 									</tr>
 									</table>
 									<table id="addTeamMember">

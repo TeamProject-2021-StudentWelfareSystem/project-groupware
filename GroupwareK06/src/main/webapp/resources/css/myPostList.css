@@ -1,9 +1,11 @@
 /* 메인 */
 a {
-	text-decoration: none;
+	text-decoration: none
 }
 
-
+.mheader {
+	z-index: 2;
+}
 .mfooter {
 	position: relative;
 	clear: both;
@@ -15,7 +17,7 @@ a {
 	height: 90px;
 	vertical-align: middle;
 	background: #fff;
-	z-index: 110
+	z-index: 1;
 }
 
 .mbody {
@@ -24,24 +26,24 @@ a {
 	min-width: 1000px;
 	_height: 1px;
 	_margin: 0 10px 0 980px;
-	z-index: 1;
 	display: block;
 	min-height: 1px;
 	padding: 0;
-	overflow: hidden;
+	z-index: 0;
 }
 
-
 /*body*/
+
 .subMenuBox {
 	margin-top: 200px;
-	margin-left: -382px;
+	margin-left: -270px;
 	width: 250px;
 	height: 100%;
 	background: #fff;
 	border: 2px solid #ddd;
 	box-sizing: border-box;
 	padding: 40px 20px;
+	z-index: 2;
 }
 
 	
@@ -63,86 +65,68 @@ a {
 	background: #fff;
 	padding: 10pt;
 	min-height: 100pt;
-	position: relative;
 }
 
-.rightBox {
-	display: flex;
-	justify-content: center;
-	background-color: white;
-}
-
-#memberInfo {
-	display: flex;
-	flex-direction: column;
+#boardlist {
 	text-align: center;
 	width: 90%;
 	height: 100%;
 	min-height: 100%;
 	padding: 15px;
+	position: relative;
+	top: -500px;
+	z-index: 1;
 }
 
-h2 {
-	color: steelblue;
-}
-#form {
-	margin-top: 30px;
-}
-table {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: left;
-}
-.inputBox {
-	border: 0px solid rgba(61, 59, 59, 0.178);
-	padding: 15px 10px 14px 10px;
-	height: 100%;
-	margin: 0;
-	width: 100%;
-	font-size: 14px;
-	box-sizing: border-box;
-	color: #000;
-	margin-top: 10px;
-    border-radius: 10px;
+h2 { color: skyblue; }
+
+section {
+	padding-left: 00%;
 }
 
-.col1 {
-	font-weight:bold;
-	width: 20%;
-
-   
+th {
+	width: 18%;
+	height: 20%;
+	text-align: center;
 }
 
-.col2 {
-	width: 55%;
- 
+td {
+	width: 18%;
+	text-align: center;
 }
 
-.col3 {
-	width: 15%;
+
+tr {
+	height: 50%;
 }
 
-.col4 {
-	width: 10px;
+thead {
+	border-bottom: 1px;
 }
 
-#studentGender, #studentGrade, #professorRoom{
-    width : 20%
+a {
+	color: black;
 }
 
-#modifyBtn, #modifyPWBtn, #withdrawBtn{
-    border: 1px solid #ccc;
+#page {
+	text-align: center;
+	height: 50px;
+}
+
+#write {
+	float: right;
+	border: 1px solid #ccc;
 	padding: 15px 10px 14px 10px;
 	height: 50px;
 	margin: 0;
-	width: 20%;
+	width: 100px;
 	line-height: 21px;
 	box-sizing: border-box;
 	color: white;
-	margin-top: 10px;
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 17px;
 	background: skyblue;
 	border-radius: 5px;
 }
+

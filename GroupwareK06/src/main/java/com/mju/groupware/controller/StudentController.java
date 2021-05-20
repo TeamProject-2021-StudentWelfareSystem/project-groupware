@@ -57,7 +57,7 @@ public class StudentController {
 		user.setUserLoginID(LoginID);
 		ArrayList<String> StudentInfo = new ArrayList<String>();
 		StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
-
+				
 		// 학생 이름
 		UserName = SelectUserProfileInfo.get(0);
 		model.addAttribute("UserName", UserName);
@@ -70,6 +70,12 @@ public class StudentController {
 
 		StudentGrade = StudentInfo.get(2);
 		model.addAttribute("Grade", StudentGrade);
+		
+		// user role 가져오기
+		String UserLoginID = Principal.getName();
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+		model.addAttribute("UserRole", Info.get(2));
 
 		// -------------------------------------------------------
 
@@ -195,5 +201,5 @@ public class StudentController {
 
 		return "/mypage/modifyStudent";
 	}
-
+	
 }

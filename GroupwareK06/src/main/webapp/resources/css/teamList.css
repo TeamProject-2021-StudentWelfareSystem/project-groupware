@@ -61,7 +61,14 @@ td {
 	text-align: center;
 }
 
-
+#totalTeamList {
+	text-align: center;
+	width: 90%;
+	height: 100%;
+	min-height: 100%;
+	padding: 15px;
+	position: relative;
+}
 
 tr {
 	height: 50%;

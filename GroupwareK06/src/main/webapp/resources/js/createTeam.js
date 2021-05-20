@@ -3,9 +3,8 @@ function addTeamMember() {
 
 		$("#addMember").click(function(){
 			$("#addTeamMember").append("<tr><td colspan='2'><hr></td><tr>")
-			$("#addTeamMember").append("<tr><td><label for='teamLeader'>팀원명  &nbsp; &nbsp; </label></td> <td><input type='text' name='TeamLeader' id='teamLeader' class='inputBox'  value=''></td></tr>")
 			$("#addTeamMember").append("<tr><td><label for='studentId'>학번  &nbsp; &nbsp; </label></td> <td><input type='text' name='StudentId' id='studentId' class='inputBox'  value=''></td></tr>")
-			
+			$("#addTeamMember").append("<tr><td><label for='teamLeader'>팀원명  &nbsp; &nbsp; </label></td> <td><input type='text' name='TeamLeader' id='teamLeader' class='inputBox'  value=''></td></tr>")
 					
 			$("#addTeamMember").child().remove();
 			
