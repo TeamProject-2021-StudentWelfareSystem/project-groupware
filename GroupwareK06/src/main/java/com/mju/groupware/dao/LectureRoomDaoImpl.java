@@ -59,7 +59,13 @@ public class LectureRoomDaoImpl implements LectureRoomDao {
 
 	@Override
 	public int SelectLectureRoomNo(String userID) {
-		return sqlSession.selectOne("SelectLectureRoomNo", userID);
+
+		Integer SelectLectureRoomNo = sqlSession.selectOne("SelectLectureRoomNo", userID);
+		if (SelectLectureRoomNo != null) {
+			return SelectLectureRoomNo;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

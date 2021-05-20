@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.dto.LectureRoom;
 import com.mju.groupware.dto.UserReservation;
@@ -160,50 +161,57 @@ public class LectureRoomController {
 
 	// 강의실 예약 확인 화면
 	@RequestMapping(value = "/lectureRoom/reservationConfirm", method = RequestMethod.GET)
-	public String lectureRoomReservationConfirm(Locale locale, Model model, Principal principal) {
+	public String lectureRoomReservationConfirm(Locale locale, Model model, Principal principal,
+			HttpServletResponse response, RedirectAttributes rttr) {
 		String LoginID = principal.getName();
 		String UserID = lectureRoomService.SelectUserIDForReservationConfirm(LoginID);
 
 		int LectureRoomNo = lectureRoomService.SelectLectureRoomNo(UserID);
-		String RoomLocation = lectureRoomService.SelectLectureRoomLocation(LectureRoomNo);
-		int RoomFloor = lectureRoomService.SelectRoomFloor(LectureRoomNo);
-		int MaxNumOfPeople = lectureRoomService.SelectLectureRoomMaxNumOfPeople(LectureRoomNo);
-		int ReservationNumOfPeople = lectureRoomService.SelectReservationNumOfPeople(UserID);
-		String ReservationStartTime = lectureRoomService.SelectReservationStartTime(UserID);
+		if (LectureRoomNo != 0) {
+			String RoomLocation = lectureRoomService.SelectLectureRoomLocation(LectureRoomNo);
+			int RoomFloor = lectureRoomService.SelectRoomFloor(LectureRoomNo);
+			int MaxNumOfPeople = lectureRoomService.SelectLectureRoomMaxNumOfPeople(LectureRoomNo);
 
-		model.addAttribute("LectureRoomNo", LectureRoomNo);
-		model.addAttribute("LectureRoomLocation", RoomLocation);
-		model.addAttribute("RoomFloor", RoomFloor);
-		model.addAttribute("MaxNumOfPeople", MaxNumOfPeople);
-		model.addAttribute("ReservationNumOfPeople", ReservationNumOfPeople);
+			int ReservationNumOfPeople = lectureRoomService.SelectReservationNumOfPeople(UserID);
+			String ReservationStartTime = lectureRoomService.SelectReservationStartTime(UserID);
 
-		switch (ReservationStartTime) {
-		case "09:00:00":
-			model.addAttribute("ReservationStartTime", "09:00~11:00");
-			break;
-		case "11:00:00":
-			model.addAttribute("ReservationStartTime", "11:00~13:00");
-			break;
-		case "13:00:00":
-			model.addAttribute("ReservationStartTime", "13:00~15:00");
-			break;
-		case "15:00:00":
-			model.addAttribute("ReservationStartTime", "15:00~17:00");
-			break;
-		case "17:00:00":
-			model.addAttribute("ReservationStartTime", "17:00~19:00");
-			break;
-		case "19:00:00":
-			model.addAttribute("ReservationStartTime", "19:00~21:00");
-			break;
+			model.addAttribute("LectureRoomNo", LectureRoomNo);
+			model.addAttribute("LectureRoomLocation", RoomLocation);
+			model.addAttribute("RoomFloor", RoomFloor);
+			model.addAttribute("MaxNumOfPeople", MaxNumOfPeople);
+			model.addAttribute("ReservationNumOfPeople", ReservationNumOfPeople);
+
+			switch (ReservationStartTime) {
+			case "09:00:00":
+				model.addAttribute("ReservationStartTime", "09:00~11:00");
+				break;
+			case "11:00:00":
+				model.addAttribute("ReservationStartTime", "11:00~13:00");
+				break;
+			case "13:00:00":
+				model.addAttribute("ReservationStartTime", "13:00~15:00");
+				break;
+			case "15:00:00":
+				model.addAttribute("ReservationStartTime", "15:00~17:00");
+				break;
+			case "17:00:00":
+				model.addAttribute("ReservationStartTime", "17:00~19:00");
+				break;
+			case "19:00:00":
+				model.addAttribute("ReservationStartTime", "19:00~21:00");
+				break;
+			}
+			return "/lectureRoom/reservationConfirm";
+		} else {
+			rttr.addFlashAttribute("Checker", "Noting");
+			return "redirect:/lectureRoom/lectureRoomList";
 		}
 
-		return "/lectureRoom/reservationConfirm";
 	}
 
 	@RequestMapping(value = "/lectureRoom/ReservationConfirm", method = RequestMethod.POST)
 	public String DolectureRoomReservationConfirm(Principal principal, UserReservation userReservation,
-			HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr) throws IOException {
 
 		String UserLoginID = getUserLoginID(principal);
 		String UserID = lectureRoomService.SelectLoginUserID(UserLoginID);
@@ -211,12 +219,13 @@ public class LectureRoomController {
 
 		boolean check = lectureRoomService.DeleteReservation(userReservation);
 		if (check) {
-
-			model.addAttribute("Checker", "true");
+			rttr.addFlashAttribute("Checker", "true");
 			return "redirect:/lectureRoom/lectureRoomList";
 		} else {
-			model.addAttribute("Checker", "false");
-
+			PrintWriter Out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			Out.println("<script>alert('관리자에게 문의바랍니다.');</script>");
+			Out.flush();
 			return "/lectureRoom/reservationConfirm";
 		}
 

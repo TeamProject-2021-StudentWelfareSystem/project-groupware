@@ -23,6 +23,7 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/reservation.js"></script>
 
 <title>lecture room reservation confirm</title>
 </head>
@@ -41,8 +42,8 @@
 						</div>
 					</section>
 					<section>
-						<form action="ReservationConfirm" name="ReservationConfirm"
-							method="POST" id="form">
+						<form action="ReservationConfirm" id="reservationConfirm"
+							name="ReservationConfirm" method="POST" id="form">
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -51,7 +52,7 @@
 										<td><label for="roomNum">강의실 &nbsp; &nbsp; </label></td>
 										<td><input type="text" name="LectureRoomNo"
 											id="lectureRoomNo" class="inputBox" disabled readonly
-											value="${LectureRoomNo}&nbsp${LectureRoomLocation}${RoomFloor}층"></td>
+											value=${LectureRoomNo}></td>
 									</tr>
 									<tr>
 										<td><label for="date">날짜 &nbsp; &nbsp; </label></td>
@@ -95,7 +96,7 @@
 							<div id="btn">
 								<input type="submit" value="삭제" id="deleteButton"> <a
 									href="${path}/lectureRoom/lectureRoomList"><input
-									type="button" value="목록" id="listButton"></a>
+									type="button" value="이전" id="listButton"></a>
 							</div>
 						</form>
 					</section>
@@ -103,7 +104,6 @@
 				<!-- right_box -->
 
 			</div>
-
 		</div>
 		<!-- mcont_width -->
 		<!-- mbody -->
