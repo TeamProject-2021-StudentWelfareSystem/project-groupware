@@ -219,6 +219,32 @@ public class BoardController {
 		
 		return "/board/noticeModify";
 	}
+	
+	
+	@RequestMapping(value = "/NoticeModify", method = RequestMethod.POST)
+	public String noticeModifyDO(Model model, Board board, HttpServletRequest request, RedirectAttributes rttr,
+			@RequestParam(value = "FileList[]") String[] FileList,
+			@RequestParam(value = "FileNameList[]") String[] FileNameList,
+			@RequestParam(value = "BoardID") String BoardID) {
+		Date Now = new Date();
+		String Title = request.getParameter("NoticeTitle");
+		String Writer = request.getParameter("NoticeWriter");
+		String Content = request.getParameter("NoticeContent");
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int BoardID2 = Integer.parseInt(request.getParameter("BoardID"));
+
+		board.setBno(BoardID2);
+		board.setBoardSubject(Title);
+		board.setBoardContent(Content);
+		board.setBoardWriter(Writer);
+		board.setBoardDate(Date.format(Now));
+		board.setBoardID(BoardID2);
+		board.setBoardType("공지사항");
+
+		boardService.UpdateModifiedContent(board, FileList, FileNameList, request);
+
+		return "redirect:/noticeList";
+	}
 
 	// 공지사항 리스트에서 제목 선택시 내용 출력
 	@RequestMapping(value = "/noticeContent", method = RequestMethod.GET)

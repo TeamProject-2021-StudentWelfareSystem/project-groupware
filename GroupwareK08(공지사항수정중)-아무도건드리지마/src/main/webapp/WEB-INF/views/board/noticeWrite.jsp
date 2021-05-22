@@ -68,7 +68,7 @@
 								<hr>
 								<table>
 									<tr>
-										<td><label for="attachment">첨부파일</label>
+										<td><label for="attachment">첨부파일</label></td>
 										<td><input type="file" name="BoardFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>

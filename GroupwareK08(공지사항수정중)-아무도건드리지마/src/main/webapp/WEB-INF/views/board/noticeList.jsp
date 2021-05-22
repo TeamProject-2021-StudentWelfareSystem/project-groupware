@@ -55,6 +55,7 @@
 												<th class="col2">제목</th>
 												<th class="col3">작성자</th>
 												<th class="col4">작성일</th>
+												<th class="col4">조회수</th>
 											</tr>
 											<hr>
 										</thead>
@@ -63,11 +64,11 @@
 												varStatus="status">
 												<tr>
 													<td><c:out value="${status.count}" /></td>
-													<td><a href="${path}/noticeContent?no=$"><c:out
-																value="${communityList.getBoardSubject()}" /></a></td>
-													<td><c:out value="${communityList.getBoardSubject()}" /></td>
-													<td><c:out value="${communityList.getBoardDate()}" /></td>
-													<td><c:out value="${communityList.getBoardHit()}" /></td>
+													<td><a href="${path}/noticeContent?no=${noticeList.getBoardID()}">
+														<c:out value="${noticeList.getBoardSubject()}" /></a></td>
+													<td><c:out value="${noticeList.getBoardSubject()}" /></td>
+													<td><c:out value="${noticeList.getBoardDate()}" /></td>
+													<td><c:out value="${noticeList.getBoardHit()}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>
