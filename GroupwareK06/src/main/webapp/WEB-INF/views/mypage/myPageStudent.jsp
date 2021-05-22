@@ -30,7 +30,11 @@
 							<ul>
 								<li><a href="${path}/myPage?R=${UserRole}">내 정보 확인</a></li>
 								<li><a href="${path}/myPostList">내 게시글 조회</a></li>
+								
+								
 								<li><a href="${path}/lectureRoom/reservationConfirm">강의실 예약 조회</a></li>
+								
+								
 								<li><a href="${path}/checkMyTeam">팀 조회</a></li>
 								<li><a href="#">내 후기 조회</a></li>
 							</ul>

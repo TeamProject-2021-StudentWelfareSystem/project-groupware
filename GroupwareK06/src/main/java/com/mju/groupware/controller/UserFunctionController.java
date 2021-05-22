@@ -620,6 +620,7 @@ public class UserFunctionController {
 		String UserLoginID = Principal.getName();
 		boolean checker = userService.SelectForPwdCheckBeforeModify(UserLoginID,
 				(String) request.getParameter(constantDoFindPassword.getPwd()));
+		//저기요?학생은 어디가고 professor만있나요? 
 		if (checker == true) {
 			return "redirect:modifyProfessor";
 		} else {

@@ -135,6 +135,7 @@ public class StudentController {
 		student.setUserID(Integer.parseInt(UserInfo.get(0)));
 
 		// 연락처
+		System.out.println(request.getParameter(this.Constant.getUserPhoneNum()));
 		if (!((String) request.getParameter(this.Constant.getUserPhoneNum())).equals("")) {
 			user.setUserPhoneNum((String) request.getParameter(this.Constant.getUserPhoneNum()));
 			userService.updateUserPhoneNumber(user);

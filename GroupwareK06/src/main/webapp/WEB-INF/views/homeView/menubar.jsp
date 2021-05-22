@@ -62,7 +62,7 @@
 									<li><a href="${path}/communityList">커뮤니티</a></li>
 									<li><a href="#">후기</a></li>
 								</ul></li>
-							<li><a href="#">강의실</a><ul id="subMenu">
+							<li><a href="${path}/lectureRoom/lectureRoomList">강의실</a><ul id="subMenu">
 									<li><a href="${path}/lectureRoom/lectureRoomList">강의실<br>예약</a></li>
 									<li><a href="${path}/lectureRoom/reservationConfirm">예약 확인</a></li>
 								</ul></li>

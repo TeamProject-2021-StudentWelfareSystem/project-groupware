@@ -39,6 +39,7 @@ public class BoardController {
 	private String StudentColleges;
 	private String StudentGradeForShow;
 	private String UserMajorForShow;
+	private String UserName;
 
 	// 문의 리스트
 	@RequestMapping(value = "/inquiryList", method = RequestMethod.GET)
@@ -123,6 +124,7 @@ public class BoardController {
 		StudentGradeForShow = StudentInfo.get(2);
 		model.addAttribute("Grade", StudentGradeForShow);
 		// user role
+
 		model.addAttribute("UserRole", Info.get(2));
 
 		return "/board/communityList";
@@ -156,6 +158,11 @@ public class BoardController {
 		model.addAttribute("Grade", StudentGradeForShow);
 		// user role
 		model.addAttribute("UserRole", Info.get(2));
+
+		// 글작성자 이름추가
+		UserName = Info.get(0);
+		model.addAttribute("CommunityWriter",UserName);
+
 		return "/board/communityWrite";
 	}
 
@@ -164,7 +171,7 @@ public class BoardController {
 			Model model) {
 		Date Now = new Date();
 		String Title = request.getParameter("CommunityTitle");
-		String Writer = request.getParameter("CommunityWriter");
+		String Writer = UserName;
 		String Content = request.getParameter("CommunityContent");
 		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String UserLoginID = principal.getName();
@@ -175,9 +182,8 @@ public class BoardController {
 		board.setBoardWriter(Writer);
 		board.setBoardDate(Date.format(Now));
 		board.setUserID(UserID);
-
+		board.setBoardType("게시판");
 		boardService.InsertBoard(board, request);
-
 		ArrayList<String> Info = new ArrayList<String>();
 		Info = userService.SelectUserProfileInfo(UserLoginID);
 

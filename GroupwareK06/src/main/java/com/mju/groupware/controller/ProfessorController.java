@@ -116,7 +116,7 @@ public class ProfessorController {
 		professor.setUserID(Integer.parseInt(UserInfo.get(0)));
 
 		// 연락처
-		if (!((String) request.getParameter("UserPhoneNum")).equals(" ")) {
+		if (!((String) request.getParameter("UserPhoneNum")).equals("")) {
 			user.setUserPhoneNum((String) request.getParameter("UserPhoneNum"));
 			userService.updateUserPhoneNumber(user);
 		}

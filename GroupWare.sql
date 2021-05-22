@@ -112,7 +112,9 @@ OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
+alter table User add Dormant boolean not null default 0;
 
+alter table Board add BoardType varchar(100) not null;
 create table Board(
 BoardID int auto_increment not null primary key,
 BoardSubject varchar(100) not null,
@@ -121,6 +123,7 @@ BoardWriter varchar(20) not null,
 BoardDate dateTime not null,
 UserID int not null,
 BoardHit int default 0,
+BoardType varchar(100) not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
 select * from Board;
@@ -135,6 +138,7 @@ BFileSize int not null,
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
+select * from Class;
 
 create table Class(
 ClassID int not null primary key, 

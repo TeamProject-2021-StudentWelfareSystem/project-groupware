@@ -13,6 +13,15 @@ public class Board {
 	private String OriginalFileName;
 	private String StoredFileName;
 	private int FileSize;
+	private String BoardType;
+
+	public String getBoardType() {
+		return BoardType;
+	}
+
+	public void setBoardType(String boardType) {
+		BoardType = boardType;
+	}
 
 	public String getBFileID() {
 		return BFileID;

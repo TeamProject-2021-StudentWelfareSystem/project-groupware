@@ -9,11 +9,11 @@
 		parameterType="com.mju.groupware.dto.Board">
 		insert into Board (
 		BoardSubject, BoardContent,
-		BoardWriter, BoardDate, UserID, BoardHit
+		BoardWriter, BoardDate, UserID, BoardHit,BoardType
 		) values(
 		#{BoardSubject},
 		#{BoardContent},
-		#{BoardWriter}, #{BoardDate}, #{UserID}, #{BoardHit}
+		#{BoardWriter}, #{BoardDate}, #{UserID}, #{BoardHit},#{BoardType}
 		)
 	</insert>
 	<!-- 파일 정보 작성 -->

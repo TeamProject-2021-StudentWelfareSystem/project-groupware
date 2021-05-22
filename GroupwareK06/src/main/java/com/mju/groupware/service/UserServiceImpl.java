@@ -185,6 +185,7 @@ public class UserServiceImpl implements UserService {
 		// 유저정보를 mysqlID를 던져줘서 받아온다.
 		UserInfo = userDao.SelectMyPageUserInfoByID(mysqlID);
 		// 학생정보를 mysqlID를 통해서 받아온다.
+		
 		StudentInfo = studentDao.SelectMyPageUserInfoByID(mysqlID);
 		// 교수정보를 mysqlID를 통해서 받아온다.
 		ProfessorInfo = professorDao.SelectMyPageUserInfoByID(mysqlID);		
