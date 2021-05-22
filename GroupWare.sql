@@ -11,7 +11,7 @@ update User set LoginDate = '2021-05-05' where UserName = "정민";
 # delete 모음
 delete from WithdrawalUser where WUserName = "탈퇴";
 delete from WithdrawalUser where WUserName = "자퇴";
-delete from User where UserName = "새내기";
+delete from User where UserName = "교수";
 
 # insert 모음
 insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,LectureRoomNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
@@ -29,6 +29,7 @@ alter table User add Dormant boolean not null default 0;
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
 select * from User where Dormant = 1;
 select * from Student;
+select * from Professor;
 select * from User;
 select * from Board;
 select * from BoardFile;
@@ -126,6 +127,7 @@ BoardHit int default 0,
 BoardType varchar(100) not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
+alter table Board add BoardType varchar(100) not null;
 select * from Board;
 select * from BoardFile;
 drop table Board;
