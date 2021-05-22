@@ -11,7 +11,7 @@ update User set LoginDate = '2021-05-05' where UserName = "정민";
 # delete 모음
 delete from WithdrawalUser where WUserName = "탈퇴";
 delete from WithdrawalUser where WUserName = "자퇴";
-delete from User where UserName = "교수";
+delete from User where UserID = "3";
 
 # insert 모음
 insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,LectureRoomNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
@@ -22,8 +22,11 @@ insert into WithdrawalUser(WUserName, WUserPhoneNum, WUserEmail, WUserLoginID, W
 insert into WithdrawalStudent(WStudentGender, WStudentGrade, WStudentColleges, WStudentMajor, WStudentDoubleMajor, WUserID) values ("여자", "4학년", "ICT융합대학", "융합소프트웨어학부", "없음", 1);
 insert into Board(BoardSubject, BoardContent, BoardWriter, BoardDate, UserID) values ("1","2","정민","2021-05-12 00:00:00", 1);
 insert into BoardFile(BOriginalFileName, BStoredFileName, BFileSize, BoardID) values (2, 2, 1, 1);
+insert into professor (ProfessorColleges, professorMajor, UserID) values ("ICT융합대학", "디지털콘텐츠디자인학과", 3);
 # alter 모음
 alter table User add Dormant boolean not null default 0;
+alter table Professor add ProfessorRoomNum varchar(30) default '입력해주세요';
+alter table Student drop column ProfessorRoom;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -113,9 +116,7 @@ OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
-alter table User add Dormant boolean not null default 0;
 
-alter table Board add BoardType varchar(100) not null;
 create table Board(
 BoardID int auto_increment not null primary key,
 BoardSubject varchar(100) not null,
@@ -140,7 +141,6 @@ BFileSize int not null,
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
-select * from Class;
 
 create table Class(
 ClassID int not null primary key, 
@@ -148,13 +148,6 @@ ClassName varchar(50) not null, #강의이름
 ClassProfessorName varchar(50) not null, #교수	
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
-
-create table UserClass(
-ClassID int not null,
-UserID int not null,
-foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
-foreign key (UserID) references User(UserID) on delete cascade on update cascade
-); 
 
 create table Team(
 TeamID int auto_increment not null primary key,
@@ -164,6 +157,13 @@ TeamCreationDate Date not null,
 ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
+
+create table TeamUser(
+UserID int not null,
+TeamID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade,
+foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
+); 
 
 create table TeamFile(
 TFileID int auto_increment not null primary key,
@@ -196,6 +196,7 @@ select UserID from UserReservation where UserID = 13;
 select * from UserReservation;
 select * from LectureRoom;
 drop table UserReservation;
+
 # 회원가입 전 인증메일
 create table UserEmail(
 UserEmailID int auto_increment not null primary key,
@@ -206,36 +207,36 @@ UserCertificationTime Datetime #인증번호 받은 시간
 
 create table Student(
 StudentID int auto_increment not null primary key,
-StudentGrade ENUM ('1학년', '2학년', '3학년', '4학년') not null, #학년
-StudentGender varchar(20) not null, # male / female
-StudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
+StudentGrade ENUM ('1학년', '2학년', '3학년', '4학년', '입력해주세요') default '입력해주세요' not null , #학년
+StudentGender varchar(20) not null default '입력해주세요', # male / female
+StudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학', '입력해주세요') default '입력해주세요' not null, #단과대학
 StudentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
-'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
+'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '입력해주세요') default '입력해주세요' not null, #전공
 StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
-UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
+UserID int, foreign key (StudentID) references user(UserID)
 );
 
 create table Professor(
 ProfessorID int auto_increment not null primary key,
-ProfessorRoom varchar(10), #교수실
-ProfessorRoomNum varchar(30), #교수실전화번호 
-ProfessorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학') not null, #단과대학
+ProfessorRoom varchar(10) default '입력해주세요', #교수실
+ProfessorRoomNum varchar(30) default '입력해주세요', #교수실전화번호 
+ProfessorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학', '입력해주세요') default '입력해주세요' not null, #단과대학
 ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
 '경영정보학과', '국제통상학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
-'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과') not null, #전공
-UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade on update cascade
+'창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '입력해주세요') default '입력해주세요' not null, #전공
+UserID int, foreign key (ProfessorID) references user(UserID)
 );
 
 create table WithdrawalUser(
