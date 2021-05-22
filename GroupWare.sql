@@ -69,6 +69,7 @@ drop table WithdrawalUser;
 drop table WithdrawalStudent;
 drop table WithdrawalProfessor;
 drop table Team;
+drop table TeamUser;
 drop table TeamFile;
 drop table Class;
 drop table UserClass;
@@ -88,7 +89,7 @@ update User set Authority = "ROLE_ADMIN" where UserID = 1;
 update User set LoginDate = "2020-1-30" where UserName = "배트맨";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
-update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="박지수";
 update User set Authority = "ROLE_USER" where UserName = "탈퇴";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 update User set OpenPhoneNum = "비공개";
@@ -113,9 +114,7 @@ OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
 );
-alter table User add Dormant boolean not null default 0;
 
-alter table Board add BoardType varchar(100) not null;
 create table Board(
 BoardID int auto_increment not null primary key,
 BoardSubject varchar(100) not null,
@@ -140,21 +139,13 @@ BFileSize int not null,
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
-select * from Class;
 
 create table Class(
 ClassID int not null primary key, 
 ClassName varchar(50) not null, #강의이름
-ClassProfessorName varchar(50) not null, #교수	
+ClassProfessorName varchar(50) not null, #교수   
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
-
-create table UserClass(
-ClassID int not null,
-UserID int not null,
-foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade,
-foreign key (UserID) references User(UserID) on delete cascade on update cascade
-); 
 
 create table Team(
 TeamID int auto_increment not null primary key,
@@ -164,6 +155,13 @@ TeamCreationDate Date not null,
 ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
+
+create table TeamUser(
+UserID int not null,
+TeamID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade,
+foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
+); 
 
 create table TeamFile(
 TFileID int auto_increment not null primary key,
@@ -312,15 +310,15 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     

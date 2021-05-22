@@ -61,8 +61,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 										</thead>
 
 										<tbody>
-											<c:set var="i" value="0" />
-											<c:set var="j" value="3" />
 											<c:forEach items="${EmailList}" var="emailList"
 												varStatus="status">
 												<tr>
