@@ -15,7 +15,6 @@
 		<mapper resource="mybatis/mappers/OpenInfoMapper.xml" />
 		<mapper resource="mybatis/mappers/BoardMapper.xml" />
 		<mapper resource="mybatis/mappers/LectureRoomMapper.xml" />
-	    <mapper resource="mybatis/mappers/TeamMapper.xml" />
 	</mappers>
 
 </configuration>
