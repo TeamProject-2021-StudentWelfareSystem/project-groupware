@@ -94,4 +94,6 @@ public interface UserDao {
 
 	public String SelectUserRole(String userLoginID);
 
+	public String SelectUserName(String userLoginID);
+
 }

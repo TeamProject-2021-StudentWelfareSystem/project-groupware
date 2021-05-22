@@ -374,4 +374,10 @@ public class UserDaoImpl implements UserDao {
 		return UserRole;
 	}
 
+	@Override
+	public String SelectUserName(String userLoginID) {
+		String UserName = this.sqlSession.selectOne("SelectUserName", userLoginID);
+		return UserName;
+	}
+
 }

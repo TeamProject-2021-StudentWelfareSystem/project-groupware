@@ -37,7 +37,8 @@
 						</div>
 					</section>
 					<section>
-						<form action="NoticeWrite.do" name="NoticeWrite" method="POST"
+						<form action="noticeWrite?${_csrf.parameterName}=${_csrf.token}" 
+						name="NoticeWrite" enctype="multipart/form-data" method="POST"
 							id="form">
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -53,7 +54,7 @@
 										<td><label for="writer">작성자 &nbsp; </label></td>
 										<td><input
 											type="text" name="NoticeWriter" id="noticeWriter"
-											class="inputBox" value=${NoticeWriter}>
+											class="inputBox" placeholder = "작성자는 자동으로 입력됩니다." value="${NoticeWriter}" disabled readonly>
 											<input
 											type="text" name="Date" id="date" class="inputBox"
 											placeholder="날짜가 자동으로 입력됩니다." disabled readonly value=${BoardDate}></td>
@@ -67,7 +68,7 @@
 								<hr>
 								<table>
 									<tr>
-										<td><label for="attachment">첨부파일</label>
+										<td><label for="attachment">첨부파일</label></td>
 										<td><input type="file" name="BoardFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
@@ -82,7 +83,7 @@
 							</div>
 							<!-- section2 -->
 							<div id="btn">
-								<input type="submit" value="저장" id="listButton"> <a
+								<input type="submit" value="저장" id="saveButton"> <a
 									href="${path}/noticeList"><input type="button" value="이전"
 									id="listButton"></a>
 							</div>

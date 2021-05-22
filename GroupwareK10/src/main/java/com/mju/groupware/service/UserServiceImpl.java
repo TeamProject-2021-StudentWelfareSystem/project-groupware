@@ -290,4 +290,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.SelectUserRole(userLoginID);
 	}
 
+	@Override
+	public String SelectUserName(String userLoginID) {
+		return userDao.SelectUserName(userLoginID);
+	}
+
 }

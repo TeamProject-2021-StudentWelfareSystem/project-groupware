@@ -191,6 +191,17 @@
 		userLoginID = #{userLoginID}
 	</select>
 	
+	<!--  유저 이름 가져오기 (게시판 작성자 에서 사용)-->	
+	<select id="SelectUserName" parameterType="String"
+		resultType="String">
+		SELECT
+		userName
+		FROM
+		user
+		WHERE
+		userLoginID = #{userLoginID}
+	</select>
+	
 	<!-- 마이페이지 정보수정 -->
 	<update id="UpdateUserPhoneNum"
 		parameterType="com.mju.groupware.dto.User">

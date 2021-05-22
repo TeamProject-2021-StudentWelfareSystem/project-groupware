@@ -25,6 +25,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> SelectCommunityBoardList() {
 		return boardDao.SelectCommunityBoardList();
 	}
+	
+	@Override
+	public List<Board> SelectNoticeBoardList() {
+		return boardDao.SelectNoticeBoardList();
+	}
 
 	@Override
 	public void UpdateHitCount(String boardID) {
@@ -56,6 +61,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public Board SelectOneNoticeContent(String boardID) {
+		return boardDao.SelectOneCommunityContent(boardID);
+	}
+	
+	@Override
 	public String SelectLoginUserID(String loginID) {
 		return boardDao.SelectLoginUserID(loginID);
 	}
@@ -63,6 +73,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void DeleteCommunity(int boardID) {
 		boardDao.DeleteCommunity(boardID);
+	}
+	
+	@Override
+	public void DeleteNotice(int boardID) {
+		boardDao.DeleteNotice(boardID);
 	}
 
 	@Override
@@ -93,16 +108,29 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> SelectFileList(int BNo) {
-		List<Map<String, Object>> SelectFileList = boardDao.SelectFileList(BNo);
-		return SelectFileList;
+	public List<Map<String, Object>> SelectCommunityFileList(int BNo) {
+		List<Map<String, Object>> SelectCommunityFileList = boardDao.SelectCommunityFileList(BNo);
+		return SelectCommunityFileList;
 	}
 
 	@Override
-	public Map<String, Object> SelectFileInfo(Map<String, Object> map) {
-		Map<String, Object> SelectFileInfo = boardDao.SelectFileInfo(map);
+	public Map<String, Object> SelectCommunityFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectCommunityFileInfo = boardDao.SelectCommunityFileInfo(map);
 
-		return SelectFileInfo;
+		return SelectCommunityFileInfo;
+	}
+	
+	@Override
+	public List<Map<String, Object>> SelectNoticeFileList(int BNo) {
+		List<Map<String, Object>> SelectNoticeFileList = boardDao.SelectNoticeFileList(BNo);
+		return SelectNoticeFileList;
+	}
+
+	@Override
+	public Map<String, Object> SelectNoticeFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectNoticeFileInfo = boardDao.SelectNoticeFileInfo(map);
+
+		return SelectNoticeFileInfo;
 	}
 
 }

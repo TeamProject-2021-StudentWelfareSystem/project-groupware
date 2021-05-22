@@ -9,11 +9,11 @@
 		parameterType="com.mju.groupware.dto.Board">
 		insert into Board (
 		BoardSubject, BoardContent,
-		BoardWriter, BoardDate, UserID, BoardHit
+		BoardWriter, BoardDate, UserID, BoardHit, BoardType
 		) values(
 		#{BoardSubject},
 		#{BoardContent},
-		#{BoardWriter}, #{BoardDate}, #{UserID}, #{BoardHit}
+		#{BoardWriter}, #{BoardDate}, #{UserID}, #{BoardHit}, #{BoardType}
 		)
 	</insert>
 	<!-- 파일 정보 작성 -->
@@ -21,14 +21,20 @@
 		insert into BoardFile (
 		BOriginalFileName, BStoredFileName, BFileSize, BoardID
 		) values(
-		#{OriginalFileName}, #{StoredFileName}, #{FileSize},#{Bno}
+		#{OriginalFileName}, #{StoredFileName}, #{FileSize}, #{Bno}
 		)
 	</insert>
 
 	<select id="SelectCommunityBoardList"
 		resultType="com.mju.groupware.dto.Board">
 		select BoardID, BoardSubject, BoardWriter, BoardDate,
-		BoardHit from Board
+		BoardHit from Board where BoardType = "커뮤니티"
+	</select>
+	
+	<select id="SelectNoticeBoardList"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardWriter, BoardDate,
+		BoardHit from Board where BoardType = "공지사항"
 	</select>
 
 	<update id="UpdateHitCount">
@@ -45,6 +51,12 @@
 	</select>
 
 	<select id="SelectOneCommunityContent"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardContent, BoardWriter,
+		BoardDate, UserID from Board where BoardID = #{BoardID}
+	</select>
+	
+	<select id="SelectOneNoticeContent"
 		resultType="com.mju.groupware.dto.Board">
 		select BoardID, BoardSubject, BoardContent, BoardWriter,
 		BoardDate, UserID from Board where BoardID = #{BoardID}
@@ -68,7 +80,14 @@
 		delete from Board
 		where BoardID = #{boardID}
 	</delete>
-	<select id="SelectFileList" parameterType="int"
+	
+	<delete id="DeleteNotice" parameterType="Integer">
+		delete from Board
+		where BoardID = #{boardID}
+	</delete>
+	
+	
+	<select id="SelectCommunityFileList" parameterType="int"
 		resultType="hashMap">
 		SELECT
 		*
@@ -77,7 +96,24 @@
 		ORDER BY BFileID ASC
 	</select>
 
-	<select id="SelectFileInfo" parameterType="hashMap"
+	<select id="SelectCommunityFileInfo" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		BOriginalFileName,BStoredFileName
+		from BoardFile
+		where BFileID = #{BFileID}
+	</select>
+	
+	<select id="SelectNoticeFileList" parameterType="int"
+		resultType="hashMap">
+		SELECT
+		*
+		from BoardFile
+		where BoardID = #{BoardID}
+		ORDER BY BFileID ASC
+	</select>
+
+	<select id="SelectNoticeFileInfo" parameterType="hashMap"
 		resultType="hashMap">
 		SELECT
 		BOriginalFileName,BStoredFileName

@@ -119,6 +119,8 @@ public class TeamController {
 		// 학생 이름
 		UserName = SelectUserProfileInfo.get(0);
 		model.addAttribute(UserName, UserName);
+	    model.addAttribute("TeamLeaderID", LoginID);
+	    model.addAttribute("TeamLeaderName", UserName);
 
 		String LectureName = request.getParameter("LectureName");
 		List<com.mju.groupware.dto.Class> LectureInfo = teamService.SelectLectureInfo(LectureName);

@@ -12,6 +12,8 @@ public interface BoardDao {
 	void InsertFile(Map<String, Object> map);
 
 	List<Board> SelectCommunityBoardList();
+	
+	List<Board> SelectNoticeBoardList();
 
 	void UpdateHitCount(String boardID);
 
@@ -20,16 +22,24 @@ public interface BoardDao {
 	int SelectBoardID(Board board);
 
 	Board SelectOneCommunityContent(String boardID);
+	
+	Board SelectOneNoticeContent(String boardID);
 
 	String SelectLoginUserID(String loginID);
 
 	void UpdateModifiedContent(Board board);
 
 	void DeleteCommunity(int boardID);
+	
+	void DeleteNotice(int boardID);
 
-	Map<String, Object> SelectFileInfo(Map<String, Object> map);
+	Map<String, Object> SelectCommunityFileInfo(Map<String, Object> map);
 
-	List<Map<String, Object>> SelectFileList(int bNo);
+	List<Map<String, Object>> SelectCommunityFileList(int bNo);
+	
+	Map<String, Object> SelectNoticeFileInfo(Map<String, Object> map);
+
+	List<Map<String, Object>> SelectNoticeFileList(int bNo);
 
 	void UpdateFile(Map<String, Object> tempMap);
 

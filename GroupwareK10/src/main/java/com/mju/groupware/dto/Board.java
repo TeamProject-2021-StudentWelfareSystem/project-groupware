@@ -7,6 +7,15 @@ public class Board {
 	private String BoardWriter;
 	private String BoardContent;
 	private String BoardDate;
+	private String BoardType;
+	public String getBoardType() {
+		return BoardType;
+	}
+
+	public void setBoardType(String boardType) {
+		BoardType = boardType;
+	}
+
 	private int UserID;
 	private int BoardID;
 	private int BoardHit;

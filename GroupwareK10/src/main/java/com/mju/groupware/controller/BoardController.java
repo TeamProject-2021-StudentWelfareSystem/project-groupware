@@ -66,32 +66,243 @@ public class BoardController {
 
 	// 공지사항 리스트
 	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
-	public String noticeList(HttpServletRequest request, Model model) {
+	public String noticeList(User user, HttpServletRequest request, Model model, Principal principal) {
+		
+
+		String UserLoginID = principal.getName();// 로그인 한 아이디
+
+		List<Board> noticeList = boardService.SelectNoticeBoardList();
+
+		model.addAttribute("noticeList", noticeList);
+
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+
+		user.setUserLoginID(UserLoginID);
+		ArrayList<String> StudentInfo = new ArrayList<String>();
+		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+
+		// 학생 이름
+		model.addAttribute("UserName", Info.get(0));
+		// 학생 소속
+		StudentColleges = StudentInfo.get(0);
+		model.addAttribute("SC", StudentColleges);
+		// 학생 전공
+		UserMajorForShow = StudentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajorForShow);
+		// 학생 학년
+		StudentGradeForShow = StudentInfo.get(2);
+		model.addAttribute("Grade", StudentGradeForShow);
+		// user role
+		model.addAttribute("UserRole", Info.get(2));
 		return "/board/noticeList";
 	}
 
 	// 공지사항 글 작성
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
-	public String noticeWrite() {
+	public String noticeWrite(User user, HttpServletRequest request, Model model, Principal principal) {
+		
+		List<Board> noticeList = boardService.SelectNoticeBoardList();
+
+		model.addAttribute("noticeList", noticeList);
+
+		String UserLoginID = principal.getName();// 로그인 한 아이디
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+
+		user.setUserLoginID(UserLoginID);
+		ArrayList<String> StudentInfo = new ArrayList<String>();
+		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+
+		// 학생 이름
+		model.addAttribute("UserName", Info.get(0));
+		// 학생 소속
+		StudentColleges = StudentInfo.get(0);
+		model.addAttribute("SC", StudentColleges);
+		// 학생 전공
+		UserMajorForShow = StudentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajorForShow);
+		// 학생 학년
+		StudentGradeForShow = StudentInfo.get(2);
+		model.addAttribute("Grade", StudentGradeForShow);
+		// user role
+		model.addAttribute("UserRole", Info.get(2));
+		
 		return "/board/noticeWrite";
 	}
 
-	@RequestMapping(value = "/noticeWrite.do", method = RequestMethod.POST)
-	public String DoNoticeWrite(Board board) throws Exception {
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
+	public String DoNoticeWrite(Principal principal, HttpServletRequest request, User user, Board board,
+			Model model) throws Exception {
+		
+		Date Now = new Date();
+		String Title = request.getParameter("NoticeTitle");
+		String Content = request.getParameter("NoticeContent");
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String UserLoginID = principal.getName();
+		int UserID = userService.SelectUserIDFromBoardController(UserLoginID);
+		String UserName = userService.SelectUserName(UserLoginID);
+
+		board.setBoardSubject(Title);
+		board.setBoardContent(Content);
+		board.setBoardWriter(UserName);
+		board.setBoardDate(Date.format(Now));
+		board.setUserID(UserID);
+		board.setBoardType("공지사항");
+
+		boardService.InsertBoard(board, request);
+
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+
+		user.setUserLoginID(UserLoginID);
+		ArrayList<String> StudentInfo = new ArrayList<String>();
+		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+
+		// 학생 이름
+		model.addAttribute("UserName", Info.get(0));
+		// 학생 소속
+		StudentColleges = StudentInfo.get(0);
+		model.addAttribute("SC", StudentColleges);
+		// 학생 전공
+		UserMajorForShow = StudentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajorForShow);
+		// 학생 학년
+		StudentGradeForShow = StudentInfo.get(2);
+		model.addAttribute("Grade", StudentGradeForShow);
+		// user role
+		model.addAttribute("UserRole", Info.get(2));
+		
 		// boardService.InsertBoardInfo(board, mpRequest);
-		return "/board/noticeWrite";
+		return "redirect:/noticeList";
 	}
 
 	// 공지사항 글 수정
 	@RequestMapping(value = "/noticeModify", method = RequestMethod.GET)
-	public String noticeModify() {
+	public String noticeModify(User user, Model model, Board board, Principal principal,
+			HttpServletRequest request) {
+		
+		String BoardID = request.getParameter("boardID");
+		board = boardService.SelectOneNoticeContent(BoardID);
+		model.addAttribute("NoticeTitle", board.getBoardSubject());
+		model.addAttribute("NoticeWriter", board.getBoardWriter());
+		model.addAttribute("Date", board.getBoardDate());
+		model.addAttribute("NoticeContent", board.getBoardContent());
+		model.addAttribute("BoardID", board.getBoardID());
+		model.addAttribute("BoardType", board.getBoardType());
+
+		// 수정된 file을 보여주는곳
+		List<Map<String, Object>> noticeFileList = boardService.SelectNoticeFileList(Integer.parseInt(BoardID));
+		model.addAttribute("NoticeFile", noticeFileList);
+
+		String UserLoginID = principal.getName();// 로그인 한 아이디
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+
+		user.setUserLoginID(UserLoginID);
+		ArrayList<String> StudentInfo = new ArrayList<String>();
+		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+
+		// 학생 이름
+		model.addAttribute("UserName", Info.get(0));
+		// 학생 소속
+		StudentColleges = StudentInfo.get(0);
+		model.addAttribute("SC", StudentColleges);
+		// 학생 전공
+		UserMajorForShow = StudentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajorForShow);
+		// 학생 학년
+		StudentGradeForShow = StudentInfo.get(2);
+		model.addAttribute("Grade", StudentGradeForShow);
+		// user role
+		model.addAttribute("UserRole", Info.get(2));
+		
 		return "/board/noticeModify";
+	}
+	
+	
+	@RequestMapping(value = "/NoticeModify", method = RequestMethod.POST)
+	public String noticeModifyDO(Model model, Board board, HttpServletRequest request, RedirectAttributes rttr, Principal principal,
+			@RequestParam(value = "FileList[]") String[] FileList,
+			@RequestParam(value = "FileNameList[]") String[] FileNameList,
+			@RequestParam(value = "BoardID") String BoardID) {
+		Date Now = new Date();
+		String Title = request.getParameter("NoticeTitle");
+		String Content = request.getParameter("NoticeContent");
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String UserLoginID = principal.getName();
+		int BoardID2 = Integer.parseInt(request.getParameter("BoardID"));
+		String UserName = userService.SelectUserName(UserLoginID);
+
+		board.setBno(BoardID2);
+		board.setBoardSubject(Title);
+		board.setBoardContent(Content);
+		board.setBoardWriter(UserName);
+		board.setBoardDate(Date.format(Now));
+		board.setBoardID(BoardID2);
+		board.setBoardType("공지사항");
+
+		boardService.UpdateModifiedContent(board, FileList, FileNameList, request);
+
+		return "redirect:/noticeList";
 	}
 
 	// 공지사항 리스트에서 제목 선택시 내용 출력
 	@RequestMapping(value = "/noticeContent", method = RequestMethod.GET)
-	public String noticeContent() {
+	public String noticeContent(User user, Principal principal, HttpServletRequest request, Model model,
+			Board board) {
+		
+		// 누르면 조회수 증가하는 로직
+		String BoardID = request.getParameter("no");
+		boardService.UpdateHitCount(BoardID);
+		/*-----------------------------------*/
+		board = boardService.SelectOneCommunityContent(BoardID); // 선택한 게시글을 쓴 userID가 들어감.
+		model.addAttribute("NoticeTitle", board.getBoardSubject());
+		model.addAttribute("NoticeWriter", board.getBoardWriter());
+		model.addAttribute("BoardDate", board.getBoardDate());
+		model.addAttribute("NoticeContent", board.getBoardContent());
+		model.addAttribute("BoardID", BoardID);
+		model.addAttribute("BoardType", board.getBoardType());
+
+		String LoginID = principal.getName();
+		String UserID = boardService.SelectLoginUserID(LoginID);// 로그인한 사람의 userID를 가져오기 위함
+		model.addAttribute("UserID", UserID);
+		model.addAttribute("UserIDFromWriter", board.getUserID());
+
+		List<Map<String, Object>> noticeFileList = boardService.SelectNoticeFileList(Integer.parseInt(BoardID));
+		model.addAttribute("NoticeFile", noticeFileList);
+
+		String UserLoginID = principal.getName();// 로그인 한 아이디
+		ArrayList<String> Info = new ArrayList<String>();
+		Info = userService.SelectUserProfileInfo(UserLoginID);
+
+		user.setUserLoginID(UserLoginID);
+		ArrayList<String> StudentInfo = new ArrayList<String>();
+		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+
+		// 학생 이름
+		model.addAttribute("UserName", Info.get(0));
+		// 학생 소속
+		StudentColleges = StudentInfo.get(0);
+		model.addAttribute("SC", StudentColleges);
+		// 학생 전공
+		UserMajorForShow = StudentInfo.get(1);
+		model.addAttribute("UserMajor", UserMajorForShow);
+		// 학생 학년
+		StudentGradeForShow = StudentInfo.get(2);
+		model.addAttribute("Grade", StudentGradeForShow);
+		// user role
+		model.addAttribute("UserRole", Info.get(2));
+		
 		return "/board/noticeContent";
+	}
+	
+	@RequestMapping(value = "/NoticeDelete.do", method = RequestMethod.POST)
+	public String deleteNotice(HttpServletRequest request) {
+		int BoardID = Integer.parseInt(request.getParameter("boardID"));
+		boardService.DeleteCommunity(BoardID);
+
+		return "redirect:/noticeList";
 	}
 
 	// 커뮤니티 리스트
@@ -142,6 +353,7 @@ public class BoardController {
 		user.setUserLoginID(UserLoginID);
 		ArrayList<String> StudentInfo = new ArrayList<String>();
 		StudentInfo = studentService.SelectStudentProfileInfo(Info.get(1));
+		
 
 		// 학생 이름
 		model.addAttribute("UserName", Info.get(0));
@@ -164,17 +376,18 @@ public class BoardController {
 			Model model) {
 		Date Now = new Date();
 		String Title = request.getParameter("CommunityTitle");
-		String Writer = request.getParameter("CommunityWriter");
 		String Content = request.getParameter("CommunityContent");
 		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String UserLoginID = principal.getName();
 		int UserID = userService.SelectUserIDFromBoardController(UserLoginID);
+		String UserName = userService.SelectUserName(UserLoginID);
 
 		board.setBoardSubject(Title);
 		board.setBoardContent(Content);
-		board.setBoardWriter(Writer);
+		board.setBoardWriter(UserName);
 		board.setBoardDate(Date.format(Now));
 		board.setUserID(UserID);
+		board.setBoardType("커뮤니티");
 
 		boardService.InsertBoard(board, request);
 
@@ -216,8 +429,8 @@ public class BoardController {
 		model.addAttribute("BoardID", board.getBoardID());
 
 		// 수정된 file을 보여주는곳
-		List<Map<String, Object>> fileList = boardService.SelectFileList(Integer.parseInt(BoardID));
-		model.addAttribute("CommunityFile", fileList);
+		List<Map<String, Object>> communityFile = boardService.SelectCommunityFileList(Integer.parseInt(BoardID));
+		model.addAttribute("CommunityFile", communityFile);
 
 		String UserLoginID = principal.getName();// 로그인 한 아이디
 		ArrayList<String> Info = new ArrayList<String>();
@@ -245,7 +458,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/CommunityModify.do", method = RequestMethod.POST)
-	public String communityModifyDO(Model model, Board board, HttpServletRequest request, RedirectAttributes rttr,
+	public String communityModifyDO(Model model, Board board, HttpServletRequest request, RedirectAttributes rttr, Principal principal,
 			@RequestParam(value = "FileList[]") String[] FileList,
 			@RequestParam(value = "FileNameList[]") String[] FileNameList,
 			@RequestParam(value = "BoardID") String BoardID) {
@@ -255,11 +468,14 @@ public class BoardController {
 		String Content = request.getParameter("CommunityContent");
 		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int BoardID2 = Integer.parseInt(request.getParameter("BoardID"));
+		String UserLoginID = principal.getName();// 로그인 한 아이디
+		int UserID = userService.SelectUserIDFromBoardController(UserLoginID);
+		String UserName = userService.SelectUserName(UserLoginID);
 
 		board.setBno(BoardID2);
 		board.setBoardSubject(Title);
 		board.setBoardContent(Content);
-		board.setBoardWriter(Writer);
+		board.setBoardWriter(UserName);
 		board.setBoardDate(Date.format(Now));
 		board.setBoardID(BoardID2);
 
@@ -272,7 +488,7 @@ public class BoardController {
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
 
 		// xml처리는 준현맨이 해준다구!
-		Map<String, Object> resultMap = boardService.SelectFileInfo(map);
+		Map<String, Object> resultMap = boardService.SelectCommunityFileInfo(map);
 		String storedFileName = (String) resultMap.get("BStoredFileName");
 		String originalFileName = (String) resultMap.get("BOriginalFileName");
 		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
@@ -308,8 +524,8 @@ public class BoardController {
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", board.getUserID());
 
-		List<Map<String, Object>> SelectFileList = boardService.SelectFileList(Integer.parseInt(BoardID));
-		model.addAttribute("CommunityFile", SelectFileList);
+		List<Map<String, Object>> communityFile = boardService.SelectCommunityFileList(Integer.parseInt(BoardID));
+		model.addAttribute("CommunityFile", communityFile);
 
 		String UserLoginID = principal.getName();// 로그인 한 아이디
 		ArrayList<String> Info = new ArrayList<String>();

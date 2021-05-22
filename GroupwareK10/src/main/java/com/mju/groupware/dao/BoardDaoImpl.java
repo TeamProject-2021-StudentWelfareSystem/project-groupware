@@ -31,8 +31,14 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<Board> SelectCommunityBoardList() {
-		List<Board> Output = sqlSession.selectList("SelectCommunityBoardList");
-		return Output;
+		List<Board> CommunityOutput = sqlSession.selectList("SelectCommunityBoardList");
+		return CommunityOutput;
+	}
+	
+	@Override
+	public List<Board> SelectNoticeBoardList() {
+		List<Board> NoticeOutput = sqlSession.selectList("SelectNoticeBoardList");
+		return NoticeOutput;
 	}
 
 	@Override
@@ -42,7 +48,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public void insertFile(Map<String, Object> map) {
-
 		sqlSession.insert("InsertFile", map);
 	}
 
@@ -55,6 +60,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public Board SelectOneCommunityContent(String boardID) {
 		return sqlSession.selectOne("SelectOneCommunityContent", boardID);
+	}
+	
+	@Override
+	public Board SelectOneNoticeContent(String boardID) {
+		return sqlSession.selectOne("SelectOneNoticeContent", boardID);
 	}
 
 	@Override
@@ -71,17 +81,35 @@ public class BoardDaoImpl implements BoardDao {
 	public void DeleteCommunity(int boardID) {
 		sqlSession.delete("DeleteCommunity", boardID);
 	}
+	
+	@Override
+	public void DeleteNotice(int boardID) {
+		sqlSession.delete("DeleteNotice", boardID);
+	}
 
-	public List<Map<String, Object>> SelectFileList(int BNo) {
-		List<Map<String, Object>> SelectFileList = sqlSession.selectList("SelectFileList", BNo);
 
-		return SelectFileList;
+	public List<Map<String, Object>> SelectCommunityFileList(int BNo) {
+		List<Map<String, Object>> SelectCommunityFileList = sqlSession.selectList("SelectCommunityFileList", BNo);
+
+		return SelectCommunityFileList;
 	}
 
 	@Override
-	public Map<String, Object> SelectFileInfo(Map<String, Object> map) {
-		Map<String, Object> SelectFileInfo = sqlSession.selectOne("SelectFileInfo", map);
-		return SelectFileInfo;
+	public Map<String, Object> SelectCommunityFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectCommunityFileInfo = sqlSession.selectOne("SelectCommunityFileInfo", map);
+		return SelectCommunityFileInfo;
+	}
+	
+	public List<Map<String, Object>> SelectNoticeFileList(int BNo) {
+		List<Map<String, Object>> SelectNoticeFileList = sqlSession.selectList("SelectNoticeFileList", BNo);
+
+		return SelectNoticeFileList;
+	}
+
+	@Override
+	public Map<String, Object> SelectNoticeFileInfo(Map<String, Object> map) {
+		Map<String, Object> SelectNoticeFileInfo = sqlSession.selectOne("SelectNoticeFileInfo", map);
+		return SelectNoticeFileInfo;
 	}
 
 	@Override

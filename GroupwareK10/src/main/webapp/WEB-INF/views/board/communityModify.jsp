@@ -55,7 +55,10 @@
 										<td><label for="writer">작성자 &nbsp; </label></td>
 										<td><input type="text" name="CommunityWriter"
 											id="communityWriter" class="inputBox"
-											value="${CommunityWriter}"> <input type="text"
+											placeholder = "작성자는 자동으로 입력됩니다."
+											value="${CommunityWriter}"
+											disabled readonly> 
+											<input type="text"
 											name="Date" id="date" class="inputBox"
 											placeholder="날짜가 자동으로 입력됩니다." disabled readonly
 											value="${BoardDate}"></td>
