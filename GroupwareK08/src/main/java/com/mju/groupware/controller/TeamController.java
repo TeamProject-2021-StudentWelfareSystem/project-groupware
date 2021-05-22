@@ -1,26 +1,40 @@
 package com.mju.groupware.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mju.groupware.dto.User;
 import com.mju.groupware.service.StudentService;
+import com.mju.groupware.service.TeamService;
 import com.mju.groupware.service.UserService;
 
 @Controller
 public class TeamController {
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private StudentService studentService;
+
+	@Autowired
+	private TeamService teamService;
 
 	// 문서관리 - 회의록 관리 선택시 팀 리스트 출력
 	@RequestMapping(value = "/team/meetingTeamList", method = RequestMethod.GET)
@@ -89,30 +103,41 @@ public class TeamController {
 		String UserName;
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
 		SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
-		
+
 		user.setUserLoginID(LoginID);
 		ArrayList<String> StudentInfo = new ArrayList<String>();
 		StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
-		
+
 		// 학생 이름
 		UserName = SelectUserProfileInfo.get(0);
 		model.addAttribute(UserName, UserName);
-		
+
+		List<String> ClassNameList = teamService.SelectClassName();
+		HashSet<String> ResultClassNameList = new HashSet<String>(ClassNameList);
+		List<String> OriginalClassNameList = new ArrayList<String>(ResultClassNameList);
+		model.addAttribute("ClassNameList", OriginalClassNameList);
+
 		return "/team/createTeam";
 	}
 	
+	
+	@RequestMapping(value = "/team/createTeam", method = RequestMethod.POST)
+	public String DoCreateTeam(User user, Model model, Principal Principal) {
+	return "/team/createTeam";
+	}
+
 	// 전체 팀 리스트 조회
 	@RequestMapping(value = "/team/teamList", method = RequestMethod.GET)
 	public String teamList(User user, Model model, Principal Principal) {
-				
+
 		return "/team/teamList";
 	}
-	
+
 	// 팀 리스트 화면에서 팀 선택 시 소속된 팀 출력 화면
 	@RequestMapping(value = "/team/checkTeam", method = RequestMethod.GET)
 	public String checkTeam(User user, Model model, Principal Principal) {
-				
+
 		return "/team/checkTeam";
 	}
-			
+
 }
