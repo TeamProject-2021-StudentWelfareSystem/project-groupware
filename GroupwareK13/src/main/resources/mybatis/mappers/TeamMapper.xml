@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.TeamDao">
+	<insert id="InsertTeamInfo"
+		parameterType="com.mju.groupware.dto.Team" useGeneratedKeys="true"
+		keyProperty="TeamID">
+		insert into Team (
+		TeamName, TeamLeaderName,
+		TeamCreationDate, ClassID
+		) values(
+		#{TeamName}, #{TeamLeaderName},
+		#{TeamCreationDate}, #{ClassID}
+		)
+	</insert>
+
+	<select id="SelectClassID"
+		parameterType="com.mju.groupware.dto.Class" resultType="Integer">
+		select ClassID
+		from Class
+		where ClassName = #{ClassName} and ClassProfessorName =
+		#{ClassProfessorName}
+	</select>
+	
+		<select id="SelectClassList"
+		parameterType="Integer" resultType="com.mju.groupware.dto.Class">
+		select *
+		from Class
+		where ClassID = #{classID}
+	</select>
+	
+		<select id="SelectTeamList"
+		resultType="com.mju.groupware.dto.Team">
+		select *
+		from Team;
+	</select>
+	<select id="SelectLectureInformation"
+		parameterType="String" resultType="com.mju.groupware.dto.Class">
+		select * from Class
+		where ClassName LIKE CONCAT('%',#{lectureName},'%')
+	</select>
+	
+	<select id ="SelectUserIDForTeamUser" parameterType="com.mju.groupware.dto.User" resultType = "Integer">
+		select UserID
+		from User
+		where UserName = #{UserName} and UserLoginID = #{UserLoginID}	
+	</select>
+	
+	<insert id="InsertTeamUserInfo"
+		parameterType="com.mju.groupware.dto.TeamUser">
+		insert into TeamUser (
+		TeamID, UserID
+		) values(
+		#{TeamID}, #{UserID}
+		)
+	</insert>
+
+	<select id ="SelectTeamLeaderUserID" parameterType="com.mju.groupware.dto.User" resultType = "Integer">
+		select UserID
+		from User
+		where UserLoginID = #{name}	
+	</select>
+</mapper>
