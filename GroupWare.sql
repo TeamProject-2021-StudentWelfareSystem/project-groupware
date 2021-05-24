@@ -45,7 +45,7 @@ select StudentGrade,StudentGender,StudentDoubleMajor from Student where StudentI
 SELECT OpenName, OpenPhoneNum FROM User WHERE UserLoginID = '';
 select WUserID from WithdrawalUser where WUserLoginID = '60212222';
 select * from UserReservation;
-select * from UserClass;
+select * from TeamUser;
 select * from LectureRoom;
 # 예약 가능한 강의실 검색하기 조건문 생각해보기
 select * from UserReservation where ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00' and ReservationDate = '2021-5-12';
@@ -74,7 +74,7 @@ drop table WithdrawalProfessor;
 drop table Team;
 drop table TeamFile;
 drop table Class;
-drop table UserClass;
+drop table TeamUser;
 drop table Board;
 drop table BoardFile;
 drop table UserReservation;
@@ -161,6 +161,8 @@ foreign key (ClassID) references Class(ClassID) on delete cascade on update casc
 create table TeamUser(
 UserID int not null,
 TeamID int not null,
+UserName varchar(20) not null,
+UserLoginID varchar(30) not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade,
 foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
 ); 
@@ -222,7 +224,7 @@ StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중�
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
-UserID int, foreign key (StudentID) references user(UserID)
+UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
 );
 
 create table Professor(
@@ -236,7 +238,7 @@ ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문�
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '입력해주세요') default '입력해주세요' not null, #전공
-UserID int, foreign key (ProfessorID) references user(UserID)
+UserID int, foreign key (ProfessorID) references user(UserID) on delete cascade on update cascade
 );
 
 create table WithdrawalUser(
