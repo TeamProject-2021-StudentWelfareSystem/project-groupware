@@ -312,5 +312,8 @@ public class TeamController {
 		
 		return "/team/checkTeam";
 	}
-
+	@RequestMapping(value = "/team/modifyTeam", method = RequestMethod.GET)
+	public String modifyTeam() {
+		return "/team/modifyTeam";
+	}
 }

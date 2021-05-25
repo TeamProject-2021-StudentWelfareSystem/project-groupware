@@ -25,7 +25,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../js/createTeam.js"></script>
 
-<title>create team</title>
+<title>modify team</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>
@@ -37,12 +37,12 @@
 					<section>
 						<div class="section">
 							<br>
-							<h2>팀 생성하기</h2>
+							<h2>팀 수정하기</h2>
 							<hr>
 						</div>
 					</section>
 					<section>
-						<form action="createTeam" name="CreateTeam" method="POST"
+						<form action="modifyTeam" name="ModifyTeam" method="POST"
 							id="form">
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -61,20 +61,22 @@
 									<tr>
 										<td><label for="teamName">팀 이름 &nbsp; &nbsp; </label></td>
 										<td><input type="text" name="TeamName" id="teamName"
-											class="inputBox" value=""></td>
+											class="inputBox"value="${TeamName}"></td>
 									</tr>
+									
 									<tr>
 										<td><label for="teamLeaderID">팀장 학번&nbsp; &nbsp;
 										</label></td>
 										<td><input type="text" name="TeamLeaderID"
 											id="teamLeaderID" class="inputBox" 
-											value="${TeamLeaderID}" readonly></td>
+											value="${teamList.getUserLoginID()}" readonly></td>
 										<td><label for="teamLeaderName">팀장 이름 &nbsp;
 												&nbsp; </label></td>
 										<td><input type="text" name="TeamLeaderName"
 											id="teamLeaderName" class="inputBox" 
-											value="${TeamLeaderName}" readonly></td>
+											value="${teamList.getUserName()}" readonly></td>
 									</tr>
+									
 									<tr>
 										<td><label for="studentID">학번 &nbsp; &nbsp; </label></td>
 										<td><input type="text" name="StudentID" id="studentID"
@@ -84,6 +86,7 @@
 											id="studentName" class="inputBox" value="${StudentName}">
 										</td>
 									</tr>
+									
 								</table>
 								<table id="addTeamMember">
 								</table>
@@ -95,7 +98,7 @@
 							<div id="btn">
 								<input type="button" value="팀원 추가" id="addMember"
 									onclick="addTeamMember()"> <input type="submit"
-									value="팀 생성" id="createButton"> <a
+									value="수정 완료" id="createButton"> <a
 									href="${path}/team/createTeam"><input type="button"
 									value="이전" id="listButton"></a>
 							</div>

@@ -80,6 +80,8 @@
 							<div id="btn">
 								<a href="${path}/team/teamList">
 								<input type="button" value="목록" id="listButton"></a>
+								<a href="${path}/team/modifyTeam">
+								<input type="button" value="수정" id="listButton"></a>
 							</div>
 						</form>
 				</section>
