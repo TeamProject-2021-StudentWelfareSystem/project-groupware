@@ -114,7 +114,7 @@
 								</a> <a href="modifyPassword"
 									onClick="window.open(this.href, '', 'width=800, height=800'); return false;">
 									<input type="button" id="modifyPWBtn" value="비밀번호 변경하기">
-								</a> <a href="checkpassword2"
+								</a> <a href="checkPassword2"
 									onClick="window.open(this.href, '', 'width=800, height=800'); return false;">
 									<input type="button" id="withdrawBtn" value="회원 탈퇴">
 								</a>
