@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.UserListDao">
+
+	<!-- 회원 리스트 가져오는 SQL문 -->
+	<select id="SelectUserList"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		userID,
+		userLoginID,
+		userName,
+		userPhoneNum,
+		userEmail,
+		userRole,
+		authority,
+		LoginDate
+		FROM
+		user
+		WHERE withdrawal = 0
+	</select>
+
+	<select id="SelectDormantList"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		UserID,
+		UserLoginID,
+		UserName,
+		UserPhoneNum,
+		UserEmail,
+		UserRole,
+		Authority,
+		LoginDate
+		FROM
+		User
+		WHERE
+		Dormant = 1 and Withdrawal =
+		0
+	</select>
+
+	<select id="SelectWithdrawalList"
+		resultType="com.mju.groupware.dto.WithdrawalUser">
+		SELECT
+		*
+		FROM
+		WithdrawalUser
+	</select>
+
+	<select id="SelectWithdrawalUserListForRecovery"
+		resultType="com.mju.groupware.dto.WithdrawalUser">
+		SELECT
+		*
+		FROM
+		WithdrawalUser
+		WHERE
+		WUserLoginID = #{WUserLoginID}
+	</select>
+
+	<select id="SelectWithdrawalStudentListForRecovery"
+		parameterType="String"
+		resultType="com.mju.groupware.dto.WithdrawalStudent">
+		SELECT
+		*
+		FROM
+		WithdrawalStudent
+		WHERE 
+		WUserID = #{UserID}
+	</select>
+	
+	<select id="SelectWithdrawalProfessorListForRecovery"
+		parameterType="String"
+		resultType="com.mju.groupware.dto.WithdrawalProfessor">
+		SELECT
+		*
+		FROM
+		WithdrawalProfessor
+		WHERE 
+		WUserID = #{UserID}
+	</select>
+
+	<insert id="InsertUserForRecovery"
+		parameterType="com.mju.groupware.dto.WithdrawalUser" useGeneratedKeys="true"
+		keyProperty="UserID">
+		insert into user (
+		userName,
+		userPhoneNum,
+		userEmail,
+		userLoginID,
+		userLoginPwd,
+		userRole
+
+		) values(
+		#{WUserName},
+		#{WUserPhoneNum},
+		#{WUserEmail},
+		#{WUserLoginID},
+		#{WUserLoginPwd},
+		#{WUserRole}
+		)
+	</insert>
+	
+	<insert id="InsertStudentForRecovery"
+		parameterType="com.mju.groupware.dto.WithdrawalStudent" >
+		insert into Student (
+		StudentGrade,
+		StudentGender,
+		StudentColleges,
+		StudentMajor,
+		StudentDoubleMajor,
+		UserID
+		) values(
+		#{WStudentGrade},
+		#{WStudentGender},
+		#{WStudentColleges},
+		#{WStudentMajor},
+		#{WStudentDoubleMajor},
+		#{WUserID}
+		)
+	</insert>
+	
+	<insert id="InsertProfessorForRecovery"
+		parameterType="com.mju.groupware.dto.WithdrawalProfessor" >
+		insert into Professor (
+		ProfessorColleges,
+		ProfessorMajor,
+		UserID
+		) values(
+		#{WProfessorColleges},
+		#{WProfessorMajor},
+		#{WProfessorRoom},
+		#{WProfessorRoomNum},
+		#{WUserID}
+		)
+	</insert>
+</mapper>
