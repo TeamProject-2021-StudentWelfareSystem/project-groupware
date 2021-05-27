@@ -27,6 +27,7 @@ insert into professor (ProfessorColleges, professorMajor, UserID) values ("ICT�
 alter table User add Dormant boolean not null default 0;
 alter table Professor add ProfessorRoomNum varchar(30) default '입력해주세요';
 alter table Student drop column ProfessorRoom;
+alter table Team add TeamLeaderID varchar(30) not null;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -88,6 +89,8 @@ update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLo
 update User set UserMajor = '바꿀 학과' where UserLoginID = 'UserLoginID';
 update Student set StudentDoubleMajor = '바꿀 복수전공' where UserLoginID = 'UserLoginID'; 
 update User set Authority = "ROLE_ADMIN" where UserID = 1;
+update User set UserRole = "PROFESSOR" where UserName = "교수";
+update User set UserRole = "STUDENT" where UserName = "생성";
 update User set LoginDate = "2020-1-30" where UserName = "배트맨";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
@@ -152,6 +155,7 @@ ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 create table Team(
 TeamID int auto_increment not null primary key,
 TeamName varchar(50) not null,
+TeamLeaderID varchar(30) not null,
 TeamLeaderName varchar(20) not null,
 TeamCreationDate Date not null,
 ClassID int not null,
