@@ -159,7 +159,6 @@ public class ProfessorController {
 			user.setOpenName(NotOpen);
 			userService.UpdateOpenName(user);
 		}
-
 		if (request.getParameter(this.Constant.getUserEmail()) != null) {
 			String OpenEmail = "이메일";
 			user.setOpenEmail(OpenEmail);
