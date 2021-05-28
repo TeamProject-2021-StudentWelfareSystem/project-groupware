@@ -26,6 +26,7 @@ alter table Professor add ProfessorRoomNum varchar(30) default '입력해주세�
 alter table Student drop column ProfessorRoom;
 alter table Team add TeamLeaderID varchar(30) not null;
 alter table TeamBoard add TBoardDelete boolean default 0 not null;
+alter table TeamBoard add TUserLoginID varchar(30) not null;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -45,6 +46,7 @@ select * from UserReservation;
 select * from TeamUser;
 select * from LectureRoom;
 select * from TeamFile;
+select * from TeamBoard;
 select * from TeamSchedule;
 select * from UserReservation where ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00' and ReservationDate = '2021-5-12';
 select * from UserReservation where ReservationDate = '2021-05-12' and 
@@ -71,7 +73,8 @@ drop table TeamFile;
 drop table Class;
 drop table TeamUser;
 drop table TeamSchedule;
-drop table Board;	
+drop table Board;
+drop table InquiryBoard;	
 drop table BoardFile;
 drop table UserReservation;
 drop table TeamBoard;
@@ -98,6 +101,8 @@ update User set OpenPhoneNum = "비공개";
 update User set UserName = '월,수 13:30-14:45' where UserName = "확인용";
 update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박지수";
 update User set LoginDate = '2021-05-05' where UserName = "정민";
+update TeamBoard set TUserLoginID = "60201111" where TBoardWriter = "생성";
+select * from TeamBoard;
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -126,6 +131,7 @@ IBoardContent varchar(10000) not null,
 IBoardWriter varchar(20) not null,
 IBoardDate dateTime not null,
 IBoardType varchar(50) not null,
+IBoardDelete boolean default 0,
 UserEmail varchar(100) not null,
 UserPhoneNum varchar(30) not null,
 UserID int not null,
@@ -175,15 +181,16 @@ ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
 
-create table TeamSchedule(
+create table UserSchedule(
 ScheduleID int auto_increment not null primary key,
-ScheduleTitle varchar(100) not null,
+ScheduleTitle varchar(50) not null,
+ScheduleDesciption varchar(100) not null,
 ScheduleStartDate date not null,
 ScheduleEndDate date not null,
-ScheduleStartTime dateTime not null,
-ScheduleEndTime dateTime not null,
-TeamID int not null,
-foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
+BackgroundColor varchar(30) not null,
+UserName varchar(30) not null,
+UserID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
 
 create table TeamUser(
@@ -210,7 +217,7 @@ create table TeamFile(
 TFileID int auto_increment not null primary key,
 TOriginalFileName varchar(200) not null,
 TStoredFileName varchar(200) not null,
-TileSize int not null,
+TFileSize int not null,
 TBoardID int not null,
 foreign key (TBoardID) references TeamBoard(TBoardID) on delete cascade on update cascade
 );
