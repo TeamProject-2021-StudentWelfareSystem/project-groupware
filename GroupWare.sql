@@ -178,8 +178,10 @@ foreign key (ClassID) references Class(ClassID) on delete cascade on update casc
 create table TeamSchedule(
 ScheduleID int auto_increment not null primary key,
 ScheduleTitle varchar(100) not null,
-ScheduleStartDate dateTime not null,
-ScheduleEndDate dateTime not null,
+ScheduleStartDate date not null,
+ScheduleEndDate date not null,
+ScheduleStartTime dateTime not null,
+ScheduleEndTime dateTime not null,
 TeamID int not null,
 foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
 );
