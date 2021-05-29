@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/Email.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="emailCertification" class="com.mju.groupware.constant.ConstantAdminEmail">
+		<property name="Host">
+			<value>${Host}</value>
+		</property>
+		<property name="HostEmail">
+			<value>${HostEmail}</value>
+		</property>
+		<property name="HostPwd">
+			<value>${HostPwd}</value>
+		</property>
+		<property name="Subject">
+			<value>${Subject}</value>
+		</property>
+		<property name="ContentBeforeNum">
+			<value>${ContentBeforeNum}</value>
+		</property>
+		<property name="ContentAfterNum">
+			<value>${ContentAfterNum}</value>
+		</property>
+		<property name="MailSmtpAuth">
+			<value>${MailSmtpAuth}</value>
+		</property>
+		<property name="HostURL">
+			<value>${HostURL}</value>
+		</property>
+		<property name="Pop3Store">
+			<value>${Pop3Store}</value>
+		</property>
+		<property name="INBOX">
+			<value>${INBOX}</value>
+		</property>
+		<property name="Multipart">
+			<value>${Multipart}</value>
+		</property>
+		<property name="TextPlain">
+			<value>${TextPlain}</value>
+		</property>
+		<property name="TextHtml">
+			<value>${TextHtml}</value>
+		</property>
+		<property name="Smtps">
+			<value>${Smtps}</value>
+		</property>
+		
+		<property name="Mon">
+			<value>${Mon}</value>
+		</property>
+		<property name="Tue">
+			<value>${Tue}</value>
+		</property>
+		<property name="Wed">
+			<value>${Wed}</value>
+		</property>
+		<property name="Thu">
+			<value>${Thu}</value>
+		</property>
+		<property name="Fri">
+			<value>${Fri}</value>
+		</property>
+		<property name="Sat">
+			<value>${Sat}</value>
+		</property>
+		<property name="Sun">
+			<value>${Sun}</value>
+		</property>
+		
+		<property name="KoreanMon">
+			<value>${KoreanMon}</value>
+		</property>
+		<property name="KoreanTue">
+			<value>${KoreanTue}</value>
+		</property>
+		<property name="KoreanWed">
+			<value>${KoreanWed}</value>
+		</property>
+		<property name="KoreanThu">
+			<value>${KoreanThu}</value>
+		</property>
+		<property name="KoreanFri">
+			<value>${KoreanFri}</value>
+		</property>
+		<property name="KoreanSat">
+			<value>${KoreanSat}</value>
+		</property>
+		<property name="KoreanSun">
+			<value>${KoreanSun}</value>
+		</property>
+		
+		
+		<property name="Jan">
+			<value>${Jan}</value>
+		</property>
+		<property name="Feb">
+			<value>${Feb}</value>
+		</property>
+		<property name="Mar">
+			<value>${Mar}</value>
+		</property>
+		<property name="Apr">
+			<value>${Apr}</value>
+		</property>
+		<property name="May">
+			<value>${May}</value>
+		</property>
+		<property name="Jun">
+			<value>${Jun}</value>
+		</property>
+		<property name="Jul">
+			<value>${Jul}</value>
+		</property>
+		<property name="Aug">
+			<value>${Aug}</value>
+		</property>
+		<property name="Sep">
+			<value>${Sep}</value>
+		</property>
+		<property name="Oct">
+			<value>${Oct}</value>
+		</property>
+		<property name="Nov">
+			<value>${Nov}</value>
+		</property>
+		<property name="Dec">
+			<value>${Dec}</value>
+		</property>
+		
+		<property name="NumJan">
+			<value>${NumJan}</value>
+		</property>
+		<property name="NumFeb">
+			<value>${NumFeb}</value>
+		</property>
+		<property name="NumMar">
+			<value>${NumMar}</value>
+		</property>
+		<property name="NumApr">
+			<value>${NumApr}</value>
+		</property>
+		<property name="NumMay">
+			<value>${NumMay}</value>
+		</property>
+		<property name="NumJun">
+			<value>${NumJun}</value>
+		</property>
+		<property name="NumJul">
+			<value>${NumJul}</value>
+		</property>
+		<property name="NumAug">
+			<value>${NumAug}</value>
+		</property>
+		<property name="NumSep">
+			<value>${NumSep}</value>
+		</property>
+		<property name="NumOct">
+			<value>${NumOct}</value>
+		</property>
+		<property name="NumNov">
+			<value>${NumNov}</value>
+		</property>
+		<property name="NumDec">
+			<value>${NumDec}</value>
+		</property>
+		
+		<!-- emailServiceImpl -->
+		<property name="SchoolMailAddress">
+			<value>${SchoolMailAddress}</value>
+		</property>
+		
+		
+	</bean>
+</beans>
