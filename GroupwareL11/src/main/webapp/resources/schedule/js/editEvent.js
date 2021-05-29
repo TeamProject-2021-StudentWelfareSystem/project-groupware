@@ -110,41 +110,73 @@ var editEvent = function(event, element, view) {
 	});
 };
 
-// 삭제버튼
-$('#deleteEvent').on('click', function() {
-	var eventData = {
-		id: event._id,
-		title: editTitle.val(),
-		start: editStart.val(),
-		end: editEnd.val(),
-		description: editDesc.val(),
-		type: editType.val(),
-		backgroundColor: editColor.val(),
-		textColor: '#ffffff',
-		allDay: false
-	};
-	console.log(event._id);
-	$('#deleteEvent').unbind();
-	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-	eventModal.modal('hide');
-	var token = $("input[name='_csrf']").val();
-	var header = "X-CSRF-TOKEN";
+var editEvent = function(event, element, view) {
+	$('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
+	$('.popover.fade.top').remove();
+	$(element).popover("hide");
 
-	//삭제시
-	$.ajax({
-		type: "POST",
-		url: "DeleteSchedule.do",
-		data: JSON.stringify(eventData),
-		cache: false,
-		dataType: "json",
-		contentType: "application/json; charset=UTF-8",
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-		success: function(response) {
+	if (event.allDay === true) {
+		editAllDay.prop('checked', true);
+	} else {
+		editAllDay.prop('checked', false);
+	}
 
-			alert('삭제되었습니다.');
-		}
+	if (event.end === null) {
+		event.end = event.start;
+	}
+
+	if (event.allDay === true && event.end !== event.start) {
+		editEnd.val(moment(event.end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'))
+	} else {
+		editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
+	}
+
+	modalTitle.html('일정 수정');
+	editTitle.val(event.title);
+	editStart.val(event.start.format('YYYY-MM-DD HH:mm'));
+	editType.val(event.type);
+	editDesc.val(event.description);
+	editColor.val(event.backgroundColor).css('color', event.backgroundColor);
+
+	addBtnContainer.hide();
+	modifyBtnContainer.show();
+	eventModal.modal('show');
+	// 삭제버튼
+	$('#deleteEvent').on('click', function() {
+		var eventData = {
+			id: event._id,
+			title: editTitle.val(),
+			start: editStart.val(),
+			end: editEnd.val(),
+			description: editDesc.val(),
+			type: editType.val(),
+			backgroundColor: editColor.val(),
+			textColor: '#ffffff',
+			allDay: false
+		};
+		console.log(event._id);
+		$('#deleteEvent').unbind();
+		$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+		eventModal.modal('hide');
+		var token = $("input[name='_csrf']").val();
+		var header = "X-CSRF-TOKEN";
+
+		//삭제시
+		$.ajax({
+			type: "POST",
+			url: "DeleteSchedule.do",
+			data: JSON.stringify(eventData),
+			cache: false,
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(response) {
+
+				alert('삭제되었습니다.');
+			}
+		});
+
 	});
-
-});
+}
