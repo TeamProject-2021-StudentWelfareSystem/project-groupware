@@ -23,9 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link rel="stylesheet" href="../resources/schedule/css/main.css">
-	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+
 </head>
 
 <body>
@@ -57,7 +55,7 @@
                         <h4 class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
-						<form id="schedule">
+
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-allDay">하루종일</label>
@@ -119,8 +117,6 @@
                                     id="edit-desc"></textarea>
                             </div>
                         </div>
-                        </form>
-                        
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>

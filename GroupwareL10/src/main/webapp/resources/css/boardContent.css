@@ -115,7 +115,7 @@ table {
 }
 
 #boardFile{
-	border:0px solid black;
+	border:1px solid black;
 	width:1000px;
 }
 
@@ -130,7 +130,7 @@ table {
 	text-align: center;
 }
 
-#listButton, #saveButton, #modifyButton, #deleteButton, #fileAddButton {
+#listButton, #saveButton, #modifyButton, #deleteButton {
 	margin-top:100px;
 	border: 1px solid #ccc;
 	padding: 15px 10px 14px 10px;

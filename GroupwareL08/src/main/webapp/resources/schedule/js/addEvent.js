@@ -13,32 +13,6 @@ var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
 
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
-$(function() {
-    $(document).ajaxSend(function(e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
-});
-
-$.fn.serializeObject = function(){
-	var o = {};
-	var a = this.serializeArray();
-	$.each(a, function(){
-		var name = $.trim(this.name),
-			value = $.trim(this.value);
-		
-		if(o[name]){
-			if(!o[name].push){
-				o[name] = [o[name]];
-			}
-				o[name].push(value||'');
-		} else {
-			o[name] = value||'';
-		}
-	});
-	return o;
-};
 /* ****************
  *  새로운 일정 생성
  * ************** */
@@ -105,20 +79,17 @@ var newEvent = function (start, end, eventType) {
         editAllDay.prop('checked', false);
         eventModal.modal('hide');
 
-        var scheduleData = JSON.stringify($('form#schedule').serializeObject());
-        
         //새로운 일정 저장 // 윤정) 여기를 채워야 함
         $.ajax({
-            type: "POST",
-            url: "addSchedule",
-            data: scheduleData,
-            dataType:"json",
-            contentType : "application/json; charset = UTF-8",
-            success: function (data) {
-            	alert('된거임?');
+            type: "get",
+            url: "",
+            data: {
+                //.....
             },
-            error(){
-            	alert('ㅋㅋ 실패;');
+            success: function (response) {
+                //DB연동시 중복이벤트 방지를 위한
+                //$('#calendar').fullCalendar('removeEvents');
+                //$('#calendar').fullCalendar('refetchEvents');
             }
         });
     });
