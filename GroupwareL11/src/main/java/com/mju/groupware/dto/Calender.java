@@ -2,6 +2,7 @@ package com.mju.groupware.dto;
 
 public class Calender {
 
+	private String id;
 	private String title;
 	private String description;
 	private String start;
@@ -9,6 +10,23 @@ public class Calender {
 	private String backgroundColor;
 //	private String username;
 	private int userId;
+	private boolean allDay;
+
+	public boolean isAllDay() {
+		return allDay;
+	}
+
+	public void setAllDay(boolean allDay) {
+		this.allDay = allDay;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -65,6 +83,5 @@ public class Calender {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
 
 }
