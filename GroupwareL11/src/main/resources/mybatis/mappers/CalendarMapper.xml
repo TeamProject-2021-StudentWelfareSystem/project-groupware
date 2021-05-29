@@ -6,7 +6,7 @@
 
    <insert id="InsertSchedule" parameterType="com.mju.groupware.dto.Calender">
       INSERT INTO UserSchedule
-      (ScheduleTitle,ScheduleDesciption,ScheduleStartDate,ScheduleEndDate,BackgroundColor,UserId)
+      (title,description,start,end,backgroundColor,UserID)
       VALUES(
       #{title},
       #{description},
@@ -19,6 +19,7 @@
 
    <select id="SelectSchedule" resultType="java.util.HashMap">
       Select * FROM UserSchedule
+      
       WHERE UserID = #{userId};
    </select>
    
