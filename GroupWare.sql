@@ -8,6 +8,7 @@ show tables;
 delete from WithdrawalUser where WUserName = "탈퇴";
 delete from WithdrawalUser where WUserName = "자퇴";
 delete from User where UserID = "3";
+delete from Board where BoardSubject = "공지";
 
 # insert 모음
 insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,LectureRoomNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
@@ -27,6 +28,7 @@ alter table Student drop column ProfessorRoom;
 alter table Team add TeamLeaderID varchar(30) not null;
 alter table TeamBoard add TBoardDelete boolean default 0 not null;
 alter table TeamBoard add TUserLoginID varchar(30) not null;
+alter table Board add BoardDelete boolean default 0 not null;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -59,10 +61,11 @@ select * from UserReservation where ReservationDate = '2021-05-12' and
 select ReservationNo, RoomLocation, ReservationDate, ReservationStartTime, ReservationStartTime
 from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
 select * from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
-
+SELECT BOriginalFileName,BStoredFileName from BoardFile where BFileID = 1 and BDelete = 0 order by BFileID ASC;
 # 유저가 예약하고자 하는 강의실을 선택 -> 해당 강의실을 선택하면 날짜 선택 -> 날짜 선택하면 해당 강의실No의 예약된 시간들을 select해옴
 # -> select해서 startTime, endTime의 시간들을 비교해서 없으면 예약 가능
 
+SHOW GRANTS FOR CURRENT_USER;
 # drop 모음
 drop table Professor;
 drop table Student;
@@ -74,7 +77,7 @@ drop table Class;
 drop table TeamUser;
 drop table TeamSchedule;
 drop table Board;
-drop table InquiryBoard;	
+drop table InquiryBoard;   
 drop table BoardFile;
 drop table UserReservation;
 drop table TeamBoard;
@@ -160,6 +163,7 @@ BFileID int auto_increment not null primary key,
 BOriginalFileName varchar(200) not null,
 BStoredFileName varchar(200) not null,
 BFileSize int not null,
+BDelete boolean default 0 not null,
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
@@ -167,7 +171,7 @@ foreign key (BoardID) references Board(BoardID) on delete cascade on update casc
 create table Class(
 ClassID int not null primary key, 
 ClassName varchar(50) not null, #강의이름
-ClassProfessorName varchar(50) not null, #교수	
+ClassProfessorName varchar(50) not null, #교수   
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
@@ -185,8 +189,8 @@ create table UserSchedule(
 ScheduleID int auto_increment not null primary key,
 ScheduleTitle varchar(50) not null,
 ScheduleDesciption varchar(100) not null,
-ScheduleStartDate date not null,
-ScheduleEndDate date not null,
+ScheduleStartDate datetime not null,
+ScheduleEndDate datetime not null,
 BackgroundColor varchar(30) not null,
 UserName varchar(30) not null,
 UserID int not null,
@@ -313,15 +317,15 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     

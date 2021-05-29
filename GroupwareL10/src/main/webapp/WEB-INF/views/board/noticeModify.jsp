@@ -75,9 +75,14 @@
 										</tr>				
 									</table>
 								<hr>
-																	<table>
+									<table>
+									<tr>
+		                              <td><label for="attachment">첨부파일</label></td>
+		                              <td><input type="file" name="UploadFile"
+		                                 id="noticeFile" class="inputBox" placeholder="파일을 첨부하세요."></td>
+		                           </tr>
 								   <tr>
-		                              <td id="fileIndex"><c:forEach var="NoticeFile"
+		                              <td id="fileIndex" colspan='2'><c:forEach var="NoticeFile"
 		                                    items="${NoticeFile}" varStatus="var">
 		                                    <div>
 		                                       <input type="hidden" id="bFileID"
@@ -93,23 +98,17 @@
 		                                    </div>
 		                                 </c:forEach></td>
 		                           </tr>
-		                           <tr>
-		                              <td><label for="attachment">첨부파일</label></td>
-		                              <td><input type="file" name="UploadFile"
-		                                 id="noticeFile" class="inputBox" placeholder="파일을 첨부하세요."></td>
-		                              <td><input type="button" id="fileAddButton" value="파일추가"
-		                                 onclick="FileNameAddFile()"></td>
-		                           </tr>
+		                           
 								</table>
 							</div>
 							<!-- section2 -->
 							<div id="btn">
-								<input type="submit" value="수정 완료" id="listButton"> <a
-									href="${path}/noticeList"><input type="button"
-									value="목록" id="listButton"></a>
-						   <input type="hidden" id="fileList[]" name ="FileList[]" value="">
-                           <input type="hidden" id="fileNameList[]" name ="FileNameList[]" value="">
-                           <input type="hidden" id="boardID" name ="BoardID" value="${BoardID}">
+								<input type="button" id="fileAddButton" value="파일추가"  onclick="FileNameAddFile()">
+								<input type="submit" value="수정 완료" id="listButton"> <a href="${path}/noticeList">
+								<input type="button" value="목록" id="listButton"></a>
+						   		<input type="hidden" id="fileList[]" name ="FileList[]" value="">
+                           		<input type="hidden" id="fileNameList[]" name ="FileNameList[]" value="">
+                           		<input type="hidden" id="boardID" name ="BoardID" value="${BoardID}">
 							</div>
 						</form>
 					</section>
