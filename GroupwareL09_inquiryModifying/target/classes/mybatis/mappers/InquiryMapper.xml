@@ -9,11 +9,11 @@
 		parameterType="com.mju.groupware.dto.Inquiry">
 		insert into InquiryBoard (
 		IBoardSubject, IBoardContent,
-		IBoardWriter, IBoardDate, IBoardType, UserEmail, UserPhoneNum, State
+		IBoardWriter, IBoardDate, IBoardType, UserEmail, UserPhoneNum, UserID, Status
 		) values(
 		#{IBoardSubject},
 		#{IBoardContent},
-		#{IBoardWriter}, #{IBoardDate}, #{IBoardType}, #{UserEmail}, #{UserPhoneNum}, #{State}
+		#{IBoardWriter}, #{IBoardDate}, #{IBoardType}, #{UserEmail}, #{UserPhoneNum}, #{UserID}, #{State}
 		)
 	</insert>
 
@@ -34,14 +34,16 @@
 
 	<select id="SelectOneInquiryContent"
 		resultType="com.mju.groupware.dto.Inquiry">
-		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate,
-		IBoardContent, UserID from InquiryBoard where IBoardID = #{IBoardID}
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardContent, UserID 
+		from InquiryBoard 
+		where IBoardID = #{IBoardID}
 	</select>
 	
-	<select id="SelectLoginUserID"
+	<select id="SelectLoginUserIDForInquiry"
 		parameterType="com.mju.groupware.dto.Inquiry" resultType="String">
 		select UserID
-		from User where UserLoginID = #{loginID}
+		from User 
+		where UserID = #{loginID}
 	</select>
 	
 	<delete id="DeleteInquiry" parameterType="Integer">
@@ -50,8 +52,8 @@
 	</delete>
 	
 	<update id="UpdateIBoardDelete" parameterType="int">
-		UPDATE InquiryBoard SET
-		IBoardDelete = 1
+		UPDATE InquiryBoard 
+		SET IBoardDelete = 1
 		where IBoardID = #{IBoardID}
 	</update>
 </mapper>

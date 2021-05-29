@@ -39,8 +39,8 @@ public class InquiryDaoImpl implements InquiryDao {
 	
 
 	@Override
-	public String SelectLoginUserID(String loginID) {
-		return sqlSession.selectOne("SelectLoginUserID", loginID);
+	public String SelectLoginUserIDForInquiry(String loginID) {
+		return sqlSession.selectOne("SelectLoginUserIDForInquiry", loginID);
 	}
 	@Override
 	public void DeleteInquiry(int iboardID) {

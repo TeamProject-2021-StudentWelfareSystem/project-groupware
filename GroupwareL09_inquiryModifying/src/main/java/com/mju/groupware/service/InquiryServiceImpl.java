@@ -32,8 +32,8 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 	
 	@Override
-	public String SelectLoginUserID(String loginID) {
-		return inquiryDao.SelectLoginUserID(loginID);
+	public String SelectLoginUserIDForInquiry(String loginID) {
+		return inquiryDao.SelectLoginUserIDForInquiry(loginID);
 	}
 
 	@Override

@@ -52,7 +52,7 @@
 										<tr>
 											<td colspan="2" id="writerPadding"><label for="writer">작성자 &nbsp; </label><input
 												type="text" name="InquiryWriter" id="inquiryWriter"
-												class="inputBox" placeholder = "작성자는 자동으로 입력됩니다." value="${InquiryWriter}" disabled readonly></td>
+												class="inputBox" value="${InquiryWriter}" disabled readonly></td>
 										</tr>
 										<tr>
 											<td id="selectPadding">
@@ -70,12 +70,12 @@
 										<tr>
 											<td id="emailPadding"><label for="email">이메일 &nbsp; </label><input
 												type="text" name="InquiryEmail" id="inquiryEmail"
-												class="inputBox" placeholder = "이메일은 자동으로 입력됩니다." value="${InquiryEmail}" disabled readonly></td>
+												class="inputBox" value="${InquiryEmail}" disabled readonly></td>
 										</tr>
 										<tr>
 											<td id="numPadding"><label for="phoneNum">연락처 &nbsp; </label><input
 												type="text" name="InquiryPhoneNum" id="inquiryPhoneNum"
-												class="inputBox" placeholder = "연락처는 자동으로 입력됩니다."value="${InquiryPhoneNum}" disabled readonly></td>
+												class="inputBox" value="${InquiryPhoneNum}" disabled readonly></td>
 											<td>
 											</td>
 										</tr>
