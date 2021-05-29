@@ -46,6 +46,7 @@ var newEvent = function(start, end, eventType) {
 			end: editEnd.val(),
 			description: editDesc.val(),
 			type: editType.val(),
+			username: '사나', 
 			backgroundColor: editColor.val(),
 			textColor: '#ffffff',
 			allDay: false
@@ -87,6 +88,7 @@ var newEvent = function(start, end, eventType) {
 			type: "POST",
 			url: "AddSchedule.do",
 			data: JSON.stringify(eventData),
+//			async: false,
 			cache: false,  
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
@@ -95,8 +97,10 @@ var newEvent = function(start, end, eventType) {
 			},
 			success: function(response) {
 				//DB연동시 중복이벤트 방지를 위한
-				$('#calendar').fullCalendar('removeEvents');
-				$('#calendar').fullCalendar('refetchEvents');
+				//$('#calendar').fullCalendar('removeEvents');
+				//$('#calendar').fullCalendar('refetchEvents');
+			}, error: function() {
+				alert("서버통신 오류");
 			}
 		});
 	});

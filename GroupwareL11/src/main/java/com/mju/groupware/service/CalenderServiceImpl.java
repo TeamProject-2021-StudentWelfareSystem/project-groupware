@@ -35,16 +35,4 @@ public class CalenderServiceImpl implements CalenderService {
 			return userID;
 		}
 	}
-
-	@Override
-	public void UpdateSchedule(String userId, String id, Calender calender) {
-		calenderDao.UpdateSchedule(userId, id, calender);
-
-	}
-
-	@Override
-	public void DeleteSchedule(String userId, String id) {
-		calenderDao.DeleteSchedule(userId, id);
-
-	}
 }

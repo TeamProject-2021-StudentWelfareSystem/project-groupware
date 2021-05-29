@@ -22,7 +22,7 @@ public class CalenderDaoImpl implements CalenderDao {
 		int count = sqlSession.insert("InsertSchedule", calender);
 		return count;
 	}
-
+	
 	@Override
 	public List<HashMap<String, Object>> SelectSchedule(int userID) {
 		return sqlSession.selectList("SelectSchedule", userID);
@@ -36,30 +36,6 @@ public class CalenderDaoImpl implements CalenderDao {
 		} else {
 			return userID;
 		}
-	}
-
-	@Override
-	public void UpdateSchedule(String userId, String id, Calender calender) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("scheduleID", id);
-		map.put("title", calender.getTitle());
-		map.put("start", calender.getStart());
-		map.put("end", calender.getEnd());
-		map.put("backGroundColor", calender.getBackgroundColor());
-		map.put("description", calender.getDescription());
-
-		sqlSession.update("UpdateSchedule", map);
-	}
-
-	@Override
-	public void DeleteSchedule(String userId, String id) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("scheduleID", id);
-
-		sqlSession.delete("DeleteSchedule", map);
-
 	}
 
 }
