@@ -86,6 +86,7 @@ public class BoardController {
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
 		SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
 		user.setUserLoginID(LoginID);
+		System.out.println("LoginID" + LoginID);
 
 		if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
 			ArrayList<String> StudentInfo = new ArrayList<String>();
@@ -112,7 +113,7 @@ public class BoardController {
 		//model.addAttribute("BoardType", inquiry.getIBoardType());
 
 		String UserID = inquiryService.SelectLoginUserIDForInquiry(LoginID);// 로그인한 사람의 userID를 가져오기 위함
-		System.out.println(UserID);
+		System.out.println("UserID"+UserID);
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", inquiry.getUserID());
 		
@@ -205,12 +206,22 @@ public class BoardController {
 		inquiry.setState("답변 대기");
 		inquiry.setUserEmail(UserEmail);
 		inquiry.setUserPhoneNum(UserPhoneNum);
-		
-		System.out.println(inquiry);
-		
-
+	
 		inquiryService.InsertInquiry(inquiry, request);
 
+		return "redirect:/inquiryList";
+	}
+	
+	@RequestMapping(value = "/InquiryDelete", method = RequestMethod.POST)
+	public String deleteInquiry(HttpServletRequest request) {
+		String SBoardID = request.getParameter("no");
+		System.out.println(SBoardID);
+//		int IBoardID = Integer.parseInt(request.getParameter("no"));
+//		System.out.println(IBoardID);
+//		int BoardID = Integer.parseInt(request.getParameter("boardID"));
+//		System.out.println(BoardID);
+		//inquiryService.DeleteInquiry(IBoardID);
+		
 		return "redirect:/inquiryList";
 	}
 
@@ -687,7 +698,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/CommunityDelete.do", method = RequestMethod.POST)
 	public String deleteCommunity(HttpServletRequest request) {
-		int BoardID = Integer.parseInt(request.getParameter("boardID"));
+		int BoardID = Integer.parseInt(request.getParameter("iboardID"));
 		boardService.DeleteCommunity(BoardID);
 
 		return "redirect:/communityList";

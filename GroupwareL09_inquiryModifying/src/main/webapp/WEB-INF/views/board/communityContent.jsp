@@ -85,7 +85,7 @@
 								<c:set var="UserID" value="${UserID}" />
 								<c:set var="UserIDFromWriter" value="${UserIDFromWriter}" />
 								<c:if test="${UserID == UserIDFromWriter}">
-									<a href="${path}/communityModify?boardID=${BoardID}"><button
+									<a href="${path}/communityModify?=${BoardID}"><button
 											type="button" id="modifyButton">수정</button></a>
 									<button type="submit" id="deleteButton">삭제</button>
 								</c:if>

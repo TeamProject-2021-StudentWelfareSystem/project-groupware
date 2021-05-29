@@ -48,7 +48,7 @@
 							<li><sec:authorize access="isAuthenticated()"></sec:authorize></li>
 							<li><a href="">사이트맵</a></li>
 							<li><sec:authorize access="isAuthenticated()"></sec:authorize></li>
-                       		<li><sec:authorize access="hasRole('ROLE_USER')"><a href="${path}/myPage?R=${UserRole}">마이페이지</a></sec:authorize></li>
+                       		<li><a href="${path}/myPage?R=${UserRole}">마이페이지</a></li>
 						</ul>
 					</nav>
 					<!-- 메뉴 -->
