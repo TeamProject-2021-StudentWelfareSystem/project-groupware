@@ -37,66 +37,103 @@ var editEvent = function(event, element, view) {
 
 	//업데이트 버튼 클릭시
 	$('#updateEvent').unbind();
-	$('#updateEvent').on('click', function) {
+	$('#updateEvent').on('click', function() {
 
+		var eventData = {
+			id: event._id,
+			title: editTitle.val(),
+			start: editStart.val(),
+			end: editEnd.val(),
+			description: editDesc.val(),
+			type: editType.val(),
+			backgroundColor: editColor.val(),
+			textColor: '#ffffff',
+			allDay: false
+		};
+		console.log(eventData);
+		if (editStart.val() > editEnd.val()) {
+			alert('끝나는 날짜가 앞설 수 없습니다.');
+			return false;
+		}
+
+		if (editTitle.val() === '') {
+			alert('일정명은 필수입니다.')
+			return false;
+		}
+
+		var statusAllDay;
+		var startDate;
+		var endDate;
+		var displayDate;
+
+		if (editAllDay.is(':checked')) {
+			statusAllDay = true;
+			startDate = moment(editStart.val()).format('YYYY-MM-DD');
+			endDate = moment(editEnd.val()).format('YYYY-MM-DD');
+			displayDate = moment(editEnd.val()).add(1, 'days').format('YYYY-MM-DD');
+		} else {
+			statusAllDay = false;
+			startDate = editStart.val();
+			endDate = editEnd.val();
+			displayDate = endDate;
+		}
+
+		eventModal.modal('hide');
+		event.allDay = statusAllDay;
+		event.title = editTitle.val();
+		event.start = startDate;
+		event.end = displayDate;
+		event.type = editType.val();
+		event.backgroundColor = editColor.val();
+		event.description = editDesc.val();
+
+		var token = $("input[name='_csrf']").val();
+		var header = "X-CSRF-TOKEN";
+		$("#calendar").fullCalendar('updateEvent', event);
+
+		//일정 업데이트
+		$.ajax({
+			type: "POST",
+			url: "ModifySchedule.do",
+			data: JSON.stringify(eventData),
+			cache: false,
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(response) {
+				alert('수정되었습니다.')
+			}
+		});
+
+	});
+};
+
+// 삭제버튼
+$('#deleteEvent').on('click', function() {
 	var eventData = {
-		_id: eventId,
+		id: event._id,
 		title: editTitle.val(),
 		start: editStart.val(),
 		end: editEnd.val(),
 		description: editDesc.val(),
 		type: editType.val(),
-		username: '사나',
 		backgroundColor: editColor.val(),
 		textColor: '#ffffff',
 		allDay: false
 	};
-
-	if (editStart.val() > editEnd.val()) {
-		alert('끝나는 날짜가 앞설 수 없습니다.');
-		return false;
-	}
-
-	if (editTitle.val() === '') {
-		alert('일정명은 필수입니다.')
-		return false;
-	}
-
-	var statusAllDay;
-	var startDate;
-	var endDate;
-	var displayDate;
-
-	if (editAllDay.is(':checked')) {
-		statusAllDay = true;
-		startDate = moment(editStart.val()).format('YYYY-MM-DD');
-		endDate = moment(editEnd.val()).format('YYYY-MM-DD');
-		displayDate = moment(editEnd.val()).add(1, 'days').format('YYYY-MM-DD');
-	} else {
-		statusAllDay = false;
-		startDate = editStart.val();
-		endDate = editEnd.val();
-		displayDate = endDate;
-	}
-
+	console.log(event._id);
+	$('#deleteEvent').unbind();
+	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
 	eventModal.modal('hide');
-
-	event.allDay = statusAllDay;
-	event.title = editTitle.val();
-	event.start = startDate;
-	event.end = displayDate;
-	event.type = editType.val();
-	event.backgroundColor = editColor.val();
-	event.description = editDesc.val();
-
 	var token = $("input[name='_csrf']").val();
 	var header = "X-CSRF-TOKEN";
-	$("#calendar").fullCalendar('updateEvent', event);
 
-	//일정 업데이트
+	//삭제시
 	$.ajax({
 		type: "POST",
-		url: "AddSchedule.do",
+		url: "DeleteSchedule.do",
 		data: JSON.stringify(eventData),
 		cache: false,
 		dataType: "json",
@@ -105,28 +142,7 @@ var editEvent = function(event, element, view) {
 			xhr.setRequestHeader(header, token);
 		},
 		success: function(response) {
-			alert('수정되었습니다.')
-	}
-	});
 
-});
-};
-
-// 삭제버튼
-$('#deleteEvent').on('click', function() {
-
-	$('#deleteEvent').unbind();
-	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-	eventModal.modal('hide');
-
-	//삭제시
-	$.ajax({
-		type: "get",
-		url: "",
-		data: {
-			//...
-		},
-		success: function (response) {
 			alert('삭제되었습니다.');
 		}
 	});

@@ -14,4 +14,8 @@ public interface CalenderDao {
 
 	Integer SelectUserIdForCalender(String loginID); // get userId
 
+	void UpdateSchedule(String userId, String id, Calender calender);
+
+	void DeleteSchedule(String userId, String id);
+
 }

@@ -13,5 +13,7 @@ public interface CalenderService {
 
 	int SelectUserIdForCalender(String loginID);
 
-	List<HashMap<String, Object>> UpdateSchedule(int userId);
+	void UpdateSchedule(String string, String id, Calender calender);
+
+	void DeleteSchedule(String string, String id);
 }

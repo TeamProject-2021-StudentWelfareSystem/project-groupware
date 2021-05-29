@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.simple.JSONObject;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,8 @@ public class ScheduleController {
 	private UserInfoMethod userInfoMethod;
 	@Autowired
 	private CalenderService calenderService;
+
+	private String beforeTitle;
 
 	// 일정 화면
 	@RequestMapping(value = "/schedule/mySchedule", method = { RequestMethod.GET, RequestMethod.POST })
@@ -101,11 +104,27 @@ public class ScheduleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/schedule/ModifySchedule.do", method = RequestMethod.POST)
-	public List<HashMap<String, Object>> ModifySchedule(Principal principal) {
+	public void ModifySchedule(Principal principal, @RequestBody Calender calender, HttpServletRequest reqeust) {
+
 		int UserId = SelectUserIDForCalender(principal);
-		System.out.println(UserId);
-		List<HashMap<String, Object>> map = calenderService.UpdateSchedule(UserId);
-		return map;
+		if (UserId != 0) {
+			calender.setUserId(UserId);
+		}
+		String id = calender.getId();
+		// hashmap list넣었잖아 이거 어케했누
+		calenderService.UpdateSchedule(Integer.toString(UserId), id, calender);
 	}
 
+	// 일정 삭제
+	@ResponseBody
+	@RequestMapping(value = "/schedule/DeleteSchedule.do", method = RequestMethod.POST)
+	public void DeleteSchedule(@RequestBody Calender calender, Principal principal, Model model) {
+		System.out.println(calender.getId());
+		int UserId = SelectUserIDForCalender(principal);
+		if (UserId != 0) {
+			calender.setUserId(UserId);
+		}
+		String id = calender.getId();
+		calenderService.DeleteSchedule(Integer.toString(UserId), id);
+	}
 }

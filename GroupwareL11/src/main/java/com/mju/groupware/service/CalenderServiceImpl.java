@@ -37,8 +37,14 @@ public class CalenderServiceImpl implements CalenderService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> UpdateSchedule(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void UpdateSchedule(String userId, String id, Calender calender) {
+		calenderDao.UpdateSchedule(userId, id, calender);
+
+	}
+
+	@Override
+	public void DeleteSchedule(String userId, String id) {
+		calenderDao.DeleteSchedule(userId, id);
+
 	}
 }

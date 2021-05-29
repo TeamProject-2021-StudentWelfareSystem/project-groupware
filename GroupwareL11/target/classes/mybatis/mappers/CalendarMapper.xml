@@ -4,23 +4,40 @@
 
 <mapper namespace="com.mju.groupware.dao.CalenderDao">
 
-   <insert id="InsertSchedule" parameterType="com.mju.groupware.dto.Calender">
-      INSERT INTO UserSchedule
-      (title,description,start,end,backgroundColor,UserID)
-      VALUES(
-      #{title},
-      #{description},
-      #{start},
-      #{end},
-      #{backgroundColor},
-      #{userId}
-      )
-   </insert>
+	<insert id="InsertSchedule"
+		parameterType="com.mju.groupware.dto.Calender">
+		INSERT INTO UserSchedule
+		(title,description,start,end,backgroundColor,UserID)
+		VALUES(
+		#{title},
+		#{description},
+		#{start},
+		#{end},
+		#{backgroundColor},
+		#{userId}
+		)
+	</insert>
 
-   <select id="SelectSchedule" resultType="java.util.HashMap">
-      Select * FROM UserSchedule
-      
-      WHERE UserID = #{userId};
-   </select>
-   
+	<select id="SelectSchedule" resultType="java.util.HashMap">
+		Select * FROM
+		UserSchedule
+
+		WHERE UserID = #{userId};
+	</select>
+
+	<update id="UpdateSchedule" parameterType="HashMap">
+		update UserSchedule
+		set title = #{title} , description=#{description}
+		,start=#{start},end=#{end},backgroundColor=#{backGroundColor}
+		where _id
+		= #{scheduleID} and userID = #{userId};
+
+	</update>
+
+	<delete id="DeleteSchedule" parameterType="HashMap">
+		Delete FROM
+		UserSchedule
+		WHERE _id = #{scheduleID} and userID = #{userId};
+	</delete>
+
 </mapper>

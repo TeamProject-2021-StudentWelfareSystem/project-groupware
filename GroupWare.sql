@@ -183,7 +183,6 @@ foreign key (ClassID) references Class(ClassID) on delete cascade on update casc
 
 select date_format(ScheduleEndDate,'%Y-%m-%d %H:%i') as date from UserSchedule;
 select * from UserSchedule;
-drop table UserSchedule;
 create table UserSchedule(
 ScheduleID int auto_increment not null primary key,
 title varchar(50) not null,
