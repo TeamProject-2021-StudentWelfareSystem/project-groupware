@@ -101,16 +101,18 @@ public class BoardController {
 		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
-		String IBoardID = request.getParameter("boardID");
-		inquiry = inquiryService.SelectOneInquiryContent(IBoardID); // 선택한 게시글을 쓴 userID가 들어감.
+		String IBoardID = request.getParameter("no");
+		inquiry = inquiryService.SelectOneInquiryContent(IBoardID); // 선택한 게시글 ID가 들어감.
+		
 		model.addAttribute("InquiryTitle", inquiry.getIBoardSubject());
 		model.addAttribute("InquiryWriter", inquiry.getIBoardWriter());
-		model.addAttribute("BoardDate", inquiry.getIBoardDate());
+		model.addAttribute("IBoardDate", inquiry.getIBoardDate());
 		model.addAttribute("InquiryContent", inquiry.getIBoardContent());
 		model.addAttribute("BoardID", IBoardID);
-		model.addAttribute("BoardType", inquiry.getIBoardType());
+		//model.addAttribute("BoardType", inquiry.getIBoardType());
 
-		String UserID = inquiryService.SelectLoginUserID(LoginID);// 로그인한 사람의 userID를 가져오기 위함
+		String UserID = inquiryService.SelectLoginUserIDForInquiry(LoginID);// 로그인한 사람의 userID를 가져오기 위함
+		System.out.println(UserID);
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", inquiry.getUserID());
 		
@@ -141,12 +143,23 @@ public class BoardController {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
 		
+
+		// 작성자 이름 자동 세팅 (disabled)
+		String UserLoginID = principal.getName();
+		String UserName = userService.SelectUserName(UserLoginID);
+		String UserEmail = userService.SelectEmailForInquiry(UserLoginID);
+		String UserPhoneNum = userService.SelectPhoneNumForInquiry(UserLoginID);
+		model.addAttribute("InquiryWriter", UserName);
+		model.addAttribute("InquiryEmail", UserEmail);
+		model.addAttribute("InquiryPhoneNum", UserPhoneNum);
+		
+		
 		List<Inquiry> inquiryList = inquiryService.SelectInquiryList();
 		model.addAttribute("inquiryList", inquiryList);
 
 		return "/board/inquiryWrite";
 	}
-	@RequestMapping(value = "/inquiryWrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/InquiryWrite", method = RequestMethod.POST)
 	public String DoInquiryeWrite(Principal principal, HttpServletRequest request, User user, Inquiry inquiry,
 			Model model) throws Exception {
 		// 유저 정보
@@ -169,7 +182,7 @@ public class BoardController {
 		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
-		//
+		
 		
 		Date Now = new Date();
 		String Title = request.getParameter("InquiryTitle");
@@ -181,6 +194,7 @@ public class BoardController {
 		String UserName = userService.SelectUserName(UserLoginID);
 		String UserEmail = userService.SelectEmailForInquiry(UserLoginID);
 		String UserPhoneNum = userService.SelectPhoneNumForInquiry(UserLoginID);
+		
 
 		inquiry.setIBoardSubject(Title);
 		inquiry.setIBoardContent(Content);
@@ -191,6 +205,9 @@ public class BoardController {
 		inquiry.setState("답변 대기");
 		inquiry.setUserEmail(UserEmail);
 		inquiry.setUserPhoneNum(UserPhoneNum);
+		
+		System.out.println(inquiry);
+		
 
 		inquiryService.InsertInquiry(inquiry, request);
 

@@ -49,17 +49,16 @@
 											readonly value=${InquiryTitle}></td>
 									</tr>
 									<tr id="receive">
-										<td colspan="2"><input type="text" name="InquiryWriter"
-											id="inquiryWriter" class="inputBox" placeholder="작성자"
-											disabled readonly value=${InquiryWriter}> <input
-											type="text" name="Date" id="date" class="inputBox"
-											placeholder="날짜" disabled readonly value=${BulletinDate}>
+										<td colspan="2">
+											<input type="text" name="InquiryWriter" id="inquiryWriter" class="inputBox" placeholder="작성자" disabled readonly value=${InquiryWriter}>
+											<input type="text" name="IBoardDate" id="date" class="inputBox" placeholder="날짜" disabled readonly value=${IBoardDate}>
 										</td>
 									</tr>
 									<tr id="content">
-										<td><textarea name="InquiryContent" id="inquiryContent"
-												class="inputBox" placeholder="내용" disabled readonly></textarea>
-											<c:out value="${InquiryContent}" escapeXml="false" /></td>
+										<td>
+											<textarea name="InquiryContent" id="inquiryContent" class="inputBox" placeholder="${InquiryContent}" disabled readonly></textarea>
+											<c:out value="" escapeXml="false" />
+										</td>
 									</tr>
 								</table>
 								<hr>
