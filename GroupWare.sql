@@ -182,18 +182,16 @@ foreign key (ClassID) references Class(ClassID) on delete cascade on update casc
 );
 
 create table UserSchedule(
-_id int auto_increment not null primary key,
-title varchar(50) not null,
-description varchar(100) not null,
-start varchar(100) not null,
-end varchar(100) not null,
-backgroundColor varchar(30) not null,
-allDay boolean,
+ScheduleID int auto_increment not null primary key,
+ScheduleTitle varchar(50) not null,
+ScheduleDesciption varchar(100) not null,
+ScheduleStartDate date not null,
+ScheduleEndDate date not null,
+BackgroundColor varchar(30) not null,
+UserName varchar(30) not null,
 UserID int not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
-select date_format(ScheduleStartDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
-select date_format(ScheduleEndDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 
 create table TeamUser(
 UserID int not null,

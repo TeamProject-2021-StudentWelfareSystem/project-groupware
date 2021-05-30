@@ -31,16 +31,22 @@ var newEvent = function(start, end, eventType) {
 	modifyBtnContainer.hide();
 	eventModal.modal('show');
 
+	/******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
+	var eventId = 1 + Math.floor(Math.random() * 1000);
+	/******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
+	
 	//새로운 일정 저장버튼 클릭
 	$('#save-event').unbind();
 	$('#save-event').on('click', function() {
 
 		var eventData = {
+			_id: eventId,
 			title: editTitle.val(),
 			start: editStart.val(),
 			end: editEnd.val(),
 			description: editDesc.val(),
 			type: editType.val(),
+			username: '사나', 
 			backgroundColor: editColor.val(),
 			textColor: '#ffffff',
 			allDay: false
@@ -82,6 +88,7 @@ var newEvent = function(start, end, eventType) {
 			type: "POST",
 			url: "AddSchedule.do",
 			data: JSON.stringify(eventData),
+//			async: false,
 			cache: false,  
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
@@ -90,13 +97,10 @@ var newEvent = function(start, end, eventType) {
 			},
 			success: function(response) {
 				//DB연동시 중복이벤트 방지를 위한
-				if(response!=0){
-				alert('일정이 등록되었습니다.');
-				}else{
-				alert('서버 오류입니다. 다시 시도해주시길 바랍니다.');
-				}
-				$('#calendar').fullCalendar('removeEvents');
-				$('#calendar').fullCalendar('refetchEvents');
+				//$('#calendar').fullCalendar('removeEvents');
+				//$('#calendar').fullCalendar('refetchEvents');
+			}, error: function() {
+				alert("서버통신 오류");
 			}
 		});
 	});

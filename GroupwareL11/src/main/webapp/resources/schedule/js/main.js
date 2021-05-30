@@ -1,5 +1,3 @@
-
-
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
 
@@ -87,7 +85,7 @@ var calendar = $('#calendar').fullCalendar({
       container: 'body'
     });
 
-    return true;
+    return filtering(event);
 
   },
 
@@ -100,7 +98,7 @@ var calendar = $('#calendar').fullCalendar({
 	var header = "X-CSRF-TOKEN";
 		
     $.ajax({
-      type: "POST",
+      type: "get",
       url: "GetSchedule.do",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
@@ -112,12 +110,12 @@ var calendar = $('#calendar').fullCalendar({
       beforeSend : function(xhr) {
 		xhr.setRequestHeader(header, token);
    	  },
-      success: function (response) {     
+      success: function (response) {
+      console.log(response);
         var fixedDate = response.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
-          $("#edit-scheduleId").attr("value", array._id);
           return array;
         });
         callback(fixedDate);
@@ -146,7 +144,7 @@ var calendar = $('#calendar').fullCalendar({
         //....
       },
       success: function (response) {
-        alert('!수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
 
@@ -279,11 +277,11 @@ function filtering(event) {
     if (types[0] == "all") {
       show_type = true;
     } else {
-      show_type = true;
+      show_type = types.indexOf(event.type) >= 0;
     }
   }
 
-  return true;
+  return show_username && show_type;
 }
 
 function calDateWhenResize(event) {
