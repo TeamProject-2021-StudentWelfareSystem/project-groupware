@@ -5,9 +5,10 @@ use GroupWare;
 show tables;
 
 # delete 모음
-delete from WithdrawalUser where WUserName = "탈퇴";
-delete from WithdrawalUser where WUserName = "자퇴";
+delete from User where UserName = "테스트";
 delete from User where UserID = "3";
+delete from Board where BoardSubject = "";
+delete from Team where TeamName = "Beans";
 
 # insert 모음
 insert into UserReservation(ReservationDate,ReservationStartTime,ReservationEndTime,ReservationNumOfPeople,LectureRoomNo,UserID) values ('2021-05-12','17:00:00','19:00:00',10,1135,14);
@@ -27,6 +28,8 @@ alter table Student drop column ProfessorRoom;
 alter table Team add TeamLeaderID varchar(30) not null;
 alter table TeamBoard add TBoardDelete boolean default 0 not null;
 alter table TeamBoard add TUserLoginID varchar(30) not null;
+alter table Board add BoardDelete boolean default 0 not null;
+alter table TeamFile add TFileDelete boolean default 0 not null;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -59,7 +62,7 @@ select * from UserReservation where ReservationDate = '2021-05-12' and
 select ReservationNo, RoomLocation, ReservationDate, ReservationStartTime, ReservationStartTime
 from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
 select * from LectureRoom join UserReservation on LectureRoom.LectureRoomNo = UserReservation.ReservationNo;
-
+SELECT BOriginalFileName,BStoredFileName from BoardFile where BFileID = 1 and BDelete = 0 order by BFileID ASC;
 # 유저가 예약하고자 하는 강의실을 선택 -> 해당 강의실을 선택하면 날짜 선택 -> 날짜 선택하면 해당 강의실No의 예약된 시간들을 select해옴
 # -> select해서 startTime, endTime의 시간들을 비교해서 없으면 예약 가능
 
@@ -132,6 +135,8 @@ IBoardWriter varchar(20) not null,
 IBoardDate dateTime not null,
 IBoardType varchar(50) not null,
 IBoardDelete boolean default 0,
+IBoardAnswer varchar(1000),
+State varchar(20) not null,
 UserEmail varchar(100) not null,
 UserPhoneNum varchar(30) not null,
 UserID int not null,
@@ -150,6 +155,7 @@ BoardDelete boolean default 0 not null,
 UserID int not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
+
 alter table Board add BoardType varchar(100) not null;
 select * from Board;
 select * from BoardFile;
@@ -160,6 +166,7 @@ BFileID int auto_increment not null primary key,
 BOriginalFileName varchar(200) not null,
 BStoredFileName varchar(200) not null,
 BFileSize int not null,
+BDelete boolean default 0 not null,
 BoardID int not null,
 foreign key (BoardID) references Board(BoardID) on delete cascade on update cascade
 );
@@ -195,6 +202,7 @@ foreign key (UserID) references User(UserID) on delete cascade on update cascade
 select date_format(ScheduleStartDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 select date_format(ScheduleEndDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 
+
 create table TeamUser(
 UserID int not null,
 TeamID int not null,
@@ -211,6 +219,7 @@ TBoardContent varchar(10000) not null,
 TBoardWriter varchar(20) not null,
 TBoardDate dateTime not null,
 TBoardDelete boolean default 0 not null,
+TUserLoginID varchar(30) not null,
 TeamID int not null,
 foreign key (TeamID) references Team(TeamID) on delete cascade on update cascade
 );
@@ -221,9 +230,11 @@ TOriginalFileName varchar(200) not null,
 TStoredFileName varchar(200) not null,
 TFileSize int not null,
 TBoardID int not null,
+TFileDelete boolean default 0 not null,
 foreign key (TBoardID) references TeamBoard(TBoardID) on delete cascade on update cascade
 );
 
+select * from TeamFile;
 create table LectureRoom(
 LectureRoomNo int not null primary key,
 RoomLocation varchar(20) not null,
@@ -317,7 +328,7 @@ CREATE
 CREATE
 	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
-    DELETE FROM WithdrawalUser WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+    DELETE FROM User WHERE Withdrawal = 1 and WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
 	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
@@ -327,6 +338,13 @@ CREATE
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     
+#강의실예약 하루마다 비우기
+CREATE
+	EVENT UserReservationDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
+    DO
+    DELETE FROM User UserReservation WHERE ReservationDate <= DATE_SUB(NOW(), INTERVAL 1 day);
+    
+select * from userReservation;
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
 DROP EVENT Dormant_Scheduler;
