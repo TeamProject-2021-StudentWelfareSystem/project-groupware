@@ -9,7 +9,7 @@
 		parameterType="com.mju.groupware.dto.Inquiry">
 		insert into InquiryBoard (
 		IBoardSubject, IBoardContent,
-		IBoardWriter, IBoardDate, IBoardType, UserEmail, UserPhoneNum, UserID, State
+		IBoardWriter, IBoardDate, IBoardType, UserEmail, UserPhoneNum, UserID, Status
 		) values(
 		#{IBoardSubject},
 		#{IBoardContent},
@@ -19,7 +19,7 @@
 
 	<select id="SelectInquiryList"
 		resultType="com.mju.groupware.dto.Inquiry">
-		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, State
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, Status
 		from InquiryBoard where IBoardDelete = 0
 	</select>
 	
@@ -43,7 +43,7 @@
 		parameterType="com.mju.groupware.dto.Inquiry" resultType="String">
 		select UserID
 		from User 
-		where UserLoginID = #{loginID}
+		where UserID = #{loginID}
 	</select>
 	<!-- 
 	<delete id="DeleteInquiry" parameterType="Integer">

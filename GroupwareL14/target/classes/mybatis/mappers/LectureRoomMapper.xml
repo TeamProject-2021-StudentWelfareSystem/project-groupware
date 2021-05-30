@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.LectureRoomDao">
+	<select id="SelectLectureRoomList"
+		resultType="com.mju.groupware.dto.LectureRoom">
+		select LectureRoomNo, RoomLocation, RoomFloor,
+		MaxNumOfPeople, RoomType
+		from LectureRoom
+	</select>
+
+	<select id="SelectMaxNumOfPeople" resultType="Integer">
+		Select
+		MaxNumOfPeople from LectureRoom where LectureRoomNo = #{lectureRoomNo}
+	</select>
+
+	<select id="SelectLoginUserIDForLecture"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="String">
+		select
+		UserID from User where UserLoginID = #{loginID}
+	</select>
+
+	<insert id="InsertReservation"
+		parameterType="com.mju.groupware.dto.UserReservation">
+		insert into UserReservation(
+		ReservationDate,
+		ReservationStartTime, ReservationEndTime,
+		ReservationNumOfPeople,
+		LectureRoomNo, UserID
+		)
+		values(
+		#{ReservationDate},
+		#{ReservationStartTime}, #{ReservationEndTime}
+		,#{ReservationNumOfPeople} ,#{LectureRoomNo}, #{UserID}
+		)
+	</insert>
+
+	<select id="SelectStartTime"
+		resultType="com.mju.groupware.dto.UserReservation">
+		select ReservationStartTime from UserReservation where
+		LectureRoomNo = #{lectureRoomNo}
+	</select>
+
+	<select id="SelectReservationUserID"
+		parameterType="com.mju.groupware.dto.UserReservation"
+		resultType="Integer">
+		select UserID from UserReservation where UserID = #{UserID}
+	</select>
+
+	<select id="SelectUserIDForReservationConfirm"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="String">
+		select
+		UserID from User where UserLoginID = #{loginID}
+	</select>
+
+	<select id="SelectLectureRoomNo"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="Integer">
+		select
+		LectureRoomNo from UserReservation where UserID = #{userID}
+	</select>
+
+	<select id="SelectLectureRoomLocation"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="String">
+		select
+		RoomLocation from LectureRoom where LectureRoomNo = #{lectureRoomNo}
+	</select>
+
+	<select id="SelectLectureRoomMaxNumOfPeople"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="Integer">
+		select
+		MaxNumOfPeople from LectureRoom where LectureRoomNo =
+		#{lectureRoomNo}
+	</select>
+
+	<select id="SelectRoomFloor"
+		parameterType="com.mju.groupware.dto.LectureRoom" resultType="Integer">
+		select
+		RoomFloor from LectureRoom where LectureRoomNo = #{lectureRoomNo}
+	</select>
+
+	<select id="SelectReservationNumOfPeople" resultType="Integer">
+		select
+		ReservationNumOfPeople from UserReservation where UserID = #{userID}
+	</select>
+
+	<select id="SelectReservationStartTime" resultType="String">
+		select
+		ReservationStartTime from UserReservation where UserID = #{userID}
+	</select>
+
+	<select id="SelectReservationTimeForException"
+		resultType="String"
+		parameterType="com.mju.groupware.dto.UserReservation">
+		select ReservationStartTime from UserReservation where
+		ReservationStartTime = #{ReservationStartTime}
+	</select>
+	
+	<select id="SelectRoomInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.UserReservation">
+		select * from UserReservation where UserID =
+		#{UserID}
+	</select>
+	
+	<delete id="DeleteReservation">
+		delete from UserReservation where
+		UserID=#{UserID} and
+		LectureRoomNo = #{LectureRoomNo} and ReservationNumOfPeople
+		=
+		#{ReservationNumOfPeople}
+	</delete>
+</mapper>
