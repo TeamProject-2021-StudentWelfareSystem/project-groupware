@@ -37,12 +37,7 @@
 						</div>
 					</section>
 					<section>
-<<<<<<< HEAD
 						<form action="InquiryDelete.do?boardID=${BoardID}" name="InquiryDelete" method="POST" id="form">
-=======
-						<form action="inquiryDelete.do" name="DataDelete" method="POST"
-							id="form">
->>>>>>> 144157f59d4ca80b624369739c25fc39563228d1
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<table id="contentTable">

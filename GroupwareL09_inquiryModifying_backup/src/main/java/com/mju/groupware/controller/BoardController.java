@@ -113,10 +113,6 @@ public class BoardController {
 		//model.addAttribute("BoardType", inquiry.getIBoardType());
 
 		String UserID = inquiryService.SelectLoginUserIDForInquiry(LoginID);// 로그인한 사람의 userID를 가져오기 위함
-<<<<<<< HEAD
-=======
-		System.out.println(UserID);
->>>>>>> 144157f59d4ca80b624369739c25fc39563228d1
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", inquiry.getUserID());
 		
@@ -209,15 +205,11 @@ public class BoardController {
 		inquiry.setState("답변 대기");
 		inquiry.setUserEmail(UserEmail);
 		inquiry.setUserPhoneNum(UserPhoneNum);
-		
-		System.out.println(inquiry);
-		
-
+	
 		inquiryService.InsertInquiry(inquiry, request);
 
 		return "redirect:/inquiryList";
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value = "/InquiryDelete.do", method = RequestMethod.POST)
 	public String deleteInquiry(HttpServletRequest request) {
@@ -270,8 +262,6 @@ public class BoardController {
 		
 		return "redirect:/inquiryList";
 	}
-=======
->>>>>>> 144157f59d4ca80b624369739c25fc39563228d1
 
 
 	// 공지사항 리스트
