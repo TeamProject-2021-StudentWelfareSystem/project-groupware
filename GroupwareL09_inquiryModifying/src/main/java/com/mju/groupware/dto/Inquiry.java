@@ -10,6 +10,16 @@ public class Inquiry {
 	private String UserEmail;
 	private String UserPhoneNum;
 	private String State;
+	private String IBoardAnswer;
+	
+	public String getIBoardAnswer() {
+		return IBoardAnswer;
+	}
+
+	public void setIBoardAnswer(String iBoardAnswer) {
+		IBoardAnswer = iBoardAnswer;
+	}
+
 	private int UserID;
 	private int IBoardID;
 	

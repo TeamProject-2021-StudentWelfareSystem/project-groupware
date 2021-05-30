@@ -54,10 +54,10 @@
 										<td><label for="writer">작성자 &nbsp; </label></td>
 										<td><input
 											type="text" name="NoticeWriter" id="noticeWriter"
-											class="inputBox" placeholder = "작성자는 자동으로 입력됩니다." value="${NoticeWriter}" disabled readonly>
+											class="inputBox" value="${NoticeWriter}" disabled readonly>
 											<input
 											type="text" name="Date" id="date" class="inputBox"
-											placeholder="날짜가 자동으로 입력됩니다." disabled readonly value=${BoardDate}></td>
+											 disabled readonly value=${BoardDate}></td>
 									</tr>
 									<tr>
 										<td><label for="content">내용</label>

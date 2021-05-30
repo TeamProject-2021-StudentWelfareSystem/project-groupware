@@ -46,7 +46,18 @@ public class InquiryDaoImpl implements InquiryDao {
 	public void DeleteInquiry(int iboardID) {
 		sqlSession.delete("DeleteInquiry", iboardID);
 	}
+	
+	@Override
+	public void InsertInquiryAnswer(Inquiry inquiry) {
+		sqlSession.update("UpdateInquiryAnswer", inquiry);
 
+	}
+	
+	@Override
+	public void DeleteInquiryAnswer(int iboardID) {
+		sqlSession.update("DeleteInquiryAnswer", iboardID);
+	}
+	
 	@Override
 	public void UpdateIBoardDelete(int iboardID) {
 		sqlSession.update("UpdateIBoardDelete", iboardID);

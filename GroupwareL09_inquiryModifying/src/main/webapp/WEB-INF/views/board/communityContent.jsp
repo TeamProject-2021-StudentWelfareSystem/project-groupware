@@ -87,7 +87,7 @@
 								<c:if test="${UserID == UserIDFromWriter}">
 									<a href="${path}/communityModify?=${BoardID}"><button
 											type="button" id="modifyButton">수정</button></a>
-									<button type="submit" id="deleteButton">삭제</button>
+									<button type="submit" id="deleteButton" onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</button>
 								</c:if>
 							</div>
 						</form>

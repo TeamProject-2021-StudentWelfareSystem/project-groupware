@@ -34,7 +34,7 @@
 
 	<select id="SelectOneInquiryContent"
 		resultType="com.mju.groupware.dto.Inquiry">
-		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardContent, UserID 
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardContent, UserID, IBoardAnswer
 		from InquiryBoard 
 		where IBoardID = #{IBoardID}
 	</select>
@@ -45,15 +45,29 @@
 		from User 
 		where UserLoginID = #{loginID}
 	</select>
-	
+	<!-- 
 	<delete id="DeleteInquiry" parameterType="Integer">
 		delete from InquiryBoard
 		where IBoardID = #{IBoardID}
 	</delete>
-	
-	<update id="UpdateIBoardDelete" parameterType="int">
+	 -->
+	<update id="DeleteInquiry" parameterType="Integer">
 		UPDATE InquiryBoard 
 		SET IBoardDelete = 1
+		where IBoardID = #{IBoardID}
+	</update>
+	
+	<update id="UpdateInquiryAnswer" parameterType="com.mju.groupware.dto.Inquiry">
+		UPDATE InquiryBoard 
+		SET IBoardAnswer = #{IBoardAnswer},
+			State = #{State}
+		where IBoardID = #{IBoardID}
+	</update>
+	
+	<update id="DeleteInquiryAnswer" parameterType="Integer">
+		UPDATE InquiryBoard 
+		SET IBoardAnswer = null,
+			State = '답변 대기'
 		where IBoardID = #{IBoardID}
 	</update>
 </mapper>

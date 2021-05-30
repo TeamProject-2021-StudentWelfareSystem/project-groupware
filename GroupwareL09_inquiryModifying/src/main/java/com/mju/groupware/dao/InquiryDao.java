@@ -17,6 +17,10 @@ public interface InquiryDao {
 	String SelectLoginUserIDForInquiry(String loginID);
 
 	void DeleteInquiry(int iboardID);
+	
+	void InsertInquiryAnswer(Inquiry inquiry);
+	
+	void DeleteInquiryAnswer(int iboardID);
 
 	void UpdateIBoardDelete(int iboardID);
 

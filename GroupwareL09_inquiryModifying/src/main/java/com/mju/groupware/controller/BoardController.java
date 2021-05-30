@@ -86,7 +86,6 @@ public class BoardController {
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
 		SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
 		user.setUserLoginID(LoginID);
-		System.out.println("LoginID" + LoginID);
 
 		if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
 			ArrayList<String> StudentInfo = new ArrayList<String>();
@@ -110,10 +109,10 @@ public class BoardController {
 		model.addAttribute("IBoardDate", inquiry.getIBoardDate());
 		model.addAttribute("InquiryContent", inquiry.getIBoardContent());
 		model.addAttribute("BoardID", IBoardID);
+		model.addAttribute("InquiryAnswer", inquiry.getIBoardAnswer());
 		//model.addAttribute("BoardType", inquiry.getIBoardType());
 
 		String UserID = inquiryService.SelectLoginUserIDForInquiry(LoginID);// 로그인한 사람의 userID를 가져오기 위함
-		System.out.println("UserID"+UserID);
 		model.addAttribute("UserID", UserID);
 		model.addAttribute("UserIDFromWriter", inquiry.getUserID());
 		
@@ -212,15 +211,54 @@ public class BoardController {
 		return "redirect:/inquiryList";
 	}
 	
-	@RequestMapping(value = "/InquiryDelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/InquiryDelete.do", method = RequestMethod.POST)
 	public String deleteInquiry(HttpServletRequest request) {
-		String SBoardID = request.getParameter("no");
-		System.out.println(SBoardID);
-//		int IBoardID = Integer.parseInt(request.getParameter("no"));
-//		System.out.println(IBoardID);
-//		int BoardID = Integer.parseInt(request.getParameter("boardID"));
-//		System.out.println(BoardID);
-		//inquiryService.DeleteInquiry(IBoardID);
+		int IBoardID = Integer.parseInt(request.getParameter("boardID"));
+		inquiryService.DeleteInquiry(IBoardID);
+		
+		return "redirect:/inquiryList";
+	}
+	
+	@RequestMapping(value = "/Answer.do", method = RequestMethod.POST)
+	public String DoInquiryAnswer(Principal principal, HttpServletRequest request, User user, Inquiry inquiry, Model model) throws Exception {
+		
+		String LoginID = principal.getName();// 로그인 한 아이디
+		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
+		SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
+		user.setUserLoginID(LoginID);
+
+		if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
+			ArrayList<String> StudentInfo = new ArrayList<String>();
+			StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
+
+			userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
+		} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
+
+			ArrayList<String> ProfessorInfo = new ArrayList<String>();
+			ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
+
+			userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
+		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
+			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
+		}
+		
+		String IBoardAnswer = request.getParameter("InquiryAnswer");
+		
+		int IBoardID = Integer.parseInt(request.getParameter("BoardID"));
+
+		inquiry.setIBoardAnswer(IBoardAnswer);
+		inquiry.setState("답변 완료");
+		inquiry.setIBoardID(IBoardID);
+	
+		inquiryService.InsertInquiryAnswer(inquiry, request);
+
+		return "redirect:/inquiryList";
+	}
+	
+	@RequestMapping(value = "/AnswerDelete.do", method = RequestMethod.POST)
+	public String deleteInquiryAnswer(HttpServletRequest request) {
+		int IBoardID = Integer.parseInt(request.getParameter("boardID"));
+		inquiryService.DeleteInquiryAnswer(IBoardID);
 		
 		return "redirect:/inquiryList";
 	}
@@ -281,7 +319,16 @@ public class BoardController {
 		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
-		//
+		
+		// 작성자 이름 자동 세팅 (disabled)
+		String UserLoginID = principal.getName();
+		String UserName = userService.SelectUserName(UserLoginID);
+		Date Now = new Date();
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		model.addAttribute("NoticeWriter", UserName);
+		model.addAttribute("BoardDate", Date.format(Now));
+		
 		List<Board> noticeList = boardService.SelectNoticeBoardList();
 		model.addAttribute("noticeList", noticeList);
 		
@@ -514,7 +561,15 @@ public class BoardController {
 		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
-		//
+
+		// 작성자 이름 자동 세팅 (disabled)
+		String UserLoginID = principal.getName();
+		String UserName = userService.SelectUserName(UserLoginID);
+		Date Now = new Date();
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		model.addAttribute("CommunityWriter", UserName);
+		model.addAttribute("BoardDate", Date.format(Now));
 		model.addAttribute("communityList", communityList);
 		
 		return "/board/communityWrite";
@@ -698,7 +753,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/CommunityDelete.do", method = RequestMethod.POST)
 	public String deleteCommunity(HttpServletRequest request) {
-		int BoardID = Integer.parseInt(request.getParameter("iboardID"));
+		int BoardID = Integer.parseInt(request.getParameter("boardID"));
 		boardService.DeleteCommunity(BoardID);
 
 		return "redirect:/communityList";

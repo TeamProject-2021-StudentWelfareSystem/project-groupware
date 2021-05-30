@@ -9,7 +9,7 @@ import com.mju.groupware.dto.Inquiry;
 public interface InquiryService {
 
 	void InsertInquiry(Inquiry inquiry, HttpServletRequest request);
-
+	
 	List<Inquiry> SelectInquiryList();
 	
 	Inquiry SelectOneInquiryContent(String iboardID);
@@ -18,6 +18,10 @@ public interface InquiryService {
 
 	void DeleteInquiry(int iboardID);
 	
+	void InsertInquiryAnswer(Inquiry inquiry, HttpServletRequest request);
+	
+	void DeleteInquiryAnswer(int iboardID);
+
 	void UpdateIBoardDelete(int iboardID);
 	
 }

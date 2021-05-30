@@ -37,17 +37,14 @@
 						</div>
 					</section>
 					<section>
-						<form action="InquiryDelete?iboardID=${IBoardID}" 
-						name="InquiryDelete" method="POST"
-							id="form">
+						<form action="InquiryDelete.do?boardID=${BoardID}" name="InquiryDelete" method="POST" id="form">
 							<div class="section2">
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<table id="contentTable">
 									<tr id="title">
 										<td><input type="text" name="InquiryTitle"
-											id="inquiryTitle" class="inputBox" placeholder="제목" disabled
-											readonly value=${InquiryTitle}></td>
+											id="inquiryTitle" class="inputBox" placeholder="제목" disabled readonly value=${InquiryTitle}>
+										</td>
 									</tr>
 									<tr id="receive">
 										<td colspan="2">
@@ -66,50 +63,61 @@
 							</div>
 
 							<div id="btn">
-								<a href="inquiryList"><input type="button" value="목록"
-									id="listButton"></a>
+								<a href="inquiryList"><input type="button" value="목록" id="listButton"></a>
 								<!-- 접속한 UserID와 해당 글을 작성한 UserID가 같을 때 수정/삭제 버튼 보이게 하기 -->
 								<c:set var="UserID" value="${UserID}" />
 								<c:set var="UserIDFromWriter" value="${UserIDFromWriter}" />
 								<c:if test="${UserID == UserIDFromWriter}">
-									<button type="submit" id="deleteButton">삭제</button>
+									<button type="submit" id="deleteButton" onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</button>
+									<input type="hidden" name="BoardID" id="boardID" disabled readonly value=${BoardID}>
 								</c:if>
 							</div>
 						</form>
 						<br>
 						<hr>
 						
-						<form action="Delete.do" name="Delete" method="POST"
+						<form action="AnswerDelete.do?boardID=${BoardID}" name="Delete" method="POST"
 							id="form">
 							<!-- 답변이 null이 아닐 때만 출력 가능하게 해야함 answerList? -->
-							<c:if test="${answerList != null}">
-							<table>
-							<tr>
-								<td><label for="inquiryAnswerContent"><b>답변</b>&nbsp;&nbsp;&nbsp;</label></td>
-								<td><textarea name="InquiryAnswerContent" id="inquiryAnswerContent" class="inputBox" disabled readonly></textarea>&nbsp;&nbsp;</td>
-								<!-- 관리자만 답변 삭제 가능 -->
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-								<td><input type="submit" value="삭제" id="deleteButton"></td>
-								</sec:authorize>
-							</tr>
-							</table>
+							<c:if test="${InquiryAnswer != null}">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<table>
+									<tr>
+										<td><label for="inquiryAnswerContent"><b>답변</b>&nbsp;&nbsp;&nbsp;</label></td>
+										<td><textarea name="InquiryAnswer" id="inquiryAnswerContent" class="inputBox" placeholder="${InquiryAnswer}"  disabled readonly></textarea>&nbsp;&nbsp;</td>
+										<!-- 관리자만 답변 삭제 가능 -->
+										<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<td>
+											<input type="submit" value="삭제" id="deleteButton" onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">
+											 <!-- <a href="${path}/inquiryList"></a> -->
+										</td>
+										</sec:authorize>
+									</tr>
+								</table>
 							</c:if>
 						</form>
 						
 						<br><br>
 						
 						<!-- 관리자만 답변 작성 가능 -->
-						<form action="Answer.do" name="Answer" method="POST"
-							id="form">
+						<form action="Answer.do" name="DoInquiryAnswer" method="POST" id="AnswerForm">
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<table>
-							<tr>
-								<td><label for="inquiryAnswer"><b>답변 작성</b>&nbsp;</label></td>
-								<td><textarea name="InquiryAnswer" id="inquiryAnswer" class="inputBox" placeholder="내용"></textarea>&nbsp;&nbsp;</td>
-								<td><input type="submit" value="저장" id="saveButton"></td>
-								<!-- input hidden으로 관리자 아이디 값 넘겨야 함! -->
-							</tr>
-							</table>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<table>
+									<tr>
+										<c:if test="${InquiryAnswer == null}">
+											<td><label for="inquiryAnswer"><b>답변 작성</b>&nbsp;</label></td>
+										
+											<td><textarea name="InquiryAnswer" id="inquiryAwr" class="inputBox" placeholder="내용"></textarea>&nbsp;&nbsp;</td>
+											<td>
+												<input type="submit" value="저장" id="saveButton">
+												<input type="hidden" name="UserID" value="${UserID}" id="userID">
+												<input type="hidden" name="BoardID" value="${BoardID}" id="boardID">
+											</td>
+											<!-- input hidden으로 관리자 아이디 값 넘겨야 함! -->
+										</c:if>
+									</tr>
+								</table>
 							</sec:authorize>
 						</form>
 						<!-- section2 -->

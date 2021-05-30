@@ -40,6 +40,17 @@ public class InquiryServiceImpl implements InquiryService {
 	public void DeleteInquiry(int iboardID) {
 		inquiryDao.DeleteInquiry(iboardID);
 	}
+	
+	@Override
+	public void InsertInquiryAnswer(Inquiry inquiry, HttpServletRequest request) {
+		inquiryDao.InsertInquiryAnswer(inquiry);
+	}
+	
+	@Override
+	public void DeleteInquiryAnswer(int iboardID) {
+		inquiryDao.DeleteInquiryAnswer(iboardID);
+	}
+	
 	@Override
 	public void UpdateIBoardDelete(int iboardID) {
 		inquiryDao.UpdateIBoardDelete(iboardID);
