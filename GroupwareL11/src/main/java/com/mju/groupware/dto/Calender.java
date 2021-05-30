@@ -8,7 +8,6 @@ public class Calender {
 	private String start;
 	private String end;
 	private String backgroundColor;
-//	private String username;
 	private int userId;
 	private boolean allDay;
 
