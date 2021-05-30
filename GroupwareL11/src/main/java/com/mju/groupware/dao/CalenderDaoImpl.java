@@ -39,7 +39,7 @@ public class CalenderDaoImpl implements CalenderDao {
 	}
 
 	@Override
-	public void UpdateSchedule(String userId, String id, Calender calender) {
+	public int UpdateSchedule(String userId, String id, Calender calender) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("scheduleID", id);
@@ -49,16 +49,16 @@ public class CalenderDaoImpl implements CalenderDao {
 		map.put("backGroundColor", calender.getBackgroundColor());
 		map.put("description", calender.getDescription());
 
-		sqlSession.update("UpdateSchedule", map);
+		return sqlSession.update("UpdateSchedule", map);
 	}
 
 	@Override
-	public void DeleteSchedule(String userId, String id) {
+	public int DeleteSchedule(String userId, String id) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("scheduleID", id);
 
-		sqlSession.delete("DeleteSchedule", map);
+		return sqlSession.delete("DeleteSchedule", map);
 
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mju.groupware.dto.Calender;
@@ -37,8 +38,6 @@ public class ScheduleController {
 	private UserInfoMethod userInfoMethod;
 	@Autowired
 	private CalenderService calenderService;
-
-	private String beforeTitle;
 
 	// 일정 화면
 	@RequestMapping(value = "/schedule/mySchedule", method = { RequestMethod.GET, RequestMethod.POST })
@@ -76,18 +75,29 @@ public class ScheduleController {
 	// 일정 보내기
 	@ResponseBody
 	@RequestMapping(value = "/schedule/AddSchedule.do", method = RequestMethod.POST)
-	public void AddSchedule(@RequestBody Calender calender, Principal principal, Model model) {
+	public int AddSchedule(@RequestBody Calender calender, Principal principal, Model model) {
 
 		int UserId = SelectUserIDForCalender(principal);
 		if (UserId != 0) {
 			calender.setUserId(UserId);
 		}
-		calenderService.InsertSchedule(calender);
+		int count = calenderService.InsertSchedule(calender);
+		return count;
 	}
 
 	private int SelectUserIDForCalender(Principal principal) {
 		// TODO Auto-generated method stub
 		String LoginID = principal.getName();
+		if (LoginID.equals(null)) {
+			try {
+				principal.wait(10);
+				principal.notify();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		int UserId = calenderService.SelectUserIdForCalender(LoginID);
 		return UserId;
 	}
@@ -103,8 +113,16 @@ public class ScheduleController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/schedule/modfiyMonthTime.do", method = RequestMethod.POST)
+	public int ModfiyMonthTime(Principal principal, @RequestParam String start, @RequestParam String end) {
+		System.out.println(start + "~" + end);
+		int count = 0;
+		return count;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/schedule/ModifySchedule.do", method = RequestMethod.POST)
-	public void ModifySchedule(Principal principal, @RequestBody Calender calender, HttpServletRequest reqeust) {
+	public int ModifySchedule(Principal principal, @RequestBody Calender calender, HttpServletRequest reqeust) {
 
 		int UserId = SelectUserIDForCalender(principal);
 		if (UserId != 0) {
@@ -112,19 +130,21 @@ public class ScheduleController {
 		}
 		String id = calender.getId();
 		// hashmap list넣었잖아 이거 어케했누
-		calenderService.UpdateSchedule(Integer.toString(UserId), id, calender);
+		int count = calenderService.UpdateSchedule(Integer.toString(UserId), id, calender);
+
+		return count;
 	}
 
 	// 일정 삭제
 	@ResponseBody
 	@RequestMapping(value = "/schedule/DeleteSchedule.do", method = RequestMethod.POST)
-	public void DeleteSchedule(@RequestBody Calender calender, Principal principal, Model model) {
-		System.out.println(calender.getId());
+	public int DeleteSchedule(@RequestBody Calender calender, Principal principal, Model model) {
 		int UserId = SelectUserIDForCalender(principal);
 		if (UserId != 0) {
 			calender.setUserId(UserId);
 		}
 		String id = calender.getId();
-		calenderService.DeleteSchedule(Integer.toString(UserId), id);
+		int count = calenderService.DeleteSchedule(Integer.toString(UserId), id);
+		return count;
 	}
 }

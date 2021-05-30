@@ -13,7 +13,7 @@ public interface CalenderService {
 
 	int SelectUserIdForCalender(String loginID);
 
-	void UpdateSchedule(String string, String id, Calender calender);
+	int UpdateSchedule(String string, String id, Calender calender);
 
-	void DeleteSchedule(String string, String id);
+	int DeleteSchedule(String string, String id);
 }

@@ -146,7 +146,7 @@ var calendar = $('#calendar').fullCalendar({
         //....
       },
       success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        alert('!수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
 
