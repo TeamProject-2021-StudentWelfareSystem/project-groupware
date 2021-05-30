@@ -37,8 +37,7 @@
 						</div>
 					</section>
 					<section>
-						<form action="InquiryDelete?iboardID=${IBoardID}" 
-						name="InquiryDelete" method="POST"
+						<form action="inquiryDelete.do" name="DataDelete" method="POST"
 							id="form">
 							<div class="section2">
 								<input type="hidden" name="${_csrf.parameterName}"
