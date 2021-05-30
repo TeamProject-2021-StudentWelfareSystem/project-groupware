@@ -181,10 +181,8 @@ ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
 
-select date_format(ScheduleEndDate,'%Y-%m-%d %H:%i') as date from UserSchedule;
-select * from UserSchedule;
 create table UserSchedule(
-ScheduleID int auto_increment not null primary key,
+_id int auto_increment not null primary key,
 title varchar(50) not null,
 description varchar(100) not null,
 start varchar(100) not null,
@@ -194,6 +192,8 @@ allDay boolean,
 UserID int not null,
 foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
+select date_format(ScheduleStartDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
+select date_format(ScheduleEndDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 
 create table TeamUser(
 UserID int not null,
