@@ -476,22 +476,25 @@ public class AdministratorController {
 				user.setUserPhoneNum((String) request.getParameter("UserPhoneNum"));
 				userService.updateUserPhoneNumber(user);
 			}
+			System.out.println(request.getParameter("StudentGrade"));
 			if (!((String) request.getParameter("StudentGrade")).equals(" ")) {
 				// 학년
 				student.setStudentGrade((String) request.getParameter("StudentGrade"));
 				studentService.updateStudentGrade(student);
 			}
-			if (!((String) request.getParameter("StudentColleges")).equals(" ")) {
+			if (!((String) request.getParameter("StudentColleges")).equals("")) {
 				// 단과대학
 				student.setStudentColleges((String) request.getParameter("StudentColleges"));
 				studentService.UpdateStudentColleges(student);
 			}
-			if (!((String) request.getParameter("StudentMajor")).equals(" ")) {
+			if (!((String) request.getParameter("StudentMajor")).equals("")) {
 				// 전공
 				student.setStudentMajor((String) request.getParameter("StudentMajor"));
 				studentService.UpdateStudentMajor(student);
 			}
-			if (((String) request.getParameter("member")).equals("Y")) {
+
+			if (((String) request.getParameter("member")).equals("Y")
+					&& !request.getParameter("StudentDoubleMajor").equals(" ")) {
 				// 부전공 있다
 				System.out.println(7);
 				student.setStudentDoubleMajor((String) request.getParameter("StudentDoubleMajor"));
@@ -557,6 +560,7 @@ public class AdministratorController {
 		return "/admin/manageModifyStudent";
 
 	}
+
 	private void GetUserInformation(Principal principal, User user, Model model) {
 		String LoginID = principal.getName();// 로그인 한 아이디
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
