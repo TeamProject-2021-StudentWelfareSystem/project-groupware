@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/StudentDao.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="StudentDaoID" class="com.mju.groupware.constant.ConstantAdminStudentDao">
+		<property name="InsertInformation">
+			<value>${InsertInformation}</value>
+		</property>
+		<property name="UpdateUserID">
+			<value>${UpdateUserID}</value>
+		</property>
+		<property name="GetGrade">
+			<value>${GetGrade}</value>
+		</property>
+		<property name="UpdateStudentGender">
+			<value>${UpdateStudentGender}</value>
+		</property>
+		<property name="UpdateStudentGrade">
+			<value>${UpdateStudentGrade}</value>
+		</property>
+		<property name="UpdateStudentDoubleMajor">
+			<value>${UpdateStudentDoubleMajor}</value>
+		</property>
+		<property name="SelectStudentProfileInfo">
+			<value>${SelectStudentProfileInfo}</value>
+		</property>
+		<property name="SelectMyPageStudentInfo">
+			<value>${SelectMyPageStudentInfo}</value>
+		</property>
+		<property name="NoDoubleMajor">
+			<value>${NoDoubleMajor}</value>
+		</property>
+		<property name="SelectMyPageStudentInfoByID">
+			<value>${SelectMyPageStudentInfoByID}</value>
+		</property>
+		<property name="UpdateStudentColleges">
+			<value>${UpdateStudentColleges}</value>
+		</property>
+		<property name="UpdateStudentMajor">
+			<value>${UpdateStudentMajor}</value>
+		</property>
+		<property name="SelectStudentInfo">
+			<value>${SelectStudentInfo}</value>
+		</property>
+		<property name="InsertWithdrawalStudent">
+			<value>${InsertWithdrawalStudent}</value>
+		</property>
+		<property name="DeleteWithdrawalStudent">
+			<value>${DeleteWithdrawalStudent}</value>
+		</property>
+		<property name="DeleteWithdrawalStudentList">
+			<value>${DeleteWithdrawalStudentList}</value>
+		</property>
+
+		
+	</bean>
+</beans>

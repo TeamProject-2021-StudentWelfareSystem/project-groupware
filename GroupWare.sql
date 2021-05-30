@@ -77,7 +77,7 @@ drop table Class;
 drop table TeamUser;
 drop table TeamSchedule;
 drop table Board;
-drop table InquiryBoard;	
+drop table InquiryBoard;   
 drop table BoardFile;
 drop table UserReservation;
 drop table TeamBoard;
@@ -174,7 +174,7 @@ foreign key (BoardID) references Board(BoardID) on delete cascade on update casc
 create table Class(
 ClassID int not null primary key, 
 ClassName varchar(50) not null, #강의이름
-ClassProfessorName varchar(50) not null, #교수	
+ClassProfessorName varchar(50) not null, #교수   
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
@@ -326,21 +326,21 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM User WHERE Withdrawal = 1 and WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
     DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     
 #강의실예약 하루마다 비우기
 CREATE
-	EVENT UserReservationDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
+   EVENT UserReservationDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
     DO
     DELETE FROM User UserReservation WHERE ReservationDate <= DATE_SUB(NOW(), INTERVAL 1 day);
     
