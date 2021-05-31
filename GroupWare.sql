@@ -24,12 +24,19 @@ insert into professor (ProfessorColleges, professorMajor, UserID) values ("ICT�
 # alter 모음
 alter table User add Dormant boolean not null default 0;
 alter table Professor add ProfessorRoomNum varchar(30) default '입력해주세요';
-alter table Student drop column ProfessorRoom;
 alter table Team add TeamLeaderID varchar(30) not null;
 alter table TeamBoard add TBoardDelete boolean default 0 not null;
 alter table TeamBoard add TUserLoginID varchar(30) not null;
 alter table Board add BoardDelete boolean default 0 not null;
 alter table TeamFile add TFileDelete boolean default 0 not null;
+alter table Student add LoginDate date not null;
+alter table Professor add LoginDate date not null;
+
+# 테이블 컬럼 지우기
+alter table Student drop column ProfessorRoom;
+alter table User drop column OpenName;
+alter table User drop column OpenEmail;
+alter table User drop column OpenMajor;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -77,7 +84,7 @@ drop table Class;
 drop table TeamUser;
 drop table TeamSchedule;
 drop table Board;
-drop table InquiryBoard;   
+drop table InquiryBoard;	
 drop table BoardFile;
 drop table UserReservation;
 drop table TeamBoard;
@@ -174,7 +181,7 @@ foreign key (BoardID) references Board(BoardID) on delete cascade on update casc
 create table Class(
 ClassID int not null primary key, 
 ClassName varchar(50) not null, #강의이름
-ClassProfessorName varchar(50) not null, #교수   
+ClassProfessorName varchar(50) not null, #교수	
 ClassType varchar(30) not null #강의종류(전필, 교양 etc)
 );
 
@@ -271,8 +278,8 @@ StudentGrade ENUM ('1학년', '2학년', '3학년', '4학년', '입력해주세�
 StudentGender varchar(20) not null default '입력해주세요', # male / female
 StudentColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학', '입력해주세요') default '입력해주세요' not null, #단과대학
 StudentMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
-'행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
-'경영정보학과', '국제통상학과',
+'행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과', 
+'경영정보학과', '국제통상학과', '경영학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '입력해주세요') default '입력해주세요' not null, #전공
@@ -292,7 +299,7 @@ ProfessorRoomNum varchar(30) default '입력해주세요', #교수실전화번�
 ProfessorColleges ENUM ('인문대학', '사회과학대학', '경영대학', '법과대학', 'ICT융합대학', '미래융합대학', '입력해주세요') default '입력해주세요' not null, #단과대학
 ProfessorMajor ENUM ('국어국문학과', '영어영문학과', '중어중문학과', '일어일문학과', '사학과', '문헌정보학과', '아랍지역학과', '미술사학과', '철학과', '문예창작학과', 
 '행정학과', '경제학과', '정치외교학과', '디지털미디어학과', '아동학과', '청소년지도학과',
-'경영정보학과', '국제통상학과',
+'경영정보학과', '국제통상학과', '경영학과',
 '법학과',
 '융합소프트웨어학부', '디지털콘텐츠디자인학과',
 '창의융합인재학부', '사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '입력해주세요') default '입력해주세요' not null, #전공
@@ -326,30 +333,34 @@ CREATE
 
 # 탈퇴계정 6개월 후 데이터 삭제
 CREATE
-   EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaUserDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
-    DELETE FROM User WHERE Withdrawal = 1 and WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+    DELETE FROM User WHERE Withdrawal = 1 and LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaStudentDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
-    DELETE FROM WithdrawalStudent WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+    DELETE FROM Student WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
 CREATE
-   EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
+	EVENT WithdrawaProfessorDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-04'
     DO
-    DELETE FROM WithdrawalProfessor WHERE WithdrawalDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
+    DELETE FROM Professor WHERE LoginDate <= DATE_SUB(NOW(), INTERVAL 6 month); 
     
 #강의실예약 하루마다 비우기
 CREATE
-   EVENT UserReservationDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
+	EVENT UserReservationDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
     DO
     DELETE FROM User UserReservation WHERE ReservationDate <= DATE_SUB(NOW(), INTERVAL 1 day);
+ 
+#한 학기 지나면 팀 지우기
+CREATE
+	EVENT TeamDelete ON SCHEDULE EVERY 1 day STARTS '2021-05-30'
+    DO
+    DELETE From Team WHERE TeamCreationDate <= DATE_SUB(NOW(), INTERVAL 5 month);
     
-select * from userReservation;
 DROP EVENT email_validation_Scheduler;
 DROP EVENT email_validation_Scheduler_test;
 DROP EVENT Dormant_Scheduler;
 DROP EVENT Dormant_Scheduler_test;
-
 /*
 * ON DELETE SET NULL
 * ON DELETE SET NULL
