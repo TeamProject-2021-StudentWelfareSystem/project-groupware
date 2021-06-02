@@ -1,4 +1,4 @@
-<!-- review 검색 화면 -->
+<!-- review 리스트 화면 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,9 +22,8 @@
 <link rel="stylesheet" href="../css/searchReview.css" type="text/css">
 <link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <script src="../js/jquery-3.5.1.min.js"></script>
-<script src="../js/manageList.js"></script>
 
-<title>review search page</title>
+<title>review List page</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>
@@ -36,53 +35,46 @@
 					<section>
 						<div class="section">
 							<br>
-							<h2>&nbsp;사용자 검색</h2>
+							<h2>&nbsp;review 검색</h2>
 							<hr>
 						</div>
 					</section>
 					<section>
 						<div class="section2">
 
-							<h3>&nbsp; 사용자 리스트</h3>
-							<div id="search">
-								<input type="text" placeholder="사용자명을 입력하세요."> 
-								<input type="submit" value="검색">
-							</div>
-							<form action="" name="UserList"
+							<h3>&nbsp; review 리스트</h3>
+							<form action="" name="ReviewList"
 								method="POST" id="form">
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
-								<table class="userList">
+								<table class="reviewList">
 									<thead>
 										<tr>
 											<th id="1">번호</th>
-											<th id="1">이름</th>
-											<th id="2">학과</th>
-											<th id="2">이메일</th>
-											<th id="2">휴대폰</th>
-											<th id="1">성별</th>
-											<th id="1">직책</th>
+											<th id="1">과목명</th>
+											<th id="2">후기 점수</th>
 										</tr>
 										<hr>
 									</thead>
-
+									<tbody >
+									
+									</tbody>
 									<tbody>
 										<c:forEach items="${list}" var="list" varStatus="status">
 											<tr>
-												<td><c:out value="${status.count}" /></td>
-												<td><a href="${path}/search/reviewList?no=${list.getReviewID()}"> <c:out value="${list.getUserName()}" /></a></td>
-												<td><a href="${path}"><c:out value="${list.getUserMajor()}" /></a></td>
-												<td><c:out value="${list.getUserEmail()}" /></td>
-												<td><c:out value="${list.getUserPhoneNumber()}" /></td>
-												<td><c:out value="${list.getStudentGender()}" /></td>
-												<td><a href="${path}/search/reviewList?no=${list.getReviewID()}"><c:out value="${list.getReviewNumber()}" /></a></td>
+												<td><a href="${path}/search/reviewContent?no=${list.getReviewID()}"><c:out value="${status.count}" /></a></td>
+												<td><a href="${path}/search/reviewContent?no=${list.getReviewID()}"> <c:out value="${list.getUserMajor()}" /></a></td>
+												<td><a href="${path}/search/reviewContent?no=${list.getReviewID()}"><c:out value="${list.getReviewScore()}" /></a></td>
+												
 											</tr>
 											
 										</c:forEach>
 									</tbody>
 								</table>
 								<hr>
-								
+								<div id="score" class="">
+								후기 평점 : </div>
+								<hr>
 								<div id="page" class="btn">
 									
 									<input type="button" value="←" id="leftList"> <input

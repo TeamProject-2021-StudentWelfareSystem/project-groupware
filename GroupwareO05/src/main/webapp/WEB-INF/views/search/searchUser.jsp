@@ -23,7 +23,8 @@
 <link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/manageList.js"></script>
-
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/searchUser.js"></script>
 <title>review search page</title>
 </head>
 <body>
@@ -45,11 +46,36 @@
 
 							<h3>&nbsp; 사용자 리스트</h3>
 							<div id="search">
-								<input type="text" placeholder="사용자명을 입력하세요."> 
-								<input type="submit" value="검색">
+								<input type="text" placeholder="사용자명을 입력하세요." id="searchKeyWord"
+									name="SearchKeyWord"> <input type="button" value="검색"
+									id="search" class = "searchButton">
 							</div>
-							<form action="" name="UserList"
-								method="POST" id="form">
+
+							<script>
+							$(".searchButton").click(function() {			
+								
+								var SearchKeyWord = $('#searchKeyWord');
+								var data={key:SearchKeyWord.val()};
+								var token = $("input[name='_csrf']").val();
+								var header = "X-CSRF-TOKEN";
+								$.ajax({
+									type: "POST",
+									url: "searchUser.do",
+									data:  JSON.stringify(data),
+									cache: false,
+									dataType: "json",
+									contentType: "application/json; charset=UTF-8",
+								beforeSend: function(xhr) {
+										xhr.setRequestHeader(header, token);
+									},
+									success: function(response) {
+										
+										console.log(response.PhoneNum);
+									}
+								});
+							});
+							</script>
+							<form action="" name="UserList" method="POST" id="form">
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
 								<table class="userList">
@@ -60,8 +86,7 @@
 											<th id="2">학과</th>
 											<th id="2">이메일</th>
 											<th id="2">휴대폰</th>
-											<th id="1">성별</th>
-											<th id="1">직책</th>
+
 										</tr>
 										<hr>
 									</thead>
@@ -70,24 +95,26 @@
 										<c:forEach items="${list}" var="list" varStatus="status">
 											<tr>
 												<td><c:out value="${status.count}" /></td>
-												<td><a href="${path}/search/reviewList?no=${list.getReviewID()}"> <c:out value="${list.getUserName()}" /></a></td>
-												<td><a href="${path}"><c:out value="${list.getUserMajor()}" /></a></td>
-												<td><c:out value="${list.getUserEmail()}" /></td>
-												<td><c:out value="${list.getUserPhoneNumber()}" /></td>
-												<td><c:out value="${list.getStudentGender()}" /></td>
-												<td><a href="${path}/search/reviewList?no=${list.getReviewID()}"><c:out value="${list.getReviewNumber()}" /></a></td>
+												<td><a
+													href="${path}/search/reviewList?no=${list.getReviewID()}">
+														<c:out value="${list.getUserName()}" />
+												</a></td>
+												<td><a href="${path}"><c:out
+															value="${list.getOpenMajor()}" /></a></td>
+												<td><c:out value="${list.getOpenEmail()}" /></td>
+												<td><c:out value="${list.getOpenPhoneNum()}" /></td>
 											</tr>
-											
+
 										</c:forEach>
 									</tbody>
 								</table>
 								<hr>
-								
+
 								<div id="page" class="btn">
-									
+
 									<input type="button" value="←" id="leftList"> <input
 										type="button" value="1" id="pageList"> <input
-										type="button" value="→" id="rightList"> 
+										type="button" value="→" id="rightList">
 								</div>
 							</form>
 						</div>
