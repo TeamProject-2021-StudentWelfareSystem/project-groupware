@@ -2,7 +2,9 @@ package com.mju.groupware.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mju.groupware.dto.SearchKeyWord;
+import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
 import com.mju.groupware.function.UserInfoMethod;
 import com.mju.groupware.service.ProfessorService;
@@ -45,21 +48,40 @@ public class SearchController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/search/searchUser.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String DoSearchUser(Principal principal, Model model, HttpServletRequest request,
-			@RequestBody SearchKeyWord searchKeyWord) {
-		List<User> InfoList = searchService.SelectKeyWord(searchKeyWord);
-		
-		
-		System.out.println(InfoList.get(0).getUserName());
-		if (!InfoList.isEmpty()) {
-			model.addAttribute("list", InfoList);
-			return "Success";
-		} else {
+	   @RequestMapping(value = "/search/searchUser.do", method = { RequestMethod.GET, RequestMethod.POST })
+	   public Map<String, Object> DoSearchUser(Principal principal, Model model, HttpServletRequest request,
+	         @RequestBody SearchKeyWord searchKeyWord) {
+	      List<User> InfoList = searchService.SelectKeyWord(searchKeyWord);
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      if (!InfoList.isEmpty()) {
+	         for (int i = 0; i < InfoList.size(); i++) {
+	            if (InfoList.get(i).getUserRole().equals("학생")) {
+	               map = addStudentInfo(InfoList.get(i));
 
-			return "Fail";
-		}
-	}
+	            } else if (InfoList.get(i).getUserRole().equals("교수님")) {
+	               map.put("UserName", InfoList.get(i).getUserName());
+	               map.put("UserMajor", InfoList.get(i).getOpenMajor());
+	               map.put("UserEmail", InfoList.get(i).getOpenEmail());
+	               map.put("PhoneNum", InfoList.get(i).getOpenPhoneNum());
+	            }
+
+	         }
+	         return map;
+	      } else {
+
+	         return map;
+	      }
+	   }
+
+	   private Map<String, Object> addStudentInfo(User user) {
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("UserName", user.getUserName());
+	      Student student = searchService.SelectStudentInfo(user.getUserID());
+	      map.put("UserMajor", user.getOpenMajor());
+	      map.put("UserEmail", user.getOpenEmail());
+	      map.put("PhoneNum", user.getOpenPhoneNum());
+	      return map;
+	   }
 
 	// review list 검색
 	@RequestMapping(value = "/search/reviewList", method = RequestMethod.GET)
@@ -95,5 +117,6 @@ public class SearchController {
 			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
 		}
 	}
+	   
 
 }
