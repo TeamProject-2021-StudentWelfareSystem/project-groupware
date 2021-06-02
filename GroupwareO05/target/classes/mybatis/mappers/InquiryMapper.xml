@@ -65,4 +65,13 @@
 			State = '답변 대기'
 		where IBoardID = #{IBoardID}
 	</update>
+<<<<<<< Updated upstream
+=======
+	
+	<select id="SelectMyInquiryList"
+		resultType="com.mju.groupware.dto.Inquiry">
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, State
+		from InquiryBoard where UserID = #{UserID} and IBoardDelete = 0
+	</select>
+>>>>>>> Stashed changes
 </mapper>
