@@ -49,66 +49,65 @@ public class SearchController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/search/searchUser.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public Map<String, Object> DoSearchUser(Principal principal, Model model, HttpServletRequest request,
-			@RequestBody SearchKeyWord searchKeyWord) {
-		List<User> InfoList = searchService.SelectKeyWord(searchKeyWord);
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (!InfoList.isEmpty()) {
-			for (int i = 0; i < InfoList.size(); i++) {
-				if (InfoList.get(i).getUserRole().equals("STUDENT")) {
-					map = addStudentInfo(InfoList.get(i));
-				} else if (InfoList.get(i).getUserRole().equals("PROFESSOR")) {
-					map = addProfessorInfo(InfoList.get(i));
-				}
-				System.out.println(InfoList.get(0).getUserName());
-				System.out.println(InfoList.get(0).getUserRole());
+	   @RequestMapping(value = "/search/searchUser.do", method = { RequestMethod.GET, RequestMethod.POST })
+	   public List<HashMap<String, Object>> DoSearchUser(Principal principal, Model model, HttpServletRequest request,
+	         @RequestBody SearchKeyWord searchKeyWord) {
+	      List<User> InfoList = searchService.SelectKeyWord(searchKeyWord);
+	      List<HashMap<String, Object>> mapInfo = new ArrayList<HashMap<String, Object>>();
+	      if (!InfoList.isEmpty()) {
+	         for (int i = 0; i < InfoList.size(); i++) {
+	            HashMap<String, Object> map = new HashMap<String, Object>();
+	            if (InfoList.get(i).getUserRole().equals("STUDENT")) {
+	               map = addStudentInfo(InfoList.get(i));
+	            } else if (InfoList.get(i).getUserRole().equals("PROFESSOR")) {
+	               map = addProfessorInfo(InfoList.get(i));
+	            }
+	            mapInfo.add(map);
+	            System.out.println(mapInfo.get(i));
+	         }
 
-				System.out.println(map.get("UserName"));
-			}
-			return map;
-		} else {
-			System.out.println(map.get("UserName"));
-			return map;
-		}
-	}
+	         return mapInfo;
+	      } else {
+	         return mapInfo;
+	      }
+	   }
 
-	private Map<String, Object> addProfessorInfo(User user) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("UserName", user.getUserName());
-		Professor professor = searchService.SelectProfessorInfo(user.getUserID());
+	   private HashMap<String, Object> addProfessorInfo(User user) {
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("UserName", user.getUserName());
+	      Professor professor = searchService.SelectProfessorInfo(user.getUserID());
 
-		map.put("UserEmail", user.getUserEmail());
+	      map.put("UserEmail", user.getUserEmail());
 
-		map.put("Gender", "비공개");
-		if (user.getOpenPhoneNum().equals("비공개")) {
-			map.put("PhoneNum", user.getOpenPhoneNum());
-		} else {
-			map.put("PhoneNum", user.getUserPhoneNum());
-		}
-		map.put("Major", professor.getProfessorMajor());
-		map.put("Role", "교수님");
-		return map;
-	}
+	      map.put("Gender", "비공개");
+	      if (user.getOpenPhoneNum().equals("비공개")) {
+	         map.put("PhoneNum", user.getOpenPhoneNum());
+	      } else {
+	         map.put("PhoneNum", user.getUserPhoneNum());
+	      }
+	      map.put("Major", professor.getProfessorMajor());
+	      map.put("Role", "교수님");
+	      return map;
+	   }
 
-	private Map<String, Object> addStudentInfo(User user) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("UserName", user.getUserName());
-		Student student = searchService.SelectStudentInfo(user.getUserID());
-		map.put("UserMajor", student.getStudentMajor());
+	   private HashMap<String, Object> addStudentInfo(User user) {
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("UserName", user.getUserName());
+	      Student student = searchService.SelectStudentInfo(user.getUserID());
+	      map.put("UserMajor", student.getStudentMajor());
 
-		map.put("UserEmail", user.getUserEmail());
+	      map.put("UserEmail", user.getUserEmail());
 
-		if (user.getOpenPhoneNum().equals("비공개")) {
-			map.put("PhoneNum", user.getOpenPhoneNum());
-		} else {
-			map.put("PhoneNum", user.getUserPhoneNum());
-		}
-		map.put("Major", student.getStudentMajor());
-		map.put("Gender", student.getStudentGender());
-		map.put("Role", "학생");
-		return map;
-	}
+	      if (user.getOpenPhoneNum().equals("비공개")) {
+	         map.put("PhoneNum", user.getOpenPhoneNum());
+	      } else {
+	         map.put("PhoneNum", user.getUserPhoneNum());
+	      }
+	      map.put("Major", student.getStudentMajor());
+	      map.put("Gender", student.getStudentGender());
+	      map.put("Role", "학생");
+	      return map;
+	   }
 
 	// review list 검색
 	@RequestMapping(value = "/search/reviewList", method = RequestMethod.GET)

@@ -54,16 +54,36 @@ section {
 
 
 th {
-	width: 18%;
+	width: 177px;
 	height: 20%;
+	margin-left:30px;
 }
 
 td {
-	width: 18%;
+	width: 177px;
 	text-align: center;
 }
 
+#communityList{
+	width:100%;
+}
+.col1{
+	width:5%;
+}
 
+.col2{
+	width: 35%;
+}
+
+.col3{
+	width: 20%;
+}
+.col4{
+	width: 20%;
+}
+.col5{
+	width: 20%;
+}
 
 tr {
 	height: 50%;
