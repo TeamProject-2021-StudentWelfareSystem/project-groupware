@@ -291,7 +291,6 @@ StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중�
 '창의융합인재학부','사회복지학과', '부동산학과', '법무행정학과', '심리치료학과', '미래융합경영학과', '멀티디자인학과', '계약학과', '없음') default '없음', #복수전공
 UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
 );
-
 create table Professor(
 ProfessorID int auto_increment not null primary key,
 ProfessorRoom varchar(10) default '입력해주세요', #교수실
