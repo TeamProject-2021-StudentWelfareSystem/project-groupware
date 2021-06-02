@@ -12,7 +12,6 @@
 		<mapper resource="mybatis/mappers/StudentMapper.xml" />
 		<mapper resource="mybatis/mappers/ProfessorMapper.xml" />
 		<mapper resource="mybatis/mappers/UserEmailMapper.xml" />
-		<mapper resource="mybatis/mappers/OpenInfoMapper.xml" />
 		<mapper resource="mybatis/mappers/BoardMapper.xml" />
 		<mapper resource="mybatis/mappers/LectureRoomMapper.xml" />
 		<mapper resource="mybatis/mappers/TeamMapper.xml" />
