@@ -233,7 +233,7 @@
 		resultType="com.mju.groupware.dto.Board">
 		select BoardID, BoardSubject, BoardWriter, BoardDate,
 		BoardType,
-		BoardHit from Board where UserID = #{UserID}
+		BoardHit from Board where UserID = #{UserID} and BoardDelete = 0
 	</select>
 
 </mapper>

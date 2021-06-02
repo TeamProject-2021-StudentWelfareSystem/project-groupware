@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< Updated upstream
-Built-By: dlgus
-Build-Jdk: 13.0.2
-=======
 Built-By: junyanee
 Build-Jdk: 15.0.1
->>>>>>> Stashed changes
 Created-By: Maven Integration for Eclipse
 
