@@ -5,20 +5,23 @@
 <mapper namespace="com.mju.groupware.dao.SearchDao">
 
 	<select id="SelectKeyWord"
-		parameterType="com.mju.groupware.dto.SearchKeyWord" resultType="com.mju.groupware.dto.User">
+		parameterType="com.mju.groupware.dto.SearchKeyWord"
+		resultType="com.mju.groupware.dto.User">
 		Select
-		* from User where UserName = #{key};
+		* from User where UserName LIKE
+		CONCAT('%',#{key},'%')
 	</select>
-	
-	<select id="SelectStudentInfoForSearch"
-		parameterType="Integer" resultType="com.mju.groupware.dto.Student">
+
+	<select id="SelectStudentInfoForSearch" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Student">
 		Select
 		* from Student where UserID = #{userID};
 	</select>
-	
-		<select id="SelectProfessorInfoForSearch"
+
+	<select id="SelectProfessorInfoForSearch"
 		parameterType="Integer" resultType="com.mju.groupware.dto.Professor">
 		Select
-		* from Professor where UserID = #{userID};
+		* from Professor where UserID
+		= #{userID};
 	</select>
 </mapper>

@@ -24,7 +24,6 @@ import com.mju.groupware.dto.Professor;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
 import com.mju.groupware.dto.UserList;
-import com.mju.groupware.function.UserInfoMethod;
 import com.mju.groupware.service.AdminService;
 import com.mju.groupware.service.ProfessorService;
 import com.mju.groupware.service.StudentService;
@@ -42,8 +41,6 @@ public class AdministratorController {
 	private StudentService studentService;
 	@Autowired
 	private ProfessorService professorService;
-	@Autowired
-	private UserInfoMethod userInfoMethod;
 
 	private String UserName;
 	private String UserLoginID;
@@ -494,7 +491,7 @@ public class AdministratorController {
 				student.setStudentDoubleMajor("없음");
 				studentService.UpdateStudentDobuleMajor(student);
 			}
-			
+
 			if (request.getParameter("UserPhone") != null) {
 				String OpenPhoneNum = "전화번호";
 				user.setOpenPhoneNum(OpenPhoneNum);
@@ -515,17 +512,14 @@ public class AdministratorController {
 				userService.UpdateOpenGrade(user);
 			}
 		}
-		this.PManageModify = this.constantAdmin.getPManageModify();
-		return PManageModify;
-
+		this.SManageModify = this.constantAdmin.getSManageModify();
+		return SManageModify;
 	}
 
 	@RequestMapping(value = "/manageModifyProfessor", method = RequestMethod.GET)
 	public String manageModifyProfessor() {
-		// this.PManageModify = this.constantAdmin.getPManageModify();
-		// return PManageModify;
-		return "/admin/manageModifyProfessor";
-
+		this.PManageModify = this.constantAdmin.getPManageModify();
+		return PManageModify;
 	}
 
 	@RequestMapping(value = "/manageModifyProfessor", method = RequestMethod.POST)
@@ -544,27 +538,26 @@ public class AdministratorController {
 				user.setUserPhoneNum((String) request.getParameter("UserPhoneNum"));
 				userService.updateUserPhoneNumber(user);
 			}
-			if (!((String) request.getParameter("ProfessorColleges")).equals(" ")) {
+			if (!((String) request.getParameter("ProfessorColleges")).equals("")) {
 				// 단과대학
 				professor.setProfessorColleges((String) request.getParameter("ProfessorColleges"));
 				professorService.UpdateProfessorColleges(professor);
 			}
-			if (!((String) request.getParameter("ProfessorMajor")).equals(" ")) {
+			if (!((String) request.getParameter("ProfessorMajor")).equals("")) {
 				// 전공
 				professor.setProfessorMajor((String) request.getParameter("ProfessorMajor"));
 				professorService.UpdateProfessorMajor(professor);
 			}
-			if (!((String) request.getParameter("ProfessorRoom")).equals(" ")) {
+			if (!((String) request.getParameter("ProfessorRoom")).equals("")) {
 				// 교수실
 				professor.setProfessorRoom((String) request.getParameter("ProfessorRoom"));
 				professorService.UpdateProfessorRoom(professor);
 			}
-			if (!((String) request.getParameter("ProfessorRoomNum")).equals(" ")) {
+			if (!((String) request.getParameter("ProfessorRoomNum")).equals("")) {
 				// 교수실 전화번호
 				professor.setProfessorRoomNum((String) request.getParameter("ProfessorRoomNum"));
 				professorService.UpdateProfessorRoomNum(professor);
 			}
-			
 			if (request.getParameter("UserPhone") != null) {
 				String OpenPhoneNum = "전화번호";
 				user.setOpenPhoneNum(OpenPhoneNum);
@@ -576,9 +569,8 @@ public class AdministratorController {
 			}
 
 		}
-		// this.SManageModify = this.constantAdmin.getSManageModify();
-		// return SManageModify;
-		return "/admin/manageModifyStudent";
+		this.PManageModify = this.constantAdmin.getPManageModify();
+		return PManageModify;
 
 	}
 
