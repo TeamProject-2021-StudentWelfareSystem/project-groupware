@@ -24,17 +24,18 @@
 		#{ClassProfessorName}
 	</select>
 
-	<select id="SelectTeamFileInfo"
-		parameterType="String" resultType="com.mju.groupware.dto.TeamBoard">
+	<select id="SelectTeamFileInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.TeamBoard">
 		select *
 		from TeamFile
 		where TBoardSubject = #{TBoardSubject}
 	</select>
-	<select id="SelectTeamBoardListInfo"
-		parameterType="String" resultType="com.mju.groupware.dto.TeamBoard">
+	<select id="SelectTeamBoardListInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.TeamBoard">
 		select *
 		from TeamBoard
-		where TeamID = #{TeamID} and TBoardDelete = 0
+		where TeamID = #{TeamID} and
+		TBoardDelete = 0
 	</select>
 
 	<select id="SelectClassInfo" parameterType="Integer"
@@ -145,34 +146,34 @@
 		select UserName, UserLoginID from TeamUser where TeamID =
 		#{teamID}
 	</select>
-	
+
 	<select id="SelectLeaderName" resultType="String"
 		parameterType="Integer">
 		select UserName from User where UserID = #{leaderUserID}
 	</select>
-	
+
 	<select id="SelectLeaderLoginID" resultType="String"
 		parameterType="Integer">
 		select UserLoginID from User where UserID =
 		#{leaderUserID}
 	</select>
-	
+
 	<delete id="DeleteTeamMemberInfo">
 		delete from TeamUser where TeamID = #{teamID}
 	</delete>
-	
+
 	<select id="SelectTeamIDForDocument" resultType="String"
 		parameterType="String">
 		select TeamID from TeamUser where UserID =
 		#{UserID}
 	</select>
-	
+
 	<select id="SelectTeamIDForDelete" resultType="String"
 		parameterType="String">
 		select TeamID from TeamUser where UserID =
 		#{UserID}
 	</select>
-		<select id="SelectTeamNameWithLoginUser" resultType="String"
+	<select id="SelectTeamNameWithLoginUser" resultType="String"
 		parameterType="String">
 		select TeamName from Team where TeamLeaderID = #{name}
 	</select>
@@ -197,11 +198,14 @@
 		select UserID from User where UserLoginID =
 		#{userLoginID}
 	</select>
-	<insert id="InsertUserReview"
-		parameterType="com.mju.groupware.dto.UserReview">
-		insert into UserReview(Positive, Contribute, Respect,
-		Flexible, ClassName, ClassProfessorName, ReviewDate, UserID)
-		values(#{Positive},#{Contribute},#{Respect},#{Flexible},#{ClassName},#{ClassProfessorName},#{ReviewDate},#{UserID})
-	</insert>
-	
+
+		<insert id="InsertUserReview"
+			parameterType="com.mju.groupware.dto.UserReview">
+			insert into UserReview(Positive, Contribute, Respect,
+			Flexible, ClassName, ClassProfessorName, ReviewDate, UserID)
+			values(#{Positive},#{Contribute},#{Respect},#{Flexible},#{ClassName},#{ClassProfessorName},#{ReviewDate},#{UserID})
+			Select UserID From UserReview where NOT EXIST(SELECT UserID From
+			UserReview where UserId = #{UserID})
+		</insert>
+
 </mapper>

@@ -105,7 +105,7 @@ update User set UserRole = "STUDENT" where UserName = "생성";
 update User set LoginDate = "2020-1-20" where UserName = "이동";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
-update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="ICTA	dmin";
 update User set Authority = "ROLE_USER" where UserName = "탈퇴";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 update User set OpenPhoneNum = "비공개";
@@ -114,6 +114,9 @@ update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박�
 update User set LoginDate = '2021-05-05' where UserName = "정민";
 update TeamBoard set TUserLoginID = "60201111" where TBoardWriter = "생성";
 select * from TeamBoard;
+update User set Authority = "ROLE_ADMIN" where UserID = 2;
+
+drop table UserReview;
 
 create table User(
 UserID int auto_increment not null primary key,
@@ -223,7 +226,22 @@ foreign key (UserID) references User(UserID) on delete cascade on update cascade
 select date_format(ScheduleStartDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 select date_format(ScheduleEndDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 
-
+	insert into UserReview(Positive, Contribute, Respect,
+		Flexible, ClassName, ClassProfessorName, ReviewDate, UserID)
+		values("매우높음",'매우높음','매우높음','매우높음','매우높음','매우높음','2010-10-10',1)
+		Select UserID From UserReview where NOT EXIST(SELECT UserID From UserReview where UserId = 1);
+create table UserReview(
+ReviewID int auto_increment not null primary key,
+Positive varchar(30) not null,
+Contribute varchar(30) not null,
+Respect varchar(30) not null,
+Flexible varchar(30) not null,
+ClassName varchar(50) not null,
+ClassProfessorName varchar(50) not null,
+ReviewDate date not null,
+UserID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade
+);
 create table TeamUser(
 UserID int not null,
 TeamID int not null,
