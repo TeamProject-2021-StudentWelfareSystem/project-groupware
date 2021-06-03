@@ -57,11 +57,16 @@
 												function() {
 
 													var SearchKeyWord = $('#searchKeyWord');
-													var data = {
-														key : SearchKeyWord
-																.val()
-													};
-													
+													if (SearchKeyWord.val().length == 0) {
+														alert('검색어를 입력해주세요');
+														return false;
+													} else {
+														var data = {
+															key : SearchKeyWord
+																	.val()
+														};
+													}
+
 													var token = $(
 															"input[name='_csrf']")
 															.val();
@@ -86,25 +91,30 @@
 																		response) {
 																	var html = "";
 																	console
-																			.log(response);
-																	var num = 1;
-																	for (key in response) {
-																		html += '<tr>';
-																		html += '<td>'
-																				+ num++;
-																		html += '<td>'
-																				+ '<a href>'
-																				+ response[key].UserName;
-																		html += '<td>'
-																				+ response[key].UserMajor;
-																		html += '<td>'
-																				+ response[key].UserEmail;
-																		html += '<td>'
-																				+ response[key].PhoneNum;
-																		html += '<td>'
-																				+ response[key].Gender;
-																		html += '</tr>';
+																			.log(response.length == 0);
+																	if (response.length == 0) {
+																		alert('해당 유저가 존재하지 않습니다.');
+																	} else {
+																		var num = 1;
+																		for (key in response) {
+																			html += '<tr>';
+																			html += '<td>'
+																					+ num++;
+																			html += '<td>'
+																					+ '<a href>'
+																					+ response[key].UserName;
+																			html += '<td>'
+																					+ response[key].UserMajor;
+																			html += '<td>'
+																					+ response[key].UserEmail;
+																			html += '<td>'
+																					+ response[key].PhoneNum;
+																			html += '<td>'
+																					+ response[key].Gender;
+																			html += '</tr>';
+																		}
 																	}
+
 																	$(
 																			"#information")
 																			.empty();
@@ -112,7 +122,6 @@
 																			"#information")
 																			.append(
 																					html);
-
 																},
 															});
 												});
