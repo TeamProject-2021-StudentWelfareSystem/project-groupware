@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.BoardDao">
+
+	<!-- 글 작성 -->
+	<insert id="InsertBoard"
+		parameterType="com.mju.groupware.dto.Board" useGeneratedKeys="true"
+		keyProperty="BoardID">
+		insert into Board (
+		BoardSubject, BoardContent,
+		BoardWriter, BoardDate, UserID, BoardHit, BoardType
+		) values(
+		#{BoardSubject},
+		#{BoardContent},
+		#{BoardWriter}, #{BoardDate},
+		#{UserID}, #{BoardHit}, #{BoardType}
+		)
+	</insert>
+	<!-- 파일 정보 작성 -->
+	<insert id="InsertFile" parameterType="hashMap">
+		insert into BoardFile (
+		BOriginalFileName, BStoredFileName, BFileSize, BoardID
+		) values(
+		#{OriginalFileName}, #{StoredFileName}, #{FileSize}, #{Bno}
+		)
+	</insert>
+
+	<insert id="InsertTeamFile" parameterType="hashMap">
+		insert into TeamFile (
+		TOriginalFileName, TStoredFileName, TFileSize, TBoardID
+		) values(
+		#{TOriginalFileName}, #{TStoredFileName}, #{TFileSize}, #{TBno}
+		)
+	</insert>
+
+	<insert id="InsertTeamFileInfo" parameterType="hashMap">
+		insert into
+		TeamFile (
+		TOriginalFileName, TStoredFileName, TFileSize, TBoardID
+		)
+		values(
+		#{TOriginalFileName}, #{TStoredFileName}, #{TFileSize}, #{TBno}
+		)
+	</insert>
+
+	<select id="SelectCommunityBoardList"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardWriter, BoardDate,
+		BoardHit from Board where BoardType = "커뮤니티" and BoardDelete = 0
+	</select>
+
+	<select id="SelectNoticeBoardList"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardWriter, BoardDate,
+		BoardHit from Board where BoardType = "공지사항" and BoardDelete = 0
+	</select>
+
+	<update id="UpdateHitCount">
+		update Board set BoardHit = BoardHit + 1 where
+		BoardID = #{boardID}
+	</update>
+
+	<select id="SelectOneCommunityContent"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardContent, BoardWriter,
+		BoardDate, UserID from Board where BoardID = #{BoardID}
+	</select>
+
+	<select id="SelectOneNoticeContent"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardContent, BoardWriter,
+		BoardDate, UserID from Board where BoardID = #{BoardID}
+	</select>
+
+	<select id="SelectLoginUserID"
+		parameterType="com.mju.groupware.dto.Board" resultType="String">
+		select UserID
+		from User where UserLoginID = #{loginID}
+	</select>
+
+	<update id="UpdateModifiedContent"
+		parameterType="com.mju.groupware.dto.Board">
+		update Board set BoardSubject = #{BoardSubject},
+		BoardWriter=#{BoardWriter}, BoardContent=#{BoardContent}, BoardDate =
+		#{BoardDate}
+		where BoardID = #{BoardID}
+	</update>
+
+	<update id="UpdateTeamBoardModifiedContent"
+		parameterType="com.mju.groupware.dto.TeamBoard">
+		update TeamBoard
+		set
+		TBoardSubject = #{TBoardSubject},
+		TBoardWriter = #{TBoardWriter},
+		TBoardContent =
+		#{TBoardContent},
+		TBoardDate = #{TBoardDate},
+		TUserLoginID =
+		#{TUserLoginID}
+		where
+		TBoardID
+		= #{TBoardID}
+	</update>
+
+	<delete id="DeleteCommunity" parameterType="Integer">
+		delete from Board
+		where BoardID = #{boardID}
+	</delete>
+
+	<delete id="DeleteNotice" parameterType="Integer">
+		delete from Board
+		where
+		BoardID = #{boardID}
+	</delete>
+
+	<select id="SelectCommunityFileList" parameterType="int"
+		resultType="hashMap">
+		SELECT
+		*
+		from BoardFile
+		where BoardID = #{BoardID} and BDelete
+		= 0
+		ORDER BY
+		BFileID ASC
+	</select>
+
+	<select id="SelectCommunityFileInfo" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		BOriginalFileName,BStoredFileName
+		from BoardFile
+		where
+		BFileID = #{BFileID} and BDelete = 0
+	</select>
+
+	<update id="UpdateFile" parameterType="hashMap">
+		UPDATE BoardFile SET
+		BDelete = 1
+		where BFileID =#{BFileID}
+	</update>
+
+	<select id="SelectNoticeFileList" parameterType="int"
+		resultType="hashMap">
+		SELECT
+		*
+		from BoardFile
+		where BoardID = #{BoardID} and BDelete
+		= 0
+	</select>
+
+	<select id="SelectNoticeFileInfo" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		BOriginalFileName, BStoredFileName
+		from BoardFile
+		where
+		BFileID = #{BFileID}
+	</select>
+
+	<update id="UpdateTeamFile" parameterType="hashMap">
+		UPDATE TeamFile SET
+		TFileDelete = 1
+		where TFileID = #{TFileID}
+	</update>
+
+	<update id="UpdateBoardDelete" parameterType="int">
+		UPDATE Board SET
+		BoardDelete = 1
+		where BoardID = #{BoardID}
+	</update>
+
+	<insert id="InsertTeamDocument"
+		parameterType="com.mju.groupware.dto.TeamBoard"  useGeneratedKeys="true"
+		keyProperty="TBoardID">
+		insert into TeamBoard (
+		TBoardSubject, TBoardContent,
+		TBoardWriter, TBoardDate, TeamID, TUserLoginID
+		) values(
+		#{TBoardSubject},
+		#{TBoardContent},
+		#{TBoardWriter}, #{TBoardDate},
+		#{TeamID}, #{TUserLoginID}
+		)
+	</insert>
+
+	<select id="SelectTeamBoardContent"
+		resultType="com.mju.groupware.dto.TeamBoard">
+		select TBoardID, TBoardSubject, TBoardWriter,
+		TBoardContent, TBoardDate, TeamID
+		from TeamBoard
+		where TBoardID = #{TBoardID}
+	</select>
+
+	<select id="SelectTeamBoardFileList" parameterType="int"
+		resultType="hashMap">
+		SELECT
+		*
+		from TeamFile
+		where TBoardID = #{TBoardID} and
+		TFileDelete = 0
+		ORDER BY
+		TFileID ASC
+	</select>
+
+	<update id="UpdateTBoardDelete" parameterType="int">
+		UPDATE TeamBoard
+		SET
+		TBoardDelete = 1
+		where TBoardID = #{TBoardID}
+	</update>
+
+	<select id="SelectWriterID"
+		parameterType="com.mju.groupware.dto.TeamBoard" resultType="String">
+		select
+		TUserLoginID
+		from TeamBoard where TeamID = #{TeamID} and TBoardID =
+		#{TBoardID}
+	</select>
+
+	<select id="SelectTeamBoardFileInfo" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		TOriginalFileName,TStoredFileName
+		from TeamFile
+		where
+		TFileID = #{TFileID} and TFileDelete = 0
+		order by TFileID ASC
+	</select>
+
+	<select id="SelectMyBoardList"
+		resultType="com.mju.groupware.dto.Board">
+		select BoardID, BoardSubject, BoardWriter, BoardDate,
+		BoardType,
+		BoardHit from Board where UserID = #{UserID} and BoardDelete = 0
+	</select>
+
+</mapper>
