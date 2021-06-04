@@ -101,8 +101,8 @@
                                                          html += '<td>'
                                                                + num++;
                                                          html += '<td>'
-                                                               + '<a href = /groupware/search/reviewList>'
-                                                               + response[key].UserName;
+                                                         html += '<a href = /groupware/search/reviewList?no='+response[key].UserEmail+'>'
+                                                               + response[key].UserName;+'</a>'
                                                          html += '<td>'
                                                                + response[key].UserMajor;
                                                          html += '<td>'
@@ -111,6 +111,7 @@
                                                                + response[key].PhoneNum;
                                                          html += '<td>'
                                                                + response[key].Gender;
+                                                       
                                                          html += '</tr>';
                                                       }
                                                    }
@@ -129,21 +130,21 @@
                      <form action="" name="UserList" method="POST" id="form">
                         <input type="hidden" name="${_csrf.parameterName}"
                            value="${_csrf.token}" />
-                        <table id="userList">
+                        <table class="userList">
                            <thead>
                               <tr>
-                                 <th class="col1">번호</th>
-                                 <th class="col2">이름</th>
-                                 <th class="col3">학과</th>
-                                 <th class="col4">이메일</th>
-                                 <th class="col5">휴대폰</th>
-                                 <th class="col6">성별</th>
-
+                                 <th id="1">번호</th>
+                                 <th id="1">이름</th>
+                                 <th id="2">학과</th>
+                                 <th id="2">이메일</th>
+                                 <th id="2">휴대폰</th>
+                                 <th id="2">성별</th>
+                               
                               </tr>
                               <hr>
                            </thead>
                            <tbody id="information">
-
+                          
                            </tbody>
 
                         </table>
