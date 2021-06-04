@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -107,118 +106,7 @@ public class UserFunctionController {
 		return "/signin/showPassword";
 	}
 
-	// home 로그인 완료 화면 + 날짜 업데이트
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(User user, Principal principal, Model model, HttpServletRequest request, Student student,
-			Professor professor) {
-		if (principal != null) { // 지우면 오류(로그인 안해서 principal 못가져오는)납니다
-			// 유저 정보
-			String LoginID = principal.getName();// 로그인 한 아이디
-			ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
-			SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
-			int UserID = Integer.parseInt(userService.SelectUserIDForDate(LoginID));
-			user.setUserLoginID(LoginID);
-
-			// 휴먼계정 여부 확인 및 update
-			boolean DormantCheck = userService.SelectDormant(LoginID);
-			if (DormantCheck) {
-				userService.UpdateRecoveryDormant(LoginID);
-			}
-
-			if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
-				ArrayList<String> StudentInfo = new ArrayList<String>();
-				StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
-
-				userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
-			} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
-
-				ArrayList<String> ProfessorInfo = new ArrayList<String>();
-				ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
-
-				userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
-			} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
-				userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
-			}
-			Date Now = new Date();
-			SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
-			user.setDate(Date.format(Now));
-			student.setDate(Date.format(Now));
-			student.setUserID(UserID);
-			professor.setDate(Date.format(Now));
-			professor.setUserID(UserID);
-			userService.UpdateLoginDate(user);
-			studentService.UpdateStudentLoginDate(student);
-			professorService.UpdateProfessorLoginDate(professor);
-
-		}
-
-		// 공지사항 리스트 띄우기
-		List<Board> noticeList = boardService.SelectNoticeBoardList();
-		model.addAttribute("noticeList", noticeList);
-
-		// 커뮤니티 리스트 띄우기
-		List<Board> communityList = boardService.SelectCommunityBoardList();
-		model.addAttribute("communityList", communityList);
-
-		return "/homeView/home";
-	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String BlankHome(User user, Principal principal, Model model, HttpServletRequest request, Student student,
-			Professor professor) {
-		if (principal != null) {
-			// 유저 정보
-			String LoginID = principal.getName();// 로그인 한 아이디
-			ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
-			SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
-			int UserID = Integer.parseInt(userService.SelectUserIDForDate(LoginID));
-			user.setUserLoginID(LoginID);
-
-			// 휴먼계정 여부 확인 및 update
-			boolean DormantCheck = userService.SelectDormant(LoginID);
-			if (DormantCheck) {
-				userService.UpdateRecoveryDormant(LoginID);
-			}
-
-			if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
-				ArrayList<String> StudentInfo = new ArrayList<String>();
-				StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
-
-				userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
-			} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
-
-				ArrayList<String> ProfessorInfo = new ArrayList<String>();
-				ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
-
-				userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
-			} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
-				userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
-			}
-
-			Date Now = new Date();
-			SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
-			user.setDate(Date.format(Now));
-			student.setDate(Date.format(Now));
-			student.setUserID(UserID);
-			professor.setDate(Date.format(Now));
-			professor.setUserID(UserID);
-			userService.UpdateLoginDate(user);
-			studentService.UpdateStudentLoginDate(student);
-			professorService.UpdateProfessorLoginDate(professor);
-		}
-
-		// 공지사항 리스트 띄우기
-		List<Board> noticeList = boardService.SelectNoticeBoardList();
-		model.addAttribute("noticeList", noticeList);
-
-		// 커뮤니티 리스트 띄우기
-		List<Board> communityList = boardService.SelectCommunityBoardList();
-		model.addAttribute("communityList", communityList);
-
-		return "/homeView/home";
-	}
-
-	// home에서 마이페이지 클릭 시 회원 role에 따라 페이지 리턴
+	// homeLogin에서 마이페이지 클릭 시 회원 role에 따라 페이지 리턴
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String myPageByRole(HttpServletRequest request, Model model) throws IOException {
 		String MysqlRole = request.getParameter("R");
@@ -228,9 +116,9 @@ public class UserFunctionController {
 		} else if (MysqlRole.equals("PROFESSOR")) {
 			return "redirect:myPageProfessor";
 		} else if (MysqlRole.equals("ADMINISTRATOR")) {
-			return "redirect:home";
+			return "redirect:homeLogin";
 		}
-		return "redirect:home";
+		return "redirect:homeLogin";
 	}
 
 	// 마이페이지 - 내 게시글 조회
@@ -244,10 +132,11 @@ public class UserFunctionController {
 		List<Board> MyBoardList = boardService.SelectMyBoardList(UserID);
 
 		model.addAttribute("MyBoardList", MyBoardList);
+		
 
 		return "/mypage/myPostList";
 	}
-
+	
 	// 마이페이지 - 내 문의 조회
 	@RequestMapping(value = "/myInquiryList", method = RequestMethod.GET)
 	public String myInquiryList(Model model, Principal principal, User user) {
@@ -259,6 +148,7 @@ public class UserFunctionController {
 		List<Inquiry> MyInquiryList = inquiryService.SelectMyInquiryList(UserID);
 
 		model.addAttribute("MyInquiryList", MyInquiryList);
+		
 
 		return "/mypage/myInquiryList";
 	}
@@ -462,7 +352,7 @@ public class UserFunctionController {
 		if ((String) request.getParameter("StudentDoubleMajor") != null) {
 			model.addAttribute("StudentDoubleMajor", StudentDoubleMajor);
 		}
-
+		
 		if (request.getParameter("IdCheck") != null) {
 			// name을 통해서 jsp에서 값을 받아온다.
 			String UserLoginID = (String) request.getParameter("UserLoginID");
@@ -473,7 +363,14 @@ public class UserFunctionController {
 				Out.println("<script>alert('계정을 입력하지 않으셨습니다. 입력해주세요' );</script>");
 				Out.flush();
 				return "/signup/signupStudent";
-			} else {
+			} else if(UserLoginID.length() != 8 ){
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter Out = response.getWriter();
+				Out.println("<script>alert('학번(8자리)을 입력해주세요. ' );</script>");
+				Out.flush();
+				return "/signup/signupStudent";
+				
+			}	else {
 				user.setUserLoginID(UserLoginID);
 				boolean Checker = this.userService.SelctForIDConfirm(user);
 				if (Checker) {
@@ -496,7 +393,28 @@ public class UserFunctionController {
 					return "/signup/signupStudent";
 				}
 			}
+
+			
+			
 		} else if (request.getParameter("submitName") != null && IDChecker) {
+			String StudentColleges = (String) request.getParameter("StudentColleges");
+			String StudentMajor = (String) request.getParameter("StudentMajor");
+			if(StudentColleges.equals("")|| StudentMajor.equals("")) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter Out = response.getWriter();
+				Out.println("<script>alert('단과대학을 기입해주세요. ' );</script>");
+				Out.flush();
+				return "/signup/signupStudent";
+			} else if(StudentMajor.equals("")){
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter Out = response.getWriter();
+				Out.println("<script>alert('전공을 기입해주세요. ' );</script>");
+				Out.flush();
+				return "/signup/signupStudent";
+				
+			}else {
+			
+			
 			String HashedPw = BCrypt.hashpw(user.getUserLoginPwd(), BCrypt.gensalt());
 			user.setUserLoginPwd(HashedPw);
 
@@ -508,6 +426,8 @@ public class UserFunctionController {
 			student.setStudentColleges(StudentColleges);
 			student.setStudentMajor(StudentMajor);
 			student.setUserID(user.getUserID());
+			
+			
 
 			if (!((String) request.getParameter("member")).equals("Y")) {
 				student.setStudentDoubleMajor("없음");
@@ -522,7 +442,7 @@ public class UserFunctionController {
 			Out.println("<script>alert('회원가입이 완료 되었습니다.');</script>");
 			Out.flush();
 			return "/signin/login";
-
+			}
 		} else {
 			return "/signup/signupStudent";
 		}
@@ -569,18 +489,24 @@ public class UserFunctionController {
 		if ((String) request.getParameter("ProfessorRoomNum") != null) {
 			model.addAttribute("ProfessorRoomNum", ProfessorRoomNum);
 		}
-
+		
 		if (request.getParameter("IdCheck") != null) {
 			// name을 통해서 jsp에서 값을 받아온다.
 			String UserLoginID = (String) request.getParameter("UserLoginID");
-
 			if (UserLoginID.equals("")) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter Out = response.getWriter();
 				Out.println("<script>alert('계정을 입력하지 않으셨습니다. 입력해주세요' );</script>");
 				Out.flush();
 				return "/signup/signupProfessor";
-			} else {
+			} else if(UserLoginID.length() != 8 ){
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter Out = response.getWriter();
+				Out.println("<script>alert('학번(8자리)을 입력해주세요. ' );</script>");
+				Out.flush();
+				return "/signup/signupProfessor";
+				
+			}	else {
 				user.setUserLoginID(UserLoginID);
 				boolean Checker = this.userService.SelctForIDConfirm(user);
 				if (Checker) {
@@ -604,6 +530,23 @@ public class UserFunctionController {
 				}
 			}
 		} else if (request.getParameter("submitName") != null && IDChecker) {
+				String ProfessorColleges = (String) request.getParameter("ProfessorColleges");
+				String ProfessorMajor = (String) request.getParameter("ProfessorMajor");
+				
+				if(ProfessorColleges.equals("")) {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter Out = response.getWriter();
+					Out.println("<script>alert('단과대학을 기입해주세요. ' );</script>");
+					Out.flush();
+					return "/signup/signupProfessor";
+				} else if(ProfessorMajor.equals("")){
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter Out = response.getWriter();
+					Out.println("<script>alert('전공을 기입해주세요. ' );</script>");
+					Out.flush();
+					return "/signup/signupProfessor";
+					
+				} else {
 			String HashedPw = BCrypt.hashpw(user.getUserLoginPwd(), BCrypt.gensalt());
 			user.setUserLoginPwd(HashedPw);
 
@@ -626,7 +569,7 @@ public class UserFunctionController {
 			Out.println("<script>alert('회원가입이 완료 되었습니다.');</script>");
 			Out.flush();
 			return "/signin/login";
-
+				}
 		} else {
 			return "/signup/signupProfessor";
 		}
@@ -795,6 +738,61 @@ public class UserFunctionController {
 		}
 	}
 
+	// 로그인 완료 화면 + 날짜 업데이트
+		@RequestMapping(value = "/homeLogin", method = RequestMethod.GET)
+		public String homeLogin(User user, Principal principal, Model model, HttpServletRequest request,
+				Student student, Professor professor) {
+			// 유저 정보
+			String LoginID = principal.getName();// 로그인 한 아이디
+			ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
+			SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
+			int UserID = Integer.parseInt(userService.SelectUserIDForDate(LoginID));
+			user.setUserLoginID(LoginID);
+
+			// 휴먼계정 여부 확인 및 update
+			boolean DormantCheck = userService.SelectDormant(LoginID);
+			if (DormantCheck) {
+				userService.UpdateRecoveryDormant(LoginID);
+			}
+
+			if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
+				ArrayList<String> StudentInfo = new ArrayList<String>();
+				StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
+
+				userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
+			} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
+
+				ArrayList<String> ProfessorInfo = new ArrayList<String>();
+				ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
+
+				userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
+			} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
+				userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
+			}
+			//
+
+			Date Now = new Date();
+			SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+			user.setDate(Date.format(Now));
+			student.setDate(Date.format(Now));
+			student.setUserID(UserID);
+			professor.setDate(Date.format(Now));
+			professor.setUserID(UserID);
+			userService.UpdateLoginDate(user);
+			studentService.UpdateStudentLoginDate(student);
+			professorService.UpdateProfessorLoginDate(professor);
+			
+			// 공지사항 리스트 띄우기
+			List<Board> noticeList = boardService.SelectNoticeBoardList();
+			model.addAttribute("noticeList", noticeList);
+			
+			// 커뮤니티 리스트 띄우기
+			List<Board> communityList = boardService.SelectCommunityBoardList();
+			model.addAttribute("communityList", communityList);
+
+			return "/homeView/homeLogin";
+		}
+
 	// 이메일 로그인 화면
 	@RequestMapping(value = "/email/emailLogin", method = RequestMethod.GET)
 	public String emailLogin() {
@@ -810,7 +808,7 @@ public class UserFunctionController {
 		ConstantDoEmail constantDoEmail = (ConstantDoEmail) ctx.getBean("DoEmail");
 
 		String ID = request.getParameter("EmailLoginID") + constantDoEmail.getEmailAdress(); // @mju.ac.kr <- constant
-		// 처리 부탁드립니다
+																								// 처리 부탁드립니다
 		boolean CheckID = emailService.CheckEmailLogin(ID, request.getParameter(constantDoEmail.getEPwd()));
 
 		// id랑 profile Info role값을 건내줘요? role값을 주소단위로 수빈님이 role값과 현재 내가 준 id role값을
@@ -858,7 +856,6 @@ public class UserFunctionController {
 		}
 		return "/email/emailContent";
 	}
-
 	private void GetUserInformation(Principal principal, User user, Model model) {
 		String LoginID = principal.getName();// 로그인 한 아이디
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();

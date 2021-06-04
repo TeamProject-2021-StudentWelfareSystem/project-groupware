@@ -23,6 +23,7 @@
 			<section id="signUp">
 				<h2>회원가입</h2>
 				<br>
+				<h4> *는 필수 입력 사항입니다.</h4>
 				<!--학생 회원가입-->
 				<div id="signupStudent" style="display: block;">
 					<form action="${path}/signupStudent.do" name="SignupStudent"
@@ -31,7 +32,7 @@
 							value="${_csrf.token}" />
 						<table>
 							<tr>
-								<td class="col1"><label for="id">아이디(학번)</label></td>
+								<td class="col1"><label for="id">*아이디(학번)</label></td>
 								<td class="col2"><input type="text" name="UserLoginID"
 									id="userLoginID" class="inputBox" placeholder="" autofocus
 									autocomplete="off" value=${UserLoginID}></td>
@@ -41,18 +42,18 @@
 							</tr>
 
 							<tr>
-								<td class="col1"><label for="password">패스워드</label></td>
+								<td class="col1"><label for="password">*패스워드</label></td>
 								<td class="col2"><input type="password" name="UserLoginPwd"
 									id="userLoginPwd" class="inputBox" autocomplete="off"  value=${UserLoginPwd}></td>
 							</tr>
 							<tr>
-								<td class="col1"><label for="name">이름</label></td>
+								<td class="col1"><label for="name">*이름</label></td>
 								<td class="col2"><input type="text" name="UserName"
 									id="userName" class="inputBox" autocomplete="off" value=${UserName}></td>
 							</tr>
 
 							<tr>
-								<td class="col1"><label for="gender">성별</label></td>
+								<td class="col1"><label for="gender">*성별</label></td>
 								<td class="col2"><select name="StudentGender" id="studentGender">
 										<option value=" " selected>-선택-</option>
 										<option value="남자">남</option>
@@ -60,12 +61,12 @@
 								</select></td>
 							</tr>
 							<tr>
-								<td class="col1"><label for="phoneNumber">연락처</label></td>
+								<td class="col1"><label for="phoneNumber">*연락처</label></td>
 								<td class="col2"><input type="text" name="UserPhoneNum"
 									id="userPhoneNum" class="inputBox" placeholder="숫자만 입력해주세요" autocomplete="off" value=${UserPhoneNum}></td>
 							</tr>
 							<tr>
-								<td class="col1"><label for="grade">학년</label></td>
+								<td class="col1"><label for="grade">*학년</label></td>
 								<td class="col2">
 								<select name="StudentGrade" id="studentGrade">
 										<option value=" " selected>-선택-</option>
@@ -76,7 +77,7 @@
 								</select></td>
 							</tr>
 							<tr>
-								<td class="col1"><label for="studentColleges">단과대학</label></td>
+								<td class="col1"><label for="studentColleges">*단과대학</label></td>
 								<td class="col2"><select class="selectBox" name="StudentColleges"
 									id="studentColleges">
 										<option value="" selected>-선택-</option>
@@ -89,7 +90,7 @@
 								</select></td>
 							</tr>
 							<tr>
-								<td class="col1"><label for="studentMajor">전공</label></td>
+								<td class="col1"><label for="studentMajor">*전공</label></td>
 								<td class="col2"><select class="selectBox" name="StudentMajor"
 									id="studentMajor">
 										<option value="" selected>-선택-</option>
