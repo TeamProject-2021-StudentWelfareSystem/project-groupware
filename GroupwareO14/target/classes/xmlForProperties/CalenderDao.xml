@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/CalenderDao.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="CalenderID" class="com.mju.groupware.constant.ConstantCalenderDao">
+		<property name="UserID">
+			<value>${UserID}</value>
+		</property>
+		<property name="ScheduleID">
+			<value>${ScheduleID}</value>
+		</property>
+		<property name="Title">
+			<value>${Title}</value>
+		</property>
+		<property name="Start">
+			<value>${Start}</value>
+		</property>
+		<property name="End">
+			<value>${End}</value>
+		</property>
+		<property name="BackgroundColor">
+			<value>${BackgroundColor}</value>
+		</property>
+		<property name="Description">
+			<value>${Description}</value>
+		</property>
+		<property name="InsertSchedule">
+			<value>${InsertSchedule}</value>
+		</property>
+		<property name="SelectSchedule">
+			<value>${SelectSchedule}</value>
+		</property>
+		<property name="SelectUserID">
+			<value>${SelectUserID}</value>
+		</property>
+		
+		<property name="UpdateSchedule">
+			<value>${SelectUserID}</value>
+		</property>
+		<property name="DeleteSchedule">
+			<value>${DeleteSchedule}</value>
+		</property>
+		<property name="UpdateTimeInMonth">
+			<value>${UpdateTimeInMonth}</value>
+		</property><property name="UpdateTimeInWeek">
+			<value>${UpdateTimeInWeek}</value>
+		</property>
+		
+	</bean>
+</beans>
