@@ -23,7 +23,7 @@
       <div class="container">
          <section id="modify">
             <h2>개인 정보 수정</h2>
-            <br>
+            <p>*은 필수입력 사항입니다.</p>
             <!--학생 정보 수정-->
             <div id="modifyStudent" style="display: block;">
                <form action="${path}/modifyStudent.do" name="ModifyStudent.do" method="POST" id="form">
@@ -35,35 +35,35 @@
                         <td class="col1"><label for="id">아이디(학번)</label></td>
                         <td class="col2"><input type="text" name="UserLoginID"
                            id="userLoginID" class="inputBox" placeholder=""
-                           autocomplete="off" disabled readonly value=${UserLoginID}></td>
+                           autocomplete="off" disabled readonly value="${UserLoginID}"></td>
                      </tr>
 
                      <tr>
                         <td class="col1"><label for="name">이름</label></td>
                         <td class="col2"><input type="text" name="UserName"
                            id="userName" class="inputBox" autocomplete="off" disabled readonly
-                           value=${UserName}></td>
+                           value="${UserName}"></td>
                      </tr>
                      <tr>
                         <td class="col1"><label for="email">이메일</label></td>
                         <td class="col2"><input type="text" name="Email"
                            id="userEmail" class="inputBox" autocomplete="off" disabled readonly
-                           value=${Email}></td>
+                           value="${Email}"></td>
                         <td class="col3"><input type="text" value="@mju.ac.kr"
                            disabled readonly id="mju" class="inputBox" autocomplete="off"></td>
                      <tr>
                         <td class="col1"><label for="gender">성별</label></td>
                         <td class="col2"><input name="StudentGender"
-                           id="studentGender" class="inputBox" disabled readonly value=${StudentGender}></td>
+                           id="studentGender" class="inputBox" disabled readonly value="${StudentGender}"></td>
                      </tr>
                      <tr>
-                        <td class="col1"><label for="phoneNumber">연락처</label></td>
+                        <td class="col1"><label for="phoneNumber">* 연락처</label></td>
                         <td class="col2"><input type="text" name="UserPhoneNum"
                            id="userPhoneNum" class="inputBox" placeholder="숫자만 입력해주세요"
-                           autocomplete="off" value=${UserPhoneNum}></td>
+                           autocomplete="off" value="${UserPhoneNum}"></td>
                      </tr>
                      <tr>
-                        <td class="col1"><label for="grade">학년</label></td>
+                        <td class="col1"><label for="grade">* 학년</label></td>
                         <td class="col2"><select name="StudentGrade"
                            id="studentGrade">
                               <option value=" " selected>-선택-</option>

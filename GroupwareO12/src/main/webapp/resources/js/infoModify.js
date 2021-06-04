@@ -20,22 +20,23 @@ $(document).ready(function(){
         } else if($('#userLoginPwd').val().length<8){
             alert("비밀번호는 8자보다 많아야합니다.");
             return checkPassword;
-        } 
+        }
     })
 
-   /* 학생 정보 변경
+   /* 학생 정보 변경  */
     $('#modifyComplete').click(function(){
-        if($('#studentGender option:selected').val()==" "||
-        $('#userPhoneNum').val().length==0||
-        $('#studentGrade option:selected').val()==" "||
-        $('#studentMajor option:selected').val()==" "||
-        $('#studentColleges option:selected').val()==" "){
+        if($('#userPhoneNum').val().length==0||
+        $('#studentGrade option:selected').val()==" "){
             alert("필수항목을 모두 입력해주세요.");
-            return "modifyStudent";
-        }
-    }); */
+            return false;
+        } else {
+		 alert("수정 완료!");
+		 window.opener.location.reload();    
+	     window.close();
+		}
+    });
 
-   /* 교수 정보 변경 
+   /* 교수 정보 변경 */
    $('#modifyCompleteP').click(function(){
         if($('#userPhoneNum').val().length==0||
         $('#professorColleges option:selected').val()==" "||
@@ -43,9 +44,13 @@ $(document).ready(function(){
         $('#professorRoom').val().length==0||
         $('#professorRoomNum').val().length==0){
             alert("필수항목을 모두 입력해주세요.");
-            return modifyProfessor;
-        }
-    });*/
+            return false;
+        } else {
+		 alert("수정 완료!");
+		 window.opener.location.reload();    
+	     window.close();
+		}
+    });
    
    /* 연락처 숫자만 입력 가능 */
    $('#userPhoneNum').keypress(function (event) {
@@ -122,18 +127,7 @@ $(document).ready(function(){
 		}
 	   
     });
-
- 	/* 수정 버튼 클릭 시 창 닫기 */
-   $('#modifyComplete').click(function(){
-	  alert("수정 완료!");
-	  window.opener.location.reload();    
-      window.close();
-   });   
-   $('#modifyCompleteP').click(function(){
-	  alert("수정 완료!");
-	  window.opener.location.reload();    
-      window.close();
-   });   
+  
 
    /* 취소 버튼 클릭 시 창 닫기 */
    $('#cancelBtn').click(function(){

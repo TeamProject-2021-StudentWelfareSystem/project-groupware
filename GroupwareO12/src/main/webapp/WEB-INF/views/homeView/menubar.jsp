@@ -40,14 +40,12 @@
 							<li><sec:authorize access="isAuthenticated()">
 									<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
 								</sec:authorize>
-							<li><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="${path}/admin/manageList">관리자 메뉴</a></sec:authorize></li>
-							<li><form id="logout" action="${path}/logout.do" method="POST">
-									<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
-								</form></li>
+							<form id="logout" action="${path}/logout.do" method="POST">
+									<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" /></form></li>
 							<li><a href="${path}/inquiryList">문의</a></li>
 							<li><a href="">사이트맵</a></li>
-							<li><sec:authorize access="isAuthenticated()">
-                       		<a href="${path}/myPage?R=${UserRole}">마이페이지</a></sec:authorize></li>
+							<li><sec:authorize access="isAuthenticated()"><a href="${path}/myPage?R=${UserRole}">마이페이지</a></sec:authorize></li>
+                       		<li><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="${path}/admin/manageList">관리자 메뉴</a></sec:authorize></li>
 						</ul>
 					</nav>
 					<!-- 메뉴 -->
