@@ -60,7 +60,9 @@ td {
 	width: 18%;
 	text-align: center;
 }
-
+h2 { color: skyblue; 
+	text-align:center;}
+h3 { color:skyblue;}
 #auth {
 	float: left;
 }

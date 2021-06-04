@@ -363,7 +363,14 @@ public class UserFunctionController {
 				Out.println("<script>alert('계정을 입력하지 않으셨습니다. 입력해주세요' );</script>");
 				Out.flush();
 				return "/signup/signupStudent";
-			} else {
+			} else if(UserLoginID.length()<8) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter Out = response.getWriter();
+				Out.println("<script>alert('1234');</script>");
+				Out.flush();
+				return "/signup/signupStudent";
+			}
+			else {
 				user.setUserLoginID(UserLoginID);
 				boolean Checker = this.userService.SelctForIDConfirm(user);
 				if (Checker) {
@@ -686,52 +693,61 @@ public class UserFunctionController {
 	}
 
 	// 로그인 완료 화면 + 날짜 업데이트
-	@RequestMapping(value = "/homeLogin", method = RequestMethod.GET)
-	public String homeLogin(User user, Principal principal, Model model, HttpServletRequest request,
-			Student student, Professor professor) {
-		// 유저 정보
-		String LoginID = principal.getName();// 로그인 한 아이디
-		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
-		SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
-		int UserID = Integer.parseInt(userService.SelectUserIDForDate(LoginID));
-		user.setUserLoginID(LoginID);
+		@RequestMapping(value = "/homeLogin", method = RequestMethod.GET)
+		public String homeLogin(User user, Principal principal, Model model, HttpServletRequest request,
+				Student student, Professor professor) {
+			// 유저 정보
+			String LoginID = principal.getName();// 로그인 한 아이디
+			ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
+			SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
+			int UserID = Integer.parseInt(userService.SelectUserIDForDate(LoginID));
+			user.setUserLoginID(LoginID);
 
-		// 휴먼계정 여부 확인 및 update
-		boolean DormantCheck = userService.SelectDormant(LoginID);
-		if (DormantCheck) {
-			userService.UpdateRecoveryDormant(LoginID);
+			// 휴먼계정 여부 확인 및 update
+			boolean DormantCheck = userService.SelectDormant(LoginID);
+			if (DormantCheck) {
+				userService.UpdateRecoveryDormant(LoginID);
+			}
+
+			if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
+				ArrayList<String> StudentInfo = new ArrayList<String>();
+				StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
+
+				userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
+			} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
+
+				ArrayList<String> ProfessorInfo = new ArrayList<String>();
+				ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
+
+				userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
+			} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
+				userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
+			}
+			//
+
+			Date Now = new Date();
+			SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+			user.setDate(Date.format(Now));
+			student.setDate(Date.format(Now));
+			student.setUserID(UserID);
+			professor.setDate(Date.format(Now));
+			professor.setUserID(UserID);
+			userService.UpdateLoginDate(user);
+			studentService.UpdateStudentLoginDate(student);
+			professorService.UpdateProfessorLoginDate(professor);
+			
+			// 공지사항 리스트 띄우기
+			List<Board> noticeList = boardService.SelectNoticeBoardList();
+			model.addAttribute("noticeList", noticeList);
+			
+			// 커뮤니티 리스트 띄우기
+			List<Board> communityList = boardService.SelectCommunityBoardList();
+			model.addAttribute("communityList", communityList);
+
+			return "/homeView/homeLogin";
 		}
-
-		if (SelectUserProfileInfo.get(2).equals("STUDENT")) {
-			ArrayList<String> StudentInfo = new ArrayList<String>();
-			StudentInfo = studentService.SelectStudentProfileInfo(SelectUserProfileInfo.get(1));
-
-			userInfoMethod.StudentInfo(model, SelectUserProfileInfo, StudentInfo);
-		} else if (SelectUserProfileInfo.get(2).equals("PROFESSOR")) {
-
-			ArrayList<String> ProfessorInfo = new ArrayList<String>();
-			ProfessorInfo = professorService.SelectProfessorProfileInfo(SelectUserProfileInfo.get(1));
-
-			userInfoMethod.ProfessorInfo(model, SelectUserProfileInfo, ProfessorInfo);
-		} else if (SelectUserProfileInfo.get(2).equals("ADMINISTRATOR")) {
-			userInfoMethod.AdministratorInfo(model, SelectUserProfileInfo);
-		}
-		//
-
-		Date Now = new Date();
-		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
-		user.setDate(Date.format(Now));
-		student.setDate(Date.format(Now));
-		student.setUserID(UserID);
-		professor.setDate(Date.format(Now));
-		professor.setUserID(UserID);
-		userService.UpdateLoginDate(user);
-		studentService.UpdateStudentLoginDate(student);
-		professorService.UpdateProfessorLoginDate(professor);
-
-		return "/homeView/homeLogin";
-	}
-
+	//비회원 시
+		
 	// 이메일 로그인 화면
 	@RequestMapping(value = "/email/emailLogin", method = RequestMethod.GET)
 	public String emailLogin() {
