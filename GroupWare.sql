@@ -5,7 +5,7 @@ use GroupWare;
 show tables;
 
 # delete 모음
-delete from User where UserName = "테스트";
+delete from User where UserName = "정교수";
 delete from User where UserID = "3";
 delete from Board where BoardSubject = "";
 delete from Team where TeamName = "Beans";
@@ -29,14 +29,15 @@ alter table TeamBoard add TBoardDelete boolean default 0 not null;
 alter table TeamBoard add TUserLoginID varchar(30) not null;
 alter table Board add BoardDelete boolean default 0 not null;
 alter table TeamFile add TFileDelete boolean default 0 not null;
-alter table Student add LoginDate date not null;
-alter table Professor add LoginDate date not null;
+alter table Student add LoginDate date;
+alter table Professor add LoginDate date;
 
 # 테이블 컬럼 지우기
 alter table Student drop column ProfessorRoom;
 alter table User drop column OpenName;
 alter table User drop column OpenEmail;
 alter table User drop column OpenMajor;
+alter table Professor drop column LoginDate;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
@@ -135,6 +136,19 @@ OpenGrade varchar(20) not null default '비공개',
 OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
+);
+
+create table UserReview(
+ReviewID int auto_increment not null primary key,
+Positive varchar(30) not null,
+Contribute varchar(30) not null,
+Respect varchar(30) not null,
+Flexible varchar(30) not null,
+ClassName varchar(50) not null,
+ClassProfessorName varchar(50) not null,
+ReviewDate date not null,
+UserID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
 
 create table InquiryBoard(
@@ -310,6 +324,7 @@ StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중�
 LoginDate date,
 UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
 );
+
 create table Professor(
 ProfessorID int auto_increment not null primary key,
 ProfessorRoom varchar(10) default '입력해주세요', #교수실

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mybatis/mappers/UserMapper.xml" />
+		<mapper resource="mybatis/mappers/UserListMapper.xml" />
+		<mapper resource="mybatis/mappers/StudentMapper.xml" />
+		<mapper resource="mybatis/mappers/ProfessorMapper.xml" />
+		<mapper resource="mybatis/mappers/UserEmailMapper.xml" />
+		<mapper resource="mybatis/mappers/BoardMapper.xml" />
+		<mapper resource="mybatis/mappers/LectureRoomMapper.xml" />
+		<mapper resource="mybatis/mappers/TeamMapper.xml" />
+		<mapper resource="mybatis/mappers/InquiryMapper.xml" />
+		<mapper resource="mybatis/mappers/CalendarMapper.xml" />
+			<mapper resource="mybatis/mappers/SearchMapper.xml" />
+	</mappers>
+
+</configuration>

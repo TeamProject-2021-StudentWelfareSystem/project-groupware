@@ -92,7 +92,10 @@ thead {
 a {
 	color: black;
 }
-
+#userList{
+	width:95%;
+	margin-left:60px;
+}
 #userName{
 	border:0px;
 	background-color: white;
@@ -103,3 +106,26 @@ a {
 	text-align : right;
 	margin-right:100px;
 	}
+	
+.col1{
+	width:5%;
+}
+.col2{
+	width:10%;
+}
+.col3{
+	width:20%;
+}
+.col4{
+	width:20%;
+}
+.col5{
+	width:15%;
+}
+.col6{
+	width:10%;
+}
+h2{
+	color: skyblue;
+	text-align:center;
+}
