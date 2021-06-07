@@ -45,7 +45,6 @@ public class ProfessorDaoImpl implements ProfessorDao{
 	
 	@Override
 	public void UpdateProfessorRoom(Professor professor) {
-		System.out.println(professor.getUserID());
 		sqlSession.update("UpdateProfessorRoom", professor);
 	}
 

@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
 		Random random = new Random();
 		this.Num = random.nextInt(888888) + 111111; // 인증번호 생성
 		this.Email = user.getUserEmail();
-		System.out.println(Num);
+//		System.out.println(Num);
 		if (this.Email.equals("@mju.ac.kr")) {
 		} else {
 			emailImpl.sendEmail(Email, Num);
