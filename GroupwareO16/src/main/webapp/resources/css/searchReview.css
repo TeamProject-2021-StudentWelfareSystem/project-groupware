@@ -92,9 +92,9 @@ thead {
 a {
 	color: black;
 }
-#userList{
-	width:95%;
-	margin-left:60px;
+.userList{
+	width:90%;
+	margin:0 auto;
 }
 #userName{
 	border:0px;
@@ -108,13 +108,13 @@ a {
 	}
 	
 .col1{
-	width:5%;
+	width:3%;
 }
 .col2{
-	width:10%;
+	width:8%;
 }
 .col3{
-	width:20%;
+	width:25%;
 }
 .col4{
 	width:20%;
@@ -124,4 +124,11 @@ a {
 }
 .col6{
 	width:10%;
+}
+h2{
+	text-align: center;
+	color : skyblue;
+}
+#search{
+	text-align:center;
 }

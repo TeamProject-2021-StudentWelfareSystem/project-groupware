@@ -62,7 +62,6 @@ td {
 }
 h2 { color: skyblue; 
 	text-align:center;}
-h3 { text-align:center}
 #auth {
 	float: left;
 }
@@ -88,4 +87,7 @@ a {
 }
 #list{
 	float:right;
+}
+#search{
+	text-align:center;
 }

@@ -43,13 +43,14 @@
 					<section>
 						<div class="section2">
 
-							<h3>&nbsp; 대여 가능한 강의실 리스트</h3>
+							
 							<div id="search">
 								<select name="SelectOption" id="selectOption">
 									<option value="all">전체</option>
 								</select> <input type="text" placeholder="검색어 입력하세요."> <input
 									type="submit" value="검색">
 							</div>
+							<h3>&nbsp; 대여 가능한 강의실 리스트</h3>
 							<form action="${path}/lectureRoom/lectureRoomList.do"
 								name="lectureRoomList" method="POST" id="form">
 								<input type="hidden" name="${_csrf.parameterName}"

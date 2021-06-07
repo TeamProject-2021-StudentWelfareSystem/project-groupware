@@ -63,7 +63,7 @@
 										varStatus="status">
 										<tr>
 											<td><c:out value="${status.count}" /></td>
-											<td><a href="${path}/team/documentList?no=${teamList.getTeamID()}">
+											<td id="col"><a href="${path}/team/documentList?no=${teamList.getTeamID()}">
 												<c:out value="${teamList.getClassName()}" /></a></td>
 											<td><c:out value="${teamList.getClassProfessorName()}" /></td>
 											<td><c:out value="${teamList.getTeamName()}" /></td>

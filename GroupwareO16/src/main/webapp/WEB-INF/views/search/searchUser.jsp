@@ -44,12 +44,13 @@
                <section>
                   <div class="section2">
 
-                     <h3>&nbsp; 사용자 리스트</h3>
+                     
                      <div id="search">
                         <input type="text" placeholder="사용자명을 입력하세요." id="searchKeyWord"
                            name="SearchKeyWord"> <input type="button" value="검색"
                            id="search" class="searchButton">
                      </div>
+                     <h3>&nbsp; 사용자 리스트</h3>
 
                      <script>
                         $(".searchButton")
@@ -98,18 +99,18 @@
                                                       var num = 1;
                                                       for (key in response) {
                                                          html += '<tr>';
-                                                         html += '<td>'
+                                                         html += '<td class="col1">'
                                                                + num++;
-                                                         html += '<td>'
+                                                         html += '<td class="col2">'
                                                          html += '<a href = /groupware/search/reviewList?no='+response[key].UserEmail+'>'
                                                                + response[key].UserName;+'</a>'
-                                                         html += '<td>'
+                                                         html += '<td class="col3">'
                                                                + response[key].UserMajor;
-                                                         html += '<td>'
+                                                         html += '<td class="col4">'
                                                                + response[key].UserEmail;
-                                                         html += '<td>'
+                                                         html += '<td class="col5">'
                                                                + response[key].PhoneNum;
-                                                         html += '<td>'
+                                                         html += '<td class="col6">'
                                                                + response[key].Gender;
                                                        
                                                          html += '</tr>';
@@ -133,12 +134,12 @@
                         <table class="userList">
                            <thead>
                               <tr>
-                                 <th id="1">번호</th>
-                                 <th id="1">이름</th>
-                                 <th id="2">학과</th>
-                                 <th id="2">이메일</th>
-                                 <th id="2">휴대폰</th>
-                                 <th id="2">성별</th>
+                                 <th class="col1">번호</th>
+                                 <th class="col2">이름</th>
+                                 <th class="col3">학과</th>
+                                 <th class="col4">이메일</th>
+                                 <th class="col5">휴대폰</th>
+                                 <th class="col6">성별</th>
                                
                               </tr>
                               <hr>
@@ -168,4 +169,18 @@
       <!-- mbody -->
    </nav>
 </body>
+<script>
+	$(document).ready(function() {
+      let result = '<c:out value="${Checker}"/>';
+      checkAlert(result);
+
+      function checkAlert(result) {
+         if (result === '') {
+            return;
+         } else if (result === "NoReiveiwList") {
+            alert("작성된 후기가 없습니다.");
+         }
+      }
+   });
+</script>
 </html>

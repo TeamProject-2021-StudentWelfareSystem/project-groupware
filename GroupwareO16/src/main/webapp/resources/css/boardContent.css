@@ -42,7 +42,8 @@ a {
 }
 
 
-h2 { color: skyblue; }
+h2 { color: skyblue;
+	text-align: center; }
 
 
 

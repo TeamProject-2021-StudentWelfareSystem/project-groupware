@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.constant.ConstantSearchController;
 import com.mju.groupware.dto.Professor;
@@ -123,13 +124,18 @@ public class SearchController {
 
 	// review list 검색
 	@RequestMapping(value = "/search/reviewList", method = RequestMethod.GET)
-	public String reviewList(Principal principal, Model model, User user, HttpServletRequest request) {
+	public String reviewList(Principal principal, Model model, User user, HttpServletRequest request, RedirectAttributes rttr) {
 		// 유저 정보
 		GetUserInformation(principal, user, model);
 		String UserEmail = request.getParameter("no");
 		String UserID = userService.SelectIDForReview(UserEmail);
 		List<UserReview> Review = searchService.SelectUserReview(UserID);
-		model.addAttribute("list", Review);
+		if (Review.isEmpty()) {
+			rttr.addFlashAttribute("Checker", "NoReiveiwList");
+			return "redirect:/search/searchUser";
+		} else {
+			model.addAttribute("list", Review);
+		}
 		return "/search/reviewList";
 	}
 

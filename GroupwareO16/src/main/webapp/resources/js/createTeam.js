@@ -12,24 +12,55 @@ function addTeamMember() {
 		
 		
 	}
-$(document).ready(function(){
-$("#lecture").change(function(){
-	var 성서와인간이해 = ["-선택-", "강창섭", "남성혁", "황훈식", "이주형", "권영주", "이주형", "오사랑", "우동리", "웬캄빈", "조미라", "장재호", "한상민", "조미라"];
-	var 채플 =["교목실s"];
-
-	var changeItem;
-
-	if(this.value == "성서와인간이해"){
-		changeItem = 성서와인간이해;
+	$(document).ready(function(){
+		 $('#search').click(function(){
+	         if($('#lectureName').val().length==0){
+	            alert("과목명을 입력해주세요.");
+	            return false;
+	        }
+    	});
+			
+		$('#createButton').click(function(){
+	         if($('#lecture option:selected').val()==""){
+	            alert("과목명을 선택해주세요");
+	            return false;
+			} else if($('#teamName').val().length==0){
+	            alert("팀 이름을 입력해주세요");
+	            return false;
+			} else if($('#studentID').val().length==0 || 
+				$('#studentName').val().length==0 ||
+				$('#studentId').val().length==0 || 
+				$('#teamLeader').val().length==0){
+	            alert("팀원 정보를 모두 입력해주세요");
+	            return false;
+			} else {
+				alert("팀 생성 완료!");
+			}
+    	});
 		
-	} else if(this.value == "채플"){
-		changeItem == 채플;
-		
-	}
-	$("#lectureProfessor").empty();
-	for(var count = 0; count < changeItem.length; count++){
-		var option = $("<option>" + changeItem[count] + "</option>");
-		$("#lectureProfessor").append(option);
-	}
-	});
+		/* 학번 숫자만 입력 가능 */
+	   $('#studentID').keypress(function (event) {
+	           if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) {
+	               event.preventDefault(); 
+	           }
+	   });
+	   $("#studentID").keyup(function(e) { 
+	      if (!(e.keyCode >=37 && e.keyCode<=40)) {
+	         var v = $(this).val();
+	         $(this).val(v.replace(/[^a-z0-9]/gi,''));
+			}
+	   });
+
+	   $('#studentId').keypress(function (event) {
+	           if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) {
+	               event.preventDefault(); 
+	           }
+	       });
+	   $("#studentId").keyup(function(e) { 
+	      if (!(e.keyCode >=37 && e.keyCode<=40)) {
+	         var v = $(this).val();
+	         $(this).val(v.replace(/[^a-z0-9]/gi,''));
+	      }	
+  		 });
+
 });
