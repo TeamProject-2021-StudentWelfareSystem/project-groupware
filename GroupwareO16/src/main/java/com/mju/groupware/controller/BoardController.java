@@ -124,7 +124,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/InquiryWrite", method = RequestMethod.POST)
 	public String DoInquiryeWrite(Principal principal, HttpServletRequest request, User user, Inquiry inquiry,
-			Model model) throws Exception {
+			Model model, HttpServletResponse response) throws Exception {
 
 		if (principal != null) {
 			GetUserInformation(principal, user, model);
@@ -141,6 +141,23 @@ public class BoardController {
 		String UserEmail = userService.SelectEmailForInquiry(UserLoginID);
 		String UserPhoneNum = userService.SelectPhoneNumForInquiry(UserLoginID);
 
+
+		if(Title.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('제목을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/inquiryWrite";
+		} else if(Content.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('내용을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/inquiryWrite";
+		} else {
+		
 		inquiry.setIBoardSubject(Title);
 		inquiry.setIBoardContent(Content);
 		inquiry.setIBoardWriter(UserName);
@@ -154,6 +171,7 @@ public class BoardController {
 		inquiryService.InsertInquiry(inquiry, request);
 
 		return "redirect:/inquiryList";
+		}
 	}
 
 	@RequestMapping(value = "/InquiryDelete.do", method = RequestMethod.POST)
@@ -228,7 +246,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
-	public String DoNoticeWrite(Principal principal, HttpServletRequest request, User user, Board board, Model model)
+	public String DoNoticeWrite(Principal principal, HttpServletRequest request, User user, Board board, Model model, HttpServletResponse response)
 			throws Exception {
 		// 유저 정보
 		GetUserInformation(principal, user, model);
@@ -242,6 +260,22 @@ public class BoardController {
 		int UserID = userService.SelectUserIDFromBoardController(UserLoginID);
 		String UserName = userService.SelectUserName(UserLoginID);
 
+		if(Title.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('제목을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/noticeWrite";
+		} else if(Content.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('내용을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/noticeWrite";
+		} else {
+		
 		board.setBoardSubject(Title);
 		board.setBoardContent(Content);
 		board.setBoardWriter(UserName);
@@ -252,6 +286,7 @@ public class BoardController {
 		boardService.InsertBoard(board, request);
 
 		return "redirect:/noticeList";
+		}
 	}
 
 	// 공지사항 글 수정
@@ -380,7 +415,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/communityWrite", method = RequestMethod.POST)
 	public String communityWriteDo(Principal principal, HttpServletRequest request, User user, Board board,
-			Model model) {
+			Model model, HttpServletResponse response) throws IOException {
 		// 유저 정보
 		GetUserInformation(principal, user, model);
 		//
@@ -392,6 +427,23 @@ public class BoardController {
 		int UserID = userService.SelectUserIDFromBoardController(UserLoginID);
 		String UserName = userService.SelectUserName(UserLoginID);
 
+
+		if(Title.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('제목을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/communityWrite";
+		} else if(Content.equals("")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter Out = response.getWriter();
+			Out.println("<script>alert('내용을 입력해주세요. ');</script>");
+			Out.flush();
+			
+			return "board/communityWrite";
+		} else {
+		
 		board.setBoardSubject(Title);
 		board.setBoardContent(Content);
 		board.setBoardWriter(UserName);
@@ -402,7 +454,7 @@ public class BoardController {
 		boardService.InsertBoard(board, request);
 
 		return "redirect:/communityList";
-
+		}
 	}
 
 	// 커뮤니티 글 수정

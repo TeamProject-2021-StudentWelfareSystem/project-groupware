@@ -61,16 +61,24 @@ table {
     margin-right: auto;
 }
 
-.inputBox {
+.inputBox, #inquiryType{
 	background-color: white;
+	border-radius:5px;
+	outline:none;
+}
+label{
+	 font-family: sans-serif;
 }
 
-
-#communityTitle, #inquiryTitle, #noticeTitle, #boardSubject{
+#communityTitle, #noticeTitle, #boardSubject{
 	width: 1000px;
 	height: 30px;
 }
 
+#inquiryTitle{
+	width: 900px;
+	height:30px;
+}
 #attachedFile{
 	width: 930px;
 	height:30px;
@@ -95,15 +103,7 @@ table {
 #content{
 	padding-left:65px;
 }
-#writerPadding, #emailPadding, #numPadding{
-	padding-right:515px;	
-}
-#selectPadding{
-	padding-right:745px;
-}
-#contentPadding{
-	padding-left:55px;
-}
+
 #inquiryType {
 	width: 300px;
 	height: 30px;
@@ -146,4 +146,14 @@ table {
 	font-size: 17px;
 	background: skyblue;
 	border-radius: 5px;
+}
+#boardFile{
+	border: 0px;
+	cursor:pointer;
+}
+#padding{
+	width:8%;
+}
+tr{
+	width:10%;
 }

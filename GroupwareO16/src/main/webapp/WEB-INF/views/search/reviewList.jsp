@@ -66,13 +66,13 @@
 									<tbody>
 										<c:forEach items="${list}" var="list" varStatus="status">
 											<tr>
-											<td><c:out value="${status.count}" /></td>
-											<td><c:out value="${list.getClassName()}" /></td>
-											<td><c:out value="${list.getClassProfessorName()}" /></td>
-											<td><c:out value="${list.getPositive()}" /></td>
-											<td><c:out value="${list.getContribute()}" /></td>
-											<td><c:out value="${list.getRespect()}" /></td>
-											<td><c:out value="${list.getFlexible()}" /></td>
+											<td id="1"><c:out value="${status.count}" /></td>
+											<td id="1"><c:out value="${list.getClassName()}" /></td>
+											<td id="2"><c:out value="${list.getClassProfessorName()}" /></td>
+											<td id="3"><c:out value="${list.getPositive()}" /></td>
+											<td id="4"><c:out value="${list.getContribute()}" /></td>
+											<td id="5"><c:out value="${list.getRespect()}" /></td>
+											<td id="6"><c:out value="${list.getFlexible()}" /></td>
 											</tr>
 											
 										</c:forEach>

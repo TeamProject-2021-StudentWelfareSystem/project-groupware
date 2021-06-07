@@ -18,6 +18,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardContent.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
+<script src="js/boardContent.js"></script>
+<script src="js/jquery-3.5.1.min.js"></script>
 
 <title>notice write</title>
 </head>
@@ -68,17 +70,15 @@
 								<hr>
 								<table>
 									<tr>
-										<td><label for="attachment">첨부파일</label></td>
-										<td><input type="file" name="BoardFile" id="boardFile"
+										<td><label for="attachment">첨부파일</label>
+										<input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
+									</tr>
+									<tr><td><input type="file" name="BoardFile" id="boardFile"
 												class="inputBox" placeholder="파일을 첨부하세요."></td>
 									</tr>
-									<tr>
-										<td id="fileIndex" colspan="2">
-										</td>
-									</tr>
-									<tr>
-									<td><input type="button" id="fileAddButton" value="파일추가" onclick="FileNameAddFile()"></td>
-									</tr>
+								</table>
+								<table  id="fileIndex">
+									
 								</table>
 							</div>
 							<!-- section2 -->
