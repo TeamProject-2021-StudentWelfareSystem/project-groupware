@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/TeamDao.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="TeamID" class="com.mju.groupware.constant.ConstantTeamDao">
+		<property name="InsertTeamInfo">
+			<value>${InsertTeamInfo}</value>
+		</property>
+		<property name="SelectClassID">
+			<value>${SelectClassID}</value>
+		</property>
+		<property name="SelectUserIDForTeamUser">
+			<value>${SelectUserIDForTeamUser}</value>
+		</property>
+		<property name="InsertTeamUserInfo">
+			<value>${InsertTeamUserInfo}</value>
+		</property>
+		<property name="SelectLectureInformation">
+			<value>${SelectLectureInformation}</value>
+		</property>
+		<property name="SelectTeamLeaderUserID">
+			<value>${SelectTeamLeaderUserID}</value>
+		</property>
+		<property name="SelectTeamList">
+			<value>${SelectTeamList}</value>
+		</property>
+		<property name="SelectClassList">
+			<value>${SelectClassList}</value>
+		</property>
+		<property name="SelectClassIDForCheckTeam">
+			<value>${SelectClassIDForCheckTeam}</value>
+		</property>
+		<property name="SelectClassInfoForCheckTeam">
+			<value>${SelectClassInfoForCheckTeam}</value>
+		</property>
+		<property name="SelectTeamName">
+			<value>${SelectTeamName}</value>
+		</property>
+		<property name="SelectTeamMemberInfo">
+			<value>${SelectTeamMemberInfo}</value>
+		</property>
+		<property name="SelectLeaderName">
+			<value>${SelectLeaderName}</value>
+		</property>
+		<property name="SelectLeaderLoginID">
+			<value>${SelectLeaderLoginID}</value>
+		</property>	
+		<property name="SelectMyTeamList">
+			<value>${SelectMyTeamList}</value>
+		</property>
+		<property name="DeleteTeamMemberInfo">
+			<value>${DeleteTeamMemberInfo}</value>
+		</property>
+		<property name="SelectMyTeamInfo">
+			<value>${SelectMyTeamInfo}</value>
+		</property>
+		<property name="SelectClassInfo">
+			<value>${SelectClassInfo}</value>
+		</property>
+		<property name="SelectTeamBoardListInfo">
+			<value>${SelectTeamBoardListInfo}</value>
+		</property>
+		<property name="SelectTeamIDForDocument">
+			<value>${SelectTeamIDForDocument}</value>
+		</property>
+		<property name="SelectTeamIDForDelete">
+			<value>${SelectTeamIDForDelete}</value>
+		</property>
+		<property name="SelectClassIDFromTeam">
+			<value>${SelectClassIDFromTeam}</value>
+		</property>
+		<property name="SelectTeamNameWithLoginUser">
+			<value>${SelectTeamNameWithLoginUser}</value>
+		</property>
+		<property name="SelectTeamIDForReview">
+			<value>${SelectTeamIDForReview}</value>
+		</property>
+		<property name="SelectTeamMember">
+			<value>${SelectTeamMember}</value>
+		</property>
+		<property name="SelectTeamUserID">
+			<value>${SelectTeamUserID}</value>
+		</property>
+		<property name="InsertUserReview">
+			<value>${InsertUserReview}</value>
+		</property>
+		
+	</bean>
+</beans>
