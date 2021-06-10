@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/ScheduleController.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="ScheduleControllerID" class="com.mju.groupware.constant.ConstantScheduleController">
+		<property name="UserId">
+			<value>${UserId}</value>
+		</property>
+		<property name="SRole">
+			<value>${SRole}</value>
+		</property>
+		<property name="PRole">
+			<value>${PRole}</value>
+		</property>
+		<property name="ARole">
+			<value>${ARole}</value>
+		</property>
+		<property name="Schedule">
+			<value>${Schedule}</value>
+		</property>
+		<property name="userID">
+			<value>${userID}</value>
+		</property>
+		<property name="scheduleID">
+			<value>${scheduleID}</value>
+		</property>
+		<property name="start">
+			<value>${start}</value>
+		</property>
+		<property name="end">
+			<value>${end}</value>
+		</property>
+		
+	</bean>
+</beans>
