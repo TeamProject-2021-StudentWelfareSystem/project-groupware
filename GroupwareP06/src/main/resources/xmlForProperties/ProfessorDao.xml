@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/ProfessorDao.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="ProfessorDaoID" class="com.mju.groupware.constant.ConstantAdminProfessorDao">
+		<property name="InsertInformation">
+			<value>${InsertInformation}</value>
+		</property>
+		<property name="UpdateUserID">
+			<value>${UpdateUserID}</value>
+		</property>
+		<property name="UpdateProfessorRoom">
+			<value>${UpdateProfessorRoom}</value>
+		</property>
+		<property name="UpdateProfessorRoomNum">
+			<value>${UpdateProfessorRoomNum}</value>
+		</property>
+		<property name="SelectProfessorProfileInfo">
+			<value>${SelectProfessorProfileInfo}</value>
+		</property>
+		<property name="SelectMyPageProfessorInfo">
+			<value>${SelectMyPageProfessorInfo}</value>
+		</property>
+		<property name="SelectMyPageProfessorInfoByID">
+			<value>${SelectMyPageProfessorInfoByID}</value>
+		</property>
+		<property name="UpdateProfessorColleges">
+			<value>${UpdateProfessorColleges}</value>
+		</property>
+		<property name="UpdateProfessorMajor">
+			<value>${UpdateProfessorMajor}</value>
+		</property>
+		<property name="SelectProfessorInfo">
+			<value>${SelectProfessorInfo}</value>
+		</property>
+		<property name="InsertWithdrawalProfessor">
+			<value>${InsertWithdrawalProfessor}</value>
+		</property>
+		<property name="DeleteWithdrawalProfessor">
+			<value>${DeleteWithdrawalProfessor}</value>
+		</property>
+		<property name="DeleteWithdrawalProfessorList">
+			<value>${DeleteWithdrawalProfessorList}</value>
+		</property>
+
+		
+	</bean>
+</beans>
