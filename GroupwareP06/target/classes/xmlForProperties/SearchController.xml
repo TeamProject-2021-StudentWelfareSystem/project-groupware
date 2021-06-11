@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/SearchController.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="SearchControllerID" class="com.mju.groupware.constant.ConstantSearchController">
+		<property name="SRole">
+			<value>${SRole}</value>
+		</property>
+		<property name="PRole">
+			<value>${PRole}</value>
+		</property>
+		<property name="ARole">
+			<value>${ARole}</value>
+		</property>
+		<property name="UName">
+			<value>${UName}</value>
+		</property>
+		<property name="UserEmail">
+			<value>${UserEmail}</value>
+		</property>
+		
+		<property name="RSearchUser">
+			<value>${RSearchUser}</value>
+		</property>
+		<property name="RReviewList">
+			<value>${RReviewList}</value>
+		</property>
+		<property name="RRSearchUser">
+			<value>${RRSearchUser}</value>
+		</property>
+		<property name="PhoneNum">
+			<value>${PhoneNum}</value>
+		</property>
+	</bean>
+</beans>
