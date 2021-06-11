@@ -5,7 +5,7 @@ use GroupWare;
 show tables;
 
 # delete 모음
-delete from User where UserName = "정교수";
+delete from User where UserName = "테스트";
 delete from User where UserID = "3";
 delete from Board where BoardSubject = "";
 delete from Team where TeamName = "Beans";
@@ -20,9 +20,6 @@ insert into WithdrawalStudent(WStudentGender, WStudentGrade, WStudentColleges, W
 insert into Board(BoardSubject, BoardContent, BoardWriter, BoardDate, UserID) values ("1","2","정민","2021-05-12 00:00:00", 1);
 insert into BoardFile(BOriginalFileName, BStoredFileName, BFileSize, BoardID) values (2, 2, 1, 1);
 insert into professor (ProfessorColleges, professorMajor, UserID) values ("ICT융합대학", "디지털콘텐츠디자인학과", 3);
-insert into UserSchedule (title, description, start, end, backgroundColor, allDay, UserID) values ("팀프 발표", "팀프로젝트 기말 발표", "2021-06-14 18:00", "2021-06-14 20:00", "#D25565", null , 1);
-insert into UserSchedule (title, description, start, end, backgroundColor, allDay, UserID) 
-values ("발표 준비", "발표 준비중", "2021-06-11", "2021-06-14", "#a9e34b", null , 1);
 
 # alter 모음
 alter table User add Dormant boolean not null default 0;
@@ -32,21 +29,21 @@ alter table TeamBoard add TBoardDelete boolean default 0 not null;
 alter table TeamBoard add TUserLoginID varchar(30) not null;
 alter table Board add BoardDelete boolean default 0 not null;
 alter table TeamFile add TFileDelete boolean default 0 not null;
-alter table Student add LoginDate date;
-alter table Professor add LoginDate date;
+alter table Student add LoginDate date not null;
+alter table Professor add LoginDate date not null;
 
 # 테이블 컬럼 지우기
 alter table Student drop column ProfessorRoom;
 alter table User drop column OpenName;
 alter table User drop column OpenEmail;
 alter table User drop column OpenMajor;
-alter table Professor drop column LoginDate;
 
 # select 모음
 select userLoginID, userName from user where userloginID = "학번" and userName = "이름";
 select * from User where Dormant = 1;
 select * from Student;
 select * from Professor;
+select * from UserReview;
 select * from User;
 select * from Board;
 select * from BoardFile;
@@ -61,8 +58,7 @@ select * from TeamUser;
 select * from LectureRoom;
 select * from TeamFile;
 select * from TeamBoard;
-select * from UserReview;
-select * from UserSchedule;
+select * from TeamSchedule;
 select * from UserReservation where ReservationStartTime >= '11:00:00' and ReservationEndTime <= '13:00:00' and ReservationDate = '2021-5-12';
 select * from UserReservation where ReservationDate = '2021-05-12' and 
 (ReservationStartTime >= '09:00:00' and ReservationEndTime <= '11:00:00') or 
@@ -97,7 +93,7 @@ drop table TeamFile;
 
 # update 모음
 update User set UserLoginPwd = '바꿀 비밀번호' where UserLoginID = 'UserLoginID';
-update Student set StudentGender = '여자' where UserID = 2;
+update Student set StudentGender = '여' where UserID = '해당UserID';
 update User set UserPhoneNum = '바꿀 번호' where UserLoginID = 'UserLoginID';
 update Student set StudentGrade = '바꿀 학년' where UserLoginID = 'UserLoginID';
 update User set UserColleges = '바꿀 단과대학' where UserLoginID = 'UserLoginID';
@@ -109,7 +105,7 @@ update User set UserRole = "STUDENT" where UserName = "생성";
 update User set LoginDate = "2020-1-20" where UserName = "이동";
 update User set Dormant = 0 where UserName = "유저이름";
 update User set Enabled = 1 where UserName = "유저이름";
-update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="정민";
+update User set Authority = "ROLE_ADMIN" , UserRole = "ADMINISTRATOR" where UserName="ICTA	dmin";
 update User set Authority = "ROLE_USER" where UserName = "탈퇴";
 update User set OpenInfo = '이름', OpenInfo = '이메일' where UserLoginID = '60181664';
 update User set OpenPhoneNum = "비공개";
@@ -118,13 +114,20 @@ update User set LoginDate = date_format(NOW(), '%Y%m%d') where UserName = "박�
 update User set LoginDate = '2021-05-05' where UserName = "정민";
 update TeamBoard set TUserLoginID = "60201111" where TBoardWriter = "생성";
 select * from TeamBoard;
+update User set Authority = "ROLE_ADMIN" where UserID = 2;
+
+drop table UserReview;
+
+alter table User drop column UserLoginID;
+alter table User add UserLoginID varchar(30) not null ;
+select * from user;
 
 create table User(
 UserID int auto_increment not null primary key,
 UserName varchar(20) not null,
 UserPhoneNum varchar(30) not null,
-UserEmail varchar(100) not null unique key,
-UserLoginID varchar(30) binary not null unique key,
+UserEmail varchar(100) not null ,
+UserLoginID varchar(30) binary not null,
 UserLoginPwd varchar(300) binary not null,
 UserRole ENUM ('STUDENT', 'PROFESSOR', 'ADMINISTRATOR'),
 Authority varchar(20) not null default 'ROLE_USER', # ROLE_USER, ROLE_ADMIN
@@ -137,21 +140,6 @@ OpenGrade varchar(20) not null default '비공개',
 OpenPhoneNum varchar(20) not null default '비공개',
 Dormant boolean not null default 0, # 휴먼계정아니면 0, 휴면계정이면 1
 Withdrawal boolean not null default 0 # 가입:0 탈퇴:1 
-);
-
-create table UserReview(
-ReviewID int auto_increment not null primary key,
-Positive varchar(30) not null,
-Contribute varchar(30) not null,
-Respect varchar(30) not null,
-Flexible varchar(30) not null,
-ClassName varchar(50) not null,
-ClassProfessorName varchar(50) not null,
-ReviewDate date not null,
-UserID int not null, #대상
-WriterUserID int not null, #작성자
-TeamName varchar(50) not null, 
-foreign key (UserID) references User(UserID) on delete cascade on update cascade
 );
 
 create table InquiryBoard(
@@ -214,7 +202,7 @@ TeamCreationDate Date not null,
 ClassID int not null,
 foreign key (ClassID) references Class(ClassID) on delete cascade on update cascade
 );
-
+select * from UserSchedule;
 create table UserSchedule(
 _id int auto_increment not null primary key,
 title varchar(50) not null,
@@ -229,7 +217,18 @@ foreign key (UserID) references User(UserID) on delete cascade on update cascade
 select date_format(ScheduleStartDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 select date_format(ScheduleEndDate,'%Y-%M-%D %H:%i') as date from UserSchedule;
 
-
+create table UserReview(
+ReviewID int auto_increment not null primary key,
+Positive varchar(30) not null,
+Contribute varchar(30) not null,
+Respect varchar(30) not null,
+Flexible varchar(30) not null,
+ClassName varchar(50) not null,
+ClassProfessorName varchar(50) not null,
+ReviewDate date not null,
+UserID int not null,
+foreign key (UserID) references User(UserID) on delete cascade on update cascade
+);
 create table TeamUser(
 UserID int not null,
 TeamID int not null,
@@ -312,7 +311,6 @@ StudentDoubleMajor ENUM ('국어국문학과', '영어영문학과', '중어중�
 LoginDate date,
 UserID int, foreign key (StudentID) references user(UserID) on delete cascade on update cascade
 );
-
 create table Professor(
 ProfessorID int auto_increment not null primary key,
 ProfessorRoom varchar(10) default '입력해주세요', #교수실
