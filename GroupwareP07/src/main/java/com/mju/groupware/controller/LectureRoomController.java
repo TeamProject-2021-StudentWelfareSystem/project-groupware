@@ -55,7 +55,7 @@ public class LectureRoomController {
 		// 빈 객체 받아오기
 		this.constantLecture = (ConstantLectureRoomController) Ctx.getBean("lectureRoom");
 	}
-	
+
 	// 강의실 리스트 /lectureRoomList
 	@RequestMapping(value = "/lectureRoom/lectureRoomList", method = RequestMethod.GET)
 	public String lectureRoomList(Model model, Principal principal, User user) {
@@ -77,6 +77,7 @@ public class LectureRoomController {
 		//
 		String LectureRoomNo = request.getParameter("no");
 		int MaxNumOfPeople = lectureRoomService.SelectMaxNumOfPeople(LectureRoomNo);
+		System.out.println(MaxNumOfPeople);
 		String ReservationDate = request.getParameter("ReservationDate");
 
 		model.addAttribute("LectureRoomNo", LectureRoomNo);
@@ -97,10 +98,11 @@ public class LectureRoomController {
 
 	@RequestMapping(value = "/lectureRoom/LectureRoomReservation", method = RequestMethod.POST)
 	public String lectureRoomReservationDO(Principal principal, Model model, HttpServletRequest request,
-			UserReservation userReservation, HttpServletResponse response, User user) throws IOException {
+			UserReservation userReservation, HttpServletResponse response, User user, RedirectAttributes rttr)
+			throws IOException {
 		// 유저 정보
 		GetUserInformation(principal, user, model);
-		
+
 		String SelectedTime = request.getParameter("ReservationStartTime"); // 스크롤바에서 선택된 값
 		int IDX = SelectedTime.indexOf("~");// 시작, 종료 시간 나누기 위함.
 		String UserLoginID = principal.getName();
@@ -123,41 +125,13 @@ public class LectureRoomController {
 		String ReservationStartTime = lectureRoomService.SelectReservationStartTimeForException(StartTime);
 
 		if (MaxNumOfPeople < ReservationNumOfPeople) {
-			response.setContentType("text/html; charset=UTF-8");
-			Out.println("<script>alert('예약 인원이 초과되었습니다');</script>");
-			Out.flush();
-
-			String LectureRoomNo2 = request.getParameter("roomNum");
-			int MaxNumOfPeople2 = lectureRoomService.SelectMaxNumOfPeople(LectureRoomNo2);
-			String ReservationDate = request.getParameter("ReservationDate");
-			model.addAttribute("LectureRoomNo", LectureRoomNo2);
-			model.addAttribute("MaxNumOfPeople", MaxNumOfPeople2);
-			model.addAttribute("ReservationDate", ReservationDate);
-
-			if (lectureRoomService.SelectStartTime(LectureRoomNo2) != null) {
-				List<UserReservation> StartTime2 = lectureRoomService.SelectStartTime(LectureRoomNo2);
-				model.addAttribute("StartTime", StartTime2);
-			}
-			return this.constantLecture.getRReservation();
+			rttr.addFlashAttribute("Checker", "ExceptionNum");
+			return this.constantLecture.getRRLectureRoomList();
 		} else {
 			// 중복예약 방지
 			if (ReservationUserID != 0) { // 해당 유저가 이미 예약을 한 상태면
-				response.setContentType("text/html; charset=UTF-8");
-				Out.println("<script>alert('이미 예약한 강의실이 존재합니다. 해당 강의실 예약을 취소한 뒤 다시 시도해주세요.');</script>");
-				Out.flush();
-
-				String LectureRoomNo2 = request.getParameter("roomNum");
-				int MaxNumOfPeople2 = lectureRoomService.SelectMaxNumOfPeople(LectureRoomNo2);
-				String ReservationDate = request.getParameter("ReservationDate");
-				model.addAttribute("LectureRoomNo", LectureRoomNo2);
-				model.addAttribute("MaxNumOfPeople", MaxNumOfPeople2);
-				model.addAttribute("ReservationDate", ReservationDate);
-
-				if (lectureRoomService.SelectStartTime(LectureRoomNo2) != null) {
-					List<UserReservation> StartTime2 = lectureRoomService.SelectStartTime(LectureRoomNo2);
-					model.addAttribute("StartTime", StartTime2);
-				}
-				return this.constantLecture.getRReservation();
+				rttr.addFlashAttribute("Checker", "DuplicateReservationExist");
+				return this.constantLecture.getRRLectureRoomList();
 			} else {
 				if (!ReservationStartTime.equals("0")) {
 					response.setContentType("text/html; charset=UTF-8");
@@ -216,21 +190,21 @@ public class LectureRoomController {
 			model.addAttribute("RoomFloor", RoomFloor);
 			model.addAttribute("MaxNumOfPeople", MaxNumOfPeople);
 			model.addAttribute("ReservationNumOfPeople", ReservationNumOfPeople);
-			
-			if(ReservationStartTime.equals(this.constantLecture.getNine())) {
+
+			if (ReservationStartTime.equals(this.constantLecture.getNine())) {
 				model.addAttribute("ReservationStartTime", "09:00~11:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getEleven())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getEleven())) {
 				model.addAttribute("ReservationStartTime", "11:00~13:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getThirteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getThirteen())) {
 				model.addAttribute("ReservationStartTime", "13:00~15:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getFifteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getFifteen())) {
 				model.addAttribute("ReservationStartTime", "15:00~17:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getSeventeen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getSeventeen())) {
 				model.addAttribute("ReservationStartTime", "17:00~19:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getNineteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getNineteen())) {
 				model.addAttribute("ReservationStartTime", "19:00~21:00");
 			}
-			
+
 			return this.constantLecture.getRReservationConfirm();
 		} else {
 			rttr.addFlashAttribute("Checker", "Noting");
@@ -290,7 +264,7 @@ public class LectureRoomController {
 		//
 		return this.constantLecture.getRReservationModify();
 	}
-	
+
 	// 마이페이지 - 강의실 예약 확인
 	@RequestMapping(value = "/confirmMyReservation", method = RequestMethod.GET)
 	public String confirmMyReservation(Locale locale, Model model, Principal principal, User user,
@@ -316,17 +290,17 @@ public class LectureRoomController {
 			model.addAttribute("MaxNumOfPeople", MaxNumOfPeople);
 			model.addAttribute("ReservationNumOfPeople", ReservationNumOfPeople);
 
-			if(ReservationStartTime.equals(this.constantLecture.getNine())) {
+			if (ReservationStartTime.equals(this.constantLecture.getNine())) {
 				model.addAttribute("ReservationStartTime", "09:00~11:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getEleven())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getEleven())) {
 				model.addAttribute("ReservationStartTime", "11:00~13:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getThirteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getThirteen())) {
 				model.addAttribute("ReservationStartTime", "13:00~15:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getFifteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getFifteen())) {
 				model.addAttribute("ReservationStartTime", "15:00~17:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getSeventeen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getSeventeen())) {
 				model.addAttribute("ReservationStartTime", "17:00~19:00");
-			} else if(ReservationStartTime.equals(this.constantLecture.getNineteen())) {
+			} else if (ReservationStartTime.equals(this.constantLecture.getNineteen())) {
 				model.addAttribute("ReservationStartTime", "19:00~21:00");
 			}
 			return this.constantLecture.getRConfirmMyReservation();
@@ -335,6 +309,7 @@ public class LectureRoomController {
 			return this.constantLecture.getRRMyPageStudent();
 		}
 	}
+
 	private void GetUserInformation(Principal principal, User user, Model model) {
 		String LoginID = principal.getName();// 로그인 한 아이디
 		ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();

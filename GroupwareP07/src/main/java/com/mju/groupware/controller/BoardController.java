@@ -120,7 +120,7 @@ public class BoardController {
 		List<Inquiry> InquiryList = inquiryService.SelectInquiryList();
 		model.addAttribute("inquiryList", InquiryList);
 
-		return this.Constant.getRInquiryContent();
+		return this.Constant.getRInquiryWrite();
 	}
 
 	@RequestMapping(value = "/InquiryWrite", method = RequestMethod.POST)
