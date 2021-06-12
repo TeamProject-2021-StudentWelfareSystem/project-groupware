@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	   
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:security="http://www.springframework.org/schema/security"
+   	   xsi:schemaLocation="http://www.springframework.org/schema/security 
+   	   http://www.springframework.org/schema/security/spring-security.xsd
+	   http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+<context:component-scan base-package="com.mju.groupware" />
+<bean id="UsersDetailsService" class="com.mju.groupware.security.UsersDetailsService" autowire="byType" />
+<bean id="LoginSuccessHandler" class="com.mju.groupware.security.LoginSuccessHandler" />
+<bean id="LoginFailureHandler" class="com.mju.groupware.security.LoginFailureHandler">
+        <property name="loginIdName" value="UserLoginID"></property>
+        <property name="loginPwdName" value="UserLoginPwd"></property>
+        <property name="errorMsgName" value="ERRORMSG"></property>
+        <property name="defaultFailureUrl" value="/login?error=1"></property>
+</bean>
+
+	<!-- 관리자 -->
+	<security:http pattern="/admin/**" auto-config="true" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+	
+	<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home"  
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		<!-- default-target-url : 로그인 성공시 url -->
+		<!-- authentication-success-handler-ref : 로그인 성공 후 부가작업 -->
+		<!-- authentication-failure-handler-ref : 로그인 실패 후 부가작업 -->
+				
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+		
+	</security:http>
+	
+	<!-- 이메일 보기(읽기) -->	
+	<security:http pattern="/email/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/email/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home"  
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 팀 관련 메뉴 -->	
+	<security:http pattern="/team/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/team/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home"  
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 사용자 검색 메뉴 -->	
+	<security:http pattern="/search/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/search/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home" 
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 커뮤니티 읽기, 작성 -->	
+	<security:http pattern="/community**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/communityWrite**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/communityContent**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home" 
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 문의 읽기, 작성 -->	
+	<security:http pattern="/inquiry**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/inquiryWrite**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/inquiryContent**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home" 
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 강의실 예약 메뉴 -->	
+	<security:http pattern="/lectureRoom/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/lectureRoom/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home"
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+	
+	<!-- 일정 메뉴 -->	
+	<security:http pattern="/schedule/**" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+		<security:intercept-url pattern="/schedule/**" access="isAuthenticated()" />  		
+		<security:intercept-url pattern="/**" access="permitAll"/>	
+		
+		<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home" 
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" /> 
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+	
+	</security:http>
+		
+	<!-- 사용자 -->	
+	<security:http pattern="/**" auto-config="true" use-expressions="true"> <!-- use-expressions="true" : spEL문법 사용 -->
+  		<security:intercept-url pattern="/**" access="permitAll"/>	  		
+	
+	<security:form-login
+		username-parameter="UserLoginID"
+		password-parameter="UserLoginPwd"
+		login-processing-url="/login.do"
+		login-page="/login" 
+		default-target-url="/home" 
+		authentication-success-handler-ref="LoginSuccessHandler" 
+		authentication-failure-handler-ref="LoginFailureHandler" />  
+		
+	<security:logout
+		logout-url="/logout.do"
+		logout-success-url="/home"
+		invalidate-session="true"
+		delete-cookies="" />
+		
+	<security:access-denied-handler error-page="/access_denied"/>		
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="UsersDetailsService">
+			<security:password-encoder hash="bcrypt" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
