@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/TeamController.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="TeamControllerID" class="com.mju.groupware.constant.ConstantTeamController">
+		<property name="RRHome">
+			<value>${RRHome}</value>
+		</property>
+		<property name="RMyTeamList">
+			<value>${RMyTeamList}</value>
+		</property>
+		<property name="RDocumentList">
+			<value>${RDocumentList}</value>
+		</property>
+		<property name="RDocumentContent">
+			<value>${RDocumentContent}</value>
+		</property>
+		<property name="RDocumentWrite">
+			<value>${RDocumentWrite}</value>
+		</property>
+		<property name="RRDocumentListNO">
+			<value>${RRDocumentListNO}</value>
+		</property>
+		<property name="RDocumentModify">
+			<value>${RDocumentModify}</value>
+		</property>
+		<property name="RSearchLecture">
+			<value>${RSearchLecture}</value>
+		</property>
+		<property name="RRSearchLecture">
+			<value>${RRSearchLecture}</value>
+		</property>
+		<property name="RCreateTeam">
+			<value>${RCreateTeam}</value>
+		</property>
+		<property name="RRTeamList">
+			<value>${RRTeamList}</value>
+		</property>
+		<property name="RTeamList">
+			<value>${RTeamList}</value>
+		</property>
+		<property name="RCheckTeam">
+			<value>${RCheckTeam}</value>
+		</property>
+		<property name="RModifyTeam">
+			<value>${RModifyTeam}</value>
+		</property>
+		<property name="RRTeamTeamList">
+			<value>${RRTeamTeamList}</value>
+		</property>
+		<property name="RSearchMyTeam">
+			<value>${RSearchMyTeam}</value>
+		</property>
+		<property name="RReviewWrite">
+			<value>${RReviewWrite}</value>
+		</property>
+		<property name="RRSearchMyTeam">
+			<value>${RRSearchMyTeam}</value>
+		</property>
+		
+		<property name="STUDENT">
+			<value>${STUDENT}</value>
+		</property>		
+		<property name="PROFESSOR">
+			<value>${PROFESSOR}</value>
+		</property>		
+		<property name="ADMINISTRATOR">
+			<value>${ADMINISTRATOR}</value>
+		</property>		
+		<property name="FilePath">
+			<value>${FilePath}</value>
+		</property>		
+	</bean>
+</beans>
