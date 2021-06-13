@@ -173,14 +173,18 @@
 		select TeamID from TeamUser where UserID =
 		#{UserID}
 	</select>
-	<select id="SelectTeamNameWithLoginUser" resultType="String"
+	<select id="SelectTeamNameWithLoginUser" resultType="Integer"
 		parameterType="String">
-		select TeamName from Team where TeamLeaderID = #{name}
+		select TeamID from TeamUser where UserLoginID = #{name}
 	</select>
 
 	<select id="SelectClassIDFromTeam" resultType="Integer"
-		parameterType="String">
-		select ClassID from Team where TeamLeaderID = #{name}
+		parameterType="Integer">
+		select ClassID from Team where teamID = #{teamID}
+	</select>
+	<select id="SelectTeamNameWithTeamID" resultType="String"
+		parameterType="Integer">
+		select TeamName from Team where TeamID = #{teamID}
 	</select>
 
 	<select id="SelectTeamIDForReview" resultType="String"
@@ -202,25 +206,31 @@
 	<insert id="InsertUserReview"
 		parameterType="com.mju.groupware.dto.UserReview">
 		insert into UserReview(Positive, Contribute, Respect,
-		Flexible, ClassName, ClassProfessorName, ReviewDate, UserID, WriterUserID, TeamName)
+		Flexible, ClassName, ClassProfessorName, ReviewDate, UserID,
+		WriterUserID, TeamName)
 		values(#{Positive},#{Contribute},#{Respect},#{Flexible},#{ClassName},#{ClassProfessorName},#{ReviewDate},#{UserID},#{WriterUserID},
 		#{TeamName})
 	</insert>
-	
-	<select id = "SelectTeamLeaderLoginID" parameterType = "String" resultType = "String">
+
+	<select id="SelectTeamLeaderLoginID" parameterType="String"
+		resultType="String">
 		select TeamLeaderID from Team where TeamID = #{teamID}
 	</select>
-	
-	<delete id = "DeleteTeam">
+
+	<delete id="DeleteTeam">
 		delete from Team where TeamID = #{teamID}
 	</delete>
-	
-	<select id="SelectWriterUserID" parameterType="String" resultType = "String">
+
+	<select id="SelectWriterUserID" parameterType="String"
+		resultType="String">
 		select UserID from User where UserLoginID = #{userLoginID}
 	</select>
-	
-	<select id="SelectColumnCount" parameterType="com.mju.groupware.dto.UserReview" resultType="Integer">
-		select count(UserID) from UserReview where UserID=#{UserID} and WriterUserID = #{WriterUserID} and TeamName=#{TeamName}
+
+	<select id="SelectColumnCount"
+		parameterType="com.mju.groupware.dto.UserReview" resultType="Integer">
+		select
+		count(UserID) from UserReview where UserID=#{UserID} and WriterUserID
+		= #{WriterUserID} and TeamName=#{TeamName}
 	</select>
 
 </mapper>

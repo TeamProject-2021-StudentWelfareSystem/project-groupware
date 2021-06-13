@@ -1,0 +1,142 @@
+@charset "EUC-KR";/* ∏ﬁ¿Œ */
+a {
+	text-decoration: none
+}
+
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 1;
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-width: 1000px;
+	_height: 1px;
+	_margin: 0 10px 0 980px;
+	display: block;
+	min-height: 1px;
+	padding: 0;
+	z-index: 0;
+}
+
+/*body*/
+
+
+.mbody .rightBox {
+	margin-left: 260px;
+	background: #fff;
+	margin: 260;
+	border-radius: 5px;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 10pt;
+	min-height: 100pt
+}
+h2 { color: skyblue; }
+
+section {
+	padding-left: 00%;
+}
+
+
+
+td {
+	width: 177px;
+	text-align: center;
+}
+
+#communityList, #noticeList{
+	width:95%;
+	margin-left:60px;
+}
+.col1{
+	width:5%;
+}
+
+.col2{
+	width: 40%;
+}
+
+.col3{
+	width: 15%;
+}
+.col4{
+	width: 20%;
+}
+.col5{
+	width: 10%;
+}
+h2{
+	text-align:center;
+}
+
+tr {
+	height: 50%;
+}
+
+thead {
+	border-bottom: 1px;
+}
+
+a {
+	color: black;
+}
+
+#page {
+	text-align: center;
+	height: 50px;
+}
+
+#write {
+	float: right;
+	border: 1px solid #ccc;
+	padding: 15px 10px 14px 10px;
+	height: 50px;
+	margin: 0;
+	width: 100px;
+	line-height: 21px;
+	box-sizing: border-box;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 17px;
+	background: skyblue;
+	border-radius: 5px;
+}
+.dataManageList{
+	width:80%;
+	margin: 0 auto;
+}
+#search{
+	text-align:center;
+}
+
+#logo1{
+	display:none;
+}
+#title1{
+	display:none;
+}
+#logo2{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title2{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}

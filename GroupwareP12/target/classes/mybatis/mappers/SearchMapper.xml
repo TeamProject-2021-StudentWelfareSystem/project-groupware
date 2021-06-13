@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.SearchDao">
+
+	<select id="SelectKeyWord"
+		parameterType="com.mju.groupware.dto.SearchKeyWord"
+		resultType="com.mju.groupware.dto.User">
+		Select
+		* from User where UserName LIKE
+		CONCAT('%',#{key},'%')
+	</select>
+
+	<select id="SelectStudentInfoForSearch" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Student">
+		Select
+		* from Student where UserID = #{userID};
+	</select>
+
+	<select id="SelectProfessorInfoForSearch"
+		parameterType="Integer" resultType="com.mju.groupware.dto.Professor">
+		Select
+		* from Professor where UserID
+		= #{userID};
+	</select>
+	
+	<select id="SelectUserReview"
+		parameterType="String"
+		resultType="com.mju.groupware.dto.UserReview">
+		Select
+		* 
+		from 
+		UserReview 
+		where UserID = #{UserID}
+	</select>
+</mapper>
