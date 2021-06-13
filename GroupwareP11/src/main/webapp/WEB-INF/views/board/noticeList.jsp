@@ -16,6 +16,7 @@
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardList.css" type="text/css">
+<link rel="stylesheet" href="css/boardImageOption2" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
 
 <title>notice list</title>

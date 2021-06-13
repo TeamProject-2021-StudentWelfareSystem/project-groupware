@@ -67,8 +67,8 @@ a {
 	margin-left: 2%;
 }
 .boxSlider{
-	margin-left:60%;
-	margin-right:10%;
+	margin-left:10%;
+	margin-right:60%;
 	height:350px;
 }
 .bottomBox {
@@ -81,5 +81,4 @@ a {
     border-right: 2px solid #ddd;
     border-bottom: 2px solid #ddd;
 }
-
 

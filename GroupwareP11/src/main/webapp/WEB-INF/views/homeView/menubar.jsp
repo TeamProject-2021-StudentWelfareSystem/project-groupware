@@ -23,11 +23,15 @@
 		<!--메뉴바 -->
 		<div class="menubar">
 			<div class="menubarWidth">
-				<div class="menubarLogo">
-					<!--로고추가하기-->
-				</div>
 				<div class="menubarMid">
+					
 					<nav id="navigation1">
+						<div class="menubarLogo">
+							<img id="logo1" src="../resources/image/logo.png">
+							<img id="title1" src="../resources/image/title.png">
+							<img id="logo2" src="resources/image/logo.png">
+							<img id="title2" src="resources/image/title.png">
+						</div>
 						<ul id="topInfo">
 							<!-- sign in -->
 							<li><sec:authorize access="isAnonymous()">

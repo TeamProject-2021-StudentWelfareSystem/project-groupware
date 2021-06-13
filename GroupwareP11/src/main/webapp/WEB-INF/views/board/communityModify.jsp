@@ -17,10 +17,12 @@
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/boardContent.css" type="text/css">
+<link rel="stylesheet" href="css/boardImageOption2" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/boardContent.js"></script>
 <title>community modify</title>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/homeView/menubar.jsp"></jsp:include>

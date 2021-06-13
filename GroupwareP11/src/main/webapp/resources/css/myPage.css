@@ -146,3 +146,21 @@ table {
 	background: skyblue;
 	border-radius: 5px;
 }
+#logo1{
+	display:none;
+}
+#title1{
+	display:none;
+}
+#logo2{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title2{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}

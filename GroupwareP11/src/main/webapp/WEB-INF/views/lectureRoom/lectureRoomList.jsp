@@ -19,6 +19,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet" href="../css/imageOption1.css" type="text/css">
 <link rel="stylesheet" href="../css/lectureRoomList.css" type="text/css">
 <link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <script src="../js/jquery-3.5.1.min.js"></script>

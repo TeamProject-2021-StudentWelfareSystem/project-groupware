@@ -16,8 +16,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/boardList.css" type="text/css">
+<link rel="stylesheet" href="css/inquiryBoardList.css" type="text/css">
 <link rel="stylesheet" href="css/menubar.css" type="text/css">
+
 
 <title>inquiry list</title>
 </head>
