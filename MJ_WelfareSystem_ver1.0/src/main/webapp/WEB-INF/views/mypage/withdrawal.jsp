@@ -46,8 +46,13 @@
 								value="취소">	
 						</div>
 					</form>
+					
 				</div>
 			</section>
+		</div>
+		<div>
+			<form id="logout" name="Logout" action="${path}/logout.do" method="POST">
+			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" /></form>
 		</div>
 	</div>
 </body>

@@ -6,7 +6,7 @@
         }
 		else{
 			alert("회원 탈퇴가 정상적으로 완료되었습니다.");
-				opener.parent.location='home'; 	
+				window.opener.location.href = "javascript:document.getElementById('logout').submit();";
         	window.close();
 		}
         });
