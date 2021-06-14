@@ -20,24 +20,7 @@
 <link rel="stylesheet" href="../css/documentBoardList.css" type="text/css">
 <link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <style>
-#logo1{
-	position: absolute;
-	margin : 10px 0px 15px 150px;
-	width:100px;
-	height:100px;
-}
-#title1{
-	position : absolute;
-	margin:15px 0px 15px 250px;
-	width:150px;
-	height:75px;
-}
-#logo2{
-	display:none;
-}
-#title2{
-	display:none;
-}
+
 </style>
 <title>document list</title>
 </head>

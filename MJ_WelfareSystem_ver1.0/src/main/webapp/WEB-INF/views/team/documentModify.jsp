@@ -20,26 +20,7 @@
 <link rel="stylesheet" href="../css/menubar.css" type="text/css">
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/boardContent.js"></script>
-<style>
-#logo1{
-	position: absolute;
-	margin : 10px 0px 15px 150px;
-	width:100px;
-	height:100px;
-}
-#title1{
-	position : absolute;
-	margin:15px 0px 15px 250px;
-	width:150px;
-	height:75px;
-}
-#logo2{
-	display:none;
-}
-#title2{
-	display:none;
-}
-</style>
+
 <title>document modify</title>
 </head>
 <body>
