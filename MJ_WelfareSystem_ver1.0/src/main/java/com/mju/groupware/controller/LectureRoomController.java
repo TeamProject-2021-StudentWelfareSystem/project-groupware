@@ -77,7 +77,6 @@ public class LectureRoomController {
 		//
 		String LectureRoomNo = request.getParameter("no");
 		int MaxNumOfPeople = lectureRoomService.SelectMaxNumOfPeople(LectureRoomNo);
-		System.out.println(MaxNumOfPeople);
 		String ReservationDate = request.getParameter("ReservationDate");
 
 		model.addAttribute("LectureRoomNo", LectureRoomNo);
@@ -159,6 +158,7 @@ public class LectureRoomController {
 					userReservation.setReservationStartTime(StartTime);
 					userReservation.setUserID(UserID);
 					lectureRoomService.InsertReservation(userReservation);
+					rttr.addFlashAttribute("Checker","reservationConfirm");
 					return this.constantLecture.getRRLectureRoomList();
 				}
 			}

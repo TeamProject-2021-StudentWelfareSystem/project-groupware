@@ -9,10 +9,7 @@ $(document).ready(function(){
             alert("예약 시간을 선택해주세요.");
             return false;
 
-        } else {
-			alert("강의실 예약이 완료되었습니다.");
-	
-		}
+        } 
     })
 
 

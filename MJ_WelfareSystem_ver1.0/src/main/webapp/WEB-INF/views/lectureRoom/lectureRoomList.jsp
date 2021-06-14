@@ -107,6 +107,8 @@
 											alert("예약 가능한 최대 인원을 초과 했습니다.");
 										}else if(result === "DuplicateReservationExist"){
 											alert("이미 예약한 강의실이 존재합니다. 강의실 취소 후 다시 시도 바랍니다.");	
+										}else if(result ==="reservationConfirm"){
+											alert("예약이 완료되었습니다.");
 										}
 
 									}

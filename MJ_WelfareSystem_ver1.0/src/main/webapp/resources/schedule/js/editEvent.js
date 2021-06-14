@@ -142,9 +142,7 @@ var editEvent = function(event, element, view) {
 			success: function(response) {
 				if (response != 0) {
 					alert('삭제되었습니다.');
-				} else {
-					alert('서버 오류입니다. 다시 시도해주시길 바랍니다.');
-				}
+				} 
 			}
 		});
 	});
