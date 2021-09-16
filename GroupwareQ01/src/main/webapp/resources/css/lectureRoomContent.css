@@ -1,0 +1,125 @@
+/* 메인 */
+a {
+	text-decoration: none
+}
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 110
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-width: 1000px;
+	_height: 1px;
+	_margin: 0 10px 0 980px;
+	display: block;
+	min-height: 1px;
+	padding: 0;
+	overflow: hidden;
+}
+
+/*body*/
+.mbody .rightBox {
+	margin-left: 260px;
+	height: 80%;
+	text-align: center;
+	background: #fff;
+	border-radius: 5px;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 10pt;
+	min-height: 100pt;
+	margin-bottom:10px;
+}
+
+h2 { color: skyblue; }
+
+a {
+	color: black;
+}
+
+
+.section2 {
+	height: 80%;
+}
+
+table {
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.inputBox {
+	background-color: white;
+}
+
+th, td{
+	padding: 8px;
+}
+
+#lectureRoomNo, #reservationDate, #reservationStartTime{
+	width: 300px;
+	height: 30px;
+}
+
+#maxNumOfPeople, #reservationNumOfPeople{
+	width: 100px;
+	height: 30px;
+}
+
+#selectPadding{
+	padding-right:745px;
+}
+
+#contentPadding{
+	padding-left:55px;
+}
+
+#btn {
+	text-align: center;
+}
+
+#listButton, #saveButton, #modifyButton, #deleteButton {
+	margin-top:100px;
+	border: 1px solid #ccc;
+	padding: 15px 10px 14px 10px;
+	height: 50px;
+	margin: 0;
+	width: 100px;
+	line-height: 21px;
+	box-sizing: border-box;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 17px;
+	background: skyblue;
+	border-radius: 5px;
+}
+#logo1{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title1{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}
+#logo2{
+	display:none;
+}
+#title2{
+	display:none;
+}

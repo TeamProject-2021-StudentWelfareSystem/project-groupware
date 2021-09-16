@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.TeamDao">
+	<insert id="InsertTeamInfo"
+		parameterType="com.mju.groupware.dto.Team" useGeneratedKeys="true"
+		keyProperty="TeamID">
+		insert into Team (
+		TeamName, TeamLeaderID,TeamLeaderName,
+		TeamCreationDate, ClassID
+		) values(
+		#{TeamName},
+		#{TeamLeaderID},#{TeamLeaderName},
+		#{TeamCreationDate}, #{ClassID}
+		)
+	</insert>
+
+	<select id="SelectClassID"
+		parameterType="com.mju.groupware.dto.Class" resultType="Integer">
+		select ClassID
+		from Class
+		where ClassName = #{ClassName} and ClassProfessorName =
+		#{ClassProfessorName}
+	</select>
+
+	<select id="SelectTeamFileInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.TeamBoard">
+		select *
+		from TeamFile
+		where TBoardSubject = #{TBoardSubject}
+	</select>
+	<select id="SelectTeamBoardListInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.TeamBoard">
+		select *
+		from TeamBoard
+		where TeamID = #{TeamID} and
+		TBoardDelete = 0
+	</select>
+
+	<select id="SelectClassInfo" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Class">
+		select *
+		from Class
+		where ClassID = #{ClassID}
+	</select>
+
+
+	<select id="SelectMyTeamInfo" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Team">
+		select * from team
+		where
+		teamID=#{teamID}
+	</select>
+
+	<select id="SelectMyTeamList" parameterType="String"
+		resultType="com.mju.groupware.dto.TeamUser">
+		select *
+		from TeamUser
+		where UserLoginID = #{UserLoginID}
+	</select>
+
+
+	<select id="SelectMyTeamID" parameterType="Integer"
+		resultType="com.mju.groupware.dto.TeamUser">
+		select TeamID
+		from TeamUser
+		where UserID =#{userID}
+	</select>
+
+
+	<select id="SelectClassList" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Class">
+		select *
+		from Class
+		where ClassID = #{classID}
+	</select>
+
+	<select id="SelectTeamList"
+		resultType="com.mju.groupware.dto.Team">
+		select *
+		from Team;
+	</select>
+	<select id="SelectLectureInformation" parameterType="String"
+		resultType="com.mju.groupware.dto.Class">
+		select * from Class
+		where ClassName LIKE
+		CONCAT('%',#{lectureName},'%')
+	</select>
+
+	<select id="SelectUserIDForTeamUser"
+		parameterType="com.mju.groupware.dto.User" resultType="Integer">
+		select UserID
+		from User
+		where UserName = #{UserName} and UserLoginID = #{UserLoginID}
+	</select>
+
+	<select id="SelectUserID2" parameterType="String"
+		resultType="Integer">
+		select UserID
+		from User
+		where UserLoginID = #{UserLoginID}
+	</select>
+
+	<insert id="InsertTeamUserInfo"
+		parameterType="com.mju.groupware.dto.TeamUser">
+		insert into TeamUser (
+		TeamID, UserID, UserName,
+		UserLoginID
+		) values(
+		#{TeamID}, #{UserID}, #{UserName}, #{UserLoginID}
+		)
+	</insert>
+
+	<select id="SelectTeamLeaderUserID"
+		parameterType="com.mju.groupware.dto.User" resultType="Integer">
+		select UserID
+		from User
+		where UserLoginID = #{name}
+	</select>
+
+	<select id="SelectClassIDForCheckTeam" parameterType="Integer"
+		resultType="Integer">
+		select ClassID from Team where TeamID = #{teamID}
+	</select>
+
+	<select id="SelectClassInfoForCheckTeam" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Class">
+		select ClassName, ClassProfessorName from Class
+		where
+		ClassID = #{classID}
+	</select>
+
+	<select id="SelectTeamName" parameterType="Integer"
+		resultType="String">
+		select TeamName from Team where TeamID = #{teamID}
+	</select>
+
+	<select id="SelectUserIDAboutTeamID" resultType="Integer"
+		parameterType="Integer">
+		select UserID from TeamUser where TeamID = #{teamID}
+	</select>
+
+	<select id="SelectTeamMemberInfo"
+		resultType="com.mju.groupware.dto.TeamUser">
+		select UserName, UserLoginID from TeamUser where TeamID =
+		#{teamID}
+	</select>
+
+	<select id="SelectLeaderName" resultType="String"
+		parameterType="Integer">
+		select UserName from User where UserID = #{leaderUserID}
+	</select>
+
+	<select id="SelectLeaderLoginID" resultType="String"
+		parameterType="Integer">
+		select UserLoginID from User where UserID =
+		#{leaderUserID}
+	</select>
+
+	<delete id="DeleteTeamMemberInfo">
+		delete from TeamUser where TeamID = #{teamID}
+	</delete>
+
+	<select id="SelectTeamIDForDocument" resultType="String"
+		parameterType="String">
+		select TeamID from TeamUser where UserID =
+		#{UserID}
+	</select>
+
+	<select id="SelectTeamIDForDelete" resultType="String"
+		parameterType="String">
+		select TeamID from TeamUser where UserID =
+		#{UserID}
+	</select>
+	<select id="SelectTeamNameWithLoginUser" resultType="Integer"
+		parameterType="String">
+		select TeamID from TeamUser where UserLoginID = #{name}
+	</select>
+
+	<select id="SelectClassIDFromTeam" resultType="Integer"
+		parameterType="Integer">
+		select ClassID from Team where teamID = #{teamID}
+	</select>
+	<select id="SelectTeamNameWithTeamID" resultType="String"
+		parameterType="Integer">
+		select TeamName from Team where TeamID = #{teamID}
+	</select>
+
+	<select id="SelectTeamIDForReview" resultType="String"
+		parameterType="String">
+		select TeamID from Team where TeamName = #{teamName}
+	</select>
+
+	<select id="SelectTeamMember"
+		resultType="com.mju.groupware.dto.TeamUser" parameterType="String">
+		select
+		UserName, UserLoginID from TeamUser where TeamID = #{teamID}
+	</select>
+	<select id="SelectTeamUserID" resultType="String"
+		parameterType="String">
+		select UserID from User where UserLoginID =
+		#{userLoginID}
+	</select>
+
+	<insert id="InsertUserReview"
+		parameterType="com.mju.groupware.dto.UserReview">
+		insert into UserReview(Positive, Contribute, Respect,
+		Flexible, ClassName, ClassProfessorName, ReviewDate, UserID,
+		WriterUserID, TeamName)
+		values(#{Positive},#{Contribute},#{Respect},#{Flexible},#{ClassName},#{ClassProfessorName},#{ReviewDate},#{UserID},#{WriterUserID},
+		#{TeamName})
+	</insert>
+
+	<select id="SelectTeamLeaderLoginID" parameterType="String"
+		resultType="String">
+		select TeamLeaderID from Team where TeamID = #{teamID}
+	</select>
+
+	<delete id="DeleteTeam">
+		delete from Team where TeamID = #{teamID}
+	</delete>
+
+	<select id="SelectWriterUserID" parameterType="String"
+		resultType="String">
+		select UserID from User where UserLoginID = #{userLoginID}
+	</select>
+
+	<select id="SelectColumnCount"
+		parameterType="com.mju.groupware.dto.UserReview" resultType="Integer">
+		select
+		count(UserID) from UserReview where UserID=#{UserID} and WriterUserID
+		= #{WriterUserID} and TeamName=#{TeamName}
+	</select>
+
+</mapper>

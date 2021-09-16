@@ -1,0 +1,175 @@
+/* 메인 */
+a {
+	text-decoration: none
+}
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 110
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-height: 1000px;
+	_margin: 0 10px 0 980px;
+	z-index: 1;
+	display: block;
+	padding: 0;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+
+/*body*/
+.mcontWidth {
+	position: relative;
+	width: 100%;
+	padding: 0;
+	background: #f1f1f1;
+	padding: 10px;
+	padding-bottom: 0px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+
+.mbody .rightBox {
+	margin-left: 260px;
+	background: #fff;
+	margin: 260;
+	border-radius: 5px;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 10pt;
+	min-height: 100pt;
+}
+
+
+.loginMenu {
+	text-align: center;
+	margin-top: 40px;
+	width: 200px;
+	height: 50px;
+	background: #083788;
+}
+
+.loginMenu a {
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.joinMenu {
+	text-align: center;
+}
+
+.joinMenu a {
+	font-size: 15px;
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+	line-height: 40px;
+}
+
+.findMenu {
+	text-align: center;
+}
+
+.findMenu a {
+	font-size: 15px;
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+.container {
+	display: flex;
+	justify-content: center;
+	background-color: white;
+}
+
+#infoManagement {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 70%;
+	height: 100%;
+	margin-top: 100px;
+	min-height: 100%;
+	padding: 15px;
+}
+
+h2 {
+	color: skyblue;
+	text-align: center;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.inputBox {
+	border: 0px solid rgba(61, 59, 59, 0.178);
+	padding: 15px 10px 14px 10px;
+	height: 100%;
+	margin: 0;
+	width: 100%;
+	font-size: 14px;
+	box-sizing: border-box;
+	color: #000;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+
+.col1 {
+	text-align: center;
+	font-weight: bold;
+	width: 100pt;
+	height: 100%;
+	background-color: #ccc;
+	border-radius: 10px;
+	border: 0px solid rgba(61, 59, 59, 0.178);
+	box-sizing: border-box;
+}
+
+.col2 {
+	width: 200pt;
+}
+
+.col3 {
+	width: 100pt;
+}
+
+#btnDiv {
+	text-align: right;
+}
+
+#deleteBtn, #listBtn {
+	border: 1px solid #ccc;
+	height: 50px;
+	margin: 0;
+	width: 10%;
+	line-height: 21px;
+	box-sizing: border-box;
+	color: white;
+	margin-top: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 17px;
+	background: skyblue;
+	border-radius: 5px;
+}
