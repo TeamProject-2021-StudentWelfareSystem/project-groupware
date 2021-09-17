@@ -399,3 +399,11 @@ DROP EVENT Dormant_Scheduler_test;
 옵션 CASCADE -> 부모테이블에서 primary 값이 삭제될 경우
 옵션 CASCADE 로 정의되면 하위테이블의 reference값은 삭제되면서 참조무결성을 유지합니다.
 */
+
+-----------------------------------------
+# 추가
+create table persistent_logins(
+username varchar(100) not null,
+series varchar(500) PRIMARY key,
+token varchar(500) not null,
+last_used timestamp not null);
