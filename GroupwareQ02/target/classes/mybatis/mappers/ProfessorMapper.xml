@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.ProfessorDao">
+
+	<!-- 회원가입 -->
+	<insert id="InsertInformationP"
+		parameterType="com.mju.groupware.dto.Professor">
+		insert into professor (
+		ProfessorColleges,
+		ProfessorMajor,
+		ProfessorRoom,
+		ProfessorRoomNum,
+		UserID
+		) values(
+		#{professorColleges},
+		#{professorMajor},
+		#{professorRoom},
+		#{professorRoomNum},
+		#{userID}
+		)
+	</insert>
+
+	<update id="UpdateUserID"
+		parameterType="com.mju.groupware.dto.Professor">
+		update Professor
+		set UserID = #{UserID}
+		where ProfessorNum =
+		#{ProfessorNum}
+	</update>
+
+	<select id="SelectMyPageProfessorInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Professor">
+		select
+		ProfessorMajor,
+		ProfessorRoom,
+		ProfessorRoomNum
+		from
+		Professor
+		where UserID = #{UserId};
+	</select>
+	
+	<select id="SelectProfessorProfileInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Professor">
+		select
+		ProfessorColleges,
+		ProfessorMajor,
+		ProfessorRoom
+		from
+		Professor
+		where UserID = #{UserId};
+	</select>
+	
+	<select id="SelectMyPageProfessorInfoByID" parameterType="String"
+		resultType="com.mju.groupware.dto.Professor">
+		select
+		ProfessorColleges,
+		ProfessorMajor,
+		ProfessorRoom,
+		ProfessorRoomNum
+		from
+		Professor
+		where UserID = #{UserId};
+	</select>
+	
+	<!-- 마이페이지 정보수정 -->
+	<update id="UpdateProfessorRoom" parameterType="com.mju.groupware.dto.Professor">
+		UPDATE Professor SET
+		ProfessorRoom = #{ProfessorRoom} WHERE UserID = #{UserID}
+	</update>
+	
+	<update id="UpdateProfessorRoomNum" parameterType="com.mju.groupware.dto.Professor">
+		UPDATE Professor SET
+		ProfessorRoomNum = #{ProfessorRoomNum} WHERE UserID = #{UserID}
+	</update>
+	
+	<update id="UpdateProfessorColleges" parameterType="com.mju.groupware.dto.Professor">
+		UPDATE Professor SET
+		ProfessorColleges = #{ProfessorColleges} WHERE UserID = #{UserID}
+	</update>
+	
+	<update id="UpdateProfessorMajor" parameterType="com.mju.groupware.dto.Professor">
+		UPDATE Professor SET
+		ProfessorMajor = #{ProfessorMajor} WHERE UserID = #{UserID}
+	</update>
+	
+	<select id="SelectProfessorInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Professor">
+		select
+		*
+		from
+		Professor
+		where UserID = #{UserId};
+	</select>
+	
+	<update id="UpdateProfessorLoginDate" parameterType="com.mju.groupware.dto.Professor">
+		update Professor set
+		LoginDate = #{date} where UserID = #{UserID}
+	</update>
+	
+	<select id="SelectModifyProfessorInfo" parameterType="Integer"
+      resultType="com.mju.groupware.dto.Professor">
+      select
+      *
+      from
+      Professor
+      where UserID = #{UserId};
+   </select>
+   
+</mapper>
