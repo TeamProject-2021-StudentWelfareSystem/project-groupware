@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/HomeController.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="HomeControllerID" class="com.mju.groupware.constant.ConstantHomeController">
+		<property name="Home">
+			<value>${Home}</value>
+		</property>
+		<property name="Select">
+			<value>${Select}</value>
+		</property>
+		<property name="Consent">
+			<value>${Consent}</value>
+		</property>
+		<property name="Login">
+			<value>${Login}</value>
+		</property>
+		<property name="AdminLogin">
+			<value>${AdminLogin}</value>
+		</property>
+		<property name="Denied">
+			<value>${Denied}</value>
+		</property>
+
+		
+	</bean>
+</beans>
