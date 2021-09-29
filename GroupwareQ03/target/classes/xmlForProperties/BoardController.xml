@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+   <!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+   <context:property-placeholder
+      location="classpath:/properties/BoardController.properties" />
+
+   <!-- 빈 생성 및 setter 매개변수 전달 -->
+   <bean id="BoardControllerID"
+      class="com.mju.groupware.constant.ConstantAdminBoardController">
+      <property name="InquiryTitle">
+         <value>${InquiryTitle}</value>
+      </property>
+      <property name="InquiryWriter">
+         <value>${InquiryWriter}</value>
+      </property>
+      <property name="IBoardDate">
+         <value>${IBoardDate}</value>
+      </property>
+      <property name="InquiryContent">
+         <value>${InquiryContent}</value>
+      </property>
+      <property name="InquiryEmail">
+         <value>${InquiryEmail}</value>
+      </property>
+      <property name="InquiryPhoneNum">
+         <value>${InquiryPhoneNum}</value>
+      </property>
+      <property name="InquiryList">
+         <value>${InquiryList}</value>
+      </property>
+      <property name="InquiryType">
+         <value>${InquiryType}</value>
+      </property>
+      <property name="InquiryAnswer">
+         <value>${InquiryAnswer}</value>
+      </property>
+      <property name="BoardID">
+         <value>${BoardID}</value>
+      </property>
+      <property name="BoardDate">
+         <value>${BoardDate}</value>
+      </property>
+      <property name="BoardType">
+         <value>${BoardType}</value>
+      </property>
+      <property name="UserID">
+         <value>${UserID}</value>
+      </property>
+      <property name="UserIDFromWriter">
+         <value>${UserIDFromWriter}</value>
+      </property>
+      <property name="NoticeTitle">
+         <value>${NoticeTitle}</value>
+      </property>
+      <property name="NoticeWriter">
+         <value>${NoticeWriter}</value>
+      </property>
+      <property name="NoticeList">
+         <value>${NoticeList}</value>
+      </property>
+      <property name="NoticeFile">
+         <value>${NoticeFile}</value>
+      </property>
+      <property name="NoticeContent">
+         <value>${NoticeContent}</value>
+      </property>
+      <property name="CommunityTitle">
+         <value>${CommunityTitle}</value>
+      </property>
+      <property name="CommunityList">
+         <value>${CommunityList}</value>
+      </property>
+      <property name="CommunityWriter">
+         <value>${CommunityWriter}</value>
+      </property>
+      <property name="CommunityFile">
+         <value>${CommunityFile}</value>
+      </property>
+       <property name="CommunityContent">
+         <value>${CommunityContent}</value>
+      </property>
+      
+       <property name="RInquiryList">
+         <value>${RInquiryList}</value>
+      </property>
+      
+       <property name="RInquiryContent">
+         <value>${RInquiryContent}</value>
+      </property>
+      
+       <property name="RRInquiryList">
+         <value>${RRInquiryList}</value>
+      </property>
+      
+       <property name="RNoticeList">
+         <value>${RNoticeList}</value>
+      </property>
+      
+       <property name="RNoticeWrite">
+         <value>${RNoticeWrite}</value>
+      </property>
+      
+       <property name="RRNoticeList">
+         <value>${RRNoticeList}</value>
+      </property>
+      
+       <property name="RNoticeModify">
+         <value>${RNoticeModify}</value>
+      </property>
+      
+       <property name="RNoticeContent">
+         <value>${RNoticeContent}</value>
+      </property>
+      
+       <property name="RCommunityList">
+         <value>${RCommunityList}</value>
+      </property>
+      
+       <property name="RCommunityWrite">
+         <value>${RCommunityWrite}</value>
+      </property>
+      
+       <property name="RCommunityModify">
+         <value>${RCommunityModify}</value>
+      </property>
+      
+       <property name="RRCommunityList">
+         <value>${RRCommunityList}</value>
+      </property>
+      
+       <property name="RCommunityContent">
+         <value>${RCommunityContent}</value>
+      </property>
+       <property name="RInquiryWrite">
+         <value>${RInquiryWrite}</value>
+      </property>
+       <property name="FilePath">
+         <value>${FilePath}</value>
+      </property>
+       <property name="ADMINISTRATOR">
+         <value>${ADMINISTRATOR}</value>
+      </property>
+       <property name="PROFESSOR">
+         <value>${PROFESSOR}</value>
+      </property>
+       <property name="STUDENT">
+         <value>${STUDENT}</value>
+      </property>
+      
+   </bean>
+</beans>
