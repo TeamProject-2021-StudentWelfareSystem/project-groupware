@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+   <context:property-placeholder
+      location="classpath:/properties/UserFunction.properties" />
+
+   <!-- 빈 생성 및 setter 매개변수 전달 -->
+   <bean id="Withdrawal"
+      class="com.mju.groupware.constant.ConstantWithdrawal">
+      <property name="Parameter1">
+         <value>${Parameter1}</value>
+      </property>
+      <property name="Parameter2">
+         <value>${Parameter2}</value>
+      </property>
+      <property name="Url">
+         <value>${Url}</value>
+      </property>
+
+
+   </bean>
+
+   <bean id="DoEmail"
+      class="com.mju.groupware.constant.ConstantDoEmail">
+
+      <property name="EPwd">
+         <value>${EPwd}</value>
+      </property>
+
+      <property name="AuthNum">
+         <value>${AuthNum}</value>
+      </property>
+      <property name="EmailAdress">
+         <value>${EmailAdress}</value>
+      </property>
+      <property name="DateFormat">
+         <value>${DateFormat}</value>
+      </property>
+      <property name="AuthUrl">
+         <value>${AuthUrl}</value>
+      </property>
+      <property name="AgreeUrl">
+         <value>${AgreeUrl}</value>
+      </property>
+
+      <property name="EC">
+         <value>${EC}</value>
+      </property>
+
+      <property name="EV">
+         <value>${EV}</value>
+      </property>
+
+      <property name="BA">
+         <value>${BA}</value>
+      </property>
+
+      <property name="EM">
+         <value>${EM}</value>
+      </property>
+
+      <property name="REURL">
+         <value>${REURL}</value>
+      </property>
+      <property name="RELURL">
+         <value>${RELURL}</value>
+      </property>
+      <property name="EURL">
+         <value>${EURL}</value>
+      </property>
+      
+      <property name="ECURL">
+         <value>${ECURL}</value>
+      </property>
+
+   </bean>
+
+   <bean id="DoSignUp"
+      class="com.mju.groupware.constant.ConstantDoSignUp">
+      <property name="SName">
+         <value>${SName}</value>
+      </property>
+      <property name="PName">
+         <value>${PName}</value>
+      </property>
+      <property name="Pwd">
+         <value>${Pwd}</value>
+      </property>
+      <property name="PhoneNum">
+         <value>${PhoneNum}</value>
+      </property>
+      <property name="SNum">
+         <value>${SNum}</value>
+      </property>
+      <property name="PNum">
+         <value>${PNum}</value>
+      </property>
+      <property name="SRole">
+         <value>${SRole}</value>
+      </property>
+      <property name="PRole">
+         <value>${PRole}</value>
+      </property>
+      <property name="SSUrl">
+         <value>${SSUrl}</value>
+      </property>
+      <property name="SLUrl">
+         <value>${SLUrl}</value>
+      </property>
+   </bean>
+
+   <bean id="DoFindPassword"
+      class="com.mju.groupware.constant.ConstantDoFindPassword">
+      <property name="UName">
+         <value>${UName}</value>
+      </property>
+
+      <property name="AuthNum">
+         <value>${AuthNum}</value>
+      </property>
+
+      <property name="Pwd">
+         <value>${Pwd}</value>
+      </property>
+
+      <property name="FPUrl">
+         <value>${FPUrl}</value>
+      </property>
+
+      <property name="SSPUrl">
+         <value>${SSPUrl}</value>
+      </property>
+
+      <property name="SRole">
+         <value>${SRole}</value>
+      </property>
+      <property name="PRole">
+         <value>${PRole}</value>
+      </property>
+      <property name="RMS">
+         <value>${RMS}</value>
+      </property>
+      <property name="RMP">
+         <value>${RMP}</value>
+      </property>
+      <property name="CPUrl">
+         <value>${CPUrl}</value>
+      </property>
+
+      <property name="CPUrl3">
+         <value>${CPUrl3}</value>
+      </property>
+
+      <property name="ULPWD">
+         <value>${ULPWD}</value>
+      </property>
+
+      <property name="RMPWD">
+         <value>${RMPWD}</value>
+      </property>
+
+      <property name="UNPWD">
+         <value>${UNPWD}</value>
+      </property>
+
+      <property name="UNPWDC">
+         <value>${UNPWDC}</value>
+      </property>
+
+      <property name="MPUrl">
+         <value>${MPUrl}</value>
+      </property>
+
+
+   </bean>
+
+   <bean id="FindPassword"
+      class="com.mju.groupware.constant.ConstantFindPassword">
+      <property name="FPUrl">
+         <value>${FPUrl}</value>
+      </property>
+
+      <property name="SPUrl">
+         <value>${SPUrl}</value>
+      </property>
+   </bean>
+
+   <bean id="Home" class="com.mju.groupware.constant.ConstantHome">
+      <property name="SRole">
+         <value>${SRole}</value>
+      </property>
+
+      <property name="PRole">
+         <value>${PRole}</value>
+      </property>
+
+      <property name="ARole">
+         <value>${ARole}</value>
+      </property>
+
+      <property name="DFormat">
+         <value>${DFormat}</value>
+      </property>
+
+      <property name="NL">
+         <value>${NL}</value>
+      </property>
+
+      <property name="CL">
+         <value>${CL}</value>
+      </property>
+
+      <property name="HUrl">
+         <value>${HUrl}</value>
+      </property>
+
+      <property name="MPSUrl">
+         <value>${MPSUrl}</value>
+      </property>
+
+      <property name="MPPUrl">
+         <value>${MPPUrl}</value>
+      </property>
+
+      <property name="RUrl">
+         <value>${RUrl}</value>
+      </property>
+   </bean>
+
+
+
+   <bean id="MyPostList"
+      class="com.mju.groupware.constant.ConstantMyPostList">
+
+      <property name="MBList">
+         <value>${MBList}</value>
+      </property>
+
+      <property name="MBUrl">
+         <value>${MBUrl}</value>
+      </property>
+
+
+   </bean>
+
+   <bean id="MyInquiryList"
+      class="com.mju.groupware.constant.ConstantMyInquiryList">
+
+      <property name="MIList">
+         <value>${MIList}</value>
+      </property>
+
+      <property name="MIUrl">
+         <value>${MIUrl}</value>
+      </property>
+   </bean>
+
+   <bean id="UserFunctionURL"
+      class="com.mju.groupware.constant.ConstantUserFunctionURL">
+      <property name="CMTUrl">
+         <value>${CMTUrl}</value>
+      </property>
+
+      <property name="CPUrl">
+         <value>${CPUrl}</value>
+      </property>
+
+      <property name="MPUrl">
+         <value>${MPUrl}</value>
+      </property>
+
+      <property name="CPWUrl">
+         <value>${CPWUrl}</value>
+      </property>
+
+      <property name="RWUrl">
+         <value>${RWUrl}</value>
+      </property>
+
+      <property name="ULPWD">
+         <value>${ULPWD}</value>
+      </property>
+
+      <property name="EAUrl">
+         <value>${EAUrl}</value>
+      </property>
+   </bean>
+
+   <bean id="Email" class="com.mju.groupware.constant.ConstantEmail">
+
+      <property name="EMURL">
+         <value>${EMURL}</value>
+      </property>
+
+   </bean>
+
+</beans>

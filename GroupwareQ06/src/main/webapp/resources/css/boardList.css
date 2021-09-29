@@ -1,0 +1,10 @@
+.write{
+	float:right;
+	color:blue;
+}
+.table-responsive{
+	overflow-x:hidden;
+}
+.row{
+	justify-content:space-between;
+}

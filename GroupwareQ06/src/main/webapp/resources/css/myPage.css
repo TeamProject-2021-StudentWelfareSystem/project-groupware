@@ -1,0 +1,166 @@
+/* 메인 */
+a {
+	text-decoration: none;
+}
+
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 110
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-width: 1000px;
+	_height: 1px;
+	_margin: 0 10px 0 980px;
+	z-index: 1;
+	display: block;
+	min-height: 1px;
+	padding: 0;
+	overflow: hidden;
+}
+
+
+/*body*/
+.subMenuBox {
+	margin-top: 200px;
+	margin-left: -382px;
+	width: 250px;
+	height: 100%;
+	background: #fff;
+	border: 2px solid #ddd;
+	box-sizing: border-box;
+	padding: 40px 20px;
+}
+
+	
+.subMenuBox a {
+	color: black;
+	font-weight: bold;
+}
+
+.subMenuBox li {
+	padding: 10px;
+}
+
+.subMenuBox li a:hover {
+	color: steelblue;
+}
+
+.mbody .rightBox {
+	margin-left: 260px;
+	background: #fff;
+	padding: 10pt;
+	min-height: 100pt;
+	position: relative;
+}
+
+.rightBox {
+	display: flex;
+	justify-content: center;
+	background-color: white;
+}
+
+#memberInfo {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 90%;
+	height: 100%;
+	min-height: 100%;
+	padding: 15px;
+}
+
+h2 {
+	color: steelblue;
+}
+#form {
+	margin-top: 30px;
+}
+table {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+.inputBox {
+	border: 0px solid rgba(61, 59, 59, 0.178);
+	padding: 15px 10px 14px 10px;
+	height: 100%;
+	margin: 0;
+	width: 100%;
+	font-size: 14px;
+	box-sizing: border-box;
+	color: #000;
+	margin-top: 10px;
+    border-radius: 10px;
+}
+
+.col1 {
+	font-weight:bold;
+	width: 20%;
+
+   
+}
+
+.col2 {
+	width: 55%;
+ 
+}
+
+.col3 {
+	width: 15%;
+}
+
+.col4 {
+	width: 10px;
+}
+
+#studentGender, #studentGrade, #professorRoom{
+    width : 20%
+}
+
+#modifyBtn, #modifyPWBtn, #withdrawBtn{
+    border: 1px solid #ccc;
+	padding: 15px 10px 14px 10px;
+	height: 50px;
+	margin: 0;
+	width: 20%;
+	line-height: 21px;
+	box-sizing: border-box;
+	color: white;
+	margin-top: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 17px;
+	background: skyblue;
+	border-radius: 5px;
+}
+#logo1{
+	display:none;
+}
+#title1{
+	display:none;
+}
+#logo2{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title2{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}

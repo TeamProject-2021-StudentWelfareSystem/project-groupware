@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/Admin.properties" />
+
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="admin" class="com.mju.groupware.constant.ConstantAdmin">
+		<property name="SRole">
+			<value>${SRole}</value>
+		</property>
+		<property name="PRole">
+			<value>${PRole}</value>
+		</property>
+		<property name="ARole">
+			<value>${ARole}</value>
+		</property>
+		<property name="TemporaryPwd">
+			<value>${TemporaryPwd}</value>
+		</property>
+
+		<property name="Home">
+			<value>${Home}</value>
+		</property>
+
+		<property name="List">
+			<value>${List}</value>
+		</property>
+
+		<property name="ReList">
+			<value>${ReList}</value>
+		</property>
+
+		<property name="ReSleep">
+			<value>${ReSleep}</value>
+		</property>
+		<property name="SleepList">
+			<value>${SleepList}</value>
+		</property>
+
+		<property name="SecessionList">
+			<value>${SecessionList}</value>
+		</property>
+
+		<property name="Detail">
+			<value>${Detail}</value>
+		</property>
+
+		<property name="ReSDetail">
+			<value>${ReSDetail}</value>
+		</property>
+		<property name="RePDetail">
+			<value>${RePDetail}</value>
+		</property>
+		<property name="SDetail">
+			<value>${SDetail}</value>
+		</property>
+		<property name="PDetail">
+			<value>${PDetail}</value>
+		</property>
+
+		<property name="SModify">
+			<value>${SModify}</value>
+		</property>
+
+		<property name="PModify">
+			<value>${PModify}</value>
+		</property>
+
+		<property name="SManage">
+			<value>${SManage}</value>
+		</property>
+
+		<property name="PManage">
+			<value>${PManage}</value>
+		</property>
+
+		<property name="SManageModify">
+			<value>${SManageModify}</value>
+		</property>
+
+		<property name="PManageModify">
+			<value>${PManageModify}</value>
+		</property>
+
+		<property name="ROLE_USER">
+			<value>${ROLE_USER}</value>
+		</property>
+		<property name="ROLE_SUSER">
+			<value>${ROLE_SUSER}</value>
+		</property>
+
+		<property name="ROLE_PUSER">
+			<value>${ROLE_PUSER}</value>
+		</property>
+
+		<property name="ROLE_ADMIN">
+			<value>${ROLE_ADMIN}</value>
+		</property>
+
+		<property name="STUDENT">
+			<value>${STUDENT}</value>
+		</property>
+
+		<property name="PROFESSOR">
+			<value>${PROFESSOR}</value>
+		</property>
+
+		<property name="ADMINISTRATOR">
+			<value>${ADMINISTRATOR}</value>
+		</property>
+		<property name="UserPhoneNum">
+			<value>${UserPhoneNum}</value>
+		</property>
+
+		<property name="UserEmail">
+			<value>${UserEmail}</value>
+		</property>
+
+		<property name="ProfessorRoomNum">
+			<value>${ProfessorRoomNum}</value>
+		</property>
+		<property name="Email">
+			<value>${Email}</value>
+		</property>
+	</bean>
+</beans>
