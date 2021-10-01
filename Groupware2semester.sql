@@ -50,8 +50,8 @@ Withdrawal boolean not null default 0 # 가입:0 탈퇴:1
 
 create table Student(
 StudentID int auto_increment not null primary key,
-StudentGrade varchar(20) not null , #학년
-StudentGender varchar(20) not null default '입력해주세요', # male / female
+StudentGrade varchar(20) not null, #학년
+StudentGender varchar(20) not null, # male / female
 StudentColleges varchar(100) not null, #단과대학
 StudentMajor varchar(100) not null, #전공
 StudentDoubleMajor varchar(100), #복수전공
