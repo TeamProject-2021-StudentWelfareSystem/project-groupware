@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/UserDao.properties" />
+	
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="UserDaoID" class="com.mju.groupware.constant.ConstantAdminUserDao">
+		<property name="InsertUser">
+			<value>${InsertUser}</value>
+		</property>
+		<property name="SelectByLoginID">
+			<value>${SelectByLoginID}</value>
+		</property>
+		<property name="SelctForIDConfirm">
+			<value>${SelctForIDConfirm}</value>
+		</property>
+		<property name="SelectPwdForConfirmToFindPwd">
+			<value>${SelectPwdForConfirmToFindPwd}</value>
+		</property>
+		<property name="SelectUserID">
+			<value>${SelectUserID}</value>
+		</property>
+		<property name="SelectForShowPassword">
+			<value>${SelectForShowPassword}</value>
+		</property>
+		<property name="SelectForEmailDuplicateCheck">
+			<value>${SelectForEmailDuplicateCheck}</value>
+		</property>
+		<property name="UpdateLoginDate">
+			<value>${UpdateLoginDate}</value>
+		</property>
+		<property name="SelectCurrentPwd">
+			<value>${SelectCurrentPwd}</value>
+		</property>
+		<property name="UpdatePwd">
+			<value>${UpdatePwd}</value>
+		</property>
+		<property name="SelectForPwdCheckBeforeModify">
+			<value>${SelectForPwdCheckBeforeModify}</value>
+		</property>
+		<property name="SelectUserInfo">
+			<value>${SelectUserInfo}</value>
+		</property>
+		<property name="UpdateUserPhoneNum">
+			<value>${UpdateUserPhoneNum}</value>
+		</property>
+		<property name="UpdateUserMajor">
+			<value>${UpdateUserMajor}</value>
+		</property>
+		<property name="UpdateUserColleges">
+			<value>${UpdateUserColleges}</value>
+		</property>
+		<property name="SelectUserInformation">
+			<value>${SelectUserInformation}</value>
+		</property>
+		<property name="UpdateTemporaryPwd">
+			<value>${UpdateTemporaryPwd}</value>
+		</property>
+		<property name="UpdateWithdrawal">
+			<value>${UpdateWithdrawal}</value>
+		</property>
+		<property name="UpdateDoWithdrawalRecoveryByAdmin">
+			<value>${UpdateDoWithdrawalRecoveryByAdmin}</value>
+		</property>
+		<property name="UpdateDormantOneToZero">
+			<value>${UpdateDormantOneToZero}</value>
+		</property>
+		<property name="ROLE_USER">
+			<value>${ROLE_USER}</value>
+		</property>
+		<property name="UpdateUserRole">
+			<value>${UpdateUserRole}</value>
+		</property>
+		<property name="ROLE_ADMIN">
+			<value>${ROLE_ADMIN}</value>
+		</property>
+		<property name="UpdateAdminRole">
+			<value>${UpdateAdminRole}</value>
+		</property>
+		<property name="SelectMyPageInfo">
+			<value>${SelectMyPageInfo}</value>
+		</property>
+		<property name="SelectMyPageInfoByID">
+			<value>${SelectMyPageInfoByID}</value>
+		</property>
+		<property name="UpdateUserName">
+			<value>${UpdateUserName}</value>
+		</property>
+		<property name="UpdateOpenName">
+			<value>${UpdateOpenName}</value>
+		</property>
+		<property name="UpdateOpenEmail">
+			<value>${UpdateOpenEmail}</value>
+		</property>
+		<property name="UpdateOpenPhoneNum">
+			<value>${UpdateOpenPhoneNum}</value>
+		</property>
+		<property name="UpdateOpenMajor">
+			<value>${UpdateOpenMajor}</value>
+		</property>
+		<property name="UpdateOpenGrade">
+			<value>${UpdateOpenGrade}</value>
+		</property>
+		<property name="SelectUserInfoForWithdrawal">
+			<value>${SelectUserInfoForWithdrawal}</value>
+		</property>
+		<property name="InsertWithdrawalUser">
+			<value>${InsertWithdrawalUser}</value>
+		</property>
+		<property name="DeleteWithdrawalUser">
+			<value>${DeleteWithdrawalUser}</value>
+		</property>
+		<property name="DeleteWithdrawalUserList">
+			<value>${DeleteWithdrawalUserList}</value>
+		</property>
+			<property name="SelectOpenInfo">
+			<value>${SelectOpenInfo}</value>
+		</property>
+		<property name="SelectUserIDFromBoardController">
+			<value>${SelectUserIDFromBoardController}</value>
+		</property>
+	</bean>
+</beans>
