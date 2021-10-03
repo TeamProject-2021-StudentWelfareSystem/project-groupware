@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.StudentDao">
+
+	<!-- 회원가입 -->
+	<insert id="InsertInformation"
+		parameterType="com.mju.groupware.dto.Student">
+		insert into student (
+		StudentGrade,
+		StudentGender,
+		StudentColleges,
+		StudentMajor,
+		StudentDoubleMajor,
+		UserID
+		) values(
+		#{studentGrade},
+		#{studentGender},
+		#{studentColleges},
+		#{studentMajor},
+		#{studentDoubleMajor},
+		#{userID}
+		)
+	</insert>
+
+	<update id="UpdateUserID"
+		parameterType="com.mju.groupware.dto.Student">
+		update Student
+		set UserID = #{UserID}
+		where StudentNum =
+		#{StudentNum}
+	</update>
+
+	<select id="GetGrade" resultType="String">
+		select
+		StudentGrade
+		from
+		Student
+		where StudentID = #{UserId};
+	</select>
+
+	<select id="SelectMyPageStudentInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Student">
+		select
+		StudentGrade,
+		StudentGender,
+		StudentDoubleMajor
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
+
+	<select id="SelectMyPageStudentInfoByID" parameterType="String"
+		resultType="com.mju.groupware.dto.Student">
+		select
+		StudentGrade,
+		StudentColleges,
+		StudentMajor,
+		StudentDoubleMajor,
+		StudentGender
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
+
+	<select id="SelectStudentProfileInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Student">
+		select
+		StudentGrade,
+		StudentColleges,
+		StudentMajor
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
+
+	<!-- 마이페이지 정보수정 -->
+	<update id="UpdateStudentGender"
+		parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentGender = #{StudentGender} WHERE
+		UserID = #{UserID}
+	</update>
+
+	<update id="UpdateStudentColleges"
+		parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentColleges = #{StudentColleges}
+		WHERE UserID = #{UserID}
+	</update>
+
+	<update id="UpdateStudentMajor"
+		parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentMajor = #{StudentMajor} WHERE
+		UserID = #{UserID}
+	</update>
+
+	<update id="UpdateStudentGrade"
+		parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentGrade = #{StudentGrade} WHERE
+		UserID = #{UserID}
+	</update>
+
+	<update id="UpdateStudentDoubleMajor"
+		parameterType="com.mju.groupware.dto.Student">
+		UPDATE Student SET
+		StudentDoubleMajor =
+		#{StudentDoubleMajor} WHERE UserID = #{UserID}
+	</update>
+
+	<select id="SelectStudentInfo" parameterType="String"
+		resultType="com.mju.groupware.dto.Student">
+		select
+		*
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
+
+	<update id="UpdateStudentLoginDate"
+		parameterType="com.mju.groupware.dto.Student">
+		update student set
+		LoginDate = #{date} where UserID =
+		#{UserID}
+	</update>
+
+	<select id="SelectModifyStudentInfo" parameterType="Integer"
+		resultType="com.mju.groupware.dto.Student">
+		Select
+		*
+		from
+		Student
+		where UserID = #{UserId};
+	</select>
+</mapper>

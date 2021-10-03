@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+   <!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+   <context:property-placeholder
+      location="classpath:/properties/StudentController.properties" />
+
+   <!-- 빈 생성 및 setter 매개변수 전달 -->
+   <bean id="StudentControllerID"
+      class="com.mju.groupware.constant.ConstantAdminStudentController">
+      <property name="UserName">
+         <value>${UserName}</value>
+      </property>
+      <property name="UserLoginID">
+         <value>${UserLoginID}</value>
+      </property>
+      <property name="UserPhoneNum">
+         <value>${UserPhoneNum}</value>
+      </property>
+      <property name="UserPhone">
+         <value>${UserPhone}</value>
+      </property>
+      <property name="UserEmail">
+         <value>${UserEmail}</value>
+      </property>
+      <property name="Email">
+         <value>${Email}</value>
+      </property>
+      <property name="UserGrade">
+         <value>${UserGrade}</value>
+      </property>
+      <property name="Grade">
+         <value>${Grade}</value>
+      </property>
+      <property name="UserMajor">
+         <value>${UserMajor}</value>
+      </property>
+      <property name="UserNameForOpen">
+         <value>${UserNameForOpen}</value>
+      </property>
+
+      <property name="RSignupStudent">
+         <value>${RSignupStudent}</value>
+      </property>
+      <property name="RMyPageStudent">
+         <value>${RMyPageStudent}</value>
+      </property>
+      <property name="RModifyStudent">
+         <value>${RModifyStudent}</value>
+      </property>
+   </bean>
+</beans>
