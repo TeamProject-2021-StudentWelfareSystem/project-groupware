@@ -1,0 +1,161 @@
+.user .custom-checkbox.small label {
+	line-height: 1.5rem
+}
+
+.user .form-control-user {
+	font-size: .8rem;
+	border-radius: 10rem;
+	padding: 1.5rem 1rem
+}
+
+.user .btn-user {
+	font-size: .8rem;
+	border-radius: 10rem;
+	padding: .75rem 1rem
+}
+
+.user .btn-logout {
+	font-size: .8rem;
+	border-radius: 3rem;
+	padding: .4rem 1rem
+}
+
+.btn-google {
+	color: #fff;
+	background-color: #ea4335;
+	border-color: #fff
+}
+
+.btn-google:hover {
+	color: #fff;
+	background-color: #e12717;
+	border-color: #e6e6e6
+}
+
+.btn-google.focus, .btn-google:focus {
+	color: #fff;
+	background-color: #e12717;
+	border-color: #e6e6e6;
+	box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+}
+
+.btn-google.disabled, .btn-google:disabled {
+	color: #fff;
+	background-color: #ea4335;
+	border-color: #fff
+}
+
+.btn-google:not(:disabled):not(.disabled).active, .btn-google:not(:disabled):not(.disabled):active,
+	.show>.btn-google.dropdown-toggle {
+	color: #fff;
+	background-color: #d62516;
+	border-color: #dfdfdf
+}
+
+.btn-google:not(:disabled):not(.disabled).active:focus, .btn-google:not(:disabled):not(.disabled):active:focus,
+	.show>.btn-google.dropdown-toggle:focus {
+	box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+}
+
+.btn-facebook {
+	color: #fff;
+	background-color: #3b5998;
+	border-color: #fff
+}
+
+.btn-facebook:hover {
+	color: #fff;
+	background-color: #30497c;
+	border-color: #e6e6e6
+}
+
+.btn-facebook.focus, .btn-facebook:focus {
+	color: #fff;
+	background-color: #30497c;
+	border-color: #e6e6e6;
+	box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+}
+
+.btn-facebook.disabled, .btn-facebook:disabled {
+	color: #fff;
+	background-color: #3b5998;
+	border-color: #fff
+}
+
+.btn-facebook:not(:disabled):not(.disabled).active, .btn-facebook:not(:disabled):not(.disabled):active,
+	.show>.btn-facebook.dropdown-toggle {
+	color: #fff;
+	background-color: #2d4373;
+	border-color: #dfdfdf
+}
+
+.btn-facebook:not(:disabled):not(.disabled).active:focus, .btn-facebook:not(:disabled):not(.disabled):active:focus,
+	.show>.btn-facebook.dropdown-toggle:focus {
+	box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+}
+.btn-icon-split {
+	display: inline-block;
+	position: relative;
+}
+
+#userInfo {
+ 	background-color: transparent;
+ 	padding-left: 5px;
+ 	border-width: 0;
+ 	border: 0
+ }
+ 
+#userGrade{
+  	position: absolute;
+  	top: 6px;
+ 	right: 70px;
+}
+
+#logoutBtn {
+	position: absolute;
+	top: 18px;
+	right: 20px;
+	text-align: center;
+	text-decoration: none;
+}
+
+#check, #emailValid {
+	line-height: 0.2;
+}
+
+.btn-xs {
+  padding: .25rem .4rem;
+  font-size: .700rem;
+  line-height: .7;
+  border-radius: .2rem;
+}
+
+.ckeditor_contents p,dl,ol,ul{
+	margin-top: 0;
+    margin-bottom: 0;
+}
+
+#ui-datepicker-div{
+   display:none;
+}
+
+#reservationStartTime, #inquiryType {
+	height: 38px;
+	border-radius: 0.2rem;
+}
+
+.input-tp {
+	background-color: transparent;
+	border: none;
+}
+
+.content-title {
+	width: 100%;
+}
+
+.selectOption{
+	width: 198px;
+	height: 38px;
+	border-radius: 0.2rem;
+	border-color: gray;
+}
