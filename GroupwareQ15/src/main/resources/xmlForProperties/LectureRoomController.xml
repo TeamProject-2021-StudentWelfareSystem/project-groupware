@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:/properties/LectureRoomController.properties" />
+
+	<!-- 빈 생성 및 setter 매개변수 전달 -->
+	<bean id="lectureRoom"
+		class="com.mju.groupware.constant.ConstantLectureRoomController">
+		<property name="Nine">
+			<value>${Nine}</value>
+		</property>
+		<property name="Eleven">
+			<value>${Eleven}</value>
+		</property>
+		<property name="Thirteen">
+			<value>${Thirteen}</value>
+		</property>
+		<property name="Fifteen">
+			<value>${Fifteen}</value>
+		</property>
+		<property name="Seventeen">
+			<value>${Seventeen}</value>
+		</property>
+		<property name="Nineteen">
+			<value>${Nineteen}</value>
+		</property>
+
+		<property name="RLectureRoomList">
+			<value>${RLectureRoomList}</value>
+		</property>
+		<property name="RReservation">
+			<value>${RReservation}</value>
+		</property>
+		<property name="RRLectureRoomList">
+			<value>${RRLectureRoomList}</value>
+		</property>
+		<property name="RReservationConfirm">
+			<value>${RReservationConfirm}</value>
+		</property>
+		<property name="RReservationModify">
+			<value>${RReservationModify}</value>
+		</property>
+		<property name="RConfirmMyReservation">
+			<value>${RConfirmMyReservation}</value>
+		</property>
+		<property name="RRMyPageStudent">
+			<value>${RRMyPageStudent}</value>
+		</property>
+		<property name="RRReservation">
+			<value>${RRReservation}</value>
+		</property>
+	</bean>
+</beans>
