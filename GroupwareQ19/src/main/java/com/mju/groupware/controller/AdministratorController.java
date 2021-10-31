@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.constant.ConstantAdmin;
+import com.mju.groupware.dto.Criteria;
 import com.mju.groupware.dto.Student;
 import com.mju.groupware.dto.User;
 import com.mju.groupware.dto.UserList;
@@ -27,6 +28,7 @@ import com.mju.groupware.function.UserInfoMethod;
 import com.mju.groupware.service.AdminService;
 import com.mju.groupware.service.StudentService;
 import com.mju.groupware.service.UserService;
+import com.mju.groupware.util.PageMaker;
 
 @Controller
 @RequestMapping("/admin")
@@ -58,22 +60,20 @@ public class AdministratorController {
 
 
 	// 관리자메뉴 - user list
+	//여기 페이징 수정해야됨
 	@RequestMapping(value = "/manageList", method = RequestMethod.GET)
-	public String manageList(Model model, Principal principal, User user) {
+	public String manageList(Model model, Criteria cri,Principal principal, User user) {
 		if (principal != null) {
 			GetUserInformation(principal, user, model);
 		}
 		try {
-			String LoginID = principal.getName();// 로그인 한 아이디
-			ArrayList<String> SelectUserProfileInfo = new ArrayList<String>();
-			SelectUserProfileInfo = userService.SelectUserProfileInfo(LoginID);
-			user.setUserName(SelectUserProfileInfo.get(0));
-			// 학생 이름
-			UserName = SelectUserProfileInfo.get(0);
-			model.addAttribute("UserName", UserName);
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			//pageMaker.setTotalCount(adminService.CountTotalManageList());
 
 			List<UserList> SelectUserList = adminService.SelectUserlist();
 			model.addAttribute("list", SelectUserList);
+			model.addAttribute("pageMaker", pageMaker);
 			// 여기서 선택된 학생번호 받아오시면됩니다.
 		} catch (Exception e) {
 			e.printStackTrace();

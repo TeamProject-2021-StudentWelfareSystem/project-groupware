@@ -199,6 +199,11 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
+	public int CountTotalMyTeamList(String loginID) {
+		return teamDao.CountTotalMyTeamList(loginID);
+	}
+	
+	@Override
 	public List<TeamUser> SelectMyTeamListPN( Criteria cri) {
 		return teamDao.SelectMyTeamListPN(cri);
 	}

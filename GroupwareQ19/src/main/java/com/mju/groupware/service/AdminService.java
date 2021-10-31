@@ -12,4 +12,6 @@ public interface AdminService {
 
 	public List<UserList> SelectWithdrawalUserList();
 
+	public int CountTotalManageList();
+
 }

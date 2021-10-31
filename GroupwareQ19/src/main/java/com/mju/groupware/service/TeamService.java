@@ -82,7 +82,9 @@ public interface TeamService {
 	public int CountTotalTeamList();
 
 	public int CountTotalMyTeamList();
-
+	
+	int CountTotalMyTeamList(String loginID);
+	
 	List<TeamUser> SelectMyTeamListPN(Criteria cri);
 
 	public List<MergeTeam> SelectTeamReferenceListCriteria(Criteria cri);

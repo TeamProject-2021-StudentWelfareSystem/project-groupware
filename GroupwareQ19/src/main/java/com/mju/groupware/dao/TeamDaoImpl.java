@@ -232,6 +232,11 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
+	public int CountTotalMyTeamList(String loginID) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CountTotalMyTeamList",loginID);
+	}
+	@Override
 	public List<TeamUser> SelectMyTeamListPN(Criteria cri) {
 		return sqlSession.selectList("SelectMyTeamListPN", cri);
 	}

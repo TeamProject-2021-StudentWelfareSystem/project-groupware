@@ -19,8 +19,15 @@
 	resultType="com.mju.groupware.dto.MergeTeam">
 		select Team.TeamID, TeamName, ClassName, ClassProfessorName from Team 
 		inner join Class on Team.ClassID = Class.ClassID inner join TeamUser on Team.TeamID = TeamUser.TeamID
-		where TeamUser.UserLoginID=#{UserLoginID} order by teamID desc
+		where TeamUser.UserLoginID=#{UserLoginID} order by teamID DESC
 		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="CountTotalMyTeamList" resultType="Integer"> 
+        select count(distinct Team.TeamID) 
+        from Team 
+		inner join Class on Team.ClassID = Class.ClassID inner join TeamUser on Team.TeamID = TeamUser.TeamID
+		where TeamUser.userLoginID = #{loginID}
 	</select>
 	
 	<select id="SelectClassID"
@@ -257,10 +264,6 @@
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
-	<select id="CountTotalMyTeamList" resultType="Integer"> 
-        SELECT count(*)
-        FROM TeamUser
-        where UserLoginID = #{UserLoginID}
-	</select>
+	
 	
 </mapper>

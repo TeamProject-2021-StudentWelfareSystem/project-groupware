@@ -29,4 +29,10 @@ public class AdminServiceImpl implements AdminService {
 		return userListDao.SelectWithdrawalUserList();
 	}
 
+	@Override
+	public int CountTotalManageList() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -84,6 +84,8 @@ public interface TeamDao {
 	public List<TeamUser> SelectMyTeamListPN(Criteria cri);
 	
 	public int CountTotalMyTeamList();
+	
+	public int CountTotalMyTeamList(String loginID);
 
 	public List<MergeTeam> SelectTeamReferenceListCriteria(Criteria cri);
 

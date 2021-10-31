@@ -150,7 +150,8 @@
 														<c:forEach items="${teamList}" var="teamList"
 															varStatus="status">
 															<tr class="odd">
-																<td><c:out value="${status.count}" /></td>
+																<td><c:out value="${pageMaker.totalCount - ((pageMaker.cri.page-1) * 10) - status.index}" /></td>
+																
 																<td id="title"><a
 																	href="${path}/team/documentList?no=${teamList.getTeamID()}">
 																		<c:out value="${teamList.getClassName()}" />

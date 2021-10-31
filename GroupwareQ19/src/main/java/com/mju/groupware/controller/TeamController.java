@@ -75,7 +75,9 @@ public class TeamController {
 		} else {
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(teamService.CountTotalMyTeamList());
+			pageMaker.setTotalCount(teamService.CountTotalMyTeamList(loginID));
+			
+			
 			String UserLoginID = principal.getName();
 			cri.setUserLoginID(UserLoginID);
 			List<MergeTeam> mergeTeam = teamService.SelectTeamReferenceListCriteria(cri);
