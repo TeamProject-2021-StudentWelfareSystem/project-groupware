@@ -208,6 +208,27 @@ public class TeamServiceImpl implements TeamService {
 	public List<MergeTeam> SelectTeamReferenceListCriteria(Criteria cri) {
 		return teamDao.SelectTeamReferenceListCriteria(cri);
 	}
+
+	@Override
+	public int CountTotalDocumentList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return teamDao.CountTotalDocumentList(cri);
+	}
+
+	@Override
+	public List<TeamBoard> SelectTeamBoardListInfoPN(Criteria cri) {
+		// TODO Auto-generated method stub
+
+		return teamDao.SelectTeamBoardListInfoPN(cri);
+	}
+
+	@Override
+	public List<TeamBoard> SelectTeamBoardListInfo(Criteria cri) {
+		// TODO Auto-generated method stub
+		return teamDao.SelectTeamBoardListInfo(cri);
+	}
+	
+	
 	
 
 }

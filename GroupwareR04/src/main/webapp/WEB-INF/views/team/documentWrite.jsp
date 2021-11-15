@@ -70,7 +70,7 @@
 						</div>
 						<div class="card-body">            
 						  	
-				 <form action="documentWrite" name="DocumentWrite" method="POST" id="form">
+				 <form action="documentWrite?${_csrf.parameterName}=${_csrf.token}" name="DocumentWrite" enctype="multipart/form-data" method="POST" id="form">
 					<div class="form-group col-sm-10 my-5 ml-4">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						
@@ -104,7 +104,7 @@
 				             <div class="col-sm-10 user my-1" id="addFile">
 				            	<input type="button" id="fileAddButton" value="파일추가" class="btn btn-secondary btn-user mb-3">
 				                <div class="custom-file mb-3" id="inputFile">
-				                    <input name="BoardFile" id="boardFile" type="file" multiple="multiple" class="custom-file-input">
+				                    <input name="BoardFile" id="boardFile" type="file" class="custom-file-input">
 				                    <label class="custom-file-label" for="customFile">파일을 선택해 주세요</label>
 				                </div>
 				           	</div>

@@ -82,8 +82,8 @@
                         						<div class="input-group">
                         						<select class="form-control bg-light border-0 small" id="searchType" name="SearchType"
                         							aria-label="Search" aria-describedby="basic-addon2" >
-                        								<option value="teamName">팀 이름</option>
-							                           	 <option value="className">과목명</option>
+                        								<option value="TeamName">팀 이름</option>
+							                           	 <option value="ClassName">과목명</option>
                             						</select>
                             						<input type="text" name="Keyword" id="keyword" class="form-control bg-light border-0 small" 
                             						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" value="${pageMaker.cri.keyword}">

@@ -87,5 +87,11 @@ public interface TeamDao {
 
 	public List<MergeTeam> SelectTeamReferenceListCriteria(Criteria cri);
 
+	public int CountTotalDocumentList(Criteria cri);
+
+	public List<TeamBoard> SelectTeamBoardListInfoPN(Criteria cri);
+
+	public List<TeamBoard> SelectTeamBoardListInfo(Criteria cri);
+
 
 }

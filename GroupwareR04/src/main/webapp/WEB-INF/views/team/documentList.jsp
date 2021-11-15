@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -90,6 +91,8 @@
                             					</div>
                        					 		</div>
                     						</form>
+                    						<%= request.getParameter("TeamID")%>
+                    						
                     						<script>
 												
 												$(function(){
@@ -104,6 +107,7 @@
 													$('#searchBtn').on('click',function(){
 														var searchTypeVal = $searchType.val();
 														var keywordVal = $keyword.val();
+													
 														
 														if(!keywordVal){
 															alert("검색어를 입력하세요!");
@@ -113,7 +117,8 @@
 														var url = "${path}/team/documentList?page=1"
 															+ "&perPageNum=" + "${pageMaker.cri.perPageNum}"
 															+ "&searchType=" + searchTypeVal
-															+ "&keyword=" + encodeURIComponent(keywordVal);
+															+ "&keyword=" + encodeURIComponent(keywordVal)
+															;
 														window.location.href = url;
 													})
 												}
@@ -226,7 +231,11 @@
 												<ul class="pagination write ">
 													<li class="paginate_button page-item active" ><a href="${path}/team/documentWrite?TeamID=${TeamID}"
 														aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-														class="page-link btn-primary" >글쓰기</a></li>
+														class="page-link btn-primary" >글쓰기</a>
+													<input type="hidden" name="no" value="${TeamID}">
+													
+													</li>
+													
 												</ul>
 											</div>
 									</div>

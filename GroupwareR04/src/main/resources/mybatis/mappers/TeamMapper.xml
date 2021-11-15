@@ -30,14 +30,41 @@
 		from TeamFile
 		where TBoardSubject = #{TBoardSubject}
 	</select>
-	<select id="SelectTeamBoardListInfo" parameterType="String"
+
+
+	
+	<sql id="searchTeamDocument">
+		<if test="searchType == 't'.toString()">
+			AND TBoardSubject like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND TBoardWriter like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+	
+	<select id="SelectTeamBoardListInfoPN" parameterType="com.mju.groupware.dto.Criteria" 
 		resultType="com.mju.groupware.dto.TeamBoard">
 		select *
 		from TeamBoard
 		where TeamID = #{TeamID} and
+		TBoardDelete = 0 
+		<include refid="searchTeamDocument"></include>
+		ORDER BY TBoardID DESC
+        LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="CountTotalDocumentList" resultType="Integer">
+		select count(*)
+		from TeamBoard
+		where TeamID = #{TeamID} and
 		TBoardDelete = 0
+		<include refid="searchTeamDocument"></include>
+		
 	</select>
 
+<!-- 검색 -->
+	
+	
 	<select id="SelectClassInfo" parameterType="Integer"
 		resultType="com.mju.groupware.dto.Class">
 		select *
@@ -50,7 +77,7 @@
 		resultType="com.mju.groupware.dto.Team">
 		select * from team
 		where
-		teamID=#{teamID}
+		teamID=#{TeamID}
 	</select>
 
 	<select id="SelectMyTeamList" parameterType="String"
@@ -235,11 +262,11 @@
 	
 	<!-- 검색 -->
 	<sql id="searchTeam">
-		<if test="searchType == 'className'.toString()">
-			WHERE className like CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'ClassName'.toString()">
+			WHERE ClassName like CONCAT('%', #{keyword}, '%')
 		</if>
-		<if test="searchType == 'teamName'.toString()">
-			WHERE teamName like CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'TeamName'.toString()">
+			WHERE TeamName like CONCAT('%', #{keyword}, '%')
 		</if>
 	</sql>
 	
@@ -261,10 +288,10 @@
 	
 	<!-- 검색 -->
 	<sql id="searchMyTeam">
-		<if test="searchType == 'className'.toString()">
+		<if test="searchType == 'ClassName'.toString()">
 			AND className like CONCAT('%', #{keyword}, '%')
 		</if>
-		<if test="searchType == 'teamName'.toString()">
+		<if test="searchType == 'TeamName'.toString()">
 			AND teamName like CONCAT('%', #{keyword}, '%')
 		</if>
 	</sql>
@@ -272,7 +299,7 @@
 	<select id="SelectMyTeamListPN" resultType="com.mju.groupware.dto.TeamUser">
 		select *
 		from TeamUser
-		where UserID = #{UserID}
+		where UserLoginID = #{UserLoginID}
 		<include refid="searchMyTeam"></include>
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
@@ -291,7 +318,7 @@
         select count(distinct Team.TeamID) 
         from Team 
 		inner join Class on Team.ClassID = Class.ClassID inner join TeamUser on Team.TeamID = TeamUser.TeamID
-		where TeamUser.userLoginID = #{loginID}
+		where TeamUser.userLoginID = #{UserLoginID}
 		<include refid="searchMyTeam"></include>
 	</select>
 	

@@ -53,7 +53,8 @@ public class PageMaker {
 		if(this.cri.getSearchType() != null) {
 			uriComponentsBuilder
 				.queryParam("searchType", this.cri.getSearchType())
-				.queryParam("keyword", this.cri.getKeyword());
+				.queryParam("keyword", this.cri.getKeyword())
+				;
 		}
 		return uriComponentsBuilder.build().encode().toString();
 	}

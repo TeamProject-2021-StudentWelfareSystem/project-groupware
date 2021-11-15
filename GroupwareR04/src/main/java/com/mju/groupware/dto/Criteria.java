@@ -7,8 +7,10 @@ public class Criteria { // 게시글 조회 쿼리에 전달될 파라미터를 
     private int perPageNum; // 한 페이지당 보여줄 게시글의 개수
     private String UserLoginID;
     private int UserID;
+    private int TeamID;
     private String searchType;
     private String keyword;
+    
     
 	public int getPageStart() {
         return (this.page-1)*perPageNum;
@@ -83,7 +85,8 @@ public class Criteria { // 게시글 조회 쿼리에 전달될 파라미터를 
 		if(searchType != null) {
 			uriComponentsBuilder
 				.queryParam("searchType", this.searchType)
-				.queryParam("keyword", this.keyword);
+				.queryParam("keyword", this.keyword)
+				;
 		}
 		return uriComponentsBuilder.build().encode().toString();
 	}
@@ -92,5 +95,15 @@ public class Criteria { // 게시글 조회 쿼리에 전달될 파라미터를 
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
+
+	public int getTeamID() {
+		return TeamID;
+	}
+
+	public void setTeamID(int teamID) {
+		TeamID = teamID;
+	}
+
+
 
 }

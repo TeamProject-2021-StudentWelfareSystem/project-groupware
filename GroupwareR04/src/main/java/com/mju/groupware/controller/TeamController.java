@@ -67,20 +67,21 @@ public class TeamController {
 	@RequestMapping(value = "/team/myTeamList", method = RequestMethod.GET)
 	public String myTeamList(Principal principal, Criteria cri, User user, Model model, RedirectAttributes rttr) {
 		GetUserInformation(principal, user, model);
-		String loginID = principal.getName();
-		List<TeamUser> TeamUserListInfo = teamService.SelectMyTeamList(cri);
-		if (TeamUserListInfo.isEmpty()) {
+		String UserLoginID = principal.getName();
+		System.out.println(UserLoginID);
+		cri.setUserLoginID(UserLoginID);
+		
+		List<MergeTeam> mergeTeam = teamService.SelectTeamReferenceListCriteria(cri);
+		System.out.println(mergeTeam);
+		
+		if (mergeTeam.isEmpty()) {
 			rttr.addFlashAttribute("Checker", "NoTeamList");
 			return this.Constant.getRRHome();
 		} else {
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(teamService.CountTotalMyTeamList(cri));
-			
-			
-			String UserLoginID = principal.getName();
-			cri.setUserLoginID(UserLoginID);
-			List<MergeTeam> mergeTeam = teamService.SelectTeamReferenceListCriteria(cri);
+
 			
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("teamList", mergeTeam);
@@ -90,14 +91,40 @@ public class TeamController {
 	
 	// 팀 선택 시 문서 리스트 출력
 	@RequestMapping(value = "/team/documentList", method = RequestMethod.GET)
-	public String documentList(User user, Principal principal, HttpServletRequest request, Model model, Team team) {
+	public String documentList(User user, Principal principal,Criteria cri, RedirectAttributes rttr,HttpServletRequest request, Model model, Team team) {
 		GetUserInformation(principal, user, model);
 		// teamFile에서 이름주고 teamFileList가져오기
-		String TeamID = request.getParameter("no");
-		List<TeamBoard> TeamBoardInfo = teamService.SelectTeamBoardListInfo(TeamID);
+		String UserLoginID = principal.getName();
+		int TeamID = Integer.parseInt(request.getParameter("no"));
+		cri.setUserLoginID(UserLoginID);
+		cri.setTeamID(TeamID);
+
+		System.out.println(TeamID);
+		
+		List<TeamBoard> TeamBoardInfo = teamService.SelectTeamBoardListInfoPN(cri);
+		System.out.println(TeamBoardInfo);
+		if(TeamBoardInfo.isEmpty()) {
+			rttr.addFlashAttribute("Checker", "NoTeamList");
+			return this.Constant.getRRHome();
+		} else {
+			System.out.println("정보 있지");
+		
+		PageMaker pageMaker = new PageMaker();
+		cri.setTeamID(TeamID);
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(teamService.CountTotalDocumentList(cri));
+		System.out.println(pageMaker.getTotalCount());
+		System.out.println(TeamID);
+		
+
 		model.addAttribute("documentList", TeamBoardInfo);
 		model.addAttribute("TeamID", TeamID);
+		model.addAttribute("pageMaker",pageMaker);
+		
+		
 		return this.Constant.getRDocumentList();
+		}
+		
 	}
 
 	// 문서 내용
@@ -161,6 +188,7 @@ public class TeamController {
 		GetUserInformation(principal, user, model);
 		String UserLoginID = principal.getName();
 		String TeamID = request.getParameter("TeamID");
+		System.out.println(TeamID);
 
 		String DocumentWriter = userService.SelectWriter(UserLoginID);
 		String DocumentSubject = request.getParameter("BoardSubject");

@@ -240,4 +240,24 @@ public class TeamDaoImpl implements TeamDao {
 		return sqlSession.selectList("SelectTeamReferenceListCriteria", cri);
 	}
 
+	@Override
+	public int CountTotalDocumentList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CountTotalDocumentList",cri);
+	}
+
+	@Override
+	public List<TeamBoard> SelectTeamBoardListInfoPN(Criteria cri) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList("SelectTeamBoardListInfoPN",cri);
+	}
+
+	@Override
+	public List<TeamBoard> SelectTeamBoardListInfo(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("SelectTeamBoardListInfo",cri);
+				
+	}
+
 }
