@@ -1,0 +1,8 @@
+select{
+	width:100%;
+}
+#search{
+	padding-top:1px;
+	padding-bottom:1px;
+	border-radius:5px;
+}
