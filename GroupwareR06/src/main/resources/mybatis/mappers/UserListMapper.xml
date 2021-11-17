@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.UserListDao">
+
+	<!-- 회원 리스트 가져오는 SQL문 -->
+	<select id="SelectUserList"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		userID,
+		userLoginID,
+		userName,
+		userPhoneNum,
+		userEmail,
+		userRole,
+		authority,
+		LoginDate
+		FROM
+		user
+		WHERE
+		withdrawal = 0 and Dormant = 0
+		ORDER BY userID DESC;
+	</select>
+
+	<select id="SelectDormantList"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		UserID,
+		UserLoginID,
+		UserName,
+		UserPhoneNum,
+		UserEmail,
+		UserRole,
+		Authority,
+		LoginDate
+		FROM
+		User
+		WHERE
+		Dormant = 1 and Withdrawal = 0
+		ORDER BY userID DESC;
+	</select>
+
+	<select id="SelectWithdrawalList"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		*
+		FROM
+		User
+		WHERE
+		Enabled = 0 and Withdrawal = 1
+		ORDER BY userID DESC;
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="searchUser">
+		<if test="searchType == 'userID'.toString()">
+			AND userLoginID like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'userName'.toString()">
+			AND userName like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+	
+	<select id="SelectUserListPN" resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		userID,
+		userLoginID,
+		userName,
+		userPhoneNum,
+		userEmail,
+		userRole,
+		authority,
+		LoginDate
+		FROM
+		user
+		WHERE
+		withdrawal = 0 and Dormant = 0
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="CountTotalUserList" resultType="integer">
+		SELECT count(userID)
+		from User
+		WHERE withdrawal = 0 and Dormant = 0
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+	</select>
+	
+	
+	<select id="SelectDormantUserListPN"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		UserID,
+		UserLoginID,
+		UserName,
+		UserPhoneNum,
+		UserEmail,
+		UserRole,
+		Authority,
+		LoginDate
+		FROM
+		User
+		WHERE
+		Dormant = 1 and Withdrawal = 0
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+
+	<select id="CountTotalDormantUserList" resultType="integer">
+		SELECT count(userID)
+		from User
+		WHERE withdrawal = 0 and Dormant = 1
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+	</select>
+	
+	
+	<select id="SelectWithdrawalUserListPN"
+		resultType="com.mju.groupware.dto.UserList">
+		SELECT
+		UserID,
+		UserLoginID,
+		UserName,
+		UserPhoneNum,
+		UserEmail,
+		UserRole,
+		Authority,
+		LoginDate
+		FROM
+		User
+		WHERE
+		Dormant = 0 and Withdrawal = 1
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="CountTotalWithdrawalUserList" resultType="integer">
+		SELECT count(userID)
+		from User
+		WHERE withdrawal = 1 and Dormant = 0
+		<include refid="searchUser"></include>
+		ORDER BY userID DESC;
+	</select>
+	
+	
+</mapper>
