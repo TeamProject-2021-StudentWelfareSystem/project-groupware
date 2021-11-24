@@ -51,9 +51,9 @@ public class CreateTeamTest {
 	    driver.findElement(By.id("teamName")).click();
 	    driver.findElement(By.id("teamName")).sendKeys("test");
 	    driver.findElement(By.id("studentID")).click();
-	    driver.findElement(By.id("studentID")).sendKeys("60161617");
+	    driver.findElement(By.id("studentID")).sendKeys("60185081");
 	    driver.findElement(By.id("studentName")).click();
-	    driver.findElement(By.id("studentName")).sendKeys("이수빈");
+	    driver.findElement(By.id("studentName")).sendKeys("이현우");
 	    driver.findElement(By.id("createButton")).click();
 	    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 	    driver.switchTo().alert().accept();

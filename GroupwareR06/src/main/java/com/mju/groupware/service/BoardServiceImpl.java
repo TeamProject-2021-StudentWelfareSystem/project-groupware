@@ -254,4 +254,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.SelectMyPostListPN(cri);
 	}
 
+	@Override
+	public int CountTotalFaqBoardList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return boardDao.CountTotalFaqBoardList(cri);
+	}
+
+	@Override
+	public List<Board> SelectFaqBoardListPN(Criteria cri) {
+		// TODO Auto-generated method stub
+		return boardDao.SelectFaqBoardListPN(cri);
+	}
+
 }

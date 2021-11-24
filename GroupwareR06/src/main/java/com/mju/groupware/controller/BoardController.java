@@ -220,9 +220,24 @@ public class BoardController {
 	
 	// FAQ
     @RequestMapping(value = "/faqList", method = RequestMethod.GET)
-    public String faqList(User user, Principal principal, Model model, HttpServletRequest request) {
+    public String faqList(User user, Principal principal, Model model, Criteria cri,HttpServletRequest request) {
+    	/*if (principal != null) {
+			// 유저 정보
+			GetUserInformation(principal, user, model);
+		}
+		
+		 
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.CountTotalFaqBoardList(cri));
+		
+		List<Board> list = boardService.SelectFaqBoardListPN(cri);
 
-       return "board/faqList";
+		model.addAttribute("faqList", list);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return this.Constant.getRFaqList();
+*/ return "board/faqList";
     }
     // FAQ 글 작성
     @RequestMapping(value = "/faqWrite", method = RequestMethod.GET)

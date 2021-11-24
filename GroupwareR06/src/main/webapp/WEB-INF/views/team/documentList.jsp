@@ -103,18 +103,20 @@
 													var $searchType = $('#searchType');
 													var $keyword = $('#keyword');
 													
+													
 													//검색 버튼이 눌리면
 													$('#searchBtn').on('click',function(){
 														var searchTypeVal = $searchType.val();
 														var keywordVal = $keyword.val();
-													
+														var teamID = document.getElementById("TeamID");
+														
 														
 														if(!keywordVal){
 															alert("검색어를 입력하세요!");
 															return;
 														}
 														
-														var url = "${path}/team/documentList?page=1"
+														var url = "${path}/team/documentList?page=1" + "&no=" + "${TeamID}"
 															+ "&perPageNum=" + "${pageMaker.cri.perPageNum}"
 															+ "&searchType=" + searchTypeVal
 															+ "&keyword=" + encodeURIComponent(keywordVal)
@@ -225,7 +227,7 @@
 													<li class="paginate_button page-item active" ><a href="${path}/team/documentWrite?TeamID=${TeamID}"
 														aria-controls="dataTable" data-dt-idx="2" tabindex="0"
 														class="page-link btn-primary" >글쓰기</a>
-													<input type="hidden" name="no" value="${TeamID}">
+													<input type="text" id="TeamID" name="no" value="${TeamID}">
 													</li>
 												</ul>
 											</div>

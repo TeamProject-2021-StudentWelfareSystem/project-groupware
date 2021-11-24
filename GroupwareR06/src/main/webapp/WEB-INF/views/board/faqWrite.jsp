@@ -69,14 +69,14 @@
 							<h5 class="m-0 font-weight-bold text-primary">FAQ</h5>
 						</div>
 						<div class="card-body">              	
-				 <form action="InquiryWrite.do" name="InquiryWrite" method="POST" id="form">
+				 <form action="FaqWrite.do" name="FaqWrite" method="POST" id="form">
 					<div class="form-group col-sm-10 my-5 ml-4">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						
 						<div class="form-group row my-4">
-							<label for="inquiryTitle" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">민원 분류</span></label>
+							<label for="faqTitle" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">민원 분류</span></label>
 							<div class="col-sm-10">
-								<select name="InquiryType" id="inquiryType">
+								<select name="FaqType" id="faqType">
 									<option value="" selected>-선택-</option>
 									<option value="lectureRoom">강의실 예약/이용</option>
 									<option value="teamMembers">팀원관리</option>
@@ -88,23 +88,23 @@
 						</div>
 												
 						<div class="form-group row my-4">
-							<label for="inquiryTitle" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">제목</span></label>
+							<label for="faqTitle" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">제목</span></label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inquiryTitle" name="InquiryTitle"
-									placeholder="제목을 입력하세요" value="${InquiryTitle}">
+								<input type="text" class="form-control" id="faqTitle" name="FaqTitle"
+									placeholder="제목을 입력하세요" value="${FaqTitle}">
 							</div>
 						</div>
 						
-						<input type="hidden" class="col-sm-5 form-control my-2" name="InquiryWriter" id="inquiryWriter" value="${InquiryWriter}" disabled readonly>						
+						<input type="hidden" class="col-sm-5 form-control my-2" name="FaqWriter" id="faqWriter" value="${FaqWriter}" disabled readonly>						
 						<input type="hidden" name="Date" id="date" class="col-sm-5 form-control my-2"disabled readonly value="${BoardDate}">
 							
 						<div class="form-group row my-3">
-						<label for="inquiryContent" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">내용</span></label>
+						<label for="faqContent" class="col-sm-2 col-form-label"><span class="font-weight-bold text-gray-800">내용</span></label>
 						<div class="col-sm-10">
-							<textarea name="InquiryContent" class="form-control" id="inquiryContent"></textarea>
+							<textarea name="FaqContent" class="form-control" id="faqContent"></textarea>
 							<script>
 						    ClassicEditor
-						        .create( document.querySelector( '#inquiryContent' ) )
+						        .create( document.querySelector( '#faqContent' ) )
 						        .catch( error => {
 						            console.error( error );
 						        } );
@@ -114,7 +114,7 @@
 					</div>			
 						<div class="user text-center row p-3 ml-5 justify-content-center">
 							<input type="submit" value="저장" id="saveButton" class="btn btn-primary btn-user mr-2">
-				            <a href="${path}/inquiryList"><input type="button" value="이전" id="listButton" class="btn btn-light btn-user"></a>
+				            <a href="${path}/faqList"><input type="button" value="이전" id="listButton" class="btn btn-light btn-user"></a>
 			            </div>
 				</form>
 			</div>

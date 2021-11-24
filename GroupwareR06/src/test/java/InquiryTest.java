@@ -59,7 +59,7 @@ public class InquiryTest {
       dropdown.findElement(By.xpath("//option[. = '강의실 예약/이용']")).click();
     }
     driver.findElement(By.id("inquiryTitle")).click();
-    driver.findElement(By.id("inquiryTitle")).sendKeys("예약;");
+    driver.findElement(By.id("inquiryTitle")).sendKeys("예약 확인 테스트");
     driver.findElement(By.cssSelector(".ck-editor__editable")).click();
     driver.findElement(By.cssSelector(".ck-editor__editable")).sendKeys("테스트입니다");
     driver.findElement(By.id("saveButton")).click();

@@ -71,6 +71,10 @@ public interface BoardService {
 	int CountTotalMyPostList(Criteria cri);
 
 	List<Board> SelectMyPostListPN(Criteria cri);
+
+	int CountTotalFaqBoardList(Criteria cri);
+
+	List<Board> SelectFaqBoardListPN(Criteria cri);
 	
 
 }

@@ -84,4 +84,8 @@ public interface BoardDao {
 
 	List<Board> SelectMyPostListPN(Criteria cri);
 
+	int CountTotalFaqBoardList(Criteria cri);
+
+	List<Board> SelectFaqBoardListPN(Criteria cri);
+
 }

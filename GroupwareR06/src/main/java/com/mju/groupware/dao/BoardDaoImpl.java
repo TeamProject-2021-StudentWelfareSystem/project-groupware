@@ -220,4 +220,16 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectList("SelectMyPostListPN", cri);
 	}
 
+	@Override
+	public int CountTotalFaqBoardList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CountTotalFaqBoardList",cri);
+	}
+
+	@Override
+	public List<Board> SelectFaqBoardListPN(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("SelectFaqBoardListPN",cri);
+	}
+
 }

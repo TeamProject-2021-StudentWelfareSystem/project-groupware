@@ -46,7 +46,12 @@
 <!-- Page level custom scripts -->
 <script src="resources/vendor/bootstrap/js/demo/chart-area-demo.js"></script>
 <script src="resources/vendor/bootstrap/js/demo/chart-pie-demo.js"></script>
-
+<script>
+function display(){
+	$("#display").toggle();
+	
+}
+</script>
 <title>MJS FAQ System</title>
 </head>
 <body id="page-top">
@@ -130,7 +135,29 @@
 													</tr>
 												</tfoot>
 												<tbody>
-												<c:set var="UserID" value="${UserID}" />
+													<tr>
+														<td>1</td>
+														<td onclick="display();">아</td>
+														<td>강의실 이용</td>
+													</tr>
+													<tr>
+														<div class="faq_a active" style="display: block;" id="display">
+	                    									<span class="ico_a">A</span>
+	                    										<div class="content">
+	                        										<p>만 29세 이하의 청년 취업 준비생이라면 누구나 본 과정에 지원할 수 있습니다. 
+																	<br>(국내외 4년제 대학 졸업자 및 졸업예정자, 전공 무관)
+																	<br>삼성 청년 SW 아카데미가 희망하는 인재상은 논리적 사고력, 열정, 학습의지를 갖춘 사람입니다. SW를 잘 이해하고 개발하기 위해서는 논리적이고 창의적으로 사고하는 것이 필요합니다. 또한 SW를 학습하고자 하는 열정, 프로젝트 수행에 필요한 협업 능력 등도 중요합니다.
+																	<br>교육생 선발도 이러한 내용을 바탕으로 진행됩니다.
+	                        										</p>
+	                        									<div class="add_question">
+	                        		
+	                            									<a href="javascript:fnLoginReqMsg();">1:1문의 하기</a>
+	                            	
+	                            									<p>답변이 충분하지 않으시면 1:1 문의 상담을 이용해 주세요.</p>
+	                        									</div>
+	                   											 </div>
+	                									</div>
+												<!--<c:set var="UserID" value="${UserID}" />
 													<c:set var="UserIDFromWriter" value="${UserIDFromWriter}" />
 													<c:if test="${UserID == UserIDFromWriter}">
 													
@@ -143,6 +170,7 @@
 													</tr>
 													</c:forEach>
 													</c:if>
+												--></tr>
 												</tbody>
 											</table>
 											</form>

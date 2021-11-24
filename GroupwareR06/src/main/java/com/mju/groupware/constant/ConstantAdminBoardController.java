@@ -44,6 +44,7 @@ public class ConstantAdminBoardController {
 	private String RCommunityModify;
 	private String RRCommunityList;
 	private String RCommunityContent;
+	private String RFaqList;
 	private String RInquiryWrite;
 	private String FilePath;
 	private String STUDENT;
@@ -302,6 +303,13 @@ public class ConstantAdminBoardController {
 	}
 	public void setCommunityContent(String communityContent) {
 		CommunityContent = communityContent;
+	}
+	public String getRFaqList() {
+		// TODO Auto-generated method stub
+		return RFaqList;
+	}
+	public void setRFaqList(String rFaqList) {
+		RFaqList = rFaqList;
 	}
 
 	

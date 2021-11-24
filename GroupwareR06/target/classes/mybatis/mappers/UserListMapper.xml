@@ -20,7 +20,7 @@
 		user
 		WHERE
 		withdrawal = 0 and Dormant = 0
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 
 	<select id="SelectDormantList"
@@ -38,7 +38,7 @@
 		User
 		WHERE
 		Dormant = 1 and Withdrawal = 0
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 
 	<select id="SelectWithdrawalList"
@@ -49,7 +49,7 @@
 		User
 		WHERE
 		Enabled = 0 and Withdrawal = 1
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 	
 	<!-- 검색 -->
@@ -77,7 +77,7 @@
 		WHERE
 		withdrawal = 0 and Dormant = 0
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	<select id="CountTotalUserList" resultType="integer">
@@ -85,7 +85,7 @@
 		from User
 		WHERE withdrawal = 0 and Dormant = 0
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 	
 	
@@ -105,7 +105,7 @@
 		WHERE
 		Dormant = 1 and Withdrawal = 0
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 
@@ -114,7 +114,7 @@
 		from User
 		WHERE withdrawal = 0 and Dormant = 1
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 	
 	
@@ -134,7 +134,7 @@
 		WHERE
 		Dormant = 0 and Withdrawal = 1
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
@@ -143,7 +143,7 @@
 		from User
 		WHERE withdrawal = 1 and Dormant = 0
 		<include refid="searchUser"></include>
-		ORDER BY userID DESC;
+		ORDER BY userID DESC
 	</select>
 	
 	

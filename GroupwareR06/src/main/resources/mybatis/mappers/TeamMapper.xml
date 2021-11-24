@@ -14,6 +14,8 @@
 		#{TeamLeaderID},#{TeamLeaderName},
 		#{TeamCreationDate}, #{ClassID}
 		)
+		
+		
 	</insert>
 		
 	<select id="SelectClassID"

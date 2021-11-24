@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -17,15 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mju.groupware.constant.ConstantTeamController;
 import com.mju.groupware.dto.Class;
 import com.mju.groupware.dto.Criteria;
 import com.mju.groupware.dto.MergeTeam;
+import com.mju.groupware.dto.SearchKeyWord;
 import com.mju.groupware.dto.Team;
 import com.mju.groupware.dto.TeamBoard;
 import com.mju.groupware.dto.TeamUser;
@@ -91,23 +95,27 @@ public class TeamController {
 	public String documentList(User user, Principal principal,Criteria cri, RedirectAttributes rttr,HttpServletRequest request, Model model, Team team) {
 		GetUserInformation(principal, user, model);
 		String UserLoginID = principal.getName();
+		
 		int TeamID = Integer.parseInt(request.getParameter("no"));
 		System.out.println(TeamID);
+		
+		request.setAttribute("TeamID", TeamID);
 		cri.setUserLoginID(UserLoginID);
 		cri.setTeamID(TeamID);
 		List<TeamBoard> TeamBoardInfo = teamService.SelectTeamBoardListInfoPN(cri);
-		
+	
 		PageMaker pageMaker = new PageMaker();
 		cri.setTeamID(TeamID);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(teamService.CountTotalDocumentList(cri));
 
 		model.addAttribute("documentList", TeamBoardInfo);
-//		model.addAttribute("TeamID", TeamID);
-		request.setAttribute("TeamID", TeamID);
+		model.addAttribute("TeamID", TeamID);
 		model.addAttribute("pageMaker",pageMaker);
 		return this.Constant.getRDocumentList();
+		
 	}
+	
 	// 문서 내용
 	@RequestMapping(value = "/team/documentContent", method = RequestMethod.GET)
 	public String documentContent(User user, HttpServletRequest request, Model model, TeamBoard teamBoard,
