@@ -25,7 +25,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
+<script src="js/faqList.js"></script>
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <link href="css/boardList.css" rel="stylesheet">
@@ -46,12 +46,7 @@
 <!-- Page level custom scripts -->
 <script src="resources/vendor/bootstrap/js/demo/chart-area-demo.js"></script>
 <script src="resources/vendor/bootstrap/js/demo/chart-pie-demo.js"></script>
-<script>
-function display(){
-	$("#display").toggle();
-	
-}
-</script>
+
 <title>MJS FAQ System</title>
 </head>
 <body id="page-top">
@@ -80,7 +75,7 @@ function display(){
 										<div class="col-sm-12 col-md-4">
 										</div>
 										<div class="col-sm-12 col-md-4">
-											<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search mt-3 pt-3" >
+											<!--<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search mt-3 pt-3" >
                         						<div class="input-group">
                             						<select class="form-control bg-light border-0 small" aria-label="Search" aria-describedby="basic-addon2">
                             							 <option value=" " selected>-선택-</option>
@@ -99,6 +94,7 @@ function display(){
                             					</div>
                        					 		</div>
                     						</form>
+                    						-->
 										</div>
 										<div class="col-sm-12 col-md-4"></div>
 									</div>
@@ -137,40 +133,43 @@ function display(){
 												<tbody>
 													<tr>
 														<td>1</td>
-														<td onclick="display();">아</td>
-														<td>강의실 이용</td>
+														<td onclick="display1();">커뮤니티 이용규칙 안내</td>
+														<td>커뮤니티</td>
+													</tr>
+													<tr id="dis1">
 													</tr>
 													<tr>
-														<div class="faq_a active" style="display: block;" id="display">
-	                    									<span class="ico_a">A</span>
-	                    										<div class="content">
-	                        										<p>만 29세 이하의 청년 취업 준비생이라면 누구나 본 과정에 지원할 수 있습니다. 
-																	<br>(국내외 4년제 대학 졸업자 및 졸업예정자, 전공 무관)
-																	<br>삼성 청년 SW 아카데미가 희망하는 인재상은 논리적 사고력, 열정, 학습의지를 갖춘 사람입니다. SW를 잘 이해하고 개발하기 위해서는 논리적이고 창의적으로 사고하는 것이 필요합니다. 또한 SW를 학습하고자 하는 열정, 프로젝트 수행에 필요한 협업 능력 등도 중요합니다.
-																	<br>교육생 선발도 이러한 내용을 바탕으로 진행됩니다.
-	                        										</p>
-	                        									<div class="add_question">
-	                        		
-	                            									<a href="javascript:fnLoginReqMsg();">1:1문의 하기</a>
-	                            	
-	                            									<p>답변이 충분하지 않으시면 1:1 문의 상담을 이용해 주세요.</p>
-	                        									</div>
-	                   											 </div>
-	                									</div>
-												<!--<c:set var="UserID" value="${UserID}" />
-													<c:set var="UserIDFromWriter" value="${UserIDFromWriter}" />
-													<c:if test="${UserID == UserIDFromWriter}">
-													
-													<c:forEach items="${faqList}" var="faqList"
-														varStatus="status">
-													<tr class="odd">
-														<td><c:out value="${status.count}" /></td>
-														<td id="title"><a href="${path}/inquiryContent?no=${inquiryFAQ.getIBoardID()}">
-														<c:out value="${inquiryFAQ.getIBoardSubject()}" /></a></td>
+														<td>2</td>
+														<td onclick="display2();">커뮤니티 금지행위</td>
+														<td>커뮤니티</td>
 													</tr>
-													</c:forEach>
-													</c:if>
-												--></tr>
+													<tr>
+													<tr id="dis2">
+													</tr>
+													<tr>
+														<td>3</td>
+														<td onclick="display3();">허위사실 유포 및 명예 훼손 게시물에 대한 게시 중단 요청</td>
+														<td>커뮤니티</td>
+													</tr>
+													<tr id="dis3">
+														
+													</tr>
+													<tr>
+														<td>4</td>
+														<td onclick="display4();">강의실 예약 시 유의사항</td>
+														<td>강의실 이용/예약</td>
+													</tr>
+													<tr id="dis4">
+														
+													</tr>
+													<tr>
+														<td>5</td>
+														<td onclick="display5();">후기 작성 시 유의사항</td>
+														<td>후기</td>
+													</tr>
+													<tr id="dis5">
+														
+													</tr>
 												</tbody>
 											</table>
 											</form>
@@ -190,22 +189,7 @@ function display(){
 													<li class="paginate_button page-item active"><a
 														href="#" aria-controls="dataTable" data-dt-idx="1"
 														tabindex="0" class="page-link">1</a></li>
-													<li class="paginate_button page-item "><a href="#"
-														aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-														class="page-link">2</a></li>
-													<li class="paginate_button page-item "><a href="#"
-														aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-														class="page-link">3</a></li>
-													<li class="paginate_button page-item "><a href="#"
-														aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-														class="page-link">4</a></li>
-													<li class="paginate_button page-item "><a href="#"
-														aria-controls="dataTable" data-dt-idx="5" tabindex="0"
-														class="page-link">5</a></li>
-													<li class="paginate_button page-item "><a href="#"
-														aria-controls="dataTable" data-dt-idx="6" tabindex="0"
-														class="page-link">6</a></li>
-													<li class="paginate_button page-item next"
+													<li class="disabled paginate_button page-item next"
 														id="dataTable_next"><a href="#"
 														aria-controls="dataTable" data-dt-idx="7" tabindex="0"
 														class="page-link">Next</a></li>
@@ -232,7 +216,20 @@ function display(){
 
 				</div>
 			</div>
-
+<!--<c:set var="UserID" value="${UserID}" />
+													<c:set var="UserIDFromWriter" value="${UserIDFromWriter}" />
+													<c:if test="${UserID == UserIDFromWriter}">
+													
+													<c:forEach items="${faqList}" var="faqList"
+														varStatus="status">
+													<tr class="odd">
+														<td><c:out value="${status.count}" /></td>
+														<td id="title"><a href="${path}/inquiryContent?no=${inquiryFAQ.getIBoardID()}">
+														<c:out value="${inquiryFAQ.getIBoardSubject()}" /></a></td>
+													</tr>
+													</c:forEach>
+													</c:if>
+												-->
 		</div>
 			<jsp:include page="/WEB-INF/views/homeView/footer.jsp"></jsp:include>
 		</div>
