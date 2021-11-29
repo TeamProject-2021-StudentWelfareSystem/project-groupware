@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mju.groupware.dao.InquiryDao">
+
+	<!-- 글 작성 -->
+	<insert id="InsertInquiry"
+		parameterType="com.mju.groupware.dto.Inquiry">
+		insert into InquiryBoard (
+		IBoardSubject, IBoardContent,
+		IBoardWriter, IBoardDate, IBoardType, UserEmail, UserPhoneNum, UserID, State
+		) values(
+		#{IBoardSubject},
+		#{IBoardContent},
+		#{IBoardWriter}, #{IBoardDate}, #{IBoardType}, #{UserEmail}, #{UserPhoneNum}, #{UserID}, #{State}
+		)
+	</insert>
+
+	<select id="SelectInquiryList"
+		resultType="com.mju.groupware.dto.Inquiry">
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, State
+		from InquiryBoard where IBoardDelete = 0
+	</select>
+	
+	<select id="SelectIBoardID"
+		parameterType="com.mju.groupware.dto.Inquiry" resultType="Integer">
+		Select
+		IBoardID
+		From InquiryBoard
+		Where
+		UserID = #{UserID} and IBoardDate = #{IBoardDate}
+	</select>
+
+	<select id="SelectOneInquiryContent"
+		resultType="com.mju.groupware.dto.Inquiry">
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardContent, UserID, IBoardAnswer, IBoardType
+		from InquiryBoard 
+		where IBoardID = #{IBoardID}
+	</select>
+	
+	<select id="SelectLoginUserIDForInquiry"
+		parameterType="com.mju.groupware.dto.Inquiry" resultType="String">
+		select UserID
+		from User 
+		where UserLoginID = #{loginID}
+	</select>
+	
+	<update id="UpdateIBoardDelete" parameterType="Integer">
+		UPDATE InquiryBoard 
+		SET IBoardDelete = 1
+		where IBoardID = #{IBoardID}
+	</update>
+	
+	<update id="UpdateInquiryAnswer" parameterType="com.mju.groupware.dto.Inquiry">
+		UPDATE InquiryBoard 
+		SET IBoardAnswer = #{IBoardAnswer},
+			State = #{State}
+		where IBoardID = #{IBoardID}
+	</update>
+	
+	<update id="DeleteInquiryAnswer" parameterType="Integer">
+		UPDATE InquiryBoard 
+		SET IBoardAnswer = null,
+			State = '답변 대기'
+		where IBoardID = #{IBoardID}
+	</update>
+	
+	<select id="SelectMyInquiryList"
+		resultType="com.mju.groupware.dto.Inquiry">
+		select IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardType, State
+		from InquiryBoard where UserID = #{UserID} and IBoardDelete = 0
+	</select>
+	
+	<sql id="searchInquiryBoard">
+   		<if test="searchType == 'l'.toString()">
+         AND IBoardType = "lectureRoom" AND IBoardSubject like CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="searchType == 't'.toString()">
+         AND IBoardType = "teamMembers" AND IBoardSubject like CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="searchType == 'c'.toString()">
+         AND IBoardType = "community" AND IBoardSubject like CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="searchType == 'r'.toString()">
+         AND IBoardType = "review" AND IBoardSubject like CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="searchType == 's'.toString()">
+         AND IBoardType = "suggestion" AND IBoardSubject like CONCAT('%', #{keyword}, '%')
+      </if>
+     
+   </sql>
+	
+	<select id="CountTotalMyInquiryList" resultType="Integer"> 
+        SELECT count(InquiryBoard.IBoardSubject)
+        FROM User
+        JOIN InquiryBoard ON (User.UserID = InquiryBoard.UserID)
+		WHERE User.UserID = #{UserID} and IBoardDelete = 0
+		<include refid="searchInquiryBoard"></include>
+	</select>
+	
+	<select id="SelectMyInquiryListPN" resultType="com.mju.groupware.dto.Inquiry">
+		SELECT User.UserID, UserLoginID, IBoardID, IBoardSubject, IBoardWriter, IBoardDate, IBoardType, State
+		FROM User
+		JOIN InquiryBoard ON (User.UserID = InquiryBoard.UserID)
+		WHERE User.UserID = #{UserID} and IBoardDelete = 0
+		<include refid="searchInquiryBoard"></include>
+		ORDER BY IBoardDate DESC
+        LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+   
+   <select id="CountTotalInquiryList" resultType="Integer"> 
+        SELECT count(*)
+        FROM InquiryBoard
+      WHERE IBoardDelete = 0
+      <include refid="searchInquiryBoard"></include>
+   </select>
+   
+
+   <select id="SelectInquiryListPN" resultType="com.mju.groupware.dto.Inquiry">
+      SELECT IBoardID, IBoardSubject, IBoardWriter, IBoardType, IBoardDate, State
+      FROM InquiryBoard
+      WHERE IBoardDelete = 0
+      <include refid="searchInquiryBoard"></include>   
+      ORDER BY IBoardId DESC
+        LIMIT #{pageStart}, #{perPageNum}
+   </select>
+</mapper>
