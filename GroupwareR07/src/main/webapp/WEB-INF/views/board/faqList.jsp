@@ -197,15 +197,17 @@
 													</ul>
 												
 											</div>
-										
+								
 										</div>
 										<div class="col-sm-12 col-md-2">
 											<div class="dataTables_paginate paging_simple_numbers "
 												id="dataTable_paginate">
 												<ul class="pagination write ">
+												<sec:authorize access="hasRole('ROLE_ADMIN')">
 													<li class="paginate_button page-item active" ><a href="${path}/faqWrite"
 														aria-controls="dataTable" data-dt-idx="2" tabindex="0"
 														class="page-link btn-primary" >글쓰기</a></li>
+												</sec:authorize>
 												</ul>
 											</div>
 									</div>
