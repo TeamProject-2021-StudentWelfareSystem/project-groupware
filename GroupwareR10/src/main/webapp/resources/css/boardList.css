@@ -1,0 +1,30 @@
+.write{
+	float:right;
+	color:blue;
+}
+.table-responsive{
+	overflow-x:hidden;
+}
+.row{
+	justify-content:space-between;
+}
+#left{
+	flex:0 0 50%;
+	max-width:40%;
+}
+#right{
+	flex:0 0 100%;
+	max-width:60%;
+}
+#searchBar{
+	width:160%;
+}
+table {
+	table-layout: fixed;
+}
+td {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor:pointer;
+}
