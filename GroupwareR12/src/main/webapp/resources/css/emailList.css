@@ -1,0 +1,121 @@
+/* 메인 */
+a {
+	text-decoration: none
+}
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 110
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-width: 1000px;
+	_height: 1px;
+	_margin: 0 10px 0 980px;
+	z-index: 1;
+	display: block;
+	min-height: 1px;
+	padding: 0;
+	overflow: hidden;
+}
+
+
+/*body*/
+
+
+.mbody .rightBox {
+	text-align: center;
+	background: #fff;
+	margin: 260;
+	border-radius: 5px;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 10pt;
+	min-height: 100pt;
+}
+
+h2 { color: skyblue; }
+
+section {
+	padding-left: 00%;
+}
+
+**
+th {
+	width: 18%;
+	height: 20%;
+}
+
+td {
+	width: 18%;
+	text-align: center;
+}
+
+
+.col1 {
+	width: 5%;
+}
+
+.col2 {
+	width: 5%;
+}
+
+.col3 {
+	width: 60%;
+}
+
+
+
+#page {
+	text-align: center;
+}
+
+tr {
+	height: 50%;
+}
+
+thead {
+	border-bottom: 1px;
+}
+
+a {
+	color: black;
+}
+input{
+	border:0px;
+	background-color:white;
+	width: 200%;
+}
+.emailList{
+	width:95%;
+	margin : 0 auto;
+}
+#logo2{
+	display:none;
+}
+#title2{
+	display:none;
+}
+#logo1{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title1{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}
