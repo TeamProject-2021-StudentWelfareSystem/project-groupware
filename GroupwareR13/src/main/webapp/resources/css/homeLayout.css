@@ -1,0 +1,32 @@
+.slider img{
+	margin:0 auto;
+}
+
+.homeList {
+	margin:0 auto;
+}
+
+.table {
+	min-width: 300px;
+	min-height: 50px;
+	table-layout: fixed;
+}
+
+#tableTitle {
+	width: 65%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#tableDate {
+	width: 35%;
+}
+#userInfo{
+	padding-left:0px;
+	padding-right:0px;
+}
+#userInfo1{
+	padding-left:0px; 
+	border:none;
+}

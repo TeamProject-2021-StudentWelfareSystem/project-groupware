@@ -1,0 +1,13 @@
+.scheduleMenubar {
+   display: inline;
+   margin:0;
+}
+
+#wrapper {
+   position: relative;
+   margin-left: 205px;
+   top: -900px;   
+}
+.container {
+	padding:0;
+}
