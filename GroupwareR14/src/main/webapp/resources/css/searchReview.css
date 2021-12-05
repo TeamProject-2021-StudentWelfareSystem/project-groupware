@@ -1,0 +1,158 @@
+/* 메인 */
+a {
+	text-decoration: none
+}
+
+.mjsWs {
+	width: 100%
+}
+
+.mfooter {
+	position: relative;
+	clear: both;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	height: 90px;
+	vertical-align: middle;
+	background: #fff;
+	z-index: 110
+}
+
+.mbody {
+	clear: both;
+	position: relative;
+	min-width: 1000px;
+	_height: 1px;
+	_margin: 0 10px 0 980px;
+	z-index: 1;
+	display: block;
+	min-height: 1px;
+	padding: 0;
+	overflow: hidden;
+}
+/*body*/
+
+
+.mbody .rightBox {
+	margin-left: 260px;
+	background: #fff;
+	margin: 260;
+	border-radius: 5px;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 10pt;
+	min-height: 100pt;
+}
+
+
+section {
+	padding-left: 00%;
+}
+
+td {
+	text-align: center;
+}
+#userName {
+	border: 0;
+	background-color: white;
+}
+
+#auth {
+	float: left;
+}
+
+#sleepID, #deleteID, #list, #delete, #recovery {
+	float: right;
+}
+
+#page {
+	text-align: center;
+}
+
+
+thead {
+	border-bottom: 1px;
+
+}
+.reviewList{
+    width:85%;
+    margin:0 auto;
+}
+
+a {
+	color: black;
+}
+.userList{
+	width:90%;
+	margin:0 auto;
+}
+#userName{
+	border:0px;
+	background-color: white;
+	font-size: 15px;
+	width: 60px;
+}
+#score{
+	text-align : right;
+	margin-right:100px;
+	}
+	
+.col1{
+	width:3%;
+}
+.col2{
+	width:8%;
+}
+.col3{
+	width:25%;
+}
+.col4{
+	width:20%;
+}
+.col5{
+	width:15%;
+}
+.col6{
+	width:10%;
+}
+h2{
+	text-align: center;
+	color : skyblue;
+}
+#search{
+	text-align:center;
+}
+
+#th1{
+    width:3%;
+}
+#th2{
+    width:17%;
+}
+#th3{
+    width: 7%;
+}
+#th4{
+    width:11%;
+}
+#logo1{
+	position: absolute;
+	margin : 10px 0px 15px 150px;
+	width:100px;
+	height:100px;
+}
+#title1{
+	position : absolute;
+	margin:15px 0px 15px 250px;
+	width:150px;
+	height:75px;
+}
+#logo2{
+	display:none;
+}
+#title2{
+	display:none;
+}
